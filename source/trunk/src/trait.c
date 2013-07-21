@@ -1332,6 +1332,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
 		break;
 
+	case TRAIT_SMOKE_BALL:
+		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, caster_ptr->lev*3, 3);
+		break;
+
 	case TRAIT_SLOW:
 		cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
 		break;
@@ -2404,6 +2408,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SPREADING_THROW:
 		spreading_throw(caster_ptr);
+		break;
+
+	case TRAIT_CHAIN_HOOK:
+		chain_hook(caster_ptr);
 		break;
 
 	case TRAIT_SPIT_ACID:

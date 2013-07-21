@@ -1135,10 +1135,10 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_SPREADING_THROW, TRUE);
 		break;
 	case 12:
-		chain_hook(caster_ptr);
+		do_active_trait_tmp(caster_ptr, TRAIT_CHAIN_HOOK, TRUE);
 		break;
 	case 13:
-		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, caster_ptr->lev*3, 3);
+		do_active_trait_tmp(caster_ptr, TRAIT_SMOKE_BALL, TRUE);
 		break;
 	case 14:
 		if(!get_aim_dir(caster_ptr, NO_RANGE_LIMIT, &dir)) return FALSE;
