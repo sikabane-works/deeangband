@@ -966,21 +966,27 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		}
 		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
 		break;
+
 	case 3: /* warped mirror */
-		teleport_creature(caster_ptr, 10, 0L);
+		do_active_trait(caster_ptr, TRAIT_BLINK, TRUE, 100, 0L);
 		break;
+
 	case 4: /* mirror of light */
 		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100, 0L);
 		break;
+
 	case 5: /* mirror of wandering */
-		teleport_creature(caster_ptr, (COODINATES)lev_bonus * 5, 0L);
+		do_active_trait(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE, 100, 0L);
 		break;
+
 	case 6: /* robe of dust */
 		set_timed_trait(caster_ptr, TRAIT_DUST_ROBE, 20 + randint1(20), FALSE);
 		break;
+
 	case 7: /* banishing mirror */
 		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, lev_bonus, 0);
 		break;
+
 		/* mirror clashing */
 	case 8:
 		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((lev_bonus - 5) / 4), 8), (COODINATES)(lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
