@@ -980,10 +980,11 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 6: /* robe of dust */
+		do_active_trait(caster_ptr, TRAIT_GET_DUST_ROBE, TRUE, 100, 0L);
 		break;
 
 	case 7: /* banishing mirror */
-		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, lev_bonus, 0);
+		do_active_trait(caster_ptr, TRAIT_TELE_AWAY, TRUE, 100, 0L);
 		break;
 
 		/* mirror clashing */
