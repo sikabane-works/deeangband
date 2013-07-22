@@ -952,8 +952,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 1: /* drip of light */
-		if(number_of_mirrors(caster_ptr) < 4 + lev_bonus/10 ) place_mirror(caster_ptr);
-		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
+		do_active_trait(caster_ptr, TRAIT_MIRROR_SET, TRUE, 100, 0L);
 		break;
 
 	case 2:

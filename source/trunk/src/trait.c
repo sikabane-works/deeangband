@@ -540,6 +540,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_MIRROR_SET:
+		if(number_of_mirrors(caster_ptr) < 4 + caster_ptr->lev / 10) place_mirror(caster_ptr);
+		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
+		break;
+
 	case TRAIT_NATURE_AWARENESS:
 		{
 		COODINATES rad1 = DETECT_RAD_MAP;
