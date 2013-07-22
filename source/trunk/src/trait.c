@@ -545,6 +545,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
 		break;
 
+	case TRAIT_MIRROR_BOLT:
+		if(caster_ptr->lev > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ) {
+			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((caster_ptr->lev-1)/5),4), 0);
+		}
+		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((caster_ptr->lev-1)/5),4), 0);
+		break;
+
+
 	case TRAIT_NATURE_AWARENESS:
 		{
 		COODINATES rad1 = DETECT_RAD_MAP;

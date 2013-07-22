@@ -952,15 +952,11 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 1: /* drip of light */
-		do_active_trait(caster_ptr, TRAIT_MIRROR_SET, TRUE, 100, 0L);
+		do_active_trait(caster_ptr, TRAIT_MIRROR_BOLT, TRUE, 100, 0L);
 		break;
 
 	case 2:
-		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		if( lev_bonus > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ) {
-			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
-		}
-		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
+		do_active_trait(caster_ptr, TRAIT_MIRROR_SET, TRUE, 100, 0L);
 		break;
 
 	case 3: /* warped mirror */
