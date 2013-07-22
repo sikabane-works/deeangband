@@ -552,6 +552,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((caster_ptr->lev-1)/5),4), 0);
 		break;
 
+	case TRAIT_MIRROR_CRASH:
+		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((caster_ptr->lev - 5) / 4), 8), (COODINATES)(caster_ptr->lev > 20 ? (caster_ptr->lev - 20) / 8 + 1 : 0));
+		break;
 
 	case TRAIT_NATURE_AWARENESS:
 		{

@@ -981,7 +981,6 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 
 		/* mirror clashing */
 	case 8:
-		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((lev_bonus - 5) / 4), 8), (COODINATES)(lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
 		break;
 
 		/* mirror sleeping */
