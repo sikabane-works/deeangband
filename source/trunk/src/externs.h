@@ -1309,6 +1309,7 @@ extern bool psychometry(creature_type *caster_ptr);
 extern void mindcraft_info(creature_type *caster_ptr, char *p, int use_mind, POWER power);
 extern void do_cmd_mind(creature_type *caster_ptr);
 extern void do_cmd_mind_browse(creature_type *caster_ptr);
+extern int number_of_mirrors(creature_type *caster_ptr);
 
 /* mane.c */
 extern bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi);

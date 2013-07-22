@@ -924,7 +924,7 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 // by henkma
 // calculate mirrors
 // Fixed by Deskull for D'angband
-static int number_of_mirrors(creature_type *caster_ptr)
+int number_of_mirrors(creature_type *caster_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int x, y;
