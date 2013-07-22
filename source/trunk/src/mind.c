@@ -948,17 +948,14 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 	switch (spell)
 	{
 	case 0: /* mirror of seeing */
-		tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 0;
-		if( lev_bonus + tmp > 4) detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		if( lev_bonus + tmp > 18) detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
-		if( lev_bonus + tmp > 28) set_timed_trait(caster_ptr, TRAIT_ESP, lev_bonus,FALSE);
-		if( lev_bonus + tmp > 38) map_area(caster_ptr, DETECT_RAD_MAP);
-		if( tmp == 0 && lev_bonus < 5 ) msg_print(MES_PREVENT_NO_MIRROR);
+		do_active_trait(caster_ptr, TRAIT_MIRROR_SEEING, TRUE, 100, 0L);
 		break;
+
 	case 1: /* drip of light */
 		if(number_of_mirrors(caster_ptr) < 4 + lev_bonus/10 ) place_mirror(caster_ptr);
 		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
 		break;
+
 	case 2:
 		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		if( lev_bonus > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ) {

@@ -529,6 +529,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		detect_all(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
+	case TRAIT_MIRROR_SEEING:
+		{
+		int tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 0;
+		if(caster_ptr->lev + tmp > 4) detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		if(caster_ptr->lev + tmp > 18) detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
+		if(caster_ptr->lev + tmp > 28) set_timed_trait(caster_ptr, TRAIT_ESP, caster_ptr->lev, FALSE);
+		if(caster_ptr->lev + tmp > 38) map_area(caster_ptr, DETECT_RAD_MAP);
+		if(tmp == 0 && caster_ptr->lev < 5 ) msg_print(MES_PREVENT_NO_MIRROR);
+		}
+		break;
+
 	case TRAIT_NATURE_AWARENESS:
 		{
 		COODINATES rad1 = DETECT_RAD_MAP;
