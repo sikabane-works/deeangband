@@ -261,13 +261,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_S_ANIMAL:
-		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
-		break;
-
 	case TRAIT_S_PHANTOM:
-		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
+	case TRAIT_S_ELEMENTAL:
+	case TRAIT_S_DEMON:
+	case TRAIT_S_UNDEAD:
+	case TRAIT_S_DAWN_LEGION:
+		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, id, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
-
 
 	case TRAIT_ELEMENTAL_BALL:
 		{
@@ -285,36 +285,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-
-	case TRAIT_S_ELEMENTAL:
-		{
-			bool pet = one_in_(3);
-			FLAGS_32 mode = 0L;
-
-			if(!(pet && (user_level < 50))) mode |= PC_ALLOW_GROUP;
-			if(pet) mode |= PC_FORCE_PET;
-			else mode |= PC_NO_PET;
-			break;
-		}
-
-	case TRAIT_S_DEMON:
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			summoning(caster_ptr, target_row, target_col, user_level, TRAIT_S_DEMON, (mode | u_mode));
-			break;
-
-	case TRAIT_S_UNDEAD:
-		{
-			bool pet = one_in_(3);
-			int type;
-			FLAGS_32 mode = 0L;
-
-			type = (user_level > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
-
-			if(!pet || ((user_level > 24) && one_in_(3))) mode |= PC_ALLOW_GROUP;
-			if(pet) mode |= PC_FORCE_PET;
-			count += summoning(caster_ptr, y, x, user_level, TRAIT_S_UNDEAD, PC_ALLOW_GROUP);
-			break;
-		}
 
 	case TRAIT_REMOVE_POISON:
 		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
@@ -846,9 +816,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, 2);
 		break;
 
-	case TRAIT_S_DAWN_LEGION:
-		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_DAWN_LEGION, (PC_ALLOW_GROUP | PC_FORCE_PET));
-		break;
 
 	case TRAIT_ADD_FIRE_BRAND:
 		(void)brand_bolts(caster_ptr);
