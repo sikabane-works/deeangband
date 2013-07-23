@@ -41,9 +41,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	FLAGS_32 mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
 	FLAGS_32 u_mode = 0L;
 
-	int s_num_4 = 4;
-	int s_num_6 = 6;
-
 	int count = 0;
 
 	COODINATES x = 0, y = 0;
@@ -850,22 +847,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
-	case TRAIT_BO_FIRE_MINI:
-		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(9, 8), 0);
-		break;
-
-	case TRAIT_BO_COLD_MINI:
-		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(6, 8), 0);
-		break;
-
-	case TRAIT_BO_ELEC_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(4, 8), 0);
-		break;
-
-	case TRAIT_BO_ACID_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(5, 8), 0);
-		break;
-
 	case TRAIT_REMOVE_FEAR:
 		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		break;
@@ -1307,20 +1288,27 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB, damage, 0);
 		break;
 
-	case TRAIT_CAUSE_1:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, MAX_RANGE_SUB, damage, 0);
+	case TRAIT_CAUSE_1: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_2: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0); break;
+
+	/* Bolt Type Trait */
+
+	case TRAIT_BO_FIRE_MINI:
+		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(9, 8), 0);
 		break;
 
-	case TRAIT_CAUSE_2:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, MAX_RANGE_SUB, damage, 0);
+	case TRAIT_BO_COLD_MINI:
+		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(6, 8), 0);
 		break;
 
-	case TRAIT_CAUSE_3:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0);
+	case TRAIT_BO_ELEC_MINI:
+		cast_bolt(caster_ptr,DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(4, 8), 0);
 		break;
 
-	case TRAIT_CAUSE_4:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0);
+	case TRAIT_BO_ACID_MINI:
+		cast_bolt(caster_ptr,DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(5, 8), 0);
 		break;
 
 	case TRAIT_BO_ACID:
@@ -1381,6 +1369,25 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_ICE, MAX_RANGE_SUB, damage, TRAIT_BO_ICEE);
 		break;
 
+	case TRAIT_BO_SOUN:
+		{
+			int dice = 4 + (power - 1) / 5;
+			int sides = 4;
+			cast_bolt(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+		}
+
+	case TRAIT_BO_CHAO:
+		{
+			int dice = 10 + (power - 5) / 4;
+			int sides = 8;
+			cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
+		}
+		break;
+
+	case TRAIT_BO_JAM:
+		cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1);
+		break;
+
 	case TRAIT_MISSILE:
 		damage = diceroll(2, 6) + user_level * 2 / 3;
 		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, damage, 0);
@@ -1399,16 +1406,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_SHRIEK:
-		stop_mouth(caster_ptr);
 		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
 		aggravate_creatures(caster_ptr);
 		break;
 
+	case TRAIT_SCARE_CREATURE:
 	case TRAIT_SHOUT:
-		stop_mouth(caster_ptr);
-		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
-		break;
-
 	case TRAIT_SCARE:
 		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
 		break;
@@ -2238,13 +2241,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_VAMPIRISM:
 		{
-			stop_mouth(caster_ptr);
 			if(is_melee_limitation_field(floor_ptr)) return FALSE;
 			else
 			{
 				int dummy = 0;
 				cave_ptr = &floor_ptr->cave[y][x];
-				stop_mouth(caster_ptr);
 				if(!cave_ptr->creature_idx)
 				{
 					msg_print(MES_TRAIT_VAMPIRISM_NO_TARGET);
@@ -2341,7 +2342,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_SPIT_ACID:
-		stop_mouth(caster_ptr);
 		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, user_level, 0);
 		else SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, user_level * 2, 2, -1);
 		break;
@@ -2383,10 +2383,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level * 2, 0);
 		break;
 
-	case TRAIT_SCARE_CREATURE:
-		stop_mouth(caster_ptr);
-		(void)cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
-		break;
 
 	case TRAIT_HYPN_GAZE:
 		cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0);
@@ -2437,7 +2433,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_SMELL_MON:
-		stop_mouth(caster_ptr);
 		(void)detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
@@ -2446,9 +2441,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			feature_type *mimic_feature_ptr;
 			feature_ptr = &feature_info[cave_ptr->feat];
 			mimic_feature_ptr = &feature_info[get_feat_mimic(cave_ptr)];
-
-			stop_mouth(caster_ptr);
-
 			if(!have_flag(mimic_feature_ptr->flags, FF_HURT_ROCK))
 			{
 				msg_print(MES_TRAIT_EAT_ROCK_CANNOT);
@@ -3132,32 +3124,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		brand_weapon(caster_ptr, 13);
 		break;
 
-	case TRAIT_WANDER:
-		cast_wonder(caster_ptr);
-		break;
+	case TRAIT_WANDER: cast_wonder(caster_ptr); break;
+	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
 
-	case TRAIT_INVOKE_SPIRITS:
-		cast_invoke_spirits(caster_ptr);
-		break;
-
-	case TRAIT_BO_SOUN:
-		{
-			int dice = 4 + (power - 1) / 5;
-			int sides = 4;
-			cast_bolt(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
-
-	case TRAIT_BO_CHAO:
-		{
-			int dice = 10 + (power - 5) / 4;
-			int sides = 8;
-			cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
-		break;
-
-	case TRAIT_BO_JAM:
-		cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1);
-		break;
 
 	case TRAIT_BEAM_MANA:
 		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0);
