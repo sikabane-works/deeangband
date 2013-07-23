@@ -940,10 +940,8 @@ int number_of_mirrors(creature_type *caster_ptr)
 static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	DIRECTION dir;
 	CREATURE_LEV lev_bonus = caster_ptr->lev;
 	int tmp;
-	COODINATES x, y;
 
 	switch (spell)
 	{
@@ -986,6 +984,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 
 		/* mirror sleeping */
 	case 9:
+		do_active_trait(caster_ptr, TRAIT_MIRROR_SLEEP, TRUE, 100, 0L);
 		break;
 		/* seeker ray */
 
@@ -1032,14 +1031,15 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 16: /* mirror tunnel */
-		msg_print(MES_TRAIT_MIRROR_TUNNEL_DONE);
-		return mirror_tunnel(caster_ptr);
+		do_active_trait(caster_ptr, TRAIT_DIMENSION_DOOR, TRUE, 100, 0L);
 
 	case 17:
-		return do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100, 0L);
+		do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100, 0L);
+		break;
 
 	case 18:
-		return do_active_trait(caster_ptr, TRAIT_GET_MULTI_SHADOW, TRUE, 100, 0L);
+		do_active_trait(caster_ptr, TRAIT_GET_MULTI_SHADOW, TRUE, 100, 0L);
+		break;
 
 	case 19:
 		if(!binding_field(caster_ptr, MAX_RANGE, lev_bonus * 11 + 5)) msg_print(MES_TRAIT_MIRROR_BINDING_FAILED);
@@ -1092,8 +1092,6 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 // is 'ninja'.
 static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 {
-	DIRECTION dir;
-
 	switch (spell)
 	{
 	case 0:
