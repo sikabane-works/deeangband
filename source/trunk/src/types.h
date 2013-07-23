@@ -350,6 +350,23 @@ struct traits_precondition
 	bool applied[MAX_TRAITS];
 };
 
+typedef s32b TRAIT_ALIAS_ID;
+typedef struct traits_precondition_new traits_precondition_new;
+struct traits_precondition_new
+{
+	CREATURE_LEV add_lev;
+	CREATURE_LEV remove_lev;
+	PROB probability;
+	POWER power_base;
+	POWER power_dice_num;
+	POWER power_dice_side;
+	POWER stat_boost_rate[STAT_MAX];
+	POWER level_boost_rate;
+	FLAGS_32 option;
+	TRAIT_ALIAS_ID trait_alias_idx;
+	bool applied;
+};
+
 
 /*
  * Feature state structure
