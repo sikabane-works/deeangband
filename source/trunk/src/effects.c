@@ -1369,17 +1369,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	if(target_ptr) creature_desc(target_name, target_ptr, CD_TRUE_NAME);
 	else target_name[0] = '\0';
 
-	if(!has_trait(target_ptr, TRAIT_KILL_EXP))
-	{
-		expdam = (target_ptr->chp > damage) ? damage : target_ptr->chp;
-		if(has_trait(target_ptr, TRAIT_HEAL)) expdam = (expdam + 1) / 10;
-		if(attacker_ptr) get_exp_from_creature(attacker_ptr, expdam, target_ptr);
-
-		/* Genocided by chaos patron */
-		//TODO check
-		//if(!target_ptr->species_idx) creature_idx = 0;
-	}
-
 	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 	if(attacker_ptr && (attacker_ptr->posture & NINJA_S_STEALTH)) set_superstealth(attacker_ptr, FALSE);
 
@@ -1555,8 +1544,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		else delete_creature(target_ptr); // Delete the creature
 
 		/* Prevent bug of chaos patron's reward */
-		if(has_trait(target_ptr, TRAIT_KILL_EXP)) get_exp_from_creature(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
-		else get_exp_from_creature(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
+		get_exp_from_creature(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
 
 		fear = FALSE; // Not afraid	
 		return TRUE; // Creature is dead
