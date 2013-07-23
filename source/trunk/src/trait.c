@@ -556,6 +556,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((caster_ptr->lev - 5) / 4), 8), (COODINATES)(caster_ptr->lev > 20 ? (caster_ptr->lev - 20) / 8 + 1 : 0));
 		break;
 
+	case TRAIT_MIRROR_SLEEP:
+		for(x=0;x<floor_ptr->width;x++){
+			for(y=0;y<floor_ptr->height;y++){
+				if(is_mirror_grid(&floor_ptr->cave[y][x])) {
+					project(caster_ptr, 0,2,y,x,caster_ptr->lev,DO_EFFECT_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+				}
+			}
+		}
+		break;
+
 	case TRAIT_NATURE_AWARENESS:
 		{
 		COODINATES rad1 = DETECT_RAD_MAP;

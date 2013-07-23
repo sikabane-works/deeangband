@@ -981,17 +981,11 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 
 		/* mirror clashing */
 	case 8:
+		do_active_trait(caster_ptr, TRAIT_MIRROR_CRASH, TRUE, 100, 0L);
 		break;
 
 		/* mirror sleeping */
 	case 9:
-		for(x=0;x<floor_ptr->width;x++){
-			for(y=0;y<floor_ptr->height;y++){
-				if(is_mirror_grid(&floor_ptr->cave[y][x])) {
-					project(caster_ptr, 0,2,y,x,lev_bonus,DO_EFFECT_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
-				}
-			}
-		}
 		break;
 		/* seeker ray */
 
