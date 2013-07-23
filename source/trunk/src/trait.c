@@ -101,6 +101,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 	}
 
+
+	if(option & AT_OPTION_USE_MOUTH) stop_mouth(caster_ptr);
+
 	switch(id)
 	{
 	case TRAIT_SUNLIGHT:
@@ -2135,29 +2138,30 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			do_cmd_cast(caster_ptr);
 		break;
 
+	case TRAIT_POSTURE:
+		if(!choose_combat_option(caster_ptr)) return FALSE;
+		prepare_update(caster_ptr, CRU_BONUS);
+		break;
+
 	case TRAIT_POSTURE2:
 		if(caster_ptr->total_friends)
 		{
 			msg_print(MES_PREVENT_BY_PET);
-			return FALSE;
+			break;
 		}
 		if(caster_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
 		{
 			msg_print(MES_PREVENT_BY_POSTURE);
-			return FALSE;
+			break;
 		}
 		msg_print(MES_TRAIT_CONCENTRATION);
 		inc_mana(caster_ptr, caster_ptr->msp / 2);
+		break;
 
 	case TRAIT_LEARNING:
 		if(caster_ptr->action == ACTION_LEARN) set_action(caster_ptr, ACTION_NONE);
 		else set_action(caster_ptr, ACTION_LEARN);
 		cancel_tactical_action(caster_ptr);
-		break;
-
-	case TRAIT_POSTURE:
-		if(!choose_combat_option(caster_ptr)) return FALSE;
-		prepare_update(caster_ptr, CRU_BONUS);
 		break;
 
 	case TRAIT_RODEO:
@@ -2428,7 +2432,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_SMELL_MET:
-		stop_mouth(caster_ptr);
 		detect_treasure(caster_ptr, power / 5);
 		detect_objects_gold(caster_ptr, power / 5);
 		break;
