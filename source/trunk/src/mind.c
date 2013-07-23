@@ -981,8 +981,8 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 	case 8:
 		do_active_trait(caster_ptr, TRAIT_MIRROR_CRASH, TRUE, 100, 0L);
 		break;
-
 		/* mirror sleeping */
+
 	case 9:
 		do_active_trait(caster_ptr, TRAIT_MIRROR_SLEEP, TRUE, 100, 0L);
 		break;
@@ -996,21 +996,18 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 	case 11:
 		do_active_trait(caster_ptr, TRAIT_MIRROR_SEAL, TRUE, 100, 0L);
 		break;
+
 		/* shield of water */
-
 	case 12:
-		tmp = 20 + randint1(20);
-		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
-		if(lev_bonus > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
-		if(lev_bonus > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
+		do_active_trait(caster_ptr, TRAIT_MIRROR_SHIELD, TRUE, 100, 0L);
 		break;
-		/* super ray */
 
+		/* super ray */
 	case 13:
 		cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*lev_bonus), 0);
 		break;
-		/* illusion light */
 
+		/* illusion light */
 	case 14:
 		tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 3;
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
@@ -1019,8 +1016,8 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, lev_bonus*tmp);
 		project_all_vision(caster_ptr, DO_EFFECT_STASIS, lev_bonus*tmp);
 		break;
-		/* mirror shift */
 
+		/* mirror shift */
 	case 15:
 		if(!is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
 		{

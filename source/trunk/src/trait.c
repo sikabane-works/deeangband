@@ -570,6 +570,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_MIRROR_SHIELD:
+		{
+		int tmp = 20 + randint1(20);
+		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
+		if(caster_ptr->lev > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
+		if(caster_ptr->lev > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
+		}
+		break;
+
 	case TRAIT_NATURE_AWARENESS:
 		{
 		COODINATES rad1 = DETECT_RAD_MAP;
