@@ -342,7 +342,9 @@ struct traits_precondition
 {
 	CREATURE_LEV add_lev[MAX_TRAITS];
 	CREATURE_LEV remove_lev[MAX_TRAITS];
-	byte probability[MAX_TRAITS];
+	PROB probability[MAX_TRAITS];
+	POWER power[MAX_TRAITS];
+	FLAGS_32 option[MAX_TRAITS];
 	bool applied[MAX_TRAITS];
 };
 

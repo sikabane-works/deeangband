@@ -1342,8 +1342,7 @@ static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char 
 
 		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
 		{
-			if(sscanf(flag_aux, "%s", &flagname) != 1)
-				return PARSE_ERROR_GENERIC;
+			if(sscanf(flag_aux, "%s", &flagname) != 1) return PARSE_ERROR_GENERIC;
 			prob = 100;
 		}
 
@@ -3907,9 +3906,7 @@ errr parse_trait_csv(char *buf, header *head)
 	int i, j, b;
 	char tmp[10000], nt[80];
 
-	if(get_split_offset(split, size, buf, TRAIT_INFO_CSV_COLUMNS, ',', '"')){
-		return PARSE_ERROR_GENERIC;
-	}
+	if(get_split_offset(split, size, buf, TRAIT_INFO_CSV_COLUMNS, ',', '"')) return PARSE_ERROR_GENERIC;
 
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
