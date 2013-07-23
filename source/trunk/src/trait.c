@@ -256,6 +256,67 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2);
 		break;
 
+	case TRAIT_S_KIN:
+		{
+			if(caster_ptr->species_idx == SPECIES_SERPENT)
+			{
+#ifdef JP
+				if(blind)
+					msg_format("%^sが何かをつぶやいた。", caster_name);
+				else
+					msg_format("%^sがダンジョンの主を召喚した。", caster_name);
+#else
+				if(blind)
+					msg_format("%^s mumbles.", caster_name);
+				else
+					msg_format("%^s magically summons guardians of dungeons.", caster_name);
+#endif
+			}
+			else
+			{
+#ifdef JP
+				if(blind)
+					msg_format("%^sが何かをつぶやいた。", caster_name);
+				else
+					msg_format("%^sは魔法で%sを召喚した。", caster_name, (has_trait(caster_ptr, TRAIT_UNIQUE) ? "手下" : "仲間"));
+#else
+				if(blind)
+					msg_format("%^s mumbles.", caster_name);
+				else
+					msg_format("%^s magically summons %s %s.", caster_name, m_poss, has_trait(caster_ptr, TRAIT_UNIQUE) ? "minions" : "kin"));
+#endif
+			}
+
+			switch (caster_ptr->species_idx)
+			{
+
+			case SPECIES_RICHARD_STOLENMAN:
+				{
+					int num = 2 + randint1(3);
+					for (k = 0; k < num; k++)
+					{
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
+					}
+				}
+				break;
+
+			case SPECIES_LOUSY:
+				{
+					int num = 2 + randint1(3);
+					for (k = 0; k < num; k++)
+					{
+						count += summoning(caster_ptr, y, x, user_level, TRAIT_S_LOUSE, PC_ALLOW_GROUP);
+					}
+				}
+				break;
+
+			default:
+				for (k = 0; k < 4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP);
+				break;
+			}
+			break;
+		}
+
 	case TRAIT_S_GREATER_DEMON:
 		cast_summon_greater_demon(caster_ptr);
 		break;
@@ -266,6 +327,24 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_S_DEMON:
 	case TRAIT_S_UNDEAD:
 	case TRAIT_S_DAWN_LEGION:
+	case TRAIT_S_OCTOPUS:
+	case TRAIT_S_EAGLE:
+	case TRAIT_S_DUNGEON_MASTER:
+	case TRAIT_S_LOCKE_CLONE:
+	case TRAIT_S_CYBER:
+	case TRAIT_S_MONSTER:
+	case TRAIT_S_MONSTERS:
+	case TRAIT_S_ANT:
+	case TRAIT_S_SPIDER:
+	case TRAIT_S_HOUND:
+	case TRAIT_S_HYDRA:
+	case TRAIT_S_ANGEL:
+	case TRAIT_S_DRAGON:
+	case TRAIT_S_NAZGUL:
+	case TRAIT_S_HI_UNDEAD:
+	case TRAIT_S_HI_DRAGON:
+	case TRAIT_S_AMBERITES:
+	case TRAIT_S_UNIQUE:
 		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, id, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
@@ -982,18 +1061,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_MAGIC_RES_COLD:
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 		break;
-
-	case TRAIT_S_OCTOPUS:
-		{
-			FLAGS_32 mode = PC_ALLOW_GROUP;
-			bool pet = !one_in_(5);
-			if(pet) mode |= PC_FORCE_PET;
-
-			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_JIZOTAKO, mode))
-			{
-			}
-			break;
-		}
 
 	case TRAIT_REMOVE_CURSE_1:
 		if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
@@ -1870,195 +1937,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SELF_DEATH:
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, COD_POTION_OF_DEATH, NULL, -1);
 		effected = TRUE;
-		break;
-
-	case TRAIT_S_KIN:
-		{
-			if(caster_ptr->species_idx == SPECIES_SERPENT)
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sがダンジョンの主を召喚した。", caster_name);
-#else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons guardians of dungeons.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sは魔法で%sを召喚した。", caster_name, (has_trait(caster_ptr, TRAIT_UNIQUE) ? "手下" : "仲間"));
-#else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons %s %s.", caster_name, m_poss, has_trait(caster_ptr, TRAIT_UNIQUE) ? "minions" : "kin"));
-#endif
-			}
-
-			switch (caster_ptr->species_idx)
-			{
-
-			case SPECIES_RICHARD_STOLENMAN:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
-					}
-				}
-				break;
-
-			case SPECIES_LOUSY:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summoning(caster_ptr, y, x, user_level, TRAIT_S_LOUSE, PC_ALLOW_GROUP);
-					}
-				}
-				break;
-
-			default:
-				for (k = 0; k < 4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP);
-				break;
-			}
-			break;
-		}
-
-	case TRAIT_S_EAGLE:
-		{
-			int num = 4 + randint1(3);
-			for (k = 0; k < num; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			break;
-		}
-
-	case TRAIT_S_DUNGEON_MASTER:
-				{
-					int num = 2 + randint1(3);
-
-					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
-					{
-						msg_print(MES_TRAIT_WATER_FLOW);
-						cast_ball_hide(caster_ptr, DO_EFFECT_WATER_FLOW, MAX_RANGE_SUB, 3, 8);
-					}
-					for (k = 0; k < num; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-				}
-				break;
-
-	case TRAIT_S_LOCKE_CLONE:
-		{
-			int num = randint1(3);
-			for (k = 0; k < num; k++) count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
-		}
-		break;
-
-	case TRAIT_S_CYBER:
-		{
-			int max_cyber = (floor_ptr->depth / 50) + randint1(3);
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			if(max_cyber > 4) max_cyber = 4;
-			for (k = 0; k < max_cyber; k++) summoning(caster_ptr, target_row, target_col, user_level, TRAIT_S_CYBER, mode);
-			if(blind && count) msg_print(MES_TRAIT_S_CYBER_BLIND);
-			break;
-		}
-
-	case TRAIT_S_MONSTER:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		count += summoning(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		break;
-
-	case TRAIT_S_MONSTERS:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_6; k++) count += summoning(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		break;
-
-	case TRAIT_S_ANT:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_6; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_ANT, 0);
-		break;
-
-	case TRAIT_S_SPIDER:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_6; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_SPIDER, 0);
-		break;
-
-	case TRAIT_S_HOUND:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_HOUND, 0);
-		break;
-
-	case TRAIT_S_HYDRA:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_HYDRA, 0);
-		break;
-
-	case TRAIT_S_ANGEL:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		count += summoning(caster_ptr, y, x, user_level, TRAIT_S_ANGEL, PC_ALLOW_GROUP);
-		break;
-
-	case TRAIT_S_DRAGON:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		count += summoning(caster_ptr, y, x, user_level, TRAIT_S_DRAGON, PC_ALLOW_GROUP);
-		break;
-
-	case TRAIT_S_NAZGUL:
-		{
-			COODINATES cy = y, cx = x;
-
-			for (k = 0; k < 30; k++)
-			{
-				if(!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
-				{
-					int j;
-					for (j = 100; j > 0; j--)
-					{
-						scatter(floor_ptr, &cy, &cx, y, x, 2, 0);
-						if(cave_empty_bold(floor_ptr, cy, cx)) break;
-					}
-					if(!j) break;
-				}
-				if(!cave_empty_bold(floor_ptr, cy, cx)) continue;
-
-				if(summon_named_creature(caster_ptr, floor_ptr, cy, cx, SPECIES_NAZGUL, mode))
-				{
-					y = cy;
-					x = cx;
-					count++;
-					msg_print(NULL);
-				}
-			}
-			msg_print(NULL);
-		}
-
-	case TRAIT_S_HI_UNDEAD:
-		{
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			for (k = 0; k < 6; k++) summoning(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
-			break;
-		}
-
-	case TRAIT_S_HI_DRAGON:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		break;
-
-	case TRAIT_S_AMBERITES:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		break;
-
-	case TRAIT_S_UNIQUE:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = count; k < 4; k++) summoning(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
 		break;
 
 	case TRAIT_SWORD_DANCING:
