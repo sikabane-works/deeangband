@@ -3026,10 +3026,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		effected = heal_creature(caster_ptr, diceroll(10, 10));
 		break;
 
-	case TRAIT_SELF_HEALING_20D20:
-		effected = heal_creature(caster_ptr, diceroll(20, 20));
-		break;
-
 	case TRAIT_SELF_HEALING_50D20:
 		effected = heal_creature(caster_ptr, diceroll(50, 20));
 		break;
