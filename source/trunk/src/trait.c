@@ -133,7 +133,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_PSI_DRAIN:
-		cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, diceroll(caster_ptr->lev / 2, 6), 0);
+		cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, diceroll(user_level / 2, 6), 0);
 		break;
 
 	case TRAIT_TRAP_WALK:
@@ -165,17 +165,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_DISPEL_EVIL_1:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 5);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 5);
 		break;
 
 	case TRAIT_HOLINESS:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150);
-		add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, TRUE);
+		add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * user_level, TRUE);
 		heal_creature(caster_ptr, 50);
 		break;
 
 	case TRAIT_DISPEL_GOOD_1:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, user_level * 5);
 		break;
 
 	case TRAIT_DISPEL_UNDEAD_DEMON:
@@ -192,7 +192,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_DEATH_RAY:
-		cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, user_level, -1);
 		break;
 
 	case TRAIT_EARTHQUAKE:
@@ -200,7 +200,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_TERROR:
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level);
 		break;
 
 	case TRAIT_TELE_AWAY:
@@ -403,7 +403,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_PROT_EVIL:
-		(void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * user_level, FALSE);
 		break;
 
 	case TRAIT_RESIST:
@@ -445,7 +445,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
 					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
 				}
-				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + user_level / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			break;
 		}
@@ -472,7 +472,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				/* Restore target_pet option */
 				target_pet = old_target_pet;
 
-				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
+				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, user_level, -1);
 		}
 		break;
 
@@ -481,7 +481,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_HASTE_OTHERS:
-		project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, user_level);
 		break;
 
 	case TRAIT_WRAITH_FORM:
@@ -532,39 +532,39 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_MIRROR_SEEING:
 		{
 		int tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 0;
-		if(caster_ptr->lev + tmp > 4) detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		if(caster_ptr->lev + tmp > 18) detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
-		if(caster_ptr->lev + tmp > 28) set_timed_trait(caster_ptr, TRAIT_ESP, caster_ptr->lev, FALSE);
-		if(caster_ptr->lev + tmp > 38) map_area(caster_ptr, DETECT_RAD_MAP);
-		if(tmp == 0 && caster_ptr->lev < 5 ) msg_print(MES_PREVENT_NO_MIRROR);
+		if(user_level + tmp > 4) detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		if(user_level + tmp > 18) detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
+		if(user_level + tmp > 28) set_timed_trait(caster_ptr, TRAIT_ESP, user_level, FALSE);
+		if(user_level + tmp > 38) map_area(caster_ptr, DETECT_RAD_MAP);
+		if(tmp == 0 && user_level < 5 ) msg_print(MES_PREVENT_NO_MIRROR);
 		}
 		break;
 
 	case TRAIT_MIRROR_SEAL:
-		seal_of_mirror(caster_ptr, caster_ptr->lev * 4 + 100);
+		seal_of_mirror(caster_ptr, user_level * 4 + 100);
 		break;
 
 	case TRAIT_MIRROR_SET:
-		if(number_of_mirrors(caster_ptr) < 4 + caster_ptr->lev / 10) place_mirror(caster_ptr);
+		if(number_of_mirrors(caster_ptr) < 4 + user_level / 10) place_mirror(caster_ptr);
 		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
 		break;
 
 	case TRAIT_MIRROR_BOLT:
-		if(caster_ptr->lev > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ) {
-			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((caster_ptr->lev-1)/5),4), 0);
+		if(user_level > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ) {
+			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
 		}
-		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((caster_ptr->lev-1)/5),4), 0);
+		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
 		break;
 
 	case TRAIT_MIRROR_CRASH:
-		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((caster_ptr->lev - 5) / 4), 8), (COODINATES)(caster_ptr->lev > 20 ? (caster_ptr->lev - 20) / 8 + 1 : 0));
+		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((user_level - 5) / 4), 8), (COODINATES)(user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
 		break;
 
 	case TRAIT_MIRROR_SLEEP:
 		for(x=0;x<floor_ptr->width;x++){
 			for(y=0;y<floor_ptr->height;y++){
 				if(is_mirror_grid(&floor_ptr->cave[y][x])) {
-					project(caster_ptr, 0,2,y,x,caster_ptr->lev,DO_EFFECT_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+					project(caster_ptr, 0,2,y,x,user_level,DO_EFFECT_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 				}
 			}
 		}
@@ -574,13 +574,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		{
 		int tmp = 20 + randint1(20);
 		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
-		if(caster_ptr->lev > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
-		if(caster_ptr->lev > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
+		if(user_level > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
+		if(user_level > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 		}
 		break;
 
 	case TRAIT_SUPERRAY:
-		cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*caster_ptr->lev), 0);
+		cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*user_level), 0);
 		break;
 
 	case TRAIT_NATURE_AWARENESS:
@@ -790,12 +790,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_LAY_OF_FEAR:
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level);
 		break;
 
 	case TRAIT_SLEEP_TOUCH:
 	case TRAIT_SLEEP:
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
 	case TRAIT_BO_FIRE_MINI:
@@ -860,13 +860,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			// Extra shot at level
 			if(caster_ptr->class_idx == CLASS_ARCHER) 
 			{
-				if(caster_ptr->lev >= 10) num++;
-				if(caster_ptr->lev >= 30) num++;
-				if(caster_ptr->lev >= 45) num++;
+				if(user_level >= 10) num++;
+				if(user_level >= 30) num++;
+				if(user_level >= 45) num++;
 			}
 
 			for (i = 0; i < num; i++)
-				project(caster_ptr, 0, caster_ptr->lev / 20 + 1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, DO_EFFECT_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+				project(caster_ptr, 0, user_level / 20 + 1, y, x, user_level*user_level * 6 / 50, DO_EFFECT_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			break;
 		}
 
@@ -912,12 +912,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_FRIGHTEN_SOUND:
 		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
 		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, (3 * caster_ptr->lev / 2) + 10);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, (3 * user_level / 2) + 10);
 		break;
 
 	case TRAIT_BLAZING_LIGHT:
 		SELF_FIELD(caster_ptr, DO_EFFECT_LITE, 300, 6, -1);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * caster_ptr->lev / 2);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * user_level / 2);
 		break;
 
 	case TRAIT_FISHING:
@@ -1009,7 +1009,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SHIKO:
 		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 3);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 3);
 		break;
 
 	case TRAIT_MAGIC_RES_COLD:
@@ -1369,11 +1369,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SHOUT:
 		stop_mouth(caster_ptr);
-		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
 		break;
 
 	case TRAIT_SCARE:
-		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
 		break;
 
 	case TRAIT_BLIND: // TODO
@@ -1387,7 +1387,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_SMOKE_BALL:
-		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, caster_ptr->lev*3, 3);
+		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3);
 		break;
 
 	case TRAIT_SLOW:
@@ -1395,7 +1395,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_HOLD:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1);
 		break;
 
 	case TRAIT_HAND_DOOM:
@@ -1436,9 +1436,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_HIDE_IN_MYST:
-		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
 		break;
 
@@ -1470,7 +1470,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_SEEKER_RAY:
-		cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(caster_ptr->lev-5)/4,8), 0);
+		cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(user_level-5)/4,8), 0);
 		break;
 
 	case TRAIT_BLINK:
@@ -1737,7 +1737,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				int sp_base = power;
 
 				int i;
-				project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, caster_ptr->lev * 4);
+				project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, user_level * 4);
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;
@@ -2117,7 +2117,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_EAT_MAGIC:
-		if(!eat_magic(caster_ptr, caster_ptr->lev * 2)) return FALSE;
+		if(!eat_magic(caster_ptr, user_level * 2)) return FALSE;
 		break;
 
 	case TRAIT_BLESS_WEAPON:
@@ -2139,9 +2139,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_KATON:
-		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + caster_ptr->lev, caster_ptr->lev / 10 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + user_level, user_level / 10 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
-		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, caster_ptr->lev, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, user_level, FALSE);
 		break;
 
 	case TRAIT_SCAN_CREATURE:
@@ -2167,17 +2167,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_HP_TO_SP_ACTIVE:
 		{
-			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, COD_HP_TO_MP, NULL, -1) / 5;
+			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, user_level, COD_HP_TO_MP, NULL, -1) / 5;
 			if(gain_sp) inc_mana(caster_ptr, gain_sp);
 			else msg_print(MES_CONVERT_FAILED);
 			break;
 		}
 
 	case TRAIT_SP_TO_HP_ACTIVE:
-		if(caster_ptr->csp >= caster_ptr->lev / 5)
+		if(caster_ptr->csp >= user_level / 5)
 		{
-			dec_mana(caster_ptr, caster_ptr->lev / 5); 
-			heal_creature(caster_ptr, caster_ptr->lev);
+			dec_mana(caster_ptr, user_level / 5); 
+			heal_creature(caster_ptr, user_level);
 		}
 		else msg_print(MES_CONVERT_FAILED);
 		break;
@@ -2247,7 +2247,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			return FALSE;
 		}
 		msg_print(MES_RESTORE_SOME_MP);
-		inc_mana(caster_ptr, 3 + caster_ptr->lev / 20);
+		inc_mana(caster_ptr, 3 + user_level / 20);
 		break;
 
 	case TRAIT_TAKE_PHOTO:
@@ -2259,11 +2259,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_DOMINATE_LIVE:
-		(void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, caster_ptr->lev, 0);
+		(void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, user_level, 0);
 		break;
 
 	case TRAIT_DOMINATE_LIVES:
-		project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, user_level);
 		break;
 
 	case TRAIT_CREATE_AMMO:
@@ -2335,10 +2335,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			user_level = steed_ptr->lev;
 			if(has_trait(steed_ptr, TRAIT_UNIQUE)) user_level = user_level * 3 / 2;
 			if(user_level > 60) user_level = 60 + (user_level - 60)/2;
-			if((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + caster_ptr->lev * 2 / 3) > user_level)
+			if((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + user_level * 2 / 3) > user_level)
 				&& one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
 				&& !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
-				&& (user_level < caster_ptr->lev * 3 / 2 + randint0(caster_ptr->lev / 5)))
+				&& (user_level < user_level * 3 / 2 + randint0(user_level / 5)))
 			{
 				msg_format(MES_STEED_TAMED(steed_ptr));
 				set_pet(caster_ptr, steed_ptr);
@@ -2368,7 +2368,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			if(is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
 			{
 				msg_print(MES_RESTORE_SOME_MP);
-				inc_mana(caster_ptr, caster_ptr->lev * caster_ptr->lev / 100);
+				inc_mana(caster_ptr, user_level * user_level / 100);
 			}
 			else msg_print(MES_PREVENT_BY_NO_MIRROR);
 			break;
@@ -2502,7 +2502,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_HOLDING_DUST:
-		if(user_level < 25) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		if(user_level < 25) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		else (void)project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
 		break;
 
@@ -2511,7 +2511,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_TURN_UNDEAD:
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_UNDEAD, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_UNDEAD, user_level);
 		break;
 
 	case TRAIT_EXPAND_HLIZN:
@@ -2536,7 +2536,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SCARE_CREATURE:
 		stop_mouth(caster_ptr);
-		(void)cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		(void)cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
 		break;
 
 	case TRAIT_HYPN_GAZE:
@@ -2545,9 +2545,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
-		caster_ptr->charged_force += (70 + caster_ptr->lev);
+		caster_ptr->charged_force += (70 + user_level);
 		prepare_update(caster_ptr, CRU_BONUS);
-		if(randint1(caster_ptr->charged_force) > (caster_ptr->lev * 4 + 120))
+		if(randint1(caster_ptr->charged_force) > (user_level * 4 + 120))
 		{
 			msg_print(MES_TRAIT_FORCE_EXPRODE);
 			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
@@ -2701,7 +2701,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_SANCTUARY:
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
 	case TRAIT_STAR_DUST:
@@ -2843,7 +2843,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			target_ptr = &creature_list[cave_ptr->creature_idx];
 
 			if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
-				!floor_ptr->fight_arena_mode && !floor_ptr->quest && (caster_ptr->lev < randint1(caster_ptr->lev)) && !has_trait(target_ptr, TRAIT_NO_GENOCIDE))
+				!floor_ptr->fight_arena_mode && !floor_ptr->quest && (user_level < randint1(user_level)) && !has_trait(target_ptr, TRAIT_NO_GENOCIDE))
 			{
 				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 				{
@@ -3153,7 +3153,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 
 	case TRAIT_ARREST_CREATURE:
-		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0);
+		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0);
 		break;
 
 	case TRAIT_ARREST_EVIL:
