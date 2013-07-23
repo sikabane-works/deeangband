@@ -334,6 +334,8 @@ typedef enum QUEST_STATUS QUEST_STATUS;
 #define READ_QUEST_STATUS(VALUE) rd_s32b((s32b *)VALUE);
 #define WRITE_QUEST_STATUS(VALUE) wr_s32b((s32b)VALUE);
 
+typedef enum TRAIT_EFFECT_TYPE TRAIT_EFFECT_TYPE;
+
 /*
  * Creature flags
  */
@@ -1706,7 +1708,7 @@ struct trait_type
 	char e_title[50];
 	traits_precondition alias;
 	FLAGS_32 reverse_alias[MAX_TRAITS_FLAG];
-	byte effect_type;
+	TRAIT_EFFECT_TYPE effect_type;
 	STAT adj[STAT_MAX];
 	SAVING ac;
 	SAVING ev;
