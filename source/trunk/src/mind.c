@@ -1033,7 +1033,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 19:
-		if(!binding_field(caster_ptr, MAX_RANGE, lev_bonus * 11 + 5)) msg_print(MES_TRAIT_MIRROR_BINDING_FAILED);
+		do_active_trait(caster_ptr, TRAIT_BINDING_FIELD, TRUE, 100, 0L);
 		break;
 
 	case 20: /* mirror of Ruffnor */

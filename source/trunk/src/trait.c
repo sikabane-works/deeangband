@@ -2194,6 +2194,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
 		break;
 
+	case TRAIT_BINDING_FIELD:
+		if(!binding_field(caster_ptr, MAX_RANGE, user_level * 11 + 5)) msg_print(MES_TRAIT_MIRROR_BINDING_FAILED);
+		break;
+
 	case TRAIT_DOUBLE_ATTACK:
 		{
 			if(!(empty_hands(caster_ptr, TRUE) & EMPTY_HAND_RARM))
