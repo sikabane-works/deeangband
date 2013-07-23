@@ -994,7 +994,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		/* seal of mirror */
 
 	case 11:
-		seal_of_mirror(caster_ptr, lev_bonus * 4 + 100);
+		do_active_trait(caster_ptr, TRAIT_MIRROR_SEAL, TRUE, 100, 0L);
 		break;
 		/* shield of water */
 

@@ -540,6 +540,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_MIRROR_SEAL:
+		seal_of_mirror(caster_ptr, caster_ptr->lev * 4 + 100);
+		break;
+
 	case TRAIT_MIRROR_SET:
 		if(number_of_mirrors(caster_ptr) < 4 + caster_ptr->lev / 10) place_mirror(caster_ptr);
 		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
