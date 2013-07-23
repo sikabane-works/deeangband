@@ -941,7 +941,6 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	CREATURE_LEV lev_bonus = caster_ptr->lev;
-	int tmp;
 
 	switch (spell)
 	{
@@ -1009,12 +1008,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 
 		/* illusion light */
 	case 14:
-		tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 3;
-		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, lev_bonus*tmp);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, lev_bonus*tmp);
-		project_all_vision(caster_ptr, DO_EFFECT_STUN, lev_bonus*tmp);
-		project_all_vision(caster_ptr, DO_EFFECT_STASIS, lev_bonus*tmp);
+		do_active_trait(caster_ptr, TRAIT_CONFUSING_LIGHT, TRUE, 100, 0L);
 		break;
 
 		/* mirror shift */
