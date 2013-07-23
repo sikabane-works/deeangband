@@ -1004,7 +1004,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 
 		/* super ray */
 	case 13:
-		cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*lev_bonus), 0);
+		do_active_trait(caster_ptr, TRAIT_SUPERRAY, TRUE, 100, 0L);
 		break;
 
 		/* illusion light */

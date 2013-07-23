@@ -579,6 +579,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_SUPERRAY:
+		cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*caster_ptr->lev), 0);
+		break;
+
 	case TRAIT_NATURE_AWARENESS:
 		{
 		COODINATES rad1 = DETECT_RAD_MAP;
