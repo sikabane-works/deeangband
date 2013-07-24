@@ -537,16 +537,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE);
 		break;
 
-	case TRAIT_SHUFFLE:
-		cast_shuffle(caster_ptr);
-		break;
-
 	case TRAIT_RESET_RECALL:
 		reset_recall(caster_ptr);
 		break;
 
 
-		//TODO Remove duplicated process
+	//TODO Remove duplicated process
 	case TRAIT_ILLUMINE:
 	case TRAIT_LIGHT_AREA:
 	case TRAIT_ILLUMINATION:
@@ -3052,52 +3048,23 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 		}
 
-	case TRAIT_ENCHANT_REMOVE:
-		mundane_spell(caster_ptr, FALSE);
-		break;
+	/* enchant object type */
+	case TRAIT_ENCHANT_REMOVE: mundane_spell(caster_ptr, FALSE); break;
+	case TRAIT_ENCHANT_WEAPON_BOOST: enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0); break;
+	case TRAIT_ENCHANT_ARMOR_BOOST: enchant_spell(caster_ptr, 0, 0, randint0(3) + 2, 0, 0); break;
+	case TRAIT_ENCHANT_ELEMENTAL_BRAND: brand_weapon(caster_ptr, randint0(2)); break;
+	case TRAIT_ENCHANT_FIRE_BRAND: brand_weapon(caster_ptr, 1); break;
+	case TRAIT_ENCHANT_CHAOS_BRAND: brand_weapon(caster_ptr, 2); break;
+	case TRAIT_ENCHANT_POISON_BRAND: brand_weapon(caster_ptr, 3); break;
+	case TRAIT_ENCHANT_VAMPIRIC_BRAND: brand_weapon(caster_ptr, 4); break;
+	case TRAIT_ENCHANT_TRUMP_BRAND: brand_weapon(caster_ptr, 5); break;
+	case TRAIT_ENCHANT_RANDOM_BRAND: brand_weapon(caster_ptr, randint0(18)); break;
+	case TRAIT_ENCHANT_HOLY_BRAND: brand_weapon(caster_ptr, 13); break;
 
-	case TRAIT_ENCHANT_WEAPON_BOOST:
-		enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0);
-		break;
-
-	case TRAIT_ENCHANT_ARMOR_BOOST:
-		enchant_spell(caster_ptr, 0, 0, randint0(3) + 2, 0, 0);
-		break;
-
-	case TRAIT_ENCHANT_ELEMENTAL_BRAND:
-		brand_weapon(caster_ptr, randint0(2));
-		break;
-
-	case TRAIT_ENCHANT_FIRE_BRAND:
-		brand_weapon(caster_ptr, 1);
-		break;
-
-	case TRAIT_ENCHANT_CHAOS_BRAND:
-		brand_weapon(caster_ptr, 2);
-		break;
-
-	case TRAIT_ENCHANT_POISON_BRAND:
-		brand_weapon(caster_ptr, 3);
-		break;
-
-	case TRAIT_ENCHANT_VAMPIRIC_BRAND:
-		brand_weapon(caster_ptr, 4);
-		break;
-
-	case TRAIT_ENCHANT_TRUMP_BRAND:
-		brand_weapon(caster_ptr, 5);
-		break;
-
-	case TRAIT_ENCHANT_RANDOM_BRAND:
-		brand_weapon(caster_ptr, randint0(18));
-		break;
-
-	case TRAIT_ENCHANT_HOLY_BRAND:
-		brand_weapon(caster_ptr, 13);
-		break;
-
+	/* wonder type */
 	case TRAIT_WANDER: cast_wonder(caster_ptr); break;
 	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
+	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
 
 
 	case TRAIT_BEAM_MANA:
