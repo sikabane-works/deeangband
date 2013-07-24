@@ -644,12 +644,27 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 		}
 
+	/* Identify type */
+
 	case TRAIT_IDENTIFY:
 		if(ident_spell(caster_ptr, FALSE)) return TRUE;
 		break;
 
 	case TRAIT_IDENTIFY_TRUE:
 		if(identify_fully(caster_ptr, FALSE)) return TRUE;
+		break;
+
+	case TRAIT_PERILOUS_IDENTIFY:
+		if(!ident_spell(caster_ptr, FALSE)) return FALSE;
+		if(!dec_mana(caster_ptr, PERILOUS_IDENTIFY_COST));
+		{
+			msg_print(COD_PERILOUS_IDENTIFY);
+			(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, randint1(5 * randint1(10) + 1), TRUE);
+			(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(5 * randint1(10) + 1), TRUE);
+		}
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), MES_PERILOUS_SECRET, NULL, -1);
+		if(one_in_(5)) (void)add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(10), TRUE);
+		if(one_in_(20)) take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), MES_PERILOUS_SECRET, NULL, -1);
 		break;
 
 	case TRAIT_MOON_DAZZLING:
@@ -906,36 +921,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			target_ptr = &creature_list[i];
 			if(!is_valid_creature(target_ptr) && !IS_IN_THIS_FLOOR(target_ptr)) continue;
 			if(has_trait(target_ptr, TRAIT_UNIQUE)) msg_format("%s． ", target_ptr->name);
-			break;
-		}
-
-	case TRAIT_PERILOUS_IDENTIFY:
-		{
-			if(!ident_spell(caster_ptr, FALSE)) return FALSE;
-
-			if(magic_info[caster_ptr->class_idx].spell_book)
-			{
-				// Sufficient mana
-				if(PERILOUS_IDENTIFY_COST <= caster_ptr->csp) caster_ptr->csp -= PERILOUS_IDENTIFY_COST;
-
-				else
-				{
-					int oops = PERILOUS_IDENTIFY_COST - caster_ptr->csp;
-					caster_ptr->csp = 0;
-					caster_ptr->csp_frac = 0;
-					msg_print(COD_PERILOUS_IDENTIFY);
-
-					// Confusing.
-					(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);					
-					(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(5 * oops + 1), TRUE);
-				}
-
-				prepare_redraw(PR_MANA);
-			}
-
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), MES_PERILOUS_SECRET, NULL, -1);
-			if(one_in_(5)) (void)add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(10), TRUE);
-			if(one_in_(20)) take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), MES_PERILOUS_SECRET, NULL, -1);
 			break;
 		}
 
@@ -1294,38 +1279,25 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0); break;
 
 	/* Bolt Type Trait */
-
-	case TRAIT_BO_FIRE_MINI:
-		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(9, 8), 0);
-		break;
-
-	case TRAIT_BO_COLD_MINI:
-		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(6, 8), 0);
-		break;
-
-	case TRAIT_BO_ELEC_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(4, 8), 0);
-		break;
-
 	case TRAIT_BO_ACID_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(5, 8), 0);
-		break;
-
 	case TRAIT_BO_ACID:
 		damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 		cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, TRAIT_BO_ACID);
 		break;
 
+	case TRAIT_BO_ELEC_MINI:
 	case TRAIT_BO_ELEC:
 		damage = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 		cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, TRAIT_BO_ELEC);
 		break;
 
+	case TRAIT_BO_FIRE_MINI:
 	case TRAIT_BO_FIRE:
 		damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, TRAIT_BO_FIRE);
 		break;
 
+	case TRAIT_BO_COLD_MINI:
 	case TRAIT_BO_COLD:
 		damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, TRAIT_BO_COLD);
