@@ -369,47 +369,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
 		break;
 
-	case TRAIT_RESTORE_LIFE:
-	case TRAIT_RESTORE_LEVEL:
-		if(restore_exp(caster_ptr)) effected = TRUE;
-		break;
-
-	case TRAIT_RESTORE_ALL:
-		if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
-		if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE;
-		if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-		if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-		if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
-		if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-		break;
-
-	case TRAIT_CURING:
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
-		break;
-
-	case TRAIT_CURE_OF_AESCULAPIUS:
-		(void)do_res_stat(caster_ptr, STAT_STR);
-		(void)do_res_stat(caster_ptr, STAT_INT);
-		(void)do_res_stat(caster_ptr, STAT_WIS);
-		(void)do_res_stat(caster_ptr, STAT_DEX);
-		(void)do_res_stat(caster_ptr, STAT_CON);
-		(void)do_res_stat(caster_ptr, STAT_CHA);
-		(void)restore_exp(caster_ptr);
-		break;
-
-	case TRAIT_REGAL_HEAL_OF_AMBER:
-		(void)heal_creature(caster_ptr, 700);
-		break;
-
-	case TRAIT_HEAL:
-		if(heal_creature(caster_ptr, power)) effected = TRUE;
-		break;
-
 	case TRAIT_GET_MAGIC_DEF:
 		set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE);
 		break;
@@ -2745,36 +2704,47 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), COD_POISONOUS_FOOD, NULL, -1);
 		break;
 
+	/* Standard Healing Spell */
+
+	case TRAIT_REGAL_HEAL_OF_AMBER:
+	case TRAIT_HEAL:
 	case TRAIT_SELF_HEALING_2D8:
-		effected = heal_creature(caster_ptr, diceroll(2, 8));
-		break;
-
 	case TRAIT_SELF_HEALING_4D8:
-		effected = heal_creature(caster_ptr, diceroll(4, 8));
-		break;
-
 	case TRAIT_SELF_HEALING_6D8:
-		effected = heal_creature(caster_ptr, diceroll(6, 8));
-		break;
-
 	case TRAIT_SELF_HEALING_10D10:
-		effected = heal_creature(caster_ptr, diceroll(10, 10));
-		break;
-
 	case TRAIT_SELF_HEALING_50D20:
-		effected = heal_creature(caster_ptr, diceroll(50, 20));
-		break;
-
 	case TRAIT_SELF_HEALING_80D20:
-		effected = heal_creature(caster_ptr, diceroll(80, 20));
-		break;
-
 	case TRAIT_SELF_HEALING_30D100:
-		effected = heal_creature(caster_ptr, diceroll(30, 100));
+	case TRAIT_SELF_HEALING_100D100:
+		if(heal_creature(caster_ptr, power)) effected = TRUE;
 		break;
 
-	case TRAIT_SELF_HEALING_100D100:
-		effected = heal_creature(caster_ptr, diceroll(100, 100));
+	/* Restore Soul Spell */
+
+	case TRAIT_RESTORE_LIFE:
+	case TRAIT_RESTORE_LEVEL:
+		if(restore_exp(caster_ptr)) effected = TRUE;
+		break;
+
+	/* Cure Spell */
+
+	case TRAIT_RESTORE_ALL:
+	case TRAIT_CURE_OF_AESCULAPIUS:
+		if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
+		break;
+
+	case TRAIT_CURING:
+		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
 		break;
 
 	case TRAIT_PATTERN_WALK:
@@ -2792,6 +2762,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)do_res_stat(caster_ptr, STAT_CHA);
 		(void)restore_exp(caster_ptr);
 		break;
+
+
 
 	case TRAIT_RUMOR:
 		{
