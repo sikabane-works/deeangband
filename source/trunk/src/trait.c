@@ -549,29 +549,29 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		effected = lite_area(caster_ptr, diceroll(2, 15), 3);
 		break;
 
-	case TRAIT_DETECT_INVISIBLE:
-		detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
+	/* Detect Spells */
+
+	case TRAIT_DETECT_INVISIBLE: detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_DETECT_MAP: map_area(caster_ptr, DETECT_RAD_MAP); break;
+	case TRAIT_DETECT_FELOCITY: detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_DETECT_NONLIVING: detect_creatures_nonliving(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_DETECT_EVIL: detect_creatures_evil(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_DETECT_ALL: detect_all(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_DETECT_OBJECT: detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_DETECT_OBJECT_MAGIC: detect_objects_magic(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_DETECT_TRAPS: detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE); break;
+	case TRAIT_DETECT_DOOR: (void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT); break;
+
+	case TRAIT_DETECT_DOOR_TRAP:
+		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
-	case TRAIT_DETECT_MAP:
-		map_area(caster_ptr, DETECT_RAD_MAP);
-		effected = TRUE;
-		break;
-
-	case TRAIT_DETECT_FELOCITY:
-		detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT);
-		break;
-
-	case TRAIT_DETECT_NONLIVING:
-		detect_creatures_nonliving(caster_ptr, DETECT_RAD_DEFAULT);
-		break;
-
-	case TRAIT_DETECT_EVIL:
-		detect_creatures_evil(caster_ptr, DETECT_RAD_DEFAULT);
-		break;
-
-	case TRAIT_DETECT_ALL:
-		detect_all(caster_ptr, DETECT_RAD_DEFAULT);
+	case TRAIT_DETECT_ITEM_GOLD:
+		detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
+		detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
 	case TRAIT_MIRROR_SEEING:
@@ -2240,24 +2240,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_DETECT_TRAPS:
-		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-
-	case TRAIT_DETECT_DOOR:
-		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-
-	case TRAIT_DETECT_DOOR_TRAP:
-		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
-		break;
-
-	case TRAIT_DETECT_ITEM_GOLD:
-		detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
-		detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
-		break;
-
 	case TRAIT_CREATE_FOOD:
 		{
 			object_type *quest_ptr;
@@ -2715,14 +2697,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
 				}
 		}
-		break;
-
-	case TRAIT_DETECT_OBJECT:
-		(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		break;
-
-	case TRAIT_DETECT_OBJECT_MAGIC:
-		(void)detect_objects_magic(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
 	case TRAIT_BLESSING_SELF:
