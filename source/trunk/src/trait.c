@@ -1316,17 +1316,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_MISSILE:
-		damage = diceroll(2, 6) + user_level * 2 / 3;
-		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, damage, 0);
-		break;
-
 	case TRAIT_RAY_GUN:
-		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, (user_level+1) / 2, 0);
-		break;
-
 	case TRAIT_BLASTER:
-		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level, 0);
-		break;
+		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, 0); break;
+
 
 	/* Curse Attack Spell */
 
@@ -1338,7 +1331,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CAUSE_2: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0); break;
-
+	case TRAIT_HAND_DOOM: cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, 200, 0); break;
+	case TRAIT_CAUSE_BLOODY_CURSE:
+		cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, MAX_RANGE_SUB, 600, 0);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_BLOOD_CURSE, NULL, -1);
+		break;
 
 	case TRAIT_SHRIEK:
 		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
@@ -1373,9 +1370,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1);
 		break;
 
-	case TRAIT_HAND_DOOM:
-		cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, 200, 0);
-		break;
 
 	case TRAIT_INVULNER:
 		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
@@ -2969,16 +2963,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_POLYMORPH_OTHER:
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1);
 		break;
-
-	case TRAIT_CAUSE_BLOODY_CURSE:
-		{
-			POWER dam = 600;
-			COODINATES rad = 0;
-			cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, MAX_RANGE_SUB, dam, rad);
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_BLOOD_CURSE, NULL, -1);
-		}
-		break;
-
 
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
