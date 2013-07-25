@@ -1858,6 +1858,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 
+	/* Self Damage Spell */
+
+	case TRAIT_FOOD_POISONING_6D6: take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), COD_POISONOUS_FOOD, NULL, -1); break;
+	case TRAIT_FOOD_POISONING_8D8: take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), COD_POISONOUS_FOOD, NULL, -1); break;
+	case TRAIT_FOOD_POISONING_10D10: take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), COD_POISONOUS_FOOD, NULL, -1); break;
+
 	case TRAIT_SELF_DETONATIONS:
 		msg_print(MES_TRAIT_SELF_DETONATION);
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), COD_POTION_OF_DETONATION, NULL, -1);
@@ -1871,6 +1877,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, COD_POTION_OF_DEATH, NULL, -1);
 		effected = TRUE;
 		break;
+
+
+	/* Melee Type Spell */
+
+	case TRAIT_PANIC_HIT: hit_and_away(caster_ptr); break;
+	case TRAIT_RUSH_ATTACK: rush_attack(caster_ptr, NULL); break;
+	case TRAIT_MASSACRE: massacre(caster_ptr); break;
 
 	case TRAIT_SWORD_DANCING:
 		{
@@ -1906,14 +1919,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, user_level * 4);
-		break;
-
-	case TRAIT_PANIC_HIT:
-		hit_and_away(caster_ptr);
-		break;
-
-	case TRAIT_RUSH_ATTACK:
-		rush_attack(caster_ptr, NULL);
 		break;
 
 	case TRAIT_KATON:
@@ -2692,17 +2697,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		effected = TRUE;
 		break;
 
-	case TRAIT_FOOD_POISONING_6D6:
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), COD_POISONOUS_FOOD, NULL, -1);
-		break;
-
-	case TRAIT_FOOD_POISONING_8D8:
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), COD_POISONOUS_FOOD, NULL, -1);
-		break;
-
-	case TRAIT_FOOD_POISONING_10D10:
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), COD_POISONOUS_FOOD, NULL, -1);
-		break;
 
 	/* Standard Healing Spell */
 
