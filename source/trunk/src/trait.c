@@ -1167,10 +1167,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_SHOOT:
-		//TODO
-		break;
-
 	case TRAIT_BR_SHAR:
 		if(caster_ptr->species_idx == SPECIES_BOTEI) msg_format(MES_TRAIT_BR_SHAR_BOTEI);
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
@@ -2227,32 +2223,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BEAM_CANNON: cast_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level * 2, 0); break;
 	case TRAIT_BEAM_MANA: cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0); break;
 	case TRAIT_HYPN_GAZE: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
-
-	case TRAIT_LIGHTNING_BEAM:
-		{
-			int dice = 3 + (power - 1) / 5;
-			int sides = 4;
-			COODINATES range = power / 6 + 2;
-			cast_beam(caster_ptr, DO_EFFECT_ELEC, range, diceroll(dice, sides), 0);
-		}
-		break;
+	case TRAIT_LIGHTNING_BEAM: cast_beam(caster_ptr, DO_EFFECT_ELEC, power / 6 + 2, diceroll(3 + (power - 1) / 5, 4), 0); break;
 
 
-
-
-
-	case TRAIT_IMPROVE_FORCE:
-		msg_print(MES_TRAIT_FORCE_IMPROVE);
-		caster_ptr->charged_force += (70 + user_level);
-		prepare_update(caster_ptr, CRU_BONUS);
-		if(randint1(caster_ptr->charged_force) > (user_level * 4 + 120))
-		{
-			msg_print(MES_TRAIT_FORCE_EXPRODE);
-			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, caster_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
-		}
-		else return TRUE;
-		break;
 
 	case TRAIT_SHOCK_WAVE:
 		shock_wave(caster_ptr);
@@ -2852,8 +2825,20 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1);
 		break;
 
-	case 3: /* TRAIT_LAUNCHER */
-		/* Gives a multiplier of 2 at first, up to 3 at 40th */
+	case TRAIT_IMPROVE_FORCE:
+		msg_print(MES_TRAIT_FORCE_IMPROVE);
+		caster_ptr->charged_force += (70 + user_level);
+		prepare_update(caster_ptr, CRU_BONUS);
+		if(randint1(caster_ptr->charged_force) > (user_level * 4 + 120))
+		{
+			msg_print(MES_TRAIT_FORCE_EXPRODE);
+			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, caster_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
+		}
+		else return TRUE;
+		break;
+
+	case TRAIT_SHOOT:
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
 		break;
 
