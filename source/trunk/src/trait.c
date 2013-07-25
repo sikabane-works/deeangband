@@ -125,12 +125,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1)) heal_creature(caster_ptr, 100);
 		break;
 
-	/* Get Timed Status Spell */
-
-	case TRAIT_INVULNER:
-		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
-		break;
-
 	case TRAIT_GET_KAWARIMI:
 		if(!(caster_ptr->posture & NINJA_KAWARIMI))
 		{
@@ -362,13 +356,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 
-	case TRAIT_REMOVE_POISON:
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-		break;
-
-	case TRAIT_GET_MAGIC_DEF:
-		set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE);
-		break;
+	case TRAIT_REMOVE_POISON: (void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE); break;
 
 	case TRAIT_GET_ELEMENT_BRAND:
 		choose_ele_attack(caster_ptr);
@@ -404,6 +392,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_DEVIL_CLOAK:
+		{
+			int base = 20;
+			int dur = randint1(base) + base;
+			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_AURA_FIRE, dur, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+			break;
+		}
+		break;
+
+	case TRAIT_INVULNER: (void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE); break;
 	case TRAIT_GET_SEE_INVISIBLE: set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(24) + 24, FALSE); break;
 	case TRAIT_GET_SEE_INFRA: set_timed_trait(caster_ptr, TRAIT_SEE_INFRA, randint1(24) + 24, FALSE); break;
 	case TRAIT_GET_REGENERATE: set_timed_trait(caster_ptr, TRAIT_REGENERATE, 24 + randint1(24), FALSE); break;
@@ -419,7 +420,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_GET_RES_TIME: set_timed_trait(caster_ptr, TRAIT_RES_TIME, randint1(power) + power, FALSE); break;
 	case TRAIT_GET_CONFUSING_MELEE: set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE); break;
 	case TRAIT_GET_MULTI_SHADOW: set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE); break;
-
+	case TRAIT_GET_MAGIC_DEF: set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE); break;
 
 
 
@@ -1358,13 +1359,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
-
-
-
-	case TRAIT_RUSTPROOF:
-		rustproof(caster_ptr);
-		break;
-
 
 	case TRAIT_STORM_MANA:
 		msg_print(MES_TRAIT_MANA_FIELD_DONE);
@@ -2847,20 +2841,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_DEVIL_CLOAK:
-		{
-			int base = 20;
-				int dur = randint1(base) + base;
-					
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_AURA_FIRE, dur, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-				break;
-		}
-		break;
+	/* Enchant Object Type */
 
-	/* enchant object type */
+	case TRAIT_RUSTPROOF: rustproof(caster_ptr); break;
 	case TRAIT_PURISH_SHIELD: pulish_shield(caster_ptr); break;
 	case TRAIT_BLESS_WEAPON: if(!bless_weapon(caster_ptr)) return FALSE; break;
 	case TRAIT_ENCHANT_REMOVE: mundane_spell(caster_ptr, FALSE); break;
