@@ -2729,77 +2729,30 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_BLESSED, power, FALSE);
 		break;
 
-	case TRAIT_RES_STR:
-		if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
-		break;
 
-	case TRAIT_RES_INT:
-		if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE;
-		break;
+	/* Status Control */
 
-	case TRAIT_RES_WIS:
-		if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-		break;
+	case TRAIT_RES_STR: if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
+	case TRAIT_RES_INT: if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
+	case TRAIT_RES_WIS: if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE; break;
+	case TRAIT_RES_DEX: if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE; break;
+	case TRAIT_RES_CON: if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
+	case TRAIT_RES_CHR: if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
 
-	case TRAIT_RES_DEX:
-		if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-		break;
+	case TRAIT_INC_STR: if(do_inc_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
+	case TRAIT_INC_INT: if(do_inc_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
+	case TRAIT_INC_WIS: if(do_inc_stat(caster_ptr, STAT_WIS)) effected = TRUE; break;
+	case TRAIT_INC_DEX: if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE; break;
+	case TRAIT_INC_CON: if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
+	case TRAIT_INC_CHR: if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
 
-	case TRAIT_RES_CON:
-		if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
-		break;
+	case TRAIT_DEC_STR: if(do_dec_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
+	case TRAIT_DEC_INT: if(do_dec_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
+	case TRAIT_DEC_WIS: if(do_dec_stat(caster_ptr, STAT_WIS)) effected = TRUE; break;
+	case TRAIT_DEC_DEX: if(do_dec_stat(caster_ptr, STAT_DEX)) effected = TRUE; break;
+	case TRAIT_DEC_CON: if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
+	case TRAIT_DEC_CHR: if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
 
-	case TRAIT_RES_CHR:
-		if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-		break;
-
-	case TRAIT_INC_STR:
-		if(do_inc_stat(caster_ptr, STAT_STR)) effected = TRUE;
-		break;
-
-	case TRAIT_INC_INT:
-		if(do_inc_stat(caster_ptr, STAT_INT)) effected = TRUE;
-		break;
-
-	case TRAIT_INC_WIS:
-		if(do_inc_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-		break;
-
-	case TRAIT_INC_DEX:
-		if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-		break;
-
-	case TRAIT_INC_CON:
-		if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE;
-		break;
-
-	case TRAIT_INC_CHR:
-		if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-		break;
-
-	case TRAIT_DEC_STR:
-		if(do_dec_stat(caster_ptr, STAT_STR)) effected = TRUE;
-		break;
-
-	case TRAIT_DEC_INT:
-		if(do_dec_stat(caster_ptr, STAT_INT)) effected = TRUE;
-		break;
-
-	case TRAIT_DEC_WIS:
-		if(do_dec_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-		break;
-
-	case TRAIT_DEC_DEX:
-		if(do_dec_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-		break;
-
-	case TRAIT_DEC_CON:
-		if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE;
-		break;
-
-	case TRAIT_DEC_CHR:
-		if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-		break;
 
 	case TRAIT_LITE_LINE:
 		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
@@ -2968,21 +2921,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20, FALSE);
 		break;
 
-	case TRAIT_GET_AURA_MANA:
-		set_timed_trait(caster_ptr, TRAIT_AURA_MANA, randint1(power) + power, FALSE);
-		break;
+	case TRAIT_GET_AURA_MANA: set_timed_trait(caster_ptr, TRAIT_AURA_MANA, randint1(power) + power, FALSE); break;
+	case TRAIT_GET_HOLY_AURA: set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(power) + power, FALSE); break;
 
-	case TRAIT_GET_HOLY_AURA:
-		set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(power) + power, FALSE);
-		break;
-
-	case TRAIT_GET_RES_NETH:
-		set_timed_trait(caster_ptr, TRAIT_RES_NETH, randint1(power) + power, FALSE);
-		break;
-
-	case TRAIT_GET_RES_TIME:
-		set_timed_trait(caster_ptr, TRAIT_RES_TIME, randint1(power) + power, FALSE);
-		break;
+	case TRAIT_GET_RES_NETH: set_timed_trait(caster_ptr, TRAIT_RES_NETH, randint1(power) + power, FALSE); break;
+	case TRAIT_GET_RES_TIME: set_timed_trait(caster_ptr, TRAIT_RES_TIME, randint1(power) + power, FALSE); break;
 
 	case TRAIT_GET_CONFUSING_MELEE:
 		set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE);
