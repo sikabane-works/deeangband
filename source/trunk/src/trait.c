@@ -133,10 +133,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		walk_creature(caster_ptr, dir, easy_disarm, TRUE);
 		break;
 
-	case TRAIT_CALL_CHAOS:
-		call_chaos(caster_ptr);
-		break;
-
 	case TRAIT_ROCKET:
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		cast_ball(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, damage, 2);
@@ -2710,15 +2706,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0);
 		break;
 
-	case TRAIT_SONIC_BOOM:
-		{
-			POWER dam = 60 + power;
-			COODINATES rad = (COODINATES)power / 10 + 2;
-			msg_print(MES_TRAIT_SONIC_BOOM);
-			project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
-		}
-		break;
-
 	case TRAIT_HEAL_OTHER:
 		{
 			int heal = power + 200;
@@ -2756,15 +2743,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
 	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
 	case TRAIT_BIZARRE_THING_OF_THE_RING: ring_of_power(caster_ptr); break;
+	case TRAIT_CALL_CHAOS: call_chaos(caster_ptr); break;
 
 	/* Storm Attack Spell */
 	case TRAIT_STORM_FIRE: SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 300 + 3 * power, 8, -1);
 	case TRAIT_STORM_NETHER: cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, power / 5); break;
 	case TRAIT_STORM_CHAOS: cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, power / 5); break;
-	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
 	case TRAIT_LIGHTNING_STORM: cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_COLD_STORM: cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_WATER_STORM: cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_SONIC_BOOM:
+		msg_print(MES_TRAIT_SONIC_BOOM);
+		project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, power, DO_EFFECT_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
+		break;
 
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
@@ -2779,9 +2770,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else return TRUE;
 		break;
 
-	case TRAIT_SHOOT:
-		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
-		break;
+	case TRAIT_SHOOT: if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE; break;
+
+	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
 
 	default:
 		msg_warning("Undefined active trait.");
