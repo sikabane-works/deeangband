@@ -125,6 +125,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1)) heal_creature(caster_ptr, 100);
 		break;
 
+	/* Get Timed Status Spell */
+
+	case TRAIT_INVULNER:
+		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
+		break;
+
 	case TRAIT_GET_KAWARIMI:
 		if(!(caster_ptr->posture & NINJA_KAWARIMI))
 		{
@@ -397,20 +403,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_GET_REGENERATE:
-		{
-			int base = 24;
-			set_timed_trait(caster_ptr, TRAIT_REGENERATE, base + randint1(base), FALSE);
-		}
-		break;
-
-	case TRAIT_GET_PASS_WALL:
-		set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(power) + power, FALSE);
-		break;
-
-	case TRAIT_PROT_EVIL:
-		(void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * user_level, FALSE);
-		break;
 
 	case TRAIT_RESIST:
 	case TRAIT_MAGIC_RES_ELEMENT:
@@ -433,6 +425,24 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			set_timed_trait(caster_ptr, TRAIT_ULTRA_RES, v, FALSE);
 		}
 		break;
+
+	case TRAIT_GET_REGENERATE: set_timed_trait(caster_ptr, TRAIT_REGENERATE, 24 + randint1(24), FALSE); break;
+	case TRAIT_GET_PASS_WALL: set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(power) + power, FALSE); break;
+	case TRAIT_PROT_EVIL: (void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * user_level, FALSE); break;
+	case TRAIT_GET_LIGHT_SPEED: set_timed_trait(caster_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16, FALSE); break;
+	case TRAIT_GET_DUST_ROBE: set_timed_trait(caster_ptr, TRAIT_DUST_ROBE, 20 + randint1(20), FALSE); break;
+	case TRAIT_GET_LEVITATION: set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(30) + 30, FALSE); break;
+	case TRAIT_GET_RESIST_MAGIC: set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20, FALSE); break;
+	case TRAIT_GET_AURA_MANA: set_timed_trait(caster_ptr, TRAIT_AURA_MANA, randint1(power) + power, FALSE); break;
+	case TRAIT_GET_HOLY_AURA: set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(power) + power, FALSE); break;
+	case TRAIT_GET_RES_NETH: set_timed_trait(caster_ptr, TRAIT_RES_NETH, randint1(power) + power, FALSE); break;
+	case TRAIT_GET_RES_TIME: set_timed_trait(caster_ptr, TRAIT_RES_TIME, randint1(power) + power, FALSE); break;
+	case TRAIT_GET_CONFUSING_MELEE: set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE); break;
+	case TRAIT_GET_MULTI_SHADOW: set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE); break;
+
+
+
+
 
 	case TRAIT_SPLASH_LITE:
 		{
@@ -463,10 +473,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_HASTE_2:
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE);
-		break;
-
-	case TRAIT_GET_LIGHT_SPEED:
-		set_timed_trait(caster_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16, FALSE); // TODO BOOST
 		break;
 
 	case TRAIT_HASTE_OTHER:
@@ -1373,10 +1379,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
 
 
-	case TRAIT_INVULNER:
-		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
-		break;
-
 
 	case TRAIT_RUSTPROOF:
 		rustproof(caster_ptr);
@@ -1428,10 +1430,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, 0);
 				}
 		}
-		break;
-
-	case TRAIT_GET_DUST_ROBE:
-		set_timed_trait(caster_ptr, TRAIT_DUST_ROBE, 20 + randint1(20), FALSE);
 		break;
 
 	case TRAIT_SEEKER_RAY:
@@ -2323,11 +2321,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		shock_wave(caster_ptr);
 		break;
 
-	case TRAIT_GET_LEVITATION:
-		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(30) + 30, FALSE);
-		break;
-
-
 	case TRAIT_VTELEPORT:
 		teleport_creature(caster_ptr, 10 + 4 * (COODINATES)user_level, 0L);
 		break;
@@ -2847,25 +2840,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_ARREST_EVIL:
 		cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0);
-		break;
-
-	case TRAIT_GET_RESIST_MAGIC:
-		set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20, FALSE);
-		break;
-
-	case TRAIT_GET_AURA_MANA: set_timed_trait(caster_ptr, TRAIT_AURA_MANA, randint1(power) + power, FALSE); break;
-	case TRAIT_GET_HOLY_AURA: set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(power) + power, FALSE); break;
-
-	case TRAIT_GET_RES_NETH: set_timed_trait(caster_ptr, TRAIT_RES_NETH, randint1(power) + power, FALSE); break;
-	case TRAIT_GET_RES_TIME: set_timed_trait(caster_ptr, TRAIT_RES_TIME, randint1(power) + power, FALSE); break;
-
-	case TRAIT_GET_CONFUSING_MELEE:
-		set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE);
-		prepare_redraw(PR_STATUS);
-		break;
-
-	case TRAIT_GET_MULTI_SHADOW:
-		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
 
 	case TRAIT_SONIC_BOOM:
