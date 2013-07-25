@@ -195,10 +195,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_DEATH_RAY:
-		cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, user_level, -1);
-		break;
-
 	case TRAIT_EARTHQUAKE:
 		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 		break;
@@ -228,17 +224,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
 		break;
 
-	case TRAIT_SYMBOL_GENOCIDE:
-		(void)symbol_genocide(caster_ptr, 200, TRUE);
-		break;
+	/* Genocide Spell */
+	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
+	case TRAIT_SYMBOL_GENOCIDE: (void)symbol_genocide(caster_ptr, 200, TRUE); break;
+	case TRAIT_MASS_GENOCIDE: (void)mass_genocide(caster_ptr, 200, TRUE); break;
 
-	case TRAIT_MASS_GENOCIDE:
-		(void)mass_genocide(caster_ptr, 200, TRUE);
-		break;
-
-	case TRAIT_GENOCIDE_ONE:
-		cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0);
-		break;
 
 	case TRAIT_CHARM_ANIMAL:
 		cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0);
@@ -259,6 +249,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CHARM_OTHERS:
 		project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2);
 		break;
+
+
+	/* Summoning Spell */
 
 	case TRAIT_S_KIN:
 		{
@@ -389,21 +382,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
 		break;
 
-	case TRAIT_GET_SEE_INVISIBLE:
-		{
-			int base = 24;
-			set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
-		}
-		break;
-
-	case TRAIT_GET_SEE_INFRA:
-		{
-			int base = 24;
-			set_timed_trait(caster_ptr, TRAIT_SEE_INFRA, randint1(base) + base, FALSE);
-		}
-		break;
-
-
 	case TRAIT_RESIST:
 	case TRAIT_MAGIC_RES_ELEMENT:
 		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE)) effected = TRUE;
@@ -426,9 +404,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_GET_SEE_INVISIBLE: set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(24) + 24, FALSE); break;
+	case TRAIT_GET_SEE_INFRA: set_timed_trait(caster_ptr, TRAIT_SEE_INFRA, randint1(24) + 24, FALSE); break;
 	case TRAIT_GET_REGENERATE: set_timed_trait(caster_ptr, TRAIT_REGENERATE, 24 + randint1(24), FALSE); break;
 	case TRAIT_GET_PASS_WALL: set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(power) + power, FALSE); break;
-	case TRAIT_PROT_EVIL: (void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * user_level, FALSE); break;
+	case TRAIT_PROT_EVIL: set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * user_level, FALSE); break;
 	case TRAIT_GET_LIGHT_SPEED: set_timed_trait(caster_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16, FALSE); break;
 	case TRAIT_GET_DUST_ROBE: set_timed_trait(caster_ptr, TRAIT_DUST_ROBE, 20 + randint1(20), FALSE); break;
 	case TRAIT_GET_LEVITATION: set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(30) + 30, FALSE); break;
@@ -1330,6 +1310,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_HAND_DOOM: cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, 200, 0); break;
+	case TRAIT_DEATH_RAY: cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, user_level, -1); break;
 	case TRAIT_CAUSE_BLOODY_CURSE:
 		cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, MAX_RANGE_SUB, 600, 0);
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_BLOOD_CURSE, NULL, -1);
