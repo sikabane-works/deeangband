@@ -35,6 +35,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	char caster_name[100] = KW_IT, target_name[100] = KW_IT;
 	int i, k;
+	int rad = 3;
 	DIRECTION dir = 0;
 	CREATURE_LEV user_level = caster_ptr->lev;
 	POWER damage = 0;
@@ -2707,31 +2708,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-
-	case TRAIT_LIGHTNING_STORM:
-		{
-			POWER dam = 90 + power * 3 / 2;
-			COODINATES rad = (COODINATES)power / 12 + 1;
-			cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dam, rad);
-		}
-		break;
-
-	case TRAIT_COLD_STORM:
-		{
-			POWER dam = 70 + power * 3 / 2;
-			COODINATES rad = (COODINATES)power / 12 + 1;
-			cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dam, rad);
-		}
-		break;
-
-	case TRAIT_WATER_STORM:
-		{
-			POWER dam = 100 + power * 3 / 2;
-			COODINATES rad = (COODINATES)power / 12 + 1;
-			cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, dam, rad);
-		}
-		break;
-
 	case TRAIT_NATURE_WRATH:
 		{
 			int d_dam = 4 * power;
@@ -2799,31 +2775,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
 	case TRAIT_BIZARRE_THING_OF_THE_RING: ring_of_power(caster_ptr); break;
 
-	case TRAIT_STORM_FIRE:
-		{
-			POWER dam = 300 + 3 * power;
-			DIRECTION rad = 8;
-			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
-		}
-
-	case TRAIT_STORM_NETHER:
-		{
-			POWER dam = power * 15;
-			COODINATES rad = (COODINATES)power / 5;
-			cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
-		}
-
-	case TRAIT_STORM_CHAOS:
-		{
-			POWER dam = power * 2 + 99;
-			COODINATES rad = (COODINATES)power / 5;
-			cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
-		}
-		break;
-
-	case TRAIT_POLYMORPH_OTHER:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1);
-		break;
+	/* Storm Attack Spell */
+	case TRAIT_STORM_FIRE: SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 300 + 3 * power, 8, -1);
+	case TRAIT_STORM_NETHER: cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, power / 5); break;
+	case TRAIT_STORM_CHAOS: cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, power / 5); break;
+	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_LIGHTNING_STORM: cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_COLD_STORM: cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_WATER_STORM: cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, power, rad); break;
 
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
