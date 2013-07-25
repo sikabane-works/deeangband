@@ -1741,10 +1741,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_PURISH_SHIELD:
-		pulish_shield(caster_ptr);
-		break;
-
 	case TRAIT_SPECIAL:
 		{
 			switch (caster_ptr->species_idx)
@@ -1909,10 +1905,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_EAT_MAGIC:
 		if(!eat_magic(caster_ptr, user_level * 2)) return FALSE;
-		break;
-
-	case TRAIT_BLESS_WEAPON:
-		if(!bless_weapon(caster_ptr)) return FALSE;
 		break;
 
 	case TRAIT_EVOCATION:
@@ -2293,14 +2285,32 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id);
 		break;
 
+
+	/* Beam Type Attack Spell */
+
 	case TRAIT_BEAM_CANNON:
 		cast_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level * 2, 0);
 		break;
 
+	case TRAIT_LIGHTNING_BEAM:
+		{
+			int dice = 3 + (power - 1) / 5;
+			int sides = 4;
+			COODINATES range = power / 6 + 2;
+			cast_beam(caster_ptr, DO_EFFECT_ELEC, range, diceroll(dice, sides), 0);
+		}
+		break;
+
+	case TRAIT_BEAM_MANA:
+		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0);
+		break;
 
 	case TRAIT_HYPN_GAZE:
 		cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0);
 		break;
+
+
+
 
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
@@ -2795,15 +2805,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_LIGHTNING_BEAM:
-		{
-			int dice = 3 + (power - 1) / 5;
-			int sides = 4;
-			COODINATES range = power / 6 + 2;
-			cast_beam(caster_ptr, DO_EFFECT_ELEC, range, diceroll(dice, sides), 0);
-		}
-		break;
-
 	case TRAIT_CHAIN_LIGHTNING:
 		{
 			int dice = 5 + power / 10;
@@ -2932,6 +2933,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 
 	/* enchant object type */
+	case TRAIT_PURISH_SHIELD: pulish_shield(caster_ptr); break;
+	case TRAIT_BLESS_WEAPON: if(!bless_weapon(caster_ptr)) return FALSE; break;
 	case TRAIT_ENCHANT_REMOVE: mundane_spell(caster_ptr, FALSE); break;
 	case TRAIT_ENCHANT_WEAPON_BOOST: enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0); break;
 	case TRAIT_ENCHANT_ARMOR_BOOST: enchant_spell(caster_ptr, 0, 0, randint0(3) + 2, 0, 0); break;
@@ -2944,15 +2947,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_ENCHANT_RANDOM_BRAND: brand_weapon(caster_ptr, randint0(18)); break;
 	case TRAIT_ENCHANT_HOLY_BRAND: brand_weapon(caster_ptr, 13); break;
 
-	/* wonder type */
+	/* Wonder Type Spell */
 	case TRAIT_WANDER: cast_wonder(caster_ptr); break;
 	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
 	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
-
-
-	case TRAIT_BEAM_MANA:
-		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0);
-		break;
 
 	case TRAIT_STORM_FIRE:
 		{
