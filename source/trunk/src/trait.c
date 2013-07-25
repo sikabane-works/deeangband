@@ -107,23 +107,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_LITE_LINE:
 	case TRAIT_SUNLIGHT:
-		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
+		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), id);
 		break;
 
 	case TRAIT_DRAIN_LIFE1:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);
-		break;
-
 	case TRAIT_DRAIN_LIFE2:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 120, -1);
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
-		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 50, -1)) heal_creature(caster_ptr, 50);
-		break;
-
 	case TRAIT_VAMPIRIC_DRAIN_2:
-		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1)) heal_creature(caster_ptr, 100);
+		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power);
 		break;
 
 	case TRAIT_GET_KAWARIMI:
@@ -137,21 +131,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_TRAP_WALK:
 		walk_creature(caster_ptr, dir, easy_disarm, TRUE);
-		break;
-
-	case TRAIT_WHIRLWIND:
-		for (dir = 0; dir <= DIRECTION_NUM; dir++)
-		{
-			y = caster_ptr->fy + ddy[dir];
-			x = caster_ptr->fx + ddx[dir];
-			cave_ptr = &floor_ptr->cave[y][x];
-
-			target_ptr = &creature_list[cave_ptr->creature_idx]; // Get the creature
-
-			// Hack -- attack creatures
-			if(cave_ptr->creature_idx && (target_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
-				close_combat(caster_ptr, y, x, 0);
-		}
 		break;
 
 	case TRAIT_CALL_CHAOS:
@@ -1822,7 +1801,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_PANIC_HIT: hit_and_away(caster_ptr); break;
 	case TRAIT_RUSH_ATTACK: rush_attack(caster_ptr, NULL); break;
-	case TRAIT_MASSACRE: massacre(caster_ptr); break;
+
+	case TRAIT_MASSACRE:
+	case TRAIT_WHIRLWIND:
+		massacre(caster_ptr); break;
 
 	case TRAIT_SWORD_DANCING:
 		{
