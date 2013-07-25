@@ -638,14 +638,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_EXPLOSIVE_RUNE:
-		explosive_rune(caster_ptr);
-		break;
-
-	case TRAIT_PROTECT_RUNE:
-		warding_glyph(caster_ptr);
-		break;
-
 	case TRAIT_SATIATE:
 		(void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
 		break;
@@ -1337,6 +1329,21 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_BLOOD_CURSE, NULL, -1);
 		break;
 
+	/* Generate Feature Spell */
+
+	case TRAIT_EXPLOSIVE_RUNE: explosive_rune(caster_ptr); break;
+	case TRAIT_PROTECT_RUNE: warding_glyph(caster_ptr); break;
+	case TRAIT_STONE_WALL: wall_stone(caster_ptr); break;
+	case TRAIT_CREATE_FOREST: project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1); break;
+	case TRAIT_FLOW_LAVA:
+		{
+			POWER dam = (55 + power) * 2;
+			COODINATES rad = 3;
+			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
+			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
+		}
+
+
 	case TRAIT_SHRIEK:
 		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
 		aggravate_creatures(caster_ptr);
@@ -1362,30 +1369,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3);
 		break;
 
-	case TRAIT_SLOW:
-		cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
-		break;
-
-	case TRAIT_HOLD:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1);
-		break;
+	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
+	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
 
 
 	case TRAIT_INVULNER:
 		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
 		break;
 
-	case TRAIT_CREATE_FOREST:
-		project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
-		break;
 
 	case TRAIT_RUSTPROOF:
 		rustproof(caster_ptr);
 		break;
 
-	case TRAIT_STONE_WALL:
-		wall_stone(caster_ptr);
-		break;
 
 	case TRAIT_STORM_MANA:
 		msg_print(MES_TRAIT_MANA_FIELD_DONE);
@@ -2908,14 +2904,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				break;
 		}
 		break;
-
-	case TRAIT_FLOW_LAVA:
-		{
-			POWER dam = (55 + power) * 2;
-			COODINATES rad = 3;
-			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
-			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
-		}
 
 	/* enchant object type */
 	case TRAIT_PURISH_SHIELD: pulish_shield(caster_ptr); break;
