@@ -165,11 +165,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_EARTHQUAKE:
-		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
-		break;
-
 	case TRAIT_TERROR:
+	case TRAIT_LAY_OF_FEAR:
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level);
 		break;
 
@@ -929,10 +926,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
 		break;
 
-	case TRAIT_LAY_OF_FEAR:
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level);
-		break;
-
 	case TRAIT_SLEEP_TOUCH:
 	case TRAIT_SLEEP:
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
@@ -1286,6 +1279,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_PROTECT_RUNE: warding_glyph(caster_ptr); break;
 	case TRAIT_STONE_WALL: wall_stone(caster_ptr); break;
 	case TRAIT_CREATE_FOREST: project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1); break;
+	case TRAIT_EARTHQUAKE: earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10); break;
 	case TRAIT_FLOW_LAVA:
 		{
 			POWER dam = (55 + power) * 2;
@@ -1322,15 +1316,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
-
-	case TRAIT_STORM_MANA:
-		msg_print(MES_TRAIT_MANA_FIELD_DONE);
-		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-		if(!saving_throw(caster_ptr, SAVING_VO, 120, 0))
-		{
-			(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
-		}
-		break;
 
 	/* Swarm Spell */
 	case TRAIT_METEOR_SWARM: cast_meteor(caster_ptr, power, 2); break;
@@ -2750,6 +2735,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		msg_print(MES_TRAIT_SONIC_BOOM);
 		project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, power, DO_EFFECT_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
 		break;
+
+	case TRAIT_STORM_MANA:
+		msg_print(MES_TRAIT_MANA_FIELD_DONE);
+		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
+		if(!saving_throw(caster_ptr, SAVING_VO, 120, 0))
+		{
+			(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
+		}
+		break;
+
 
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
