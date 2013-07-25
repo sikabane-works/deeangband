@@ -464,6 +464,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DETECT_OBJECT_MAGIC: detect_objects_magic(caster_ptr, DETECT_RAD_DEFAULT); break;
 	case TRAIT_DETECT_TRAPS: detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE); break;
 	case TRAIT_DETECT_DOOR: (void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT); break;
+	case TRAIT_SMELL_MON: detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT); break;
+
+	case TRAIT_SMELL_MET:
+		detect_treasure(caster_ptr, power / 5);
+		detect_objects_gold(caster_ptr, power / 5);
+		break;
 
 	case TRAIT_DETECT_DOOR_TRAP:
 		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
@@ -488,6 +494,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+
+
+
 	case TRAIT_MIRROR_SEAL:
 		seal_of_mirror(caster_ptr, user_level * 4 + 100);
 		break;
@@ -498,7 +507,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_MIRROR_BOLT:
-		if(user_level > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ) {
+		if(user_level > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) )
+		{
 			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
 		}
 		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
@@ -525,10 +535,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(user_level > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
 		if(user_level > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 		}
-		break;
-
-	case TRAIT_SUPERRAY:
-		cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*user_level), 0);
 		break;
 
 	case TRAIT_NATURE_AWARENESS:
@@ -808,6 +814,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 6);
 		break;
+
+	case TRAIT_BAZOOKA: cast_ball(caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id); break;
 
 	/* Breath Attack Spell */
 
@@ -2190,9 +2198,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
 		break;
 
-	case TRAIT_BAZOOKA:
-		cast_ball(caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id);
-		break;
 
 
 	/* Beam Type Attack Spell */
@@ -2203,6 +2208,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BEAM_MANA: cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0); break;
 	case TRAIT_HYPN_GAZE: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_LIGHTNING_BEAM: cast_beam(caster_ptr, DO_EFFECT_ELEC, power / 6 + 2, diceroll(3 + (power - 1) / 5, 4), 0); break;
+	case TRAIT_LASER_EYE: cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, 2 * user_level, 0); break;
+	case TRAIT_SUPERRAY: cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150 + randint1(2 * user_level), 0); break;
 
 
 
@@ -2225,15 +2232,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_RADIATION:
 		SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1);
-		break;
-
-	case TRAIT_SMELL_MET:
-		detect_treasure(caster_ptr, power / 5);
-		detect_objects_gold(caster_ptr, power / 5);
-		break;
-
-	case TRAIT_SMELL_MON:
-		(void)detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
 	case TRAIT_EAT_ROCK:
@@ -2456,10 +2454,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		break;
-
-	case TRAIT_LASER_EYE:
-		cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, 2 * user_level, 0);
 		break;
 
 	case TRAIT_BANISH:
