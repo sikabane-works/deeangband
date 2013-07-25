@@ -103,6 +103,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	switch(id)
 	{
+
+	case TRAIT_LITE_LINE:
 	case TRAIT_SUNLIGHT:
 		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
 		break;
@@ -130,10 +132,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			caster_ptr->posture |= NINJA_KAWARIMI;
 			prepare_redraw(PR_STATUS);
 		}
-		break;
-
-	case TRAIT_PSI_DRAIN:
-		cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, diceroll(user_level / 2, 6), 0);
 		break;
 
 	case TRAIT_TRAP_WALK:
@@ -723,6 +721,18 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Ball Attack Spell */
 
+	case TRAIT_MANA_BURST:
+		{
+			int dice = 3;
+			int sides = 5;
+			COODINATES rad = (power < 30) ? 2 : 3;
+			int base;
+			base = power + power / 2;
+
+			cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
+		}
+		break;
+
 	case TRAIT_BA_HOLYFIRE:
 		{
 			int dice = 3;
@@ -971,11 +981,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(50) + 50, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(50) + 50, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
-		break;
-
-	case TRAIT_HEAVENLY_CHOIR:
-		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE);
-		(void)heal_creature(caster_ptr, 777);
 		break;
 
 	case TRAIT_LAY_OF_FEAR:
@@ -1230,25 +1235,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
-
-	case TRAIT_DRAIN_MANA:
-		damage = (randint1(user_level) / 2) + 1;
-		cast_ball(caster_ptr, DO_EFFECT_DRAIN_MANA, MAX_RANGE_SUB, damage, 0);
-		break;
-
-	case TRAIT_MIND_BLAST:
-		cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, MAX_RANGE_SUB, damage, 0);
-		break;
-
-	case TRAIT_BRAIN_SMASH:
-		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB, damage, 0);
-		break;
-
-	case TRAIT_CAUSE_1: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, MAX_RANGE_SUB, damage, 0); break;
-	case TRAIT_CAUSE_2: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, MAX_RANGE_SUB, damage, 0); break;
-	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0); break;
-	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0); break;
-
 	/* Bolt Type Trait */
 
 	case TRAIT_BO_ACID_MINI:
@@ -1342,19 +1328,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level, 0);
 		break;
 
+	/* Curse Attack Spell */
 
+	case TRAIT_PSI_DRAIN: cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, power, 0); break;
+	case TRAIT_DRAIN_MANA: cast_ball(caster_ptr, DO_EFFECT_DRAIN_MANA, MAX_RANGE_SUB, power, 0); break;
+	case TRAIT_MIND_BLAST: cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, MAX_RANGE_SUB, power, 0); break;
+	case TRAIT_BRAIN_SMASH: cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB, power, 0); break;
+	case TRAIT_CAUSE_1: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_2: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0); break;
 
-	case TRAIT_MANA_BURST:
-		{
-			int dice = 3;
-			int sides = 5;
-			COODINATES rad = (power < 30) ? 2 : 3;
-			int base;
-			base = power + power / 2;
-
-			cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
-		}
-		break;
 
 	case TRAIT_SHRIEK:
 		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
@@ -2710,13 +2694,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DEC_CON: if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
 	case TRAIT_DEC_CHR: if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
 
-
-	case TRAIT_LITE_LINE:
-		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-		effected = TRUE;
-		break;
-
-
 	/* Standard Healing Spell */
 
 	case TRAIT_REGAL_HEAL_OF_AMBER:
@@ -2730,6 +2707,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SELF_HEALING_30D100:
 	case TRAIT_SELF_HEALING_100D100:
 		if(heal_creature(caster_ptr, power)) effected = TRUE;
+		break;
+
+	case TRAIT_HEAVENLY_CHOIR:
+		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE);
+		(void)heal_creature(caster_ptr, 777);
 		break;
 
 	/* Restore Soul Spell */
