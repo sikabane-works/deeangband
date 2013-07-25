@@ -366,10 +366,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		choose_ele_immune(caster_ptr, 10 + randint1(10));
 		break;
 
-	case TRAIT_GET_ESP:
-		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
-		break;
-
 	case TRAIT_RESIST:
 	case TRAIT_MAGIC_RES_ELEMENT:
 		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE)) effected = TRUE;
@@ -404,6 +400,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_GET_ESP: (void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE); break;
+	case TRAIT_HASTE: set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE); break;
+	case TRAIT_HASTE_2: set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE); break;
+	case TRAIT_SLOW_SELF: add_timed_trait(caster_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE); break;
+	case TRAIT_WRAITH_FORM: set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE); break;
 	case TRAIT_INVULNER: (void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE); break;
 	case TRAIT_GET_SEE_INVISIBLE: set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(24) + 24, FALSE); break;
 	case TRAIT_GET_SEE_INFRA: set_timed_trait(caster_ptr, TRAIT_SEE_INFRA, randint1(24) + 24, FALSE); break;
@@ -421,8 +422,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_GET_CONFUSING_MELEE: set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE); break;
 	case TRAIT_GET_MULTI_SHADOW: set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE); break;
 	case TRAIT_GET_MAGIC_DEF: set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE); break;
-
-
 
 
 	case TRAIT_SPLASH_LITE:
@@ -447,15 +446,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-		//TODO Remove duplicated process
-	case TRAIT_HASTE:
-		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE))
-			break;
-
-	case TRAIT_HASTE_2:
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE);
-		break;
-
 	case TRAIT_HASTE_OTHER:
 		{
 				/* Temporary enable target_pet option */
@@ -469,16 +459,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_SLOW_SELF:
-		add_timed_trait(caster_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE);
-		break;
 
 	case TRAIT_HASTE_OTHERS:
 		project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, user_level);
-		break;
-
-	case TRAIT_WRAITH_FORM:
-		set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE);
 		break;
 
 	case TRAIT_RESET_RECALL:
@@ -1369,13 +1352,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_METEOR_SWARM:
-		cast_meteor(caster_ptr, power, 2);
-		break;
-
-	case TRAIT_FIRE_SWARM:
-		rengoku_kaen(caster_ptr);
-		break;
+	/* Swarm Spell */
+	case TRAIT_METEOR_SWARM: cast_meteor(caster_ptr, power, 2); break;
+	case TRAIT_FIRE_SWARM: rengoku_kaen(caster_ptr); break;
 
 	case TRAIT_HIDE_IN_MYST:
 		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
@@ -1405,10 +1384,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, 0);
 				}
 		}
-		break;
-
-	case TRAIT_SEEKER_RAY:
-		cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(user_level-5)/4,8), 0);
 		break;
 
 	case TRAIT_BLINK:
@@ -2247,17 +2222,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Beam Type Attack Spell */
 
-	case TRAIT_BE_GRAV:
-		{
-			int dice = 9 + (power - 5) / 4;
-			int sides = 8;
-			cast_beam(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
-		break;
-
-	case TRAIT_BEAM_CANNON:
-		cast_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level * 2, 0);
-		break;
+	case TRAIT_BE_GRAV: cast_beam(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, diceroll(9 + (power - 5) / 4, 8), 0); break;
+	case TRAIT_SEEKER_RAY: cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(user_level - 5) / 4,8), 0); break;
+	case TRAIT_BEAM_CANNON: cast_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level * 2, 0); break;
+	case TRAIT_BEAM_MANA: cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0); break;
+	case TRAIT_HYPN_GAZE: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
 
 	case TRAIT_LIGHTNING_BEAM:
 		{
@@ -2268,13 +2237,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_BEAM_MANA:
-		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0);
-		break;
-
-	case TRAIT_HYPN_GAZE:
-		cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0);
-		break;
 
 
 
