@@ -811,9 +811,155 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
+	case TRAIT_BA_CHAO:
+		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
+		cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 4);
+		break;
+
+	case TRAIT_BA_ACID:
+		damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		cast_ball(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 2);
+		break;
+
+	case TRAIT_BA_ELEC:
+		damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 2);
+		break;
+
+	case TRAIT_BA_FIRE:
+		if(caster_ptr->species_idx == SPECIES_ROLENTO)
+		{
+			if(blind) msg_format(MES_TRAIT_BO_FIRE_RORENTO_BLIND(caster_ptr));
+			else  msg_format(MES_TRAIT_BO_FIRE_RORENTO(caster_ptr));
+		}
+		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 2);
+		break;
+
+	case TRAIT_BA_POIS:
+		damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 2);
+		break;
+
+	case TRAIT_BA_NETH:
+		damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
+		cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 2);
+		break;
+
+	case TRAIT_BA_WATE:
+		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
+		cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, damage, 4);
+		break;
+
+	case TRAIT_BA_MANA:
+		damage = (user_level * 4) + 50 + diceroll(10, 10);
+		cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, 6);
+		break;
+
+	case TRAIT_BA_DARK:
+		damage = (user_level * 4) + 50 + diceroll(10, 10);
+		cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 6);
+		break;
+
+	/* Breath Attack Spell */
+
+	case TRAIT_BR_DISI:
+		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
 	case TRAIT_ELEMENTAL_BREATH:
 		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_MISSILE, 300, 4, id);
 		break;
+
+	case TRAIT_BR_ACID:
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_ELEC:
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_FIRE:
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_COLD:
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_POIS:
+		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_NETH:
+		damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_LITE:
+		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_DARK:
+		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_CONF:
+		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_SOUN:
+		if(caster_ptr->species_idx == SPECIES_JAIAN) msg_format(MES_TRAIT_BR_SOUN_JAIAN);
+		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_CHAO:
+		damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_DISE:
+		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_DISENCHANT, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_NEXU:
+		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_TIME:
+		damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_TIME, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_INER:
+		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+		breath(caster_ptr, DO_EFFECT_INERTIA, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+	case TRAIT_BR_GRAV:
+		damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
+		breath(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, damage, 3, id);
+		break;
+
+
+
+
+
+
+
+
 
 	case TRAIT_MULTI_BLESS_1:
 		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, FALSE);
@@ -1058,95 +1204,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		//TODO
 		break;
 
-	case TRAIT_BR_ACID:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_ELEC:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_FIRE:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_COLD:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_POIS:
-		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_NETH:
-		damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_LITE:
-		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_DARK:
-		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_CONF:
-		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_SOUN:
-		if(caster_ptr->species_idx == SPECIES_JAIAN) msg_format(MES_TRAIT_BR_SOUN_JAIAN);
-		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_CHAO:
-		damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_DISE:
-		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_DISENCHANT, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_NEXU:
-		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_TIME:
-		damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_TIME, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_INER:
-		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_INERTIA, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_GRAV:
-		damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BE_GRAV:
-		{
-			int dice = 9 + (power - 5) / 4;
-			int sides = 8;
-			cast_beam(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
-		break;
-
 	case TRAIT_BR_SHAR:
 		if(caster_ptr->species_idx == SPECIES_BOTEI) msg_format(MES_TRAIT_BR_SHAR_BOTEI);
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
@@ -1173,60 +1230,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
-	case TRAIT_BA_CHAO:
-		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-		cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 4);
-		break;
-
-	case TRAIT_BR_DISI:
-		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BA_ACID:
-		damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_ELEC:
-		damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_FIRE:
-		if(caster_ptr->species_idx == SPECIES_ROLENTO)
-		{
-			if(blind) msg_format(MES_TRAIT_BO_FIRE_RORENTO_BLIND(caster_ptr));
-			else  msg_format(MES_TRAIT_BO_FIRE_RORENTO(caster_ptr));
-		}
-		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_POIS:
-		damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_NETH:
-		damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-		cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_WATE:
-		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-		cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, damage, 4);
-		break;
-
-	case TRAIT_BA_MANA:
-		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, 6);
-		break;
-
-	case TRAIT_BA_DARK:
-		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 6);
-		break;
 
 	case TRAIT_DRAIN_MANA:
 		damage = (randint1(user_level) / 2) + 1;
@@ -1247,6 +1250,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0); break;
 
 	/* Bolt Type Trait */
+
 	case TRAIT_BO_ACID_MINI:
 	case TRAIT_BO_ACID:
 		damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
@@ -1329,6 +1333,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		damage = diceroll(2, 6) + user_level * 2 / 3;
 		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, damage, 0);
 		break;
+
+	case TRAIT_RAY_GUN:
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, (user_level+1) / 2, 0);
+		break;
+
+	case TRAIT_BLASTER:
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level, 0);
+		break;
+
+
 
 	case TRAIT_MANA_BURST:
 		{
@@ -2279,20 +2293,20 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
 		break;
 
-	case TRAIT_RAY_GUN:
-		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, (user_level+1) / 2, 0);
-		break;
-
-	case TRAIT_BLASTER:
-		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level, 0);
-		break;
-
 	case TRAIT_BAZOOKA:
 		cast_ball(caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id);
 		break;
 
 
 	/* Beam Type Attack Spell */
+
+	case TRAIT_BE_GRAV:
+		{
+			int dice = 9 + (power - 5) / 4;
+			int sides = 8;
+			cast_beam(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+		}
+		break;
 
 	case TRAIT_BEAM_CANNON:
 		cast_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level * 2, 0);
