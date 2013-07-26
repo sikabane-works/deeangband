@@ -125,6 +125,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DISPEL_GOOD_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, user_level * 5); break;
 	case TRAIT_BANISH_EVIL: project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100); break;
 	case TRAIT_DISPEL_LIVES: project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(power)); break;
+	case TRAIT_HASTE_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, user_level); break;
+	case TRAIT_MASS_SLEEP: project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power); break;
+	case TRAIT_MASS_SLOW: project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level); break;
 
 	case TRAIT_MOON_DAZZLING:
 		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
@@ -164,6 +167,21 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
 			project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 		}
+
+	case TRAIT_EXORCISM:
+		{
+			int sides = power;
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
+			project_all_vision(caster_ptr, DO_EFFECT_TURN_EVIL, power);
+		}
+		break;
+
+	case TRAIT_HOLY_WORD:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(power));
+		heal_creature(caster_ptr, power);
+		break;
+
 
 	/* Genocide Spells */
 
@@ -335,6 +353,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_GET_ESP: (void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE); break;
 	case TRAIT_HASTE: set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE); break;
 	case TRAIT_HASTE_2: set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE); break;
+	case TRAIT_GET_EYE_FOR_EYE: set_timed_trait(caster_ptr, TRAIT_EYE_EYE, randint1(10) + 10, FALSE); break;
 	case TRAIT_SLOW_SELF: add_timed_trait(caster_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE); break;
 	case TRAIT_WRAITH_FORM: set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE); break;
 	case TRAIT_INVULNER: (void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE); break;
@@ -369,13 +388,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 
-	case TRAIT_HASTE_OTHERS:
-		project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, user_level);
-		break;
-
-	case TRAIT_RESET_RECALL:
-		reset_recall(caster_ptr);
-		break;
+	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
 
 
 	//TODO Remove duplicated process
@@ -1444,10 +1457,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_GET_EYE_FOR_EYE:
-		set_timed_trait(caster_ptr, TRAIT_EYE_EYE, randint1(10) + 10, FALSE);
-		break;
-
 	case TRAIT_WRATH_OF_GOD:
 		cast_wrath_of_the_god(caster_ptr, power, 2);
 		break;
@@ -1728,10 +1737,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else msg_print(MES_CONVERT_FAILED);
 		break;
 
-	case TRAIT_MASS_SLOW:
-		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
-		break;
-
 	case TRAIT_CONFUSING_LIGHT:
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
@@ -2002,10 +2007,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else (void)project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
 		break;
 
-	case TRAIT_MASS_SLEEP:
-		project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
-		break;
-
 	case TRAIT_TURN_UNDEAD:
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_UNDEAD, user_level);
 		break;
@@ -2031,10 +2032,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SHOCK_WAVE:
 		shock_wave(caster_ptr);
-		break;
-
-	case TRAIT_VTELEPORT:
-		teleport_creature(caster_ptr, 10 + 4 * (COODINATES)user_level, 0L);
 		break;
 
 	case TRAIT_MIND_BLST:
@@ -2160,20 +2157,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SCATTER_EVIL:
 		cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0);
-		break;
-
-	case TRAIT_EXORCISM:
-		{
-			int sides = power;
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
-			project_all_vision(caster_ptr, DO_EFFECT_TURN_EVIL, power);
-		}
-		break;
-
-	case TRAIT_HOLY_WORD:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(power));
-		heal_creature(caster_ptr, power);
 		break;
 
 	case TRAIT_LIVING_TRUMP:
@@ -2470,6 +2453,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_VTELEPORT: teleport_creature(caster_ptr, 10 + 4 * (COODINATES)user_level, 0L); break;
 	case TRAIT_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_MASS_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_TELE_LEVEL: teleport_level(caster_ptr, 0); break;
