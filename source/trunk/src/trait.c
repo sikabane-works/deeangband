@@ -392,15 +392,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 
 
-	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
+	/* Light Spell */
 
-
-	//TODO Remove duplicated process
 	case TRAIT_ILLUMINE:
 	case TRAIT_LIGHT_AREA:
 	case TRAIT_ILLUMINATION:
 		effected = lite_area(caster_ptr, diceroll(2, 15), 3);
 		break;
+
+	case TRAIT_DARKNESS: (void)unlite_area(caster_ptr, 10, 3); break;
+
 
 	/* Detect Spells */
 
@@ -608,6 +609,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
 		}
 		break;
+
+	case TRAIT_FORCE_FIST: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, 0); break;
 
 	case TRAIT_BA_HOLYFIRE:
 		{
@@ -1371,14 +1374,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 		break;
 
-	case TRAIT_FORCE_FIST:
-		{
-			int dice = 8 + ((power - 5) / 4);
-			int sides = 8;
-			cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
-		break;
-
 	case TRAIT_SPECIAL:
 		{
 			switch (caster_ptr->species_idx)
@@ -1470,10 +1465,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 			break;
 		}
-
-	case TRAIT_DARKNESS:
-		(void)unlite_area(caster_ptr, 10, 3);
-		break;
 
 	case TRAIT_PSY_SPEAR:
 		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
@@ -2335,6 +2326,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 
 	/* etc Spells */
+	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
 	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
 	case TRAIT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
 	case TRAIT_PHLOGISTON: phlogiston(caster_ptr); break;
