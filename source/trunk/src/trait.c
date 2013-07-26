@@ -170,18 +170,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level);
 		break;
 
-	case TRAIT_TELE_AWAY:
-		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0);
-		break;
-
-	case TRAIT_MASS_TELE_AWAY:
-		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0);
-		break;
-
-	case TRAIT_TELE_LEVEL:
-		teleport_level(caster_ptr, 0);
-		break;
-
 	case TRAIT_BANISH_EVIL:
 		project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100);
 		break;
@@ -491,7 +479,52 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_NATURE_AWARENESS:
+		map_area(caster_ptr, DETECT_RAD_MAP);
+		detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+		detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+		detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
+		detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
 
+	case TRAIT_ENLIGHTENMENT:
+		msg_print(MES_DETECT_ENLIGHTMENT);
+		wiz_lite(floor_ptr, caster_ptr, FALSE);
+		effected = TRUE;
+		break;
+
+	case TRAIT_STAR_ENLIGHTENMENT:
+		msg_print(MES_DETECT_MORE_ENLIGHTMENT);
+		msg_print(NULL);
+		wiz_lite(floor_ptr, caster_ptr, FALSE);
+		(void)do_inc_stat(caster_ptr, STAT_INT);
+		(void)do_inc_stat(caster_ptr, STAT_WIS);
+		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		identify_pack(caster_ptr);
+		creature_knowledge(caster_ptr);
+		effected = TRUE;
+		break;
+
+	case TRAIT_CALL_SUNLIGHT:
+		{
+			POWER dam = 150;
+			COODINATES rad = 8;
+
+				SELF_FIELD(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
+				wiz_lite(floor_ptr, caster_ptr, FALSE);
+
+				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
+				{
+					msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
+					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
+				}
+		}
+		break;
 
 
 	case TRAIT_MIRROR_SEAL:
@@ -534,19 +567,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_NATURE_AWARENESS:
-		{
-		COODINATES rad1 = DETECT_RAD_MAP;
-		COODINATES rad2 = DETECT_RAD_DEFAULT;
-		map_area(caster_ptr, rad1);
-		detect_traps(caster_ptr, rad2, TRUE);
-		detect_doors(caster_ptr, rad2);
-		detect_stairs(caster_ptr, rad2);
-		detect_creatures_normal(caster_ptr, rad2);
-		break;
-		}
+	/* Identify Spell */
 
-	/* Identify type */
 	case TRAIT_IDENTIFY:
 		if(ident_spell(caster_ptr, FALSE)) return TRUE;
 		break;
@@ -573,13 +595,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else if(!ident_spell(caster_ptr, TRUE)) return TRUE;
 		break;
 
-	case TRAIT_MOON_DAZZLING:
-		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
-		break;
-
 	/* Disarm Type Spell */
 	case TRAIT_DESTROY_DOOR_TRAP:
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
@@ -593,10 +608,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1);
 		break;
 
-	case TRAIT_STONE_TO_MUD:
-		cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1);
-		break;
-
 	case TRAIT_CREATE_CLONE:
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
 		break;
@@ -605,20 +616,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE;
 		break;
 
-	case TRAIT_STAIR_BUILDING:
-		stair_creation(caster_ptr, floor_ptr);
-		break;
-
 	case TRAIT_MAGIC_CHARGE_2:
 		recharge(caster_ptr, 130);
 		break;
 
 	case TRAIT_MAGIC_CHARGE_EX:
 		if(!recharge(caster_ptr, 1000)) return FALSE;
-		break;
-
-	case TRAIT_MIDAS_TCH:
-		(void)alchemy(caster_ptr);
 		break;
 
 	case TRAIT_DIMENSION_DOOR:
@@ -646,7 +649,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);
 		break;
 
-	/* Ball Attack Spell */
+	/* Ball Attack Spells */
+
+	case TRAIT_STAR_BALL: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id); break;
 
 	case TRAIT_MANA_BURST:
 		{
@@ -1009,10 +1014,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
 		break;
 
-	case TRAIT_STAR_BALL:
-		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id);
-		break;
-
 	case TRAIT_INROU:
 		{
 			int count = 0, i;
@@ -1266,6 +1267,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_STONE_WALL: wall_stone(caster_ptr); break;
 	case TRAIT_CREATE_FOREST: project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1); break;
 	case TRAIT_EARTHQUAKE: earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10); break;
+	case TRAIT_STONE_TO_MUD: cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1); break;
+	case TRAIT_STAIR_BUILDING: stair_creation(caster_ptr, floor_ptr); break;
+
 	case TRAIT_FLOW_LAVA:
 		{
 			POWER dam = (55 + power) * 2;
@@ -1273,6 +1277,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
 			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 		}
+
 
 
 	case TRAIT_SHRIEK:
@@ -1336,25 +1341,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				}
 		}
 		break;
-
-	case TRAIT_BLINK:
-		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
-		else
-		{
-			msg_format(MES_TRAIT_BLINK_DONE(caster_ptr));
-			teleport_away(caster_ptr, 10, 0L);
-			prepare_update(caster_ptr, PU_CREATURES);
-		}
-		break;
-
-	case TRAIT_ACTIVE_TELEPORT:
-			if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
-			else
-			{
-				msg_format(MES_TRAIT_TELEPORT_DONE(caster_ptr));
-				teleport_away_followable(caster_ptr);
-			}
-			break;
 
 	case TRAIT_CAPTURE_CREATURE:
 		{
@@ -2464,45 +2450,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		creature_knowledge(caster_ptr);
 		break;
 
-	case TRAIT_ENLIGHTENMENT:
-		msg_print(MES_DETECT_ENLIGHTMENT);
-		wiz_lite(floor_ptr, caster_ptr, FALSE);
-		effected = TRUE;
-		break;
-
-	case TRAIT_STAR_ENLIGHTENMENT:
-		msg_print(MES_DETECT_MORE_ENLIGHTMENT);
-		msg_print(NULL);
-		wiz_lite(floor_ptr, caster_ptr, FALSE);
-		(void)do_inc_stat(caster_ptr, STAT_INT);
-		(void)do_inc_stat(caster_ptr, STAT_WIS);
-		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
-		(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
-		(void)detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
-		(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		identify_pack(caster_ptr);
-		creature_knowledge(caster_ptr);
-		effected = TRUE;
-		break;
-
-	case TRAIT_CALL_SUNLIGHT:
-		{
-			POWER dam = 150;
-			COODINATES rad = 8;
-
-				SELF_FIELD(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
-				wiz_lite(floor_ptr, caster_ptr, FALSE);
-
-				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
-				{
-					msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
-				}
-		}
-		break;
-
 	case TRAIT_BLESSING_SELF:
 		set_timed_trait(caster_ptr, TRAIT_BLESSED, power, FALSE);
 		break;
@@ -2605,44 +2552,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)restore_exp(caster_ptr);
 		break;
 
-	case TRAIT_CHAIN_LIGHTNING:
-		{
-			int dice = 5 + power / 10;
-			int sides = 8;
-			for (dir = 0; dir <= 9; dir++) cast_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
-		break;
-
-	case TRAIT_NATURE_WRATH:
-		{
-			int d_dam = 4 * power;
-			int b_dam = (100 + power) * 2;
-			int b_rad = 1 + power / 12;
-			int q_rad = 20 + power / 2;
-
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
-				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
-				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
-		}
-
-	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0); break;
-
-	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
-
-	case TRAIT_HEAL_OTHER:
-		{
-			int heal = power + 200;
-			bool result;
-			bool old_target_pet = target_pet; /* Temporary enable target_pet option */
-			target_pet = TRUE;
-
-			result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
-			target_pet = old_target_pet; /* Restore target_pet option */
-
-			if(!result) break;
-			cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
-		}
-		break;
 
 	/* Enchant Object Type */
 
@@ -2689,6 +2598,41 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	/* Teleport Spells */
+
+	case TRAIT_BLINK:
+		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
+		else
+		{
+			msg_format(MES_TRAIT_BLINK_DONE(caster_ptr));
+			teleport_away(caster_ptr, 10, 0L);
+			prepare_update(caster_ptr, PU_CREATURES);
+		}
+		break;
+
+	case TRAIT_ACTIVE_TELEPORT:
+		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
+		else
+		{
+			msg_format(MES_TRAIT_TELEPORT_DONE(caster_ptr));
+			teleport_away_followable(caster_ptr);
+		}
+		break;
+
+	case TRAIT_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_MASS_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_TELE_LEVEL: teleport_level(caster_ptr, 0); break;
+
+
+
+	/* etc Spells */
+	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
+	case TRAIT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
+	case TRAIT_PHLOGISTON: phlogiston(caster_ptr); break;
+	case TRAIT_SHOOT: if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE; break;
+	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_MIDAS_TCH: (void)alchemy(caster_ptr); break;
+
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
 		caster_ptr->charged_force += (70 + user_level);
@@ -2699,31 +2643,65 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, caster_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
 		}
-		else return TRUE;
 		break;
 
-	/* etc spell*/
-	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
-	case TRAIT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
-	case TRAIT_PHLOGISTON: phlogiston(caster_ptr); break;
-	case TRAIT_SHOOT: if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE; break;
-	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_CHAIN_LIGHTNING:
+		{
+			int dice = 5 + power / 10;
+			int sides = 8;
+			for(dir = 0; dir <= 9; dir++) cast_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+		}
+		break;
+
+	case TRAIT_NATURE_WRATH:
+		{
+			int d_dam = 4 * power;
+			int b_dam = (100 + power) * 2;
+			int b_rad = 1 + power / 12;
+			int q_rad = 20 + power / 2;
+
+				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
+				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
+				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+		}
+
+	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0); break;
+	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
+
+	case TRAIT_HEAL_OTHER:
+		{
+			int heal = power + 200;
+			bool result;
+			bool old_target_pet = target_pet; /* Temporary enable target_pet option */
+			target_pet = TRUE;
+
+			result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
+			target_pet = old_target_pet; /* Restore target_pet option */
+
+			if(!result) break;
+			cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
+		}
+		break;
+
+	case TRAIT_MOON_DAZZLING:
+		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		break;
 
 	default: msg_warning("Undefined active trait."); break;
 
 	}
 
 	if(fumble_summoned) msg_format(MES_SUMMON_FUMBLE(summoned_name));
+
 	if(kichigai_talk)
 	{
 		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK)) msg_print("やりやがったな！");
 		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK)) msg_print("弱いものいじめはやめるんだ！");
-		/*
-		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-		msg_print("くっそ～");
-		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-		msg_print("なんて事をするんだ！");
-		*/
+		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK)) msg_print("くっそ～");
+		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK)) msg_print("なんて事をするんだ！");
 	}
 
 	if(summoned) if(blind && count) msg_print(MES_SUMMON_FEELING);
