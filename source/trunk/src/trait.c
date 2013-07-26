@@ -2051,24 +2051,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_CREATE_FOOD:
-		{
-			object_type *quest_ptr;
-			object_type forge;
-			quest_ptr = &forge; // Get local object
-			generate_object(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION)); // Create the food ration 
-			(void)drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx); // Drop the object from heaven 
-		}
-		break;
-
-	case TRAIT_ACQUIREMENT1:
-		acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, 1, TRUE, FALSE);
-		break;
-
-	case TRAIT_ACQUIREMENT2:
-		acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, randint1(2) + 1, TRUE, FALSE);
-		break;
-
 	case TRAIT_SHADOW_SHIFT:
 		alter_reality(caster_ptr);
 		break;
@@ -2512,6 +2494,21 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)do_res_stat(caster_ptr, STAT_CON);
 		(void)do_res_stat(caster_ptr, STAT_CHA);
 		(void)restore_exp(caster_ptr);
+		break;
+
+	/* Generate Object Type */
+
+	case TRAIT_ACQUIREMENT1: acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, 1, TRUE, FALSE); break;
+	case TRAIT_ACQUIREMENT2: acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, randint1(2) + 1, TRUE, FALSE); break;
+
+	case TRAIT_CREATE_FOOD:
+		{
+			object_type *quest_ptr;
+			object_type forge;
+			quest_ptr = &forge; // Get local object
+			generate_object(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION)); // Create the food ration 
+			(void)drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx); // Drop the object from heaven 
+		}
 		break;
 
 
