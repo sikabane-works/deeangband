@@ -293,32 +293,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, id, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
-	case TRAIT_ELEMENTAL_BALL:
-		{
-			POWER dam = 75 + power;
-			COODINATES rad = 2;
-			int type;
-			switch (randint1(4))
-			{
-				case 1:  type = DO_EFFECT_FIRE; break;
-				case 2:  type = DO_EFFECT_ELEC; break;
-				case 3:  type = DO_EFFECT_COLD; break;
-				default: type = DO_EFFECT_ACID; break;
-			}
-			cast_ball(caster_ptr, type, MAX_RANGE_SUB, dam, rad);
-		}
-		break;
-
 
 	case TRAIT_REMOVE_POISON: (void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE); break;
-
-	case TRAIT_GET_ELEMENT_BRAND:
-		choose_ele_attack(caster_ptr);
-		break;
-
-	case TRAIT_GET_IMMUNE:
-		choose_ele_immune(caster_ptr, 10 + randint1(10));
-		break;
+	case TRAIT_GET_ELEMENT_BRAND: choose_ele_attack(caster_ptr); break;
+	case TRAIT_GET_IMMUNE: choose_ele_immune(caster_ptr, 10 + randint1(10)); break;
 
 	case TRAIT_RESIST:
 	case TRAIT_MAGIC_RES_ELEMENT:
@@ -342,6 +320,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_BECOME_HERO:
+		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
+		if(add_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
+		if(heal_creature(caster_ptr, 10)) effected = TRUE;
+		break;
+
 	case TRAIT_DEVIL_CLOAK:
 		{
 			int base = 20;
@@ -354,6 +338,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_MAGIC_RES_COLD: (void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE); break;
 	case TRAIT_BLESSING_SELF: set_timed_trait(caster_ptr, TRAIT_BLESSED, power, FALSE); break;
 	case TRAIT_GET_ESP: (void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE); break;
 	case TRAIT_HASTE: set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE); break;
@@ -643,6 +628,22 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_STAR_BALL: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id); break;
 	case TRAIT_ROCKET: cast_ball(caster_ptr, DO_EFFECT_ROCKET, (caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4), damage, 2); break;
+
+	case TRAIT_ELEMENTAL_BALL:
+		{
+			POWER dam = 75 + power;
+			COODINATES rad = 2;
+			int type;
+			switch (randint1(4))
+			{
+				case 1:  type = DO_EFFECT_FIRE; break;
+				case 2:  type = DO_EFFECT_ELEC; break;
+				case 3:  type = DO_EFFECT_COLD; break;
+				default: type = DO_EFFECT_ACID; break;
+			}
+			cast_ball(caster_ptr, type, MAX_RANGE_SUB, dam, rad);
+		}
+		break;
 
 	case TRAIT_MANA_BURST:
 		{
@@ -1046,16 +1047,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_WOODEN_CRAPPING:
-		aggravate_creatures(caster_ptr);
-		break;
-
-	case TRAIT_BECOME_HERO:
-		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
-		if(add_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
-		if(heal_creature(caster_ptr, 10)) effected = TRUE;
-		break;
-
 	case TRAIT_CHANGE_BRAND:
 		//get_bloody_moon_flags(object_ptr);
 		if(has_trait(caster_ptr, TRAIT_ANDROID)) calc_android_exp(caster_ptr);
@@ -1068,15 +1059,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 3);
 		break;
 
-	case TRAIT_MAGIC_RES_COLD:
-		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
-		break;
-
-	case TRAIT_REMOVE_CURSE_1:
-		if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-
-	case TRAIT_REMOVE_CURSE_2:
-		if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
+	case TRAIT_REMOVE_CURSE_1: if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
+	case TRAIT_REMOVE_CURSE_2: if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 
 	case TRAIT_RESTORE_MANA:
 		{
@@ -1269,13 +1253,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
 			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 		}
-
-
-
-	case TRAIT_SHRIEK:
-		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
-		aggravate_creatures(caster_ptr);
-		break;
 
 	case TRAIT_SCARE_CREATURE:
 	case TRAIT_SHOUT:
@@ -2673,6 +2650,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		break;
+
+	case TRAIT_WOODEN_CRAPPING: aggravate_creatures(caster_ptr); break;
+	case TRAIT_SHRIEK:
+		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
+		aggravate_creatures(caster_ptr);
 		break;
 
 	default: msg_warning("Undefined active trait."); break;
