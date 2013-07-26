@@ -1161,6 +1161,26 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power);
 		break;
 
+	case TRAIT_SCARE_CREATURE:
+	case TRAIT_SHOUT:
+	case TRAIT_SCARE:
+		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
+		break;
+
+	case TRAIT_BLIND: cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
+
+	case TRAIT_CONFUSE_TOUCH:
+	case TRAIT_PANIC_CREATURE:
+	case TRAIT_CONF:
+		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
+		break;
+
+	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3); break;
+
+	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
+	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
+
+
 	/* Curse Attack Spell */
 
 	case TRAIT_PSI_DRAIN: cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, power, 0); break;
@@ -1196,25 +1216,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 		}
 
-	case TRAIT_SCARE_CREATURE:
-	case TRAIT_SHOUT:
-	case TRAIT_SCARE:
-		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
-		break;
-
-	case TRAIT_BLIND: cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
-
-	case TRAIT_CONFUSE_TOUCH:
-	case TRAIT_PANIC_CREATURE:
-	case TRAIT_CONF:
-		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
-		break;
-
-	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3); break;
-
-	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
-	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
-
 	/* Swarm Spell */
 	case TRAIT_METEOR_SWARM: cast_meteor(caster_ptr, power, 2); break;
 	case TRAIT_FIRE_SWARM: rengoku_kaen(caster_ptr); break;
@@ -1230,8 +1231,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				{
 					/* Special effect first */
 					int effect = randint1(1000);
-					if(effect == 666)
-						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, power * 200, 0);
+					if(effect == 666) cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, power * 200, 0);
 					else if(effect < 500)
 						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, power, 0);
 					else if(effect < 800)
