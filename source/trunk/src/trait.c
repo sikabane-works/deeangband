@@ -270,6 +270,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_GRENADE:
+		{
+			int num = 1 + randint1(3);
+			for (k = 0; k < num; k++) count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
+			break;
+		}
+
 	case TRAIT_S_GREATER_DEMON:
 		cast_summon_greater_demon(caster_ptr);
 		break;
@@ -1197,6 +1204,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, MAX_RANGE_SUB, 600, 0);
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_BLOOD_CURSE, NULL, -1);
 		break;
+	case TRAIT_MALEDICTION:
+		cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, (3 + (power - 1) / 5 * 4), 0);
+		if(one_in_(5))
+		{
+			int effect = randint1(1000);
+			if(effect == 666) cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, power * 200, 0);
+			else if(effect < 500) cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, power, 0);
+			else if(effect < 800) cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, power, 0);
+			else cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, 0);
+		}
+		break;
 
 	/* Generate Feature Spell */
 
@@ -1220,158 +1238,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_METEOR_SWARM: cast_meteor(caster_ptr, power, 2); break;
 	case TRAIT_FIRE_SWARM: rengoku_kaen(caster_ptr); break;
 
-	case TRAIT_MALEDICTION:
-		{
-			int dice = 3 + (power - 1) / 5;
-			int sides = 4;
-			COODINATES rad = 0;
-				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), rad);
-
-				if(one_in_(5))
-				{
-					/* Special effect first */
-					int effect = randint1(1000);
-					if(effect == 666) cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, power * 200, 0);
-					else if(effect < 500)
-						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, power, 0);
-					else if(effect < 800)
-						cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, power, 0);
-					else
-						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, 0);
-				}
-		}
-		break;
-
-	case TRAIT_CAPTURE_CREATURE:
-		{
-			object_type *object_ptr = NULL;
-			{
-				bool old_target_pet = target_pet;
-				target_pet = TRUE;
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir))
-				{
-					target_pet = old_target_pet;
-					break;
-				}
-				target_pet = old_target_pet;
-
-				//if(cast_ball_aux(ty, tx, caster_ptr, DO_EFFECT_CAPTURE, 0, 0))
-				{
-					//TODO: Capture creature status.
-
-					/*
-					if(cap_nickname)
-					{
-					cptr t;
-					char *s;
-					char buf[80] = "";
-
-					if(object_ptr->inscription)
-					strcpy(buf, quark_str(object_ptr->inscription));
-					s = buf;
-					for (s = buf;*s && (*s != '#'); s++)
-					{
-					#ifdef JP
-					if(iskanji(*s)) s++;
-					#endif
-					}
-					*s = '#';
-					s++;
-					#ifdef JP
-					//nothing
-					#else
-					*s++ = '\'';
-					#endif
-					t = quark_str(cap_nickname);
-					while (*t)
-					{
-					*s = *t;
-					s++;
-					t++;
-					}
-					#ifdef JP
-					//nothing
-					#else
-					*s++ = '\'';
-					#endif
-					*s = '\0';
-					object_ptr->inscription = quark_add(buf);
-					}
-					*/
-
-				}
-			}
-			//TODO else
-			{
-				bool success = FALSE;
-				if(species_can_enter(floor_ptr, caster_ptr->fy + ddy[dir], caster_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
-				{
-					//TODO CAPTURE
-					if(place_creature_fixed_species(caster_ptr, floor_ptr, caster_ptr->fy + ddy[dir], caster_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
-					{
-						creature_list[hack_creature_idx_ii].mhp = creature_list[hack_creature_idx_ii].mmhp;
-						if(object_ptr->inscription)
-						{
-							char buf[80];
-							cptr t;
-#ifndef JP
-							bool quote = FALSE;
-#endif
-
-							t = quark_str(object_ptr->inscription);
-							for (t = quark_str(object_ptr->inscription);*t && (*t != '#'); t++)
-							{
-#ifdef JP
-								if(iskanji(*t)) t++;
-#endif
-							}
-							if(*t)
-							{
-								char *s = buf;
-								t++;
-#ifdef JP
-								/* nothing */
-#else
-								if(*t =='\'')
-								{
-									t++;
-									quote = TRUE;
-								}
-#endif
-								while(*t)
-								{
-									*s = *t;
-									t++;
-									s++;
-								}
-#ifdef JP
-								/* nothing */
-#else
-								if(quote && *(s-1) =='\'')
-									s--;
-#endif
-								*s = '\0';
-								creature_list[hack_creature_idx_ii].nickname = quark_add(buf);
-								t = quark_str(object_ptr->inscription);
-								s = buf;
-								while(*t && (*t != '#'))
-								{
-									*s = *t;
-									t++;
-									s++;
-								}
-								*s = '\0';
-								object_ptr->inscription = quark_add(buf);
-							}
-						}
-						object_ptr->pval = 0;
-						success = TRUE;
-					}
-				}
-				if(!success) msg_print(MES_OBJECT_MBALL_FAILED);
-			}
-		}
-		break;
 
 	case TRAIT_FETCH_CREATURE:
 		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
@@ -1504,13 +1370,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		break;
-
-	case TRAIT_GRENADE:
-		{
-			int num = 1 + randint1(3);
-			for (k = 0; k < num; k++) count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
-			break;
-		}
 
 	case TRAIT_FORCE_FIST:
 		{
@@ -2550,6 +2409,137 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SHRIEK:
 		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
 		aggravate_creatures(caster_ptr);
+		break;
+
+	case TRAIT_CAPTURE_CREATURE:
+		{
+			object_type *object_ptr = NULL;
+			{
+				bool old_target_pet = target_pet;
+				target_pet = TRUE;
+				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir))
+				{
+					target_pet = old_target_pet;
+					break;
+				}
+				target_pet = old_target_pet;
+
+				//if(cast_ball_aux(ty, tx, caster_ptr, DO_EFFECT_CAPTURE, 0, 0))
+				{
+					//TODO: Capture creature status.
+
+					/*
+					if(cap_nickname)
+					{
+					cptr t;
+					char *s;
+					char buf[80] = "";
+
+					if(object_ptr->inscription)
+					strcpy(buf, quark_str(object_ptr->inscription));
+					s = buf;
+					for (s = buf;*s && (*s != '#'); s++)
+					{
+					#ifdef JP
+					if(iskanji(*s)) s++;
+					#endif
+					}
+					*s = '#';
+					s++;
+					#ifdef JP
+					//nothing
+					#else
+					*s++ = '\'';
+					#endif
+					t = quark_str(cap_nickname);
+					while (*t)
+					{
+					*s = *t;
+					s++;
+					t++;
+					}
+					#ifdef JP
+					//nothing
+					#else
+					*s++ = '\'';
+					#endif
+					*s = '\0';
+					object_ptr->inscription = quark_add(buf);
+					}
+					*/
+
+				}
+			}
+			//TODO else
+			{
+				bool success = FALSE;
+				if(species_can_enter(floor_ptr, caster_ptr->fy + ddy[dir], caster_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
+				{
+					//TODO CAPTURE
+					if(place_creature_fixed_species(caster_ptr, floor_ptr, caster_ptr->fy + ddy[dir], caster_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
+					{
+						creature_list[hack_creature_idx_ii].mhp = creature_list[hack_creature_idx_ii].mmhp;
+						if(object_ptr->inscription)
+						{
+							char buf[80];
+							cptr t;
+#ifndef JP
+							bool quote = FALSE;
+#endif
+
+							t = quark_str(object_ptr->inscription);
+							for (t = quark_str(object_ptr->inscription);*t && (*t != '#'); t++)
+							{
+#ifdef JP
+								if(iskanji(*t)) t++;
+#endif
+							}
+							if(*t)
+							{
+								char *s = buf;
+								t++;
+#ifdef JP
+								/* nothing */
+#else
+								if(*t =='\'')
+								{
+									t++;
+									quote = TRUE;
+								}
+#endif
+								while(*t)
+								{
+									*s = *t;
+									t++;
+									s++;
+								}
+#ifdef JP
+								/* nothing */
+#else
+								if(quote && *(s-1) =='\'')
+									s--;
+#endif
+								*s = '\0';
+								creature_list[hack_creature_idx_ii].nickname = quark_add(buf);
+								t = quark_str(object_ptr->inscription);
+								s = buf;
+								while(*t && (*t != '#'))
+								{
+									*s = *t;
+									t++;
+									s++;
+								}
+								*s = '\0';
+								object_ptr->inscription = quark_add(buf);
+							}
+						}
+						object_ptr->pval = 0;
+						success = TRUE;
+					}
+				}
+				if(!success) msg_print(MES_OBJECT_MBALL_FAILED);
+			}
+		}
 		break;
 
 	default: msg_warning("Undefined active trait."); break;
