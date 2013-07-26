@@ -110,16 +110,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), id);
 		break;
 
-	case TRAIT_DRAIN_LIFE1:
-	case TRAIT_DRAIN_LIFE2:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id);
-		break;
-
-	case TRAIT_VAMPIRIC_DRAIN_1:
-	case TRAIT_VAMPIRIC_DRAIN_2:
-		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power);
-		break;
-
 	case TRAIT_GET_KAWARIMI:
 		if(!(caster_ptr->posture & NINJA_KAWARIMI))
 		{
@@ -332,6 +322,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_REMOVE_FEAR: (void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE); break;
 	case TRAIT_MAGIC_RES_COLD: (void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE); break;
 	case TRAIT_BLESSING_SELF: set_timed_trait(caster_ptr, TRAIT_BLESSED, power, FALSE); break;
 	case TRAIT_GET_ESP: (void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE); break;
@@ -905,35 +896,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SLEEP_TOUCH:
 	case TRAIT_SLEEP:
+	case TRAIT_SANCTUARY:
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
-	case TRAIT_REMOVE_FEAR:
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-		break;
-
-	case TRAIT_GETAWAY:
-		{
-			switch (randint1(13))
-			{
-			case 1: case 2: case 3: case 4: case 5:
-				teleport_creature(caster_ptr, 10, 0L);
-				break;
-			case 6: case 7: case 8: case 9: case 10:
-				teleport_creature(caster_ptr, 222, 0L);
-				break;
-			case 11: case 12:
-				(void)stair_creation(caster_ptr, floor_ptr);
-				break;
-			default:
-				if(get_check(MES_TELEPORT_LEVEL_ASK))
-				{
-					if(autosave_l) do_cmd_save_game(TRUE);
-					subject_change_floor = TRUE;
-				}
-			}
-			break;
-		}
 
 	case TRAIT_ADD_FIRE_BRAND:
 		(void)brand_bolts(caster_ptr);
@@ -1211,7 +1177,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_STRANGLING: cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, -1); break;
 
+	case TRAIT_DRAIN_LIFE1:
+	case TRAIT_DRAIN_LIFE2:
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id);
+		break;
 
+	case TRAIT_VAMPIRIC_DRAIN_1:
+	case TRAIT_VAMPIRIC_DRAIN_2:
+		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power);
+		break;
 
 	/* Curse Attack Spell */
 
@@ -1254,9 +1228,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
 		break;
 
-	case TRAIT_BLIND: // TODO
-		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
-		break;
+	case TRAIT_BLIND: cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 
 	case TRAIT_CONFUSE_TOUCH:
 	case TRAIT_PANIC_CREATURE:
@@ -1264,9 +1236,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
 		break;
 
-	case TRAIT_SMOKE_BALL:
-		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3);
-		break;
+	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3); break;
 
 	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
@@ -1274,13 +1244,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	/* Swarm Spell */
 	case TRAIT_METEOR_SWARM: cast_meteor(caster_ptr, power, 2); break;
 	case TRAIT_FIRE_SWARM: rengoku_kaen(caster_ptr); break;
-
-	case TRAIT_HIDE_IN_MYST:
-		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		teleport_creature(caster_ptr, 30, 0L);
-		break;
 
 	case TRAIT_MALEDICTION:
 		{
@@ -2182,10 +2145,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_SWAP_POS:
-		(void)teleport_swap(caster_ptr, dir);
-		break;
-
 	case TRAIT_DET_CURSE:
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
@@ -2230,10 +2189,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			int sides = 4;
 			cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
 		}
-		break;
-
-	case TRAIT_SANCTUARY:
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
 	case TRAIT_STAR_DUST:
@@ -2528,6 +2483,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_HIDE_IN_MYST:
+		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		teleport_creature(caster_ptr, 30, 0L);
+		break;
+
 	/* Teleport Spells */
 
 	case TRAIT_BLINK:
@@ -2552,8 +2514,24 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_MASS_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_TELE_LEVEL: teleport_level(caster_ptr, 0); break;
+	case TRAIT_SWAP_POS: (void)teleport_swap(caster_ptr, dir); break;
 
-
+	case TRAIT_GETAWAY:
+		{
+			switch (randint1(13))
+			{
+			case 1: case 2: case 3: case 4: case 5: teleport_creature(caster_ptr, 10, 0L); break;
+			case 6: case 7: case 8: case 9: case 10: teleport_creature(caster_ptr, 222, 0L); break;
+			case 11: case 12: (void)stair_creation(caster_ptr, floor_ptr); break;
+			default:
+				if(get_check(MES_TELEPORT_LEVEL_ASK))
+				{
+					if(autosave_l) do_cmd_save_game(TRUE);
+					subject_change_floor = TRUE;
+				}
+			}
+			break;
+		}
 
 	/* etc Spells */
 	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
