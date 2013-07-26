@@ -3845,6 +3845,41 @@ int dissolve_armour(creature_type *creature_ptr)
 	return TRUE; // Item was damaged
 }
 
+bool get_rumor(creature_type *caster_ptr)
+{
+	char Rumor[MAX_NLEN];
+	errr err = 0;
+	switch (randint1(20))
+	{
+
+	case 1:
+		err = get_rnd_line(TEXT_FILES_CHAINSWORD, 0, Rumor);
+		break;
+
+	case 2:
+		err = get_rnd_line(TEXT_FILES_ERROR, 0, Rumor);
+		break;
+	case 3:
+	case 4:
+	case 5:
+		err = get_rnd_line(TEXT_FILES_DEATH, 0, Rumor);
+		break;
+
+	default:
+		err = get_rnd_line(TEXT_FILES_RUMOR, 0, Rumor);
+		break;
+	}
+
+	/* An error occured */
+	if(err) strcpy(Rumor, MES_SCROLL_RUMOR_DEFAULT);
+	msg_print(MES_SCROLL_MESSAGE);
+	msg_print(NULL);
+	msg_format("%s", Rumor);
+	msg_print(NULL);
+	msg_print(MES_SCROLL_USED);
+	return TRUE;
+}
+
 bool rustproof(creature_type *creature_ptr)
 {
 	OBJECT_ID item;

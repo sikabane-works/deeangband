@@ -2621,41 +2621,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 
 
-	case TRAIT_RUMOR:
-		{
-			char Rumor[MAX_NLEN];
-			errr err = 0;
-			switch (randint1(20))
-			{
-
-				case 1:
-					err = get_rnd_line(TEXT_FILES_CHAINSWORD, 0, Rumor);
-					break;
-
-				case 2:
-					err = get_rnd_line(TEXT_FILES_ERROR, 0, Rumor);
-					break;
-				case 3:
-				case 4:
-				case 5:
-					err = get_rnd_line(TEXT_FILES_DEATH, 0, Rumor);
-					break;
-
-				default:
-					err = get_rnd_line(TEXT_FILES_RUMOR, 0, Rumor);
-					break;
-			}
-
-			/* An error occured */
-			if(err) strcpy(Rumor, MES_SCROLL_RUMOR_DEFAULT);
-			msg_print(MES_SCROLL_MESSAGE);
-			msg_print(NULL);
-			msg_format("%s", Rumor);
-			msg_print(NULL);
-			msg_print(MES_SCROLL_USED);
-			break;
-		}
-		break;
+	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
 
 	case TRAIT_CHAIN_LIGHTNING:
 		{
@@ -2677,13 +2643,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 		}
 
-	case TRAIT_ARREST_CREATURE:
-		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0);
-		break;
+	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0); break;
 
-	case TRAIT_ARREST_EVIL:
-		cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0);
-		break;
+	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
 
 	case TRAIT_HEAL_OTHER:
 		{
