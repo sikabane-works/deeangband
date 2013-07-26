@@ -172,35 +172,22 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
 		break;
 
-	/* Genocide Spell */
+	/* Genocide Spells */
 	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
 	case TRAIT_SYMBOL_GENOCIDE: (void)symbol_genocide(caster_ptr, 200, TRUE); break;
 	case TRAIT_MASS_GENOCIDE: (void)mass_genocide(caster_ptr, 200, TRUE); break;
 
-
-	case TRAIT_CHARM_ANIMAL:
-		cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0);
-		break;
-
-	case TRAIT_CHARM_UNDEAD:
-		cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, user_level, 0);
-		break;
-
-	case TRAIT_CHARM_OTHER:
-		cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0);
-		break;
-
-	case TRAIT_CHARM_ANIMALS:
-		(void)project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2);
-		break;
-
-	case TRAIT_CHARM_OTHERS:
-		project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2);
-		break;
-
+	/* Charm Spells */
+	case TRAIT_CHARM_ANIMAL: cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_CHARM_UNDEAD: cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_CHARM_OTHER: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_CHARM_ANIMALS: (void)project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2); break;
+	case TRAIT_CHARM_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2); break;
+	case TRAIT_DOMINATE_LIVE: (void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_DOMINATE_LIVES: project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, user_level); break;
+	case TRAIT_DOMINATE_DEMON: cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0); break;
 
 	/* Summoning Spell */
-
 	case TRAIT_S_KIN:
 		{
 			if(caster_ptr->species_idx == SPECIES_SERPENT)
@@ -261,6 +248,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 			break;
 		}
+
+	case TRAIT_GROW_MOLD:
+		{
+			int i;
+			for (i = 0; i < 8; i++) summoning(NULL, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_MOLD, PC_FORCE_PET);
+		}
+		break;
 
 	case TRAIT_S_GREATER_DEMON:
 		cast_summon_greater_demon(caster_ptr);
@@ -1888,14 +1882,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(!do_cmd_mane(caster_ptr, TRUE)) return FALSE;
 		break;
 
-	case TRAIT_DOMINATE_LIVE:
-		(void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, user_level, 0);
-		break;
-
-	case TRAIT_DOMINATE_LIVES:
-		project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, user_level);
-		break;
-
 	case TRAIT_CREATE_AMMO:
 		if(!do_cmd_archer(caster_ptr)) return FALSE;
 		break;
@@ -2276,10 +2262,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		heal_creature(caster_ptr, power);
 		break;
 
-	case TRAIT_DOMINATE_DEMON:
-		cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0);
-		break;
-
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;
@@ -2301,17 +2283,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 					msg_print("You have turned into a Living Trump.");
 #endif
 				}
-		}
-		break;
-
-		/* Summon pet molds around the player */
-	case TRAIT_GROW_MOLD:
-		{
-			int i;
-			for (i = 0; i < 8; i++)
-			{
-				summoning(NULL, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_MOLD, PC_FORCE_PET);
-			}
 		}
 		break;
 
