@@ -231,79 +231,37 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			if(caster_ptr->species_idx == SPECIES_SERPENT)
 			{
 #ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sがダンジョンの主を召喚した。", caster_name);
+				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+				else msg_format("%^sがダンジョンの主を召喚した。", caster_name);
 #else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons guardians of dungeons.", caster_name);
+				if(blind) msg_format("%^s mumbles.", caster_name);
+				else msg_format("%^s magically summons guardians of dungeons.", caster_name);
 #endif
 			}
 			else
 			{
 #ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sは魔法で%sを召喚した。", caster_name, (has_trait(caster_ptr, TRAIT_UNIQUE) ? "手下" : "仲間"));
+				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+				else msg_format("%^sは魔法で%sを召喚した。", caster_name, (has_trait(caster_ptr, TRAIT_UNIQUE) ? "手下" : "仲間"));
 #else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons %s %s.", caster_name, m_poss, has_trait(caster_ptr, TRAIT_UNIQUE) ? "minions" : "kin"));
+				if(blind) msg_format("%^s mumbles.", caster_name);
+				else msg_format("%^s magically summons %s %s.", caster_name, m_poss, has_trait(caster_ptr, TRAIT_UNIQUE) ? "minions" : "kin"));
 #endif
 			}
 
 			switch (caster_ptr->species_idx)
 			{
-
-			case SPECIES_RICHARD_STOLENMAN:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
-					}
-				}
-				break;
-
-			case SPECIES_LOUSY:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summoning(caster_ptr, y, x, user_level, TRAIT_S_LOUSE, PC_ALLOW_GROUP);
-					}
-				}
-				break;
-
-			default:
-				for (k = 0; k < 4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP);
-				break;
+			case SPECIES_RICHARD_STOLENMAN: summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode); break;
+			case SPECIES_LOUSY: summoning(caster_ptr, y, x, user_level, TRAIT_S_LOUSE, PC_ALLOW_GROUP); break;
+			default: summoning(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP); break;
 			}
+
 			break;
 		}
 
-	case TRAIT_GROW_MOLD:
-		{
-			int i;
-			for (i = 0; i < 8; i++) summoning(NULL, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_MOLD, PC_FORCE_PET);
-		}
-		break;
 
-	case TRAIT_GRENADE:
-		{
-			int num = 1 + randint1(3);
-			for (k = 0; k < num; k++) count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
-			break;
-		}
-
-	case TRAIT_S_GREATER_DEMON:
-		cast_summon_greater_demon(caster_ptr);
-		break;
+	case TRAIT_GRENADE: summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode); break;
+	case TRAIT_S_GREATER_DEMON: cast_summon_greater_demon(caster_ptr); break;
 
 	case TRAIT_S_ANIMAL:
 	case TRAIT_S_PHANTOM:
@@ -329,8 +287,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_S_HI_DRAGON:
 	case TRAIT_S_AMBERITES:
 	case TRAIT_S_UNIQUE:
-		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, id, (PC_ALLOW_GROUP | PC_FORCE_PET));
-		break;
+	case TRAIT_GROW_MOLD:
+		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, id, (PC_ALLOW_GROUP | PC_FORCE_PET)); break;
 
 	/* Get Timed Trait Spells */
 
@@ -854,6 +812,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		breath(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
+	case TRAIT_BR_SHAR:
+		if(caster_ptr->species_idx == SPECIES_BOTEI) msg_format(MES_TRAIT_BR_SHAR_BOTEI);
+		breath(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, power, 3, id); break;
+
+	case TRAIT_BR_PLAS: breath(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, power, 3, id); break;
+	case TRAIT_BR_WALL: breath(caster_ptr, DO_EFFECT_FORCE, MAX_RANGE_SUB, power, 3, id); break;
+	case TRAIT_BR_MANA: breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, 3, id); break;
+	case TRAIT_BR_NUKE: breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, 3, id); break;
 
 
 
@@ -1009,25 +975,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			dispel_creature(caster_ptr);
 			break;
 		}
-
-	case TRAIT_BR_SHAR:
-		if(caster_ptr->species_idx == SPECIES_BOTEI) msg_format(MES_TRAIT_BR_SHAR_BOTEI);
-		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_PLAS:
-		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_WALL:
-		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_FORCE, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_MANA: breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, 3, id); break;
-	case TRAIT_BR_NUKE: breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, 3, id); break;
 
 	/* Bolt Type Trait */
 	case TRAIT_BO_ACID_MINI:
