@@ -547,7 +547,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 
 	/* Identify type */
-
 	case TRAIT_IDENTIFY:
 		if(ident_spell(caster_ptr, FALSE)) return TRUE;
 		break;
@@ -569,6 +568,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(one_in_(20)) take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), MES_PERILOUS_SECRET, NULL, -1);
 		break;
 
+	case TRAIT_WEAPON_MASTER_JUDGE:
+		if(power > 44) if(!identify_fully(caster_ptr, TRUE)) return TRUE;
+		else if(!ident_spell(caster_ptr, TRUE)) return TRUE;
+		break;
+
 	case TRAIT_MOON_DAZZLING:
 		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
 		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
@@ -576,25 +580,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
 		break;
 
-	case TRAIT_WEAPON_MASTER_JUDGE:
-		if(power > 44)
-		{
-			if(!identify_fully(caster_ptr, TRUE)) return TRUE;
-		}
-		else
-		{
-			if(!ident_spell(caster_ptr, TRUE)) return TRUE;
-		}
-		break;
-
-	case TRAIT_SATIATE:
-		(void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
-		break;
-
-	case TRAIT_PHLOGISTON:
-		phlogiston(caster_ptr);
-		break;
-
+	/* Disarm Type Spell */
 	case TRAIT_DESTROY_DOOR_TRAP:
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
@@ -2619,10 +2605,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)restore_exp(caster_ptr);
 		break;
 
-
-
-	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
-
 	case TRAIT_CHAIN_LIGHTNING:
 		{
 			int dice = 5 + power / 10;
@@ -2707,7 +2689,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
 		caster_ptr->charged_force += (70 + user_level);
@@ -2721,12 +2702,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else return TRUE;
 		break;
 
+	/* etc spell*/
+	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
+	case TRAIT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
+	case TRAIT_PHLOGISTON: phlogiston(caster_ptr); break;
 	case TRAIT_SHOOT: if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE; break;
-
 	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
 
-	default:
-		msg_warning("Undefined active trait.");
+	default: msg_warning("Undefined active trait."); break;
 
 	}
 
