@@ -119,11 +119,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_TRAP_WALK:
-		walk_creature(caster_ptr, dir, easy_disarm, TRUE);
-		break;
+	/* Mass Spells */
 
 	case TRAIT_DISPEL_EVIL_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 5); break;
+	case TRAIT_DISPEL_GOOD_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, user_level * 5); break;
+	case TRAIT_BANISH_EVIL: project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100); break;
+	case TRAIT_DISPEL_LIVES: project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(power)); break;
+
+	case TRAIT_MOON_DAZZLING:
+		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		break;
 
 	case TRAIT_HOLINESS:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150);
@@ -131,21 +139,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		heal_creature(caster_ptr, 50);
 		break;
 
-	case TRAIT_DISPEL_GOOD_1:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, user_level * 5);
-		break;
-
 	case TRAIT_DISPEL_UNDEAD_DEMON:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(power));
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(power));
-		break;
-
-
-	case TRAIT_DISPEL_LIVES:
-		{
-			int sides = power;
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(sides));
-		}
 		break;
 
 	case TRAIT_TERROR:
@@ -153,21 +149,30 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level);
 		break;
 
-	case TRAIT_BANISH_EVIL:
-		project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100);
-		break;
-
 	case TRAIT_PESTICIDE:
 	case TRAIT_DISPEL_SMALL_LIFE:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
 		break;
 
+	case TRAIT_NATURE_WRATH:
+		{
+			int d_dam = 4 * power;
+			int b_dam = (100 + power) * 2;
+			int b_rad = 1 + power / 12;
+			int q_rad = 20 + power / 2;
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
+			earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
+			project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+		}
+
 	/* Genocide Spells */
+
 	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
 	case TRAIT_SYMBOL_GENOCIDE: (void)symbol_genocide(caster_ptr, 200, TRUE); break;
 	case TRAIT_MASS_GENOCIDE: (void)mass_genocide(caster_ptr, 200, TRUE); break;
 
 	/* Charm Spells */
+
 	case TRAIT_CHARM_ANIMAL: cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_CHARM_UNDEAD: cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_CHARM_OTHER: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
@@ -178,6 +183,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DOMINATE_DEMON: cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0); break;
 
 	/* Summoning Spell */
+
 	case TRAIT_S_KIN:
 		{
 			if(caster_ptr->species_idx == SPECIES_SERPENT)
@@ -277,6 +283,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, id, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
+	/* Get Timed Trait Spells */
 
 	case TRAIT_REMOVE_POISON: (void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE); break;
 	case TRAIT_GET_ELEMENT_BRAND: choose_ele_attack(caster_ptr); break;
@@ -347,29 +354,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_GET_CONFUSING_MELEE: set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE); break;
 	case TRAIT_GET_MULTI_SHADOW: set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE); break;
 	case TRAIT_GET_MAGIC_DEF: set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE); break;
-
-
-	case TRAIT_SPLASH_LITE:
-		{
-			int num = diceroll(5, 3);
-			COODINATES y, x;
-			int attempts;
-
-			for (k = 0; k < num; k++)
-			{
-				attempts = 1000;
-				y = caster_ptr->fy;
-				x = caster_ptr->fx;
-				while (attempts--)
-				{
-					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
-					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
-				}
-				project(caster_ptr, 0, 0, y, x, diceroll(6 + user_level / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
-			}
-			break;
-		}
 
 	case TRAIT_HASTE_OTHER:
 		{
@@ -2540,6 +2524,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SHOOT: if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE; break;
 	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
 	case TRAIT_MIDAS_TCH: (void)alchemy(caster_ptr); break;
+	case TRAIT_TRAP_WALK: walk_creature(caster_ptr, dir, easy_disarm, TRUE); break;
 
 	case TRAIT_IMPROVE_FORCE:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
@@ -2553,6 +2538,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	/* Chain Type Spells */
+
 	case TRAIT_CHAIN_LIGHTNING:
 		{
 			int dice = 5 + power / 10;
@@ -2561,16 +2548,26 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_NATURE_WRATH:
+	case TRAIT_SPLASH_LITE:
 		{
-			int d_dam = 4 * power;
-			int b_dam = (100 + power) * 2;
-			int b_rad = 1 + power / 12;
-			int q_rad = 20 + power / 2;
+			int num = diceroll(5, 3);
+			COODINATES y, x;
+			int attempts;
 
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
-				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
-				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+			for (k = 0; k < num; k++)
+			{
+				attempts = 1000;
+				y = caster_ptr->fy;
+				x = caster_ptr->fx;
+				while (attempts--)
+				{
+					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
+					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
+				}
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + user_level / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+			}
+			break;
 		}
 
 	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0); break;
@@ -2589,13 +2586,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			if(!result) break;
 			cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
 		}
-		break;
-
-	case TRAIT_MOON_DAZZLING:
-		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
 		break;
 
 	case TRAIT_WOODEN_CRAPPING: aggravate_creatures(caster_ptr); break;
