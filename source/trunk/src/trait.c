@@ -517,13 +517,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Identify Spell */
 
-	case TRAIT_IDENTIFY:
-		if(ident_spell(caster_ptr, FALSE)) return TRUE;
-		break;
-
-	case TRAIT_IDENTIFY_TRUE:
-		if(identify_fully(caster_ptr, FALSE)) return TRUE;
-		break;
+	case TRAIT_IDENTIFY: if(ident_spell(caster_ptr, FALSE)) return TRUE; break;
+	case TRAIT_IDENTIFY_TRUE: if(identify_fully(caster_ptr, FALSE)) return TRUE; break;
 
 	case TRAIT_PERILOUS_IDENTIFY:
 		if(!ident_spell(caster_ptr, FALSE)) return FALSE;
@@ -544,25 +539,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	/* Disarm Type Spell */
-	case TRAIT_DESTROY_DOOR_TRAP:
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
-		break;
+	case TRAIT_DESTROY_DOOR_TRAP: project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1); break;
+	case TRAIT_BEAM_DISARM: cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1); break;
+	case TRAIT_DESTROY_DOOR_TRAP_BEAM: cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1); break;
+	case TRAIT_CREATE_CLONE: cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1); break;
 
-	case TRAIT_BEAM_DISARM:
-		cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1);
-		break;
-
-	case TRAIT_DESTROY_DOOR_TRAP_BEAM:
-		cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1);
-		break;
-
-	case TRAIT_CREATE_CLONE:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
-		break;
-
-	case TRAIT_STAR_DESTROY:
-		if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE;
-		break;
+	case TRAIT_STAR_DESTROY: if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE; break;
 
 	case TRAIT_MAGIC_CHARGE_2:
 		recharge(caster_ptr, 130);
@@ -570,10 +552,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_MAGIC_CHARGE_EX:
 		if(!recharge(caster_ptr, 1000)) return FALSE;
-		break;
-
-	case TRAIT_DIMENSION_DOOR:
-		if(!dimension_door(caster_ptr)) return FALSE;
 		break;
 
 	case TRAIT_RECALL:
@@ -2499,6 +2477,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_MASS_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_TELE_LEVEL: teleport_level(caster_ptr, 0); break;
 	case TRAIT_SWAP_POS: (void)teleport_swap(caster_ptr, dir); break;
+	case TRAIT_DIMENSION_DOOR: if(!dimension_door(caster_ptr)) return FALSE; break;
 
 	case TRAIT_GETAWAY:
 		{
