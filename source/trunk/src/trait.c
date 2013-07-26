@@ -373,19 +373,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_GET_CONFUSING_MELEE: set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE); break;
 	case TRAIT_GET_MULTI_SHADOW: set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE); break;
 	case TRAIT_GET_MAGIC_DEF: set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE); break;
-
-	case TRAIT_HASTE_OTHER:
+	case TRAIT_MIRROR_SHIELD:
 		{
-				/* Temporary enable target_pet option */
-				bool old_target_pet = target_pet;
-				target_pet = TRUE;
-
-				/* Restore target_pet option */
-				target_pet = old_target_pet;
-
-				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, user_level, -1);
+		int tmp = 20 + randint1(20);
+		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
+		if(user_level > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
+		if(user_level > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 		}
 		break;
+
+
 
 
 	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
@@ -487,6 +484,20 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_JEWEL_OF_JUDGEMENT:
+			msg_print(MES_MELEE_JOJ_DONE);
+			wiz_lite(floor_ptr, caster_ptr, FALSE);
+			msg_print(MES_MELEE_JOJ_STRAIN);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), COD_JOJ_RISK, NULL, -1);
+
+			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
+
+			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
+			break;
+
+
 
 	case TRAIT_MIRROR_SEAL:
 		seal_of_mirror(caster_ptr, user_level * 4 + 100);
@@ -519,15 +530,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_MIRROR_SHIELD:
-		{
-		int tmp = 20 + randint1(20);
-		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
-		if(user_level > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
-		if(user_level > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
-		}
-		break;
-
 	/* Identify Spell */
 
 	case TRAIT_IDENTIFY: if(ident_spell(caster_ptr, FALSE)) return TRUE; break;
@@ -551,6 +553,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else if(!ident_spell(caster_ptr, TRUE)) return TRUE;
 		break;
 
+	/* Recharge Spells */
+	case TRAIT_MAGIC_CHARGE_2: recharge(caster_ptr, 130); break;
+	case TRAIT_MAGIC_CHARGE_EX: if(!recharge(caster_ptr, 1000)) return FALSE; break;
+
 	/* Disarm Type Spell */
 	case TRAIT_DESTROY_DOOR_TRAP: project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1); break;
 	case TRAIT_BEAM_DISARM: cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1); break;
@@ -559,30 +565,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_STAR_DESTROY: if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE; break;
 
-	case TRAIT_MAGIC_CHARGE_2:
-		recharge(caster_ptr, 130);
-		break;
-
-	case TRAIT_MAGIC_CHARGE_EX:
-		if(!recharge(caster_ptr, 1000)) return FALSE;
-		break;
-
 	case TRAIT_RECALL:
 		if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE;
 		break;
-
-	case TRAIT_JEWEL_OF_JUDGEMENT:
-			msg_print(MES_MELEE_JOJ_DONE);
-			wiz_lite(floor_ptr, caster_ptr, FALSE);
-			msg_print(MES_MELEE_JOJ_STRAIN);
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), COD_JOJ_RISK, NULL, -1);
-
-			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
-
-			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
-			break;
 
 	/* Ball Attack Spells */
 
@@ -1145,6 +1130,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_BO_JAM: cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1); break;
+
+	case TRAIT_HASTE_OTHER:
+		{
+				/* Temporary enable target_pet option */
+				bool old_target_pet = target_pet;
+				target_pet = TRUE;
+
+				/* Restore target_pet option */
+				target_pet = old_target_pet;
+
+				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, user_level, -1);
+		}
+		break;
 
 	case TRAIT_MISSILE:
 	case TRAIT_RAY_GUN:
