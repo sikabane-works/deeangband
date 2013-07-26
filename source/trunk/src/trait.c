@@ -177,6 +177,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		heal_creature(caster_ptr, power);
 		break;
 
+	case TRAIT_DAZZLE:
+		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		break;
 
 	/* Genocide Spells */
 
@@ -567,10 +572,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CREATE_CLONE: cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1); break;
 
 	case TRAIT_STAR_DESTROY: if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE; break;
-
-	case TRAIT_RECALL:
-		if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE;
-		break;
 
 	/* Ball Attack Spells */
 
@@ -1930,28 +1931,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_DISCHARGE_MINION:
-		discharge_minion(caster_ptr);
-		break;
-
-	case TRAIT_STERILITY:
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, COD_ABSTINENCE, NULL, -1);
-		floor_ptr->num_of_reproduction += MAX_REPRO;
-		break;
-
-	case TRAIT_DAZZLE:
-		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		break;
-
 	/* Scout Spell */
 
 	case TRAIT_SELF_KNOWLEDGE: creature_knowledge(caster_ptr); break;
 	case TRAIT_SCAN_CREATURE: probing(floor_ptr); break;
 
-
-	/* Status Control */
+	/* Status Spell */
 
 	case TRAIT_RES_STR: if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
 	case TRAIT_RES_INT: if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
@@ -2163,6 +2148,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
+	case TRAIT_RECALL: if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE; break;
+
+
 	/* etc Spells */
 	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
 	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
@@ -2183,6 +2171,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, caster_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
 		}
+		break;
+
+	case TRAIT_DISCHARGE_MINION: discharge_minion(caster_ptr); break;
+	case TRAIT_STERILITY:
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, COD_ABSTINENCE, NULL, -1);
+		floor_ptr->num_of_reproduction += MAX_REPRO;
 		break;
 
 	/* Chain Type Spells */
