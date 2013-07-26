@@ -133,14 +133,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		walk_creature(caster_ptr, dir, easy_disarm, TRUE);
 		break;
 
-	case TRAIT_ROCKET:
-		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		cast_ball(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_DISPEL_EVIL_1:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 5);
-		break;
+	case TRAIT_DISPEL_EVIL_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 5); break;
 
 	case TRAIT_HOLINESS:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150);
@@ -361,6 +354,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_BLESSING_SELF: set_timed_trait(caster_ptr, TRAIT_BLESSED, power, FALSE); break;
 	case TRAIT_GET_ESP: (void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE); break;
 	case TRAIT_HASTE: set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE); break;
 	case TRAIT_HASTE_2: set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE); break;
@@ -645,13 +639,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
 			break;
 
-	case TRAIT_STRANGLING:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);
-		break;
-
 	/* Ball Attack Spells */
 
 	case TRAIT_STAR_BALL: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id); break;
+	case TRAIT_ROCKET: cast_ball(caster_ptr, DO_EFFECT_ROCKET, (caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4), damage, 2); break;
 
 	case TRAIT_MANA_BURST:
 		{
@@ -1233,14 +1224,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_BO_JAM:
-		cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1);
-		break;
+	case TRAIT_BO_JAM: cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1); break;
 
 	case TRAIT_MISSILE:
 	case TRAIT_RAY_GUN:
 	case TRAIT_BLASTER:
 		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, 0); break;
+
+	case TRAIT_STRANGLING: cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, -1); break;
+
 
 
 	/* Curse Attack Spell */
@@ -2442,17 +2434,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 		break;
 
-	case TRAIT_COLD_TOUCH:
-		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 2 * user_level, id);
-		break;
+	case TRAIT_COLD_TOUCH: cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 2 * user_level, id); break;
 
-	case TRAIT_SELF_KNOWLEDGE:
-		creature_knowledge(caster_ptr);
-		break;
+	case TRAIT_SELF_KNOWLEDGE: creature_knowledge(caster_ptr); break;
 
-	case TRAIT_BLESSING_SELF:
-		set_timed_trait(caster_ptr, TRAIT_BLESSED, power, FALSE);
-		break;
 
 
 	/* Status Control */
