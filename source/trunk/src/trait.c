@@ -105,11 +105,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	switch(id)
 	{
 
-	case TRAIT_LITE_LINE:
-	case TRAIT_SUNLIGHT:
-		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), id);
-		break;
-
 	case TRAIT_GET_KAWARIMI:
 		if(!(caster_ptr->posture & NINJA_KAWARIMI))
 		{
@@ -1031,94 +1026,38 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		breath(caster_ptr, DO_EFFECT_FORCE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
-	case TRAIT_BR_MANA:
-		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_NUKE:
-		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, damage, 3, id);
-		break;
+	case TRAIT_BR_MANA: breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, 3, id); break;
+	case TRAIT_BR_NUKE: breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, 3, id); break;
 
 	/* Bolt Type Trait */
-
 	case TRAIT_BO_ACID_MINI:
 	case TRAIT_BO_ACID:
-		damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, TRAIT_BO_ACID);
-		break;
+		cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, power, TRAIT_BO_ACID); break;
 
 	case TRAIT_BO_ELEC_MINI:
 	case TRAIT_BO_ELEC:
-		damage = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, TRAIT_BO_ELEC);
-		break;
+		cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, TRAIT_BO_ELEC); break;
 
 	case TRAIT_BO_FIRE_MINI:
 	case TRAIT_BO_FIRE:
-		damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, TRAIT_BO_FIRE);
-		break;
+		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, power, TRAIT_BO_FIRE); break;
 
 	case TRAIT_BO_COLD_MINI:
 	case TRAIT_BO_COLD:
 	case TRAIT_COLD_TOUCH:
-		damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, TRAIT_BO_COLD);
-		break;
+		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, TRAIT_BO_COLD); break;
 
 	case TRAIT_POISON_DART: cast_bolt(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, user_level, 0); break;
-
-	case TRAIT_BO_DARK:
-		{
-		int dice = 4 + (power - 5) / 4;
-		int sides = 8;
-		cast_bolt(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
-		break;
-
-	case TRAIT_BO_NETH:
-		damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-		cast_bolt(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, TRAIT_BO_NETH);
-		break;
-
-	case TRAIT_BO_WATE:
-		damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, damage, TRAIT_BO_WATE);
-		break;
-
-	case TRAIT_BO_MANA:
-		damage = randint1(user_level * 7 / 2) + 50;
-		cast_bolt(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, TRAIT_BO_MANA);
-		break;
-
-	case TRAIT_BO_PLAS:
-		damage = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, damage, TRAIT_BO_PLAS);
-		break;
-
-	case TRAIT_BO_ICEE:
-		damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, DO_EFFECT_ICE, MAX_RANGE_SUB, damage, TRAIT_BO_ICEE);
-		break;
-
-	case TRAIT_BO_SOUN:
-		{
-			int dice = 4 + (power - 1) / 5;
-			int sides = 4;
-			cast_bolt(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
-
-	case TRAIT_BO_CHAO:
-		{
-			int dice = 10 + (power - 5) / 4;
-			int sides = 8;
-			cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
-		break;
-
-	case TRAIT_BO_JAM: cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1); break;
+	case TRAIT_BO_DARK: cast_bolt(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, power, beam_chance(caster_ptr)); break;
+	case TRAIT_BO_NETH: cast_bolt(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, TRAIT_BO_NETH); break;
+	case TRAIT_BO_WATE: cast_bolt(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, power, TRAIT_BO_WATE); break;
+	case TRAIT_BO_MANA: cast_bolt(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, TRAIT_BO_MANA); break;
+	case TRAIT_BO_PLAS: cast_bolt(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, power, TRAIT_BO_PLAS); break;
+	case TRAIT_BO_ICEE: cast_bolt(caster_ptr, DO_EFFECT_ICE, MAX_RANGE_SUB, power, TRAIT_BO_ICEE); break;
+	case TRAIT_BO_SOUN: cast_bolt(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, power, 0); break;
+	case TRAIT_BO_CHAO: cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, beam_chance(caster_ptr)); break;
+	case TRAIT_BO_JAM: cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_MIND_BLST: cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, power, 0); break;
 
 	case TRAIT_HASTE_OTHER:
 		{
@@ -1854,15 +1793,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_LIGHTNING_BEAM: cast_beam(caster_ptr, DO_EFFECT_ELEC, power / 6 + 2, diceroll(3 + (power - 1) / 5, 4), 0); break;
 	case TRAIT_LASER_EYE: cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, 2 * user_level, 0); break;
 	case TRAIT_SUPERRAY: cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150 + randint1(2 * user_level), 0); break;
+	case TRAIT_LITE_LINE:
+	case TRAIT_SUNLIGHT:
+		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), id);
+		break;
 
 
 
 	case TRAIT_SHOCK_WAVE:
 		shock_wave(caster_ptr);
-		break;
-
-	case TRAIT_MIND_BLST:
-		cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((user_level - 1) / 5), 3), 0);
 		break;
 
 	case TRAIT_MIND_WAVE:
