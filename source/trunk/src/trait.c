@@ -1076,6 +1076,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_BO_COLD_MINI:
 	case TRAIT_BO_COLD:
+	case TRAIT_COLD_TOUCH:
 		damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, TRAIT_BO_COLD);
 		break;
@@ -1693,10 +1694,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, user_level, FALSE);
 		break;
 
-	case TRAIT_SCAN_CREATURE:
-		probing(floor_ptr);
-		break;
-
 	case TRAIT_HOLY_LANCE:
 		cast_beam(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, user_level * 3, 0);
 		break;
@@ -2281,10 +2278,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 		break;
 
-	case TRAIT_COLD_TOUCH: cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 2 * user_level, id); break;
+	/* Scout Spell */
 
 	case TRAIT_SELF_KNOWLEDGE: creature_knowledge(caster_ptr); break;
-
+	case TRAIT_SCAN_CREATURE: probing(floor_ptr); break;
 
 
 	/* Status Control */
