@@ -570,23 +570,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_MANA_BURST: cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BA_HOLYFIRE: cast_ball(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BA_HELLFIRE: cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, power, rad); break;
-	case TRAIT_BA_COLD: cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BA_LITE: cast_ball(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BA_DISI: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_DRAI: cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, rad); break;
 
-	case TRAIT_BA_DRAI:
-		{
-			int dice = 3;
-			COODINATES rad = (power < 30) ? 2 : 3;
-			int base;
-			base = power + power / 2;
-			cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, diceroll(dice, dice) + base, rad);
-		}
-		break;
-
-	case TRAIT_BA_FIRE_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, power, 3, id); break;
-	case TRAIT_BA_COLD_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_COLD, power, 3, id); break;
-	case TRAIT_BA_ELEC_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, power, 3, id); break;
 	case TRAIT_MIRROR_CRASH: cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, power, (COODINATES)(user_level > 20 ? (user_level - 20) / 8 + 1 : 0)); break;
 
 	case TRAIT_BA_NUKE:
@@ -604,47 +591,23 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 2);
 		break;
 
-	case TRAIT_BA_ELEC:
-		damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 2);
+	case TRAIT_BA_ELEC_L:
+	case TRAIT_BA_ELEC: cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, rad); break;
 		break;
 
-	case TRAIT_BA_FIRE:
-		if(caster_ptr->species_idx == SPECIES_ROLENTO)
-		{
-			if(blind) msg_format(MES_TRAIT_BO_FIRE_RORENTO_BLIND(caster_ptr));
-			else  msg_format(MES_TRAIT_BO_FIRE_RORENTO(caster_ptr));
-		}
-		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 2);
+	case TRAIT_BA_FIRE_L:
+	case TRAIT_BA_FIRE: cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, power, rad); break;
 		break;
 
-	case TRAIT_BA_POIS:
-		damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 2);
-		break;
+	case TRAIT_BA_COLD_L:
+	case TRAIT_BA_COLD: cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, rad); break;
 
-	case TRAIT_BA_NETH:
-		damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-		cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_WATE:
-		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-		cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, damage, 4);
-		break;
-
-	case TRAIT_BA_MANA:
-		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, 6);
-		break;
-
-	case TRAIT_BA_DARK:
-		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 6);
-		break;
-
-	case TRAIT_BAZOOKA: cast_ball(caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id); break;
+	case TRAIT_BA_POIS: cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_NETH: cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_WATE: cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_MANA: cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_DARK: cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BAZOOKA: cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad); break;
 
 	/* Breath Attack Spell */
 
@@ -653,9 +616,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
-	case TRAIT_ELEMENTAL_BREATH:
-		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_MISSILE, 300, 4, id);
-		break;
+	case TRAIT_ELEMENTAL_BREATH: breath(caster_ptr, DO_EFFECT_MISSILE, power, rad, id); break;
 
 	case TRAIT_BR_ACID:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
