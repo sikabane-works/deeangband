@@ -183,12 +183,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BANISH:
 			if(!cave_ptr->creature_idx)
 			{
-				msg_print(MES_TRAIT_BANISH_NO_TARGET);
-				break;
+				msg_print(MES_TRAIT_BANISH_NO_TARGET); break;
 			}
-
 			target_ptr = &creature_list[cave_ptr->creature_idx];
-
 			if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
 				!floor_ptr->fight_arena_mode && !floor_ptr->quest && (user_level < randint1(user_level)) && !has_trait(target_ptr, TRAIT_NO_GENOCIDE))
 			{
@@ -197,8 +194,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 					creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
 					write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 				}
-
-				/* Delete the creature, rather than killing it. */
 				delete_creature(&creature_list[cave_ptr->creature_idx]);
 				msg_print(MES_TRAIT_BANISH_DONE);
 			}
@@ -254,7 +249,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 			break;
 		}
-
 
 	case TRAIT_GRENADE: summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode); break;
 	case TRAIT_S_GREATER_DEMON: cast_summon_greater_demon(caster_ptr); break;
@@ -389,9 +383,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
 		break;
 
-
-
-
 	/* Light Spell */
 
 	case TRAIT_ILLUMINE:
@@ -481,14 +472,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			POWER dam = 150;
 			COODINATES rad = 8;
 
-				SELF_FIELD(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
-				wiz_lite(floor_ptr, caster_ptr, FALSE);
+			SELF_FIELD(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
+			wiz_lite(floor_ptr, caster_ptr, FALSE);
 
-				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
-				{
-					msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
-				}
+			if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
+			{
+				msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
+			}
 		}
 		break;
 
@@ -505,27 +496,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
 			break;
 
-
-
-	case TRAIT_MIRROR_SEAL:
-		seal_of_mirror(caster_ptr, user_level * 4 + 100);
-		break;
-
-	case TRAIT_MIRROR_SET:
-		if(number_of_mirrors(caster_ptr) < 4 + user_level / 10) place_mirror(caster_ptr);
-		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
-		break;
-
 	case TRAIT_MIRROR_BOLT:
 		if(user_level > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) )
 		{
 			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
 		}
 		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
-		break;
-
-	case TRAIT_MIRROR_CRASH:
-		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((user_level - 5) / 4), 8), (COODINATES)(user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
 		break;
 
 	case TRAIT_MIRROR_SLEEP:
@@ -660,9 +636,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_BA_FIRE_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 400, 3, id); break;
-	case TRAIT_BA_COLD_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_COLD, 400, 3, id); break;
-	case TRAIT_BA_ELEC_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 400, 3, id); break;
+	case TRAIT_BA_FIRE_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, power, 3, id); break;
+	case TRAIT_BA_COLD_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_COLD, power, 3, id); break;
+	case TRAIT_BA_ELEC_L: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, power, 3, id); break;
+	case TRAIT_MIRROR_CRASH: cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, power, (COODINATES)(user_level > 20 ? (user_level - 20) / 8 + 1 : 0)); break;
 
 	case TRAIT_BA_NUKE:
 		damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
@@ -2069,13 +2046,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 
 	/* Wonder Type Spell */
+
 	case TRAIT_WANDER: cast_wonder(caster_ptr); break;
 	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
 	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
 	case TRAIT_BIZARRE_THING_OF_THE_RING: ring_of_power(caster_ptr); break;
 	case TRAIT_CALL_CHAOS: call_chaos(caster_ptr); break;
 
+
 	/* Storm Attack Spell */
+
 	case TRAIT_STORM_FIRE: SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 300 + 3 * power, 8, -1);
 	case TRAIT_STORM_NETHER: cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, power / 5); break;
 	case TRAIT_STORM_CHAOS: cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, power / 5); break;
@@ -2095,6 +2075,58 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
 		}
 		break;
+
+
+	/* Chain Type Spells */
+
+	case TRAIT_CHAIN_LIGHTNING:
+		{
+			int dice = 5 + power / 10;
+			int sides = 8;
+			for(dir = 0; dir <= 9; dir++) cast_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+		}
+		break;
+
+	case TRAIT_SPLASH_LITE:
+		{
+			int num = diceroll(5, 3);
+			COODINATES y, x;
+			int attempts;
+
+			for (k = 0; k < num; k++)
+			{
+				attempts = 1000;
+				y = caster_ptr->fy;
+				x = caster_ptr->fx;
+				while (attempts--)
+				{
+					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
+					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
+				}
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + user_level / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+			}
+			break;
+		}
+
+	case TRAIT_STAR_BALL2:
+		{
+			int num = diceroll(5, 3);
+			int attempts;
+			for (k = 0; k < num; k++)
+			{
+				attempts = 1000;
+				while (attempts--)
+				{
+					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
+					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
+				}
+				project(caster_ptr, 0, 3, y, x, 150, DO_EFFECT_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+			}
+			break;
+		}
+
 
 	case TRAIT_HIDE_IN_MYST:
 		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
@@ -2152,6 +2184,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 
 	/* etc Spells */
+
 	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
 	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
 	case TRAIT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
@@ -2179,73 +2212,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		floor_ptr->num_of_reproduction += MAX_REPRO;
 		break;
 
-	/* Chain Type Spells */
-
-	case TRAIT_CHAIN_LIGHTNING:
-		{
-			int dice = 5 + power / 10;
-			int sides = 8;
-			for(dir = 0; dir <= 9; dir++) cast_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
+	case TRAIT_MIRROR_SEAL: seal_of_mirror(caster_ptr, user_level * 4 + 100); break;
+	case TRAIT_MIRROR_SET:
+		if(number_of_mirrors(caster_ptr) < 4 + user_level / 10) place_mirror(caster_ptr);
+		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
 		break;
-
-	case TRAIT_SPLASH_LITE:
-		{
-			int num = diceroll(5, 3);
-			COODINATES y, x;
-			int attempts;
-
-			for (k = 0; k < num; k++)
-			{
-				attempts = 1000;
-				y = caster_ptr->fy;
-				x = caster_ptr->fx;
-				while (attempts--)
-				{
-					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
-					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
-				}
-				project(caster_ptr, 0, 0, y, x, diceroll(6 + user_level / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
-			}
-			break;
-		}
-
-	case TRAIT_STAR_BALL2:
-		{
-			int num = diceroll(5, 3);
-			int attempts;
-			for (k = 0; k < num; k++)
-			{
-				attempts = 1000;
-				while (attempts--)
-				{
-					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
-					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
-				}
-				project(caster_ptr, 0, 3, y, x, 150, DO_EFFECT_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
-			}
-			break;
-		}
 
 	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0); break;
 	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
 
-	case TRAIT_HEAL_OTHER:
-		{
-			int heal = power + 200;
-			bool result;
-			bool old_target_pet = target_pet; /* Temporary enable target_pet option */
-			target_pet = TRUE;
-
-			result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
-			target_pet = old_target_pet; /* Restore target_pet option */
-
-			if(!result) break;
-			cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
-		}
-		break;
+	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, power, -1); break;
 
 	case TRAIT_WOODEN_CRAPPING: aggravate_creatures(caster_ptr); break;
 	case TRAIT_SHRIEK:
