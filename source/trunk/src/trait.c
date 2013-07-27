@@ -105,15 +105,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	switch(id)
 	{
 
-	case TRAIT_GET_KAWARIMI:
-		if(!(caster_ptr->posture & NINJA_KAWARIMI))
-		{
-			msg_print(MES_TRAIT_NINJA_EVADE);
-			caster_ptr->posture |= NINJA_KAWARIMI;
-			prepare_redraw(PR_STATUS);
-		}
-		break;
-
 	/* Mass Spells */
 
 	case TRAIT_DISPEL_EVIL_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 5); break;
@@ -374,6 +365,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
 		if(user_level > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
 		if(user_level > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
+		}
+		break;
+
+	case TRAIT_GET_KAWARIMI:
+		if(!(caster_ptr->posture & NINJA_KAWARIMI))
+		{
+			msg_print(MES_TRAIT_NINJA_EVADE);
+			caster_ptr->posture |= NINJA_KAWARIMI;
+			prepare_redraw(PR_STATUS);
 		}
 		break;
 
