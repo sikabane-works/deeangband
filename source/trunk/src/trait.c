@@ -496,14 +496,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
 			break;
 
-	case TRAIT_MIRROR_BOLT:
-		if(user_level > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) )
-		{
-			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
-		}
-		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
-		break;
-
 	case TRAIT_MIRROR_SLEEP:
 		for(x=0;x<floor_ptr->width;x++){
 			for(y=0;y<floor_ptr->height;y++){
@@ -553,6 +545,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_STAR_BALL: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id); break;
 	case TRAIT_FORCE_FIST: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, 0); break;
+	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3); break;
 
 	case TRAIT_ROCKET:
 	case TRAIT_CRIMSON_ROCKET:
@@ -574,57 +567,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_MANA_BURST:
-		{
-			int dice = 3;
-			int sides = 5;
-			COODINATES rad = (power < 30) ? 2 : 3;
-			int base;
-			base = power + power / 2;
-
-			cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
-		}
-		break;
-
-	case TRAIT_BA_HOLYFIRE:
-		{
-			int dice = 3;
-			int sides = 6;
-			COODINATES rad = (power < 30) ? 2 : 3;
-			int base;
-
-			base = power + power / 3;
-			cast_ball(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
-		}
-
-	case TRAIT_BA_HELLFIRE:
-		{
-			int dice = 3;
-			int sides = 6;
-			COODINATES rad = (power < 30) ? 2 : 3;
-			int base;
-			base = power + power / 3;
-			cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
-		}
-		break;
-
-	case TRAIT_BA_COLD:
-		damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_LITE:
-		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 4, FALSE, TRAIT_BA_LITE);
-		break;
-
-	case TRAIT_BA_DISI:
-		{
-			POWER dam = power + 70;
-			COODINATES rad = 3 + (COODINATES)power / 40;
-			cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
-		}
-		break;
+	case TRAIT_MANA_BURST: cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_HOLYFIRE: cast_ball(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_HELLFIRE: cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_COLD: cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_LITE: cast_ball(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_DISI: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, rad); break;
 
 	case TRAIT_BA_DRAI:
 		{
@@ -984,18 +932,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BO_JAM: cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, power, -1); break;
 	case TRAIT_MIND_BLST: cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, power, 0); break;
 
-	case TRAIT_HASTE_OTHER:
+	case TRAIT_MIRROR_BOLT:
+		if(user_level > 9 && is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) )
 		{
-				/* Temporary enable target_pet option */
-				bool old_target_pet = target_pet;
-				target_pet = TRUE;
-
-				/* Restore target_pet option */
-				target_pet = old_target_pet;
-
-				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, user_level, -1);
+			cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
 		}
+		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
 		break;
+
+	case TRAIT_HASTE_OTHER: cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, user_level, -1); break;
 
 	case TRAIT_MISSILE:
 	case TRAIT_RAY_GUN:
@@ -1011,8 +956,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
 	case TRAIT_VAMPIRIC_DRAIN_2:
-		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power);
-		break;
+		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power); break;
 
 	case TRAIT_SCARE_CREATURE:
 	case TRAIT_SHOUT:
@@ -1025,10 +969,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CONFUSE_TOUCH:
 	case TRAIT_PANIC_CREATURE:
 	case TRAIT_CONF:
-		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
-		break;
-
-	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3); break;
+		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 
 	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
