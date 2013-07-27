@@ -611,105 +611,29 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Breath Attack Spell */
 
-	case TRAIT_BR_DISI:
-		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_ELEMENTAL_BREATH: breath(caster_ptr, DO_EFFECT_MISSILE, power, rad, id); break;
-
-	case TRAIT_BR_ACID:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_ELEC:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_FIRE:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_COLD:
-		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_POIS:
-		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_NETH:
-		damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_LITE:
-		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_DARK:
-		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_CONF:
-		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_SOUN:
-		if(caster_ptr->species_idx == SPECIES_JAIAN) msg_format(MES_TRAIT_BR_SOUN_JAIAN);
-		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_CHAO:
-		damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_DISE:
-		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_DISENCHANT, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_NEXU:
-		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_TIME:
-		damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_TIME, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_INER:
-		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(caster_ptr, DO_EFFECT_INERTIA, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_GRAV:
-		damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-		breath(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, damage, 3, id);
-		break;
-
-	case TRAIT_BR_SHAR:
-		if(caster_ptr->species_idx == SPECIES_BOTEI) msg_format(MES_TRAIT_BR_SHAR_BOTEI);
-		breath(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, power, 3, id); break;
-
-	case TRAIT_BR_PLAS: breath(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, power, 3, id); break;
-	case TRAIT_BR_WALL: breath(caster_ptr, DO_EFFECT_FORCE, MAX_RANGE_SUB, power, 3, id); break;
-	case TRAIT_BR_MANA: breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, 3, id); break;
-	case TRAIT_BR_NUKE: breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, 3, id); break;
-
-
-
+	case TRAIT_BR_DISI: breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_ELEMENTAL_BREATH: breath(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_ACID: breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_ELEC: breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_FIRE: breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_COLD: breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_POIS: breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_NETH: breath(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_LITE: breath(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_DARK: breath(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_CONF: breath(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_SOUN: breath(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_CHAO: breath(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_DISE: breath(caster_ptr, DO_EFFECT_DISENCHANT, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_NEXU: breath(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_TIME: breath(caster_ptr, DO_EFFECT_TIME, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_INER: breath(caster_ptr, DO_EFFECT_INERTIA, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_GRAV: breath(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_SHAR: breath(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_PLAS: breath(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_WALL: breath(caster_ptr, DO_EFFECT_FORCE, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_MANA: breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, rad, id); break;
+	case TRAIT_BR_NUKE: breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, rad, id); break;
 
 	case TRAIT_SLEEP_TOUCH:
 	case TRAIT_SLEEP:
