@@ -4036,7 +4036,6 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	COODINATES lev_bonus = caster_ptr->lev;

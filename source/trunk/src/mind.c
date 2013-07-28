@@ -940,7 +940,6 @@ int number_of_mirrors(creature_type *caster_ptr)
 static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	CREATURE_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
