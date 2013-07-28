@@ -107,19 +107,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Mass Spells */
 
-	case TRAIT_DISPEL_EVIL_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 5); break;
-	case TRAIT_DISPEL_GOOD_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, user_level * 5); break;
-	case TRAIT_BANISH_EVIL: project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100); break;
+	case TRAIT_DISPEL_EVIL_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, power); break;
+	case TRAIT_DISPEL_GOOD_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, power); break;
+	case TRAIT_BANISH_EVIL: project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, power); break;
 	case TRAIT_DISPEL_LIVES: project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(power)); break;
-	case TRAIT_HASTE_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, user_level); break;
+	case TRAIT_HASTE_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, power); break;
 	case TRAIT_MASS_SLEEP: project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power); break;
-	case TRAIT_MASS_SLOW: project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level); break;
+	case TRAIT_MASS_SLOW: project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power); break;
 
 	case TRAIT_MOON_DAZZLING:
 		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power);
 		break;
 
 	case TRAIT_HOLINESS:
@@ -134,14 +134,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_TERROR:
-	case TRAIT_LAY_OF_FEAR:
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level);
-		break;
+	case TRAIT_LAY_OF_FEAR: project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + user_level); break;
 
 	case TRAIT_PESTICIDE:
-	case TRAIT_DISPEL_SMALL_LIFE:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
-		break;
+	case TRAIT_DISPEL_SMALL_LIFE: project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4); break;
 
 	case TRAIT_NATURE_WRATH:
 		{
@@ -155,23 +151,33 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 
 	case TRAIT_EXORCISM:
-		{
-			int sides = power;
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
-			project_all_vision(caster_ptr, DO_EFFECT_TURN_EVIL, power);
-		}
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, power);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, power);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_EVIL, power);
 		break;
 
 	case TRAIT_HOLY_WORD:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(power));
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, power);
 		heal_creature(caster_ptr, power);
 		break;
 
 	case TRAIT_DAZZLE:
-		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
+		break;
+
+	case TRAIT_MIRROR_SLEEP:
+		for(x = 0; x < floor_ptr->width; x++)
+		{
+			for(y=0; y < floor_ptr->height; y++)
+			{
+				if(is_mirror_grid(&floor_ptr->cave[y][x]))
+				{
+					project(caster_ptr, 0, 2, y, x, user_level, DO_EFFECT_OLD_SLEEP, (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+				}
+			}
+		}
 		break;
 
 	/* Genocide Spells */
@@ -296,16 +302,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_GET_ULTRA_RESISTANCE:
-		{
-			int v = randint1(power) + power;
-			set_timed_trait(caster_ptr, TRAIT_FAST, v, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_ULTRA_RES, v, FALSE);
-		}
+		set_timed_trait(caster_ptr, TRAIT_FAST, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_ULTRA_RES, power, FALSE);
 		break;
 
 	case TRAIT_BECOME_HERO:
@@ -315,15 +318,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_DEVIL_CLOAK:
-		{
-			int base = 20;
-			int dur = randint1(base) + base;
-			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_AURA_FIRE, dur, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			break;
-		}
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_AURA_FIRE, power, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_AFRAID, power, TRUE);
 		break;
 
 	case TRAIT_REMOVE_FEAR: (void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE); break;
@@ -354,12 +352,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_GET_MAGIC_DEF: set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE); break;
 
 	case TRAIT_MIRROR_SHIELD:
-		{
-		int tmp = 20 + randint1(20);
-		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
-		if(user_level > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
-		if(user_level > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
-		}
+		set_timed_trait(caster_ptr, TRAIT_SHIELD, power, FALSE);
+		if(user_level > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, power, FALSE);
+		if(user_level > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, power, FALSE);
 		break;
 
 	case TRAIT_GET_KAWARIMI:
@@ -374,13 +369,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_MULTI_BLESS_1:
 		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
-		(void)heal_creature(caster_ptr, 10);
 		(void)set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(50) + 50, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(50) + 50, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(50) + 50, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(50) + 50, FALSE);
 		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
+		(void)heal_creature(caster_ptr, 10);
 		break;
 
 	/* Light Spell */
@@ -484,26 +479,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_JEWEL_OF_JUDGEMENT:
-			msg_print(MES_MELEE_JOJ_DONE);
-			wiz_lite(floor_ptr, caster_ptr, FALSE);
-			msg_print(MES_MELEE_JOJ_STRAIN);
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), COD_JOJ_RISK, NULL, -1);
+		msg_print(MES_MELEE_JOJ_DONE);
+		wiz_lite(floor_ptr, caster_ptr, FALSE);
+		msg_print(MES_MELEE_JOJ_STRAIN);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), COD_JOJ_RISK, NULL, -1);
 
-			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 
-			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
-			break;
-
-	case TRAIT_MIRROR_SLEEP:
-		for(x=0;x<floor_ptr->width;x++){
-			for(y=0;y<floor_ptr->height;y++){
-				if(is_mirror_grid(&floor_ptr->cave[y][x])) {
-					project(caster_ptr, 0,2,y,x,user_level,DO_EFFECT_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
-				}
-			}
-		}
+		if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
 		break;
 
 	/* Identify Spell */
