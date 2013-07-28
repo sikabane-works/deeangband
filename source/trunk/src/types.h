@@ -350,7 +350,6 @@ struct traits_precondition
 	bool applied[MAX_TRAITS];
 };
 
-typedef s32b TRAIT_ALIAS_ID;
 typedef struct traits_precondition_new traits_precondition_new;
 struct traits_precondition_new
 {
@@ -363,7 +362,6 @@ struct traits_precondition_new
 	POWER stat_boost_rate[STAT_MAX];
 	POWER level_boost_rate;
 	FLAGS_32 option;
-	TRAIT_ALIAS_ID trait_alias_idx;
 	bool applied;
 };
 

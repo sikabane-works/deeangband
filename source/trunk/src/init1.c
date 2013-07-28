@@ -3806,7 +3806,7 @@ enum TRAIT_INFO
   TRAIT_INFO_NAME,
   TRAIT_INFO_E_NAME,
   TRAIT_INFO_DISP_PRIORITY,
-  TRAIT_INFO_ALIAS,
+  TRAIT_INFO_EFFECT,
   TRAIT_INFO_STR,
   TRAIT_INFO_INT,
   TRAIT_INFO_WIS,
@@ -3856,7 +3856,7 @@ static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 	"NAME",
 	"E_NAME",
 	"DISP_PRIORITY",
-	"ALIAS",
+	"EFFECT",
 	"STR",
 	"INT",
 	"WIS",
@@ -3966,7 +3966,7 @@ errr parse_trait_csv(char *buf, header *head)
 					trait_ptr->display_priority = (byte)b;
 				break;
 
-				case TRAIT_INFO_ALIAS:
+				case TRAIT_INFO_EFFECT:
 					if(add_tmp(&trait_ptr->alias_text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 				break;

@@ -560,29 +560,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BA_DRAI: cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, rad); break;
 
 	case TRAIT_MIRROR_CRASH: cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, power, (COODINATES)(user_level > 20 ? (user_level - 20) / 8 + 1 : 0)); break;
-
-	case TRAIT_BA_NUKE:
-		damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, damage, 2);
-		break;
-
-	case TRAIT_BA_CHAO:
-		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-		cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 4);
-		break;
-
-	case TRAIT_BA_ACID:
-		damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_ball(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 2);
-		break;
+	case TRAIT_BA_NUKE: cast_ball(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_CHAO: cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_ACID: cast_ball(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, power, rad); break;
 
 	case TRAIT_BA_ELEC_L:
 	case TRAIT_BA_ELEC: cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, rad); break;
-		break;
 
 	case TRAIT_BA_FIRE_L:
 	case TRAIT_BA_FIRE: cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, power, rad); break;
-		break;
 
 	case TRAIT_BA_COLD_L:
 	case TRAIT_BA_COLD: cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, power, rad); break;
