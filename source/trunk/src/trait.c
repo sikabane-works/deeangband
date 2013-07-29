@@ -105,7 +105,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	switch(id)
 	{
 
-	/* Mass Spells */
+		/* Mass Spells */
 
 	case TRAIT_DISPEL_EVIL_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, power); break;
 	case TRAIT_DISPEL_GOOD_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, power); break;
@@ -180,6 +180,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_WAVE_NETHER:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(power));
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(power));
+		break;
+
+	case TRAIT_DISPEL_ALL: project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, power); break;
+
 	case TRAIT_FRIGHTEN_SOUND:
 		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
 		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
@@ -232,37 +239,37 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	/* Genocide Spells */
+		/* Genocide Spells */
 
 	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
 	case TRAIT_SYMBOL_GENOCIDE: (void)symbol_genocide(caster_ptr, 200, TRUE); break;
 	case TRAIT_MASS_GENOCIDE: (void)mass_genocide(caster_ptr, 200, TRUE); break;
 
 	case TRAIT_BANISH:
-			if(!cave_ptr->creature_idx)
+		if(!cave_ptr->creature_idx)
+		{
+			msg_print(MES_TRAIT_BANISH_NO_TARGET); break;
+		}
+		target_ptr = &creature_list[cave_ptr->creature_idx];
+		if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
+			!floor_ptr->fight_arena_mode && !floor_ptr->quest && (user_level < randint1(user_level)) && !has_trait(target_ptr, TRAIT_NO_GENOCIDE))
+		{
+			if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 			{
-				msg_print(MES_TRAIT_BANISH_NO_TARGET); break;
+				creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
+				write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 			}
-			target_ptr = &creature_list[cave_ptr->creature_idx];
-			if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
-				!floor_ptr->fight_arena_mode && !floor_ptr->quest && (user_level < randint1(user_level)) && !has_trait(target_ptr, TRAIT_NO_GENOCIDE))
-			{
-				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
-				{
-					creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
-					write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
-				}
-				delete_creature(&creature_list[cave_ptr->creature_idx]);
-				msg_print(MES_TRAIT_BANISH_DONE);
-			}
-			else
-			{
-				msg_print(MES_TRAIT_BANISH_UNAFFECTED);
-				if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
-			}
+			delete_creature(&creature_list[cave_ptr->creature_idx]);
+			msg_print(MES_TRAIT_BANISH_DONE);
+		}
+		else
+		{
+			msg_print(MES_TRAIT_BANISH_UNAFFECTED);
+			if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
+		}
 		break;
 
-	/* Charm Spells */
+		/* Charm Spells */
 
 	case TRAIT_CHARM_ANIMAL: cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_CHARM_UNDEAD: cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, user_level, 0); break;
@@ -273,7 +280,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DOMINATE_LIVES: project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, user_level); break;
 	case TRAIT_DOMINATE_DEMON: cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0); break;
 
-	/* Summoning Spell */
+		/* Summoning Spell */
 
 	case TRAIT_S_KIN:
 		{
@@ -338,7 +345,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_GROW_MOLD:
 		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, id, (PC_ALLOW_GROUP | PC_FORCE_PET)); break;
 
-	/* Get Timed Trait Spells */
+		/* Get Timed Trait Spells */
 
 	case TRAIT_REMOVE_POISON: (void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE); break;
 	case TRAIT_GET_ELEMENT_BRAND: choose_ele_attack(caster_ptr); break;
@@ -367,6 +374,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
 		if(add_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
 		if(heal_creature(caster_ptr, 10)) effected = TRUE;
+		break;
+
+	case TRAIT_BERSERK:
+		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
+		if(add_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
+		if(heal_creature(caster_ptr, 30)) effected = TRUE;
 		break;
 
 	case TRAIT_DEVIL_CLOAK:
@@ -458,7 +471,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	/* Light Spell */
+		/* Light Spell */
 
 	case TRAIT_ILLUMINE:
 	case TRAIT_LIGHT_AREA:
@@ -469,7 +482,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DARKNESS: (void)unlite_area(caster_ptr, 10, 3); break;
 
 
-	/* Detect Spells */
+		/* Detect Spells */
 
 	case TRAIT_DETECT_INVISIBLE: detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT); break;
 	case TRAIT_DETECT_MAP: map_area(caster_ptr, DETECT_RAD_MAP); break;
@@ -502,12 +515,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_MIRROR_SEEING:
 		{
-		int tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 0;
-		if(user_level + tmp > 4) detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		if(user_level + tmp > 18) detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
-		if(user_level + tmp > 28) set_timed_trait(caster_ptr, TRAIT_ESP, user_level, FALSE);
-		if(user_level + tmp > 38) map_area(caster_ptr, DETECT_RAD_MAP);
-		if(tmp == 0 && user_level < 5 ) msg_print(MES_PREVENT_NO_MIRROR);
+			int tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 0;
+			if(user_level + tmp > 4) detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
+			if(user_level + tmp > 18) detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
+			if(user_level + tmp > 28) set_timed_trait(caster_ptr, TRAIT_ESP, user_level, FALSE);
+			if(user_level + tmp > 38) map_area(caster_ptr, DETECT_RAD_MAP);
+			if(tmp == 0 && user_level < 5 ) msg_print(MES_PREVENT_NO_MIRROR);
 		}
 		break;
 
@@ -580,7 +593,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	/* Identify Spell */
+		/* Identify Spell */
 
 	case TRAIT_IDENTIFY: if(ident_spell(caster_ptr, FALSE)) return TRUE; break;
 	case TRAIT_IDENTIFY_TRUE: if(identify_fully(caster_ptr, FALSE)) return TRUE; break;
@@ -603,11 +616,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else if(!ident_spell(caster_ptr, TRUE)) return TRUE;
 		break;
 
-	/* Recharge Spells */
+		/* Recharge Spells */
 	case TRAIT_MAGIC_CHARGE_2: recharge(caster_ptr, 130); break;
 	case TRAIT_MAGIC_CHARGE_EX: if(!recharge(caster_ptr, 1000)) return FALSE; break;
 
-	/* Disarm Type Spell */
+		/* Disarm Type Spell */
 	case TRAIT_DESTROY_DOOR_TRAP: project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1); break;
 	case TRAIT_BEAM_DISARM: cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1); break;
 	case TRAIT_DESTROY_DOOR_TRAP_BEAM: cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1); break;
@@ -615,7 +628,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_STAR_DESTROY: if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE; break;
 
-	/* Ball Attack Spells */
+		/* Ball Attack Spells */
 
 	case TRAIT_STAR_BALL: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id); break;
 	case TRAIT_FORCE_FIST: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, 0); break;
@@ -632,10 +645,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			int type;
 			switch (randint1(4))
 			{
-				case 1:  type = DO_EFFECT_FIRE; break;
-				case 2:  type = DO_EFFECT_ELEC; break;
-				case 3:  type = DO_EFFECT_COLD; break;
-				default: type = DO_EFFECT_ACID; break;
+			case 1:  type = DO_EFFECT_FIRE; break;
+			case 2:  type = DO_EFFECT_ELEC; break;
+			case 3:  type = DO_EFFECT_COLD; break;
+			default: type = DO_EFFECT_ACID; break;
 			}
 			cast_ball(caster_ptr, type, MAX_RANGE_SUB, dam, rad);
 		}
@@ -671,7 +684,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SUCCUBUS_KISS: cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, power, rad); break;
 
 
-	/* Breath Attack Spell */
+		/* Breath Attack Spell */
 
 	case TRAIT_BR_DISI: breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, rad, id); break;
 	case TRAIT_ELEMENTAL_BREATH: breath(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad, id); break;
@@ -768,7 +781,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	/* Bolt Type Trait */
+		/* Bolt Type Trait */
 	case TRAIT_BO_ACID_MINI:
 	case TRAIT_BO_ACID:
 		cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, power, TRAIT_BO_ACID); break;
@@ -841,7 +854,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
 
 
-	/* Curse Attack Spell */
+		/* Curse Attack Spell */
 
 	case TRAIT_PSI_DRAIN: cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, power, 0); break;
 	case TRAIT_DRAIN_MANA: cast_ball(caster_ptr, DO_EFFECT_DRAIN_MANA, MAX_RANGE_SUB, power, 0); break;
@@ -869,7 +882,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	/* Generate Feature Spell */
+		/* Generate Feature Spell */
 
 	case TRAIT_EXPLOSIVE_RUNE: explosive_rune(caster_ptr); break;
 	case TRAIT_PROTECT_RUNE: warding_glyph(caster_ptr); break;
@@ -887,7 +900,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 		}
 
-	/* Swarm Spell */
+		/* Swarm Spell */
 	case TRAIT_METEOR_SWARM: cast_meteor(caster_ptr, power, 2); break;
 	case TRAIT_FIRE_SWARM: rengoku_kaen(caster_ptr); break;
 
@@ -908,7 +921,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
 				if(is_pet(player_ptr, &creature_list[pet_ctr]) && (caster_ptr->riding != pet_ctr))
-				  who[max_pet++] = pet_ctr;
+					who[max_pet++] = pet_ctr;
 			}
 
 			ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet, ang_sort_swap_hook);
@@ -996,32 +1009,32 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_CRUSADE:
+		{
+			int base = 25;
+			int sp_sides = 20 + power;
+			int sp_base = power;
+
+			int i;
+			project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, user_level * 4);
+			for (i = 0; i < 12; i++)
 			{
-				int base = 25;
-				int sp_sides = 20 + power;
-				int sp_base = power;
+				int attempt = 10;
+				COODINATES my = 0, mx = 0;
 
-				int i;
-				project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, user_level * 4);
-				for (i = 0; i < 12; i++)
+				while (attempt--)
 				{
-					int attempt = 10;
-					COODINATES my = 0, mx = 0;
-
-					while (attempt--)
-					{
-						scatter(floor_ptr, &my, &mx, caster_ptr->fy, caster_ptr->fx, 4, 0);
-						if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
-					}
-					if(attempt < 0) continue;
-					summoning(NULL, my, mx, power, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
+					scatter(floor_ptr, &my, &mx, caster_ptr->fy, caster_ptr->fx, 4, 0);
+					if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
 				}
-				set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+				if(attempt < 0) continue;
+				summoning(NULL, my, mx, power, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 			}
+			set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+		}
 		break;
 
 	case TRAIT_TELE_TO:
@@ -1068,12 +1081,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_FORGET:
 		/* TODO */
 		break;
-		
+
 	case TRAIT_ANIM_DEAD:
 		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 
-	/* Self Damage Spell */
+		/* Self Damage Spell */
 
 	case TRAIT_FOOD_POISONING_6D6: take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), COD_POISONOUS_FOOD, NULL, -1); break;
 	case TRAIT_FOOD_POISONING_8D8: take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), COD_POISONOUS_FOOD, NULL, -1); break;
@@ -1094,7 +1107,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 
-	/* Melee Type Spell */
+		/* Melee Type Spell */
 
 	case TRAIT_PANIC_HIT: hit_and_away(caster_ptr); break;
 	case TRAIT_RUSH_ATTACK: rush_attack(caster_ptr, NULL); break;
@@ -1358,25 +1371,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_SHADOW_SHIFT:
-		alter_reality(caster_ptr);
-		break;
-
-	case TRAIT_BERSERK:
-		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
-		if(add_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
-		if(heal_creature(caster_ptr, 30)) effected = TRUE;
-		break;
+	case TRAIT_SHADOW_SHIFT: alter_reality(caster_ptr); break;
 
 	case TRAIT_BATTLE_FRENZY:
 		{
 			int sp_base = power / 2;
 			int sp_sides = 20 + power / 2;
 
-				set_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
-				heal_creature(caster_ptr, 30);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, TRUE);
+			set_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
+			heal_creature(caster_ptr, 30);
+			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+			set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, TRUE);
 		}
 
 	case TRAIT_THROW_BOULDER:
@@ -1411,7 +1416,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 
 
-	/* Beam Type Attack Spell */
+		/* Beam Type Attack Spell */
 
 	case TRAIT_BE_GRAV: cast_beam(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, diceroll(9 + (power - 5) / 4, 8), 0); break;
 	case TRAIT_SEEKER_RAY: cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(user_level - 5) / 4,8), 0); break;
@@ -1521,55 +1526,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_SCATTER_EVIL:
-		cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0);
-		break;
+	case TRAIT_SCATTER_EVIL: cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0); break;
 
-	case TRAIT_LIVING_TRUMP:
-		{
-				int mutation;
-
-				//TODO
-				if(one_in_(7))
-					/* Teleport control */
-					mutation = 12;
-				else
-					/* Random teleportation (uncontrolled) */
-					mutation = 77;
-
-				/* Gain the mutation */
-				if(get_mutative_trait(caster_ptr, mutation, TRUE))
-				{
-#ifdef JP
-					msg_print("あなたは生きているカードに変わった。");
-#else
-					msg_print("You have turned into a Living Trump.");
-#endif
-				}
-		}
-		break;
-
-	case TRAIT_WAVE_NETHER:
-	{
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(power));
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(power));
-	}
-	break;
-
-	case TRAIT_DISPEL_ALL:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, power);
-	break;
-
-	case TRAIT_WEIGH_MAG:
-		//TODO Erase
-		break;
-
-	/* Scout Spell */
+		/* Scout Spell */
 
 	case TRAIT_SELF_KNOWLEDGE: creature_knowledge(caster_ptr); break;
 	case TRAIT_SCAN_CREATURE: probing(floor_ptr); break;
 
-	/* Status Spell */
+		/* Status Spell */
 
 	case TRAIT_RES_STR: if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
 	case TRAIT_RES_INT: if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
@@ -1592,7 +1556,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DEC_CON: if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
 	case TRAIT_DEC_CHR: if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
 
-	/* Standard Healing Spell */
+		/* Standard Healing Spell */
 
 	case TRAIT_REGAL_HEAL_OF_AMBER:
 	case TRAIT_HEAL:
@@ -1612,7 +1576,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)heal_creature(caster_ptr, 777);
 		break;
 
-	/* Restore Soul Spell */
+		/* Restore Soul Spell */
 
 	case TRAIT_RESTORE_LIFE:
 	case TRAIT_RESTORE_LEVEL:
@@ -1629,7 +1593,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	/* Cure Spell */
+		/* Cure Spell */
 
 	case TRAIT_RESTORE_ALL:
 	case TRAIT_CURE_OF_AESCULAPIUS:
@@ -1666,7 +1630,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)restore_exp(caster_ptr);
 		break;
 
-	/* Generate Object Type */
+		/* Generate Object Type */
 
 	case TRAIT_ACQUIREMENT1: acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, 1, TRUE, FALSE); break;
 	case TRAIT_ACQUIREMENT2: acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, randint1(2) + 1, TRUE, FALSE); break;
@@ -1685,7 +1649,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(!do_cmd_archer(caster_ptr)) return FALSE;
 		break;
 
-	/* Enchant Object Type */
+		/* Enchant Object Type */
 
 	case TRAIT_RUSTPROOF: rustproof(caster_ptr); break;
 	case TRAIT_PURISH_SHIELD: pulish_shield(caster_ptr); break;
@@ -1704,7 +1668,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_ADD_FIRE_BRAND: (void)brand_bolts(caster_ptr); break;
 
 
-	/* Wonder Type Spell */
+		/* Wonder Type Spell */
 
 	case TRAIT_WANDER: cast_wonder(caster_ptr); break;
 	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
@@ -1713,7 +1677,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CALL_CHAOS: call_chaos(caster_ptr); break;
 
 
-	/* Storm Attack Spell */
+		/* Storm Attack Spell */
 
 	case TRAIT_STORM_FIRE: SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 300 + 3 * power, 8, -1);
 	case TRAIT_STORM_NETHER: cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, power / 5); break;
@@ -1753,7 +1717,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	/* Chain Type Spells */
+		/* Chain Type Spells */
 
 	case TRAIT_CHAIN_LIGHTNING:
 		{
@@ -1803,7 +1767,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	/* Teleport Spells */
+		/* Teleport Spells */
 
 	case TRAIT_BLINK:
 		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
@@ -1851,7 +1815,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_RECALL: if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE; break;
 
 
-	/* etc Spells */
+		/* etc Spells */
 
 	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
 	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
@@ -1977,6 +1941,34 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 			}
 			break;
+
+	case TRAIT_LIVING_TRUMP:
+		{
+			int mutation;
+
+			//TODO
+			if(one_in_(7))
+				/* Teleport control */
+				mutation = 12;
+			else
+				/* Random teleportation (uncontrolled) */
+				mutation = 77;
+
+			/* Gain the mutation */
+			if(get_mutative_trait(caster_ptr, mutation, TRUE))
+			{
+#ifdef JP
+				msg_print("あなたは生きているカードに変わった。");
+#else
+				msg_print("You have turned into a Living Trump.");
+#endif
+			}
+		}
+		break;
+
+	case TRAIT_WEIGH_MAG:
+		//TODO Erase
+		break;
 
 		}
 
