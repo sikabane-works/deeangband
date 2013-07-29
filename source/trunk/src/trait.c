@@ -579,6 +579,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BA_MANA: cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BA_DARK: cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BAZOOKA: cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_SUCCUBUS_KISS: cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, power, rad); break;
+
 
 	/* Breath Attack Spell */
 
@@ -1686,25 +1688,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		//TODO Erase
 		break;
 
-	case TRAIT_SUCCUBUS_KISS:
-		{
-			POWER dam = 100 + power * 2;
-			COODINATES rad = 4;
-			cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, dam, rad);
-		}
-		break;
-
-	case TRAIT_INSANITY_CIRCLE:
-		{
-			POWER dam = 50 + power;
-			COODINATES rad = 3 + (COODINATES)power / 20;
-
-			SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, dam, rad, -1);
-			SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, dam, rad, -1);
-			SELF_FIELD(caster_ptr, DO_EFFECT_CHARM, dam, rad, -1);
-		}
-		break;
-
 	/* Scout Spell */
 
 	case TRAIT_SELF_KNOWLEDGE: creature_knowledge(caster_ptr); break;
@@ -1873,6 +1856,23 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_HIDE_IN_MYST:
+		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		teleport_creature(caster_ptr, 30, 0L);
+		break;
+
+	case TRAIT_INSANITY_CIRCLE:
+		{
+			POWER dam = 50 + power;
+			COODINATES rad = 3 + (COODINATES)power / 20;
+
+			SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, dam, rad, -1);
+			SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, dam, rad, -1);
+			SELF_FIELD(caster_ptr, DO_EFFECT_CHARM, dam, rad, -1);
+		}
+		break;
 
 	/* Chain Type Spells */
 
@@ -1923,14 +1923,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 			break;
 		}
-
-
-	case TRAIT_HIDE_IN_MYST:
-		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		teleport_creature(caster_ptr, 30, 0L);
-		break;
 
 	/* Teleport Spells */
 
