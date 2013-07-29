@@ -1038,6 +1038,7 @@ extern s32b flag_cost(object_type *object_ptr, int plusses);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);
 extern bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr);
 extern bool project_all_vision(creature_type *caster_ptr, int typ, POWER dam);
+extern void monster_ball(creature_type *caster_ptr);
 extern bool eat_magic(creature_type *creature_ptr, POWER power);
 extern void discharge_minion(creature_type *caster_ptr);
 extern bool kawarimi(creature_type *user_ptr, bool success);

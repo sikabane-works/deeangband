@@ -1076,6 +1076,139 @@ bool project_all_vision(creature_type *caster_ptr, int typ, POWER dam)
 	return (obvious);	// Result
 }
 
+void monster_ball(creature_type *caster_ptr)
+{
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	object_type *object_ptr = NULL;
+	DIRECTION dir;
+	{
+		bool old_target_pet = target_pet;
+		target_pet = TRUE;
+		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir))
+		{
+			target_pet = old_target_pet;
+			return;
+		}
+		target_pet = old_target_pet;
+
+		//if(cast_ball_aux(ty, tx, caster_ptr, DO_EFFECT_CAPTURE, 0, 0))
+		{
+			//TODO: Capture creature status.
+
+			/*
+			if(cap_nickname)
+			{
+			cptr t;
+			char *s;
+			char buf[80] = "";
+
+			if(object_ptr->inscription)
+			strcpy(buf, quark_str(object_ptr->inscription));
+			s = buf;
+			for (s = buf;*s && (*s != '#'); s++)
+			{
+			#ifdef JP
+			if(iskanji(*s)) s++;
+			#endif
+			}
+			*s = '#';
+			s++;
+			#ifdef JP
+			//nothing
+			#else
+			*s++ = '\'';
+			#endif
+			t = quark_str(cap_nickname);
+			while (*t)
+			{
+			*s = *t;
+			s++;
+			t++;
+			}
+			#ifdef JP
+			//nothing
+			#else
+			*s++ = '\'';
+			#endif
+			*s = '\0';
+			object_ptr->inscription = quark_add(buf);
+			}
+			*/
+
+		}
+	}
+	//TODO else
+	{
+		bool success = FALSE;
+		if(species_can_enter(floor_ptr, caster_ptr->fy + ddy[dir], caster_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
+		{
+			//TODO CAPTURE
+			if(place_creature_fixed_species(caster_ptr, floor_ptr, caster_ptr->fy + ddy[dir], caster_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
+			{
+				creature_list[hack_creature_idx_ii].mhp = creature_list[hack_creature_idx_ii].mmhp;
+				if(object_ptr->inscription)
+				{
+					char buf[80];
+					cptr t;
+#ifndef JP
+					bool quote = FALSE;
+#endif
+
+					t = quark_str(object_ptr->inscription);
+					for (t = quark_str(object_ptr->inscription);*t && (*t != '#'); t++)
+					{
+#ifdef JP
+						if(iskanji(*t)) t++;
+#endif
+					}
+					if(*t)
+					{
+						char *s = buf;
+						t++;
+#ifdef JP
+						/* nothing */
+#else
+						if(*t =='\'')
+						{
+							t++;
+							quote = TRUE;
+						}
+#endif
+						while(*t)
+						{
+							*s = *t;
+							t++;
+							s++;
+						}
+#ifdef JP
+						/* nothing */
+#else
+						if(quote && *(s-1) =='\'')
+							s--;
+#endif
+						*s = '\0';
+						creature_list[hack_creature_idx_ii].nickname = quark_add(buf);
+						t = quark_str(object_ptr->inscription);
+						s = buf;
+						while(*t && (*t != '#'))
+						{
+							*s = *t;
+							t++;
+							s++;
+						}
+						*s = '\0';
+						object_ptr->inscription = quark_add(buf);
+					}
+				}
+				object_ptr->pval = 0;
+				success = TRUE;
+			}
+		}
+		if(!success) msg_print(MES_OBJECT_MBALL_FAILED);
+	}
+}
+
+
 /*
 * Wake up all creatures, and speed up "los" creatures.
 */
