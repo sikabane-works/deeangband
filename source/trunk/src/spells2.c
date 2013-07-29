@@ -1076,6 +1076,48 @@ bool project_all_vision(creature_type *caster_ptr, int typ, POWER dam)
 	return (obvious);	// Result
 }
 
+
+bool rodeo(creature_type *caster_ptr)
+{
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	{
+		char steed_name[80];
+		creature_type *steed_ptr;
+		int user_level;
+
+		if(caster_ptr->riding)
+		{
+			msg_print(MES_PREVENT_BY_RIDING);
+			return FALSE;
+		}
+		if(!do_riding(caster_ptr, TRUE)) return TRUE;
+		steed_ptr = &creature_list[caster_ptr->riding];
+		creature_desc(steed_name, steed_ptr, 0);
+		msg_format(MES_STEED_RIDE_ON(steed_ptr));
+
+		if(is_pet(player_ptr, steed_ptr)) return FALSE;
+		user_level = steed_ptr->lev;
+		if(has_trait(steed_ptr, TRAIT_UNIQUE)) user_level = user_level * 3 / 2;
+		if(user_level > 60) user_level = 60 + (user_level - 60)/2;
+		if((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + user_level * 2 / 3) > user_level)
+			&& one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
+			&& !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
+			&& (user_level < user_level * 3 / 2 + randint0(user_level / 5)))
+		{
+			msg_format(MES_STEED_TAMED(steed_ptr));
+			set_pet(caster_ptr, steed_ptr);
+		}
+		else
+		{
+			msg_format(MES_STEED_TAME_FAILED(steed_ptr));
+			do_thrown_from_riding(caster_ptr, 1, TRUE);
+			caster_ptr->riding = 0;
+		}
+		return TRUE;
+	}
+
+}
+
 void monster_ball(creature_type *caster_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -1846,9 +1888,9 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 
 					switch (randint1(3))
 					{
-						case 1: msg_print(MES_EARTHQUAKE_DONE1); break;
-						case 2: msg_print(MES_EARTHQUAKE_DONE2); break;
-						default: msg_print(MES_EARTHQUAKE_DONE3); break;
+					case 1: msg_print(MES_EARTHQUAKE_DONE1); break;
+					case 2: msg_print(MES_EARTHQUAKE_DONE2); break;
+					default: msg_print(MES_EARTHQUAKE_DONE3); break;
 					}
 
 					// Hurt the player a lot / Message and damage
@@ -1881,7 +1923,7 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 
 					map[16 + target_ptr->fy - cy][16 + target_ptr->fx - cx] = FALSE; // Important -- no wall on player
 
-					
+
 					if(damage) // Take some damage
 					{
 						char *killer;
@@ -1909,7 +1951,7 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 			// Extract the location
 			yy = cy + dy;
 			xx = cx + dx;
-			
+
 			if(!map[16+yy-cy][16+xx-cx]) continue; // Skip unaffected grids
 			c_ptr = &floor_ptr->cave[yy][xx]; // Access the cave grid
 
@@ -2140,12 +2182,12 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 
 
 /*
- * This routine clears the entire "temp" set.
- * This routine will "darken" all "temp" grids.
- * In addition, some of these grids will be "unmarked".
- * This routine is used (only) by "unlite_room()"
- * Also, process all affected creatures
- */
+* This routine clears the entire "temp" set.
+* This routine will "darken" all "temp" grids.
+* In addition, some of these grids will be "unmarked".
+* This routine is used (only) by "unlite_room()"
+* Also, process all affected creatures
+*/
 static void cave_temp_room_unlite(floor_type *floor_ptr)
 {
 	int i;
@@ -2367,8 +2409,8 @@ static void cave_temp_unlite_room_aux(creature_type *caster_ptr, COODINATES y, C
 
 
 /*
- * Illuminate any room containing the given location.
- */
+* Illuminate any room containing the given location.
+*/
 void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1)
 {
 	int i;
@@ -2408,8 +2450,8 @@ void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1)
 
 
 /*
- * Darken all rooms containing the given location
- */
+* Darken all rooms containing the given location
+*/
 void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);

@@ -1293,48 +1293,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cancel_tactical_action(caster_ptr);
 		break;
 
-	case TRAIT_RODEO:
-		{
-			char steed_name[80];
-			creature_type *steed_ptr;
-			int user_level;
-
-			if(caster_ptr->riding)
-			{
-				msg_print(MES_PREVENT_BY_RIDING);
-				return FALSE;
-			}
-			if(!do_riding(caster_ptr, TRUE)) return TRUE;
-			steed_ptr = &creature_list[caster_ptr->riding];
-			creature_desc(steed_name, steed_ptr, 0);
-			msg_format(MES_STEED_RIDE_ON(steed_ptr));
-
-			if(is_pet(player_ptr, steed_ptr)) break;
-			user_level = steed_ptr->lev;
-			if(has_trait(steed_ptr, TRAIT_UNIQUE)) user_level = user_level * 3 / 2;
-			if(user_level > 60) user_level = 60 + (user_level - 60)/2;
-			if((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + user_level * 2 / 3) > user_level)
-				&& one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
-				&& !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
-				&& (user_level < user_level * 3 / 2 + randint0(user_level / 5)))
-			{
-				msg_format(MES_STEED_TAMED(steed_ptr));
-				set_pet(caster_ptr, steed_ptr);
-			}
-			else
-			{
-				msg_format(MES_STEED_TAME_FAILED(steed_ptr));
-				do_thrown_from_riding(caster_ptr, 1, TRUE);
-				caster_ptr->riding = 0;
-			}
-			break;
-		}
-
-	case TRAIT_BREAK_MIRROR:
-		{
-			remove_all_mirrors(caster_ptr, GET_FLOOR_PTR(caster_ptr), TRUE); // Explode all mirrors
-			break;
-		}
+	case TRAIT_RODEO: rodeo(caster_ptr); break;
+	case TRAIT_BREAK_MIRROR: remove_all_mirrors(caster_ptr, GET_FLOOR_PTR(caster_ptr), TRUE); break;
 
 	case TRAIT_MIRROR_CONC:
 		{
