@@ -1311,101 +1311,9 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 
 	while (!type || (randint1(100) >= chance))
 	{
-		type = randint1(255);
-		switch (type)
-		{
-			case TRAIT_SUNLIGHT:
-			case TRAIT_MISSILE:
-			case TRAIT_BA_POIS:
-			case TRAIT_BO_ELEC:
-			case TRAIT_BO_ACID:
-			case TRAIT_BO_COLD:
-			case TRAIT_BO_FIRE:
-			case TRAIT_CONFUSE_TOUCH:
-			case TRAIT_SLEEP_TOUCH:
-			case TRAIT_EARTHQUAKE:
-			case TRAIT_CURE_LIGHT_WOUNDS:
-			case TRAIT_CURE_MEDIUM_WOUNDS:
-			case TRAIT_REMOVE_POISON:
-			case TRAIT_BERSERK:
-			case TRAIT_ILLUMINATION:
-			case TRAIT_DETECT_MAP:
-			case TRAIT_DESTROY_DOOR_TRAP:
-			case TRAIT_STONE_TO_MUD:
-			case TRAIT_ACTIVE_TELEPORT:
-				chance = 101;
-				break;
-			case TRAIT_DRAIN_LIFE1:
-			case TRAIT_TELE_AWAY:
-			case TRAIT_GET_ESP:
-			case TRAIT_MAGIC_RES_ELEMENT:
-			case TRAIT_RECALL:
-			case TRAIT_SATIATE:
-			case TRAIT_MAGIC_CHARGE_2:
-				chance = 85;
-				break;
-			case TRAIT_TERROR:
-			case TRAIT_PROT_EVIL:
-			case TRAIT_IDENTIFY:
-				chance = 75;
-				break;
-			case TRAIT_DRAIN_LIFE2:
-			case TRAIT_VAMPIRIC_DRAIN_1:
-			case TRAIT_BO_MANA:
-			case TRAIT_BA_FIRE:
-			case TRAIT_RESTORE_LIFE:
-				chance = 66;
-				break;
-			case TRAIT_BA_COLD:
-			case TRAIT_BA_ELEC:
-			case TRAIT_WHIRLWIND:
-			case TRAIT_VAMPIRIC_DRAIN_2:
-			case TRAIT_CHARM_ANIMAL:
-				chance = 50;
-				break;
-			case TRAIT_S_ANIMAL:
-			case TRAIT_DETECT_ALL:
-				chance = 40;
-				break;
-			case TRAIT_DISPEL_EVIL_1:
-			case TRAIT_BA_MANA:
-			case TRAIT_DISPEL_GOOD_1:
-			case TRAIT_BANISH_EVIL:
-			case TRAIT_SYMBOL_GENOCIDE:
-			case TRAIT_MASS_GENOCIDE:
-			case TRAIT_CHARM_UNDEAD:
-			case TRAIT_CHARM_OTHER:
-			case TRAIT_S_PHANTOM:
-			case TRAIT_RESTORE_ALL:
-			case TRAIT_EXPLOSIVE_RUNE:
-				chance = 33;
-				break;
-			case TRAIT_CALL_CHAOS:
-			case TRAIT_ROCKET:
-			case TRAIT_CHARM_ANIMALS:
-			case TRAIT_CHARM_OTHERS:
-			case TRAIT_S_ELEMENTAL:
-			case TRAIT_HEAL:
-			case TRAIT_HASTE:
-			case TRAIT_IDENTIFY_TRUE:
-			case TRAIT_PROTECT_RUNE:
-				chance = 25;
-				break;
-			case TRAIT_HASTE_2:
-			case TRAIT_DIMENSION_DOOR:
-				chance = 10;
-				break;
-			case TRAIT_S_UNDEAD:
-			case TRAIT_S_DEMON:
-			case TRAIT_WRAITH_FORM:
-			case TRAIT_INVULNER:
-			case TRAIT_MIDAS_TCH:
-				chance = 5;
-				break;
-			default:
-				chance = 0;
-		}
+		//TODO implement activation
 	}
+
 	// A type was chosen...
 	add_flag(object_ptr->trait_flags, type);
 	object_ptr->timeout = 0;
@@ -1414,39 +1322,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 
 static void get_random_name(char *return_name, bool armour, POWER power, int artifact_bias)
 {
-	int prob = randint1(100);
-
-	if(prob <= SINDARIN_NAME) get_table_sindarin(return_name);
-	else if(prob <= TABLE_NAME) get_table_name(return_name);
-	else
-	{
-		cptr filename;
-		switch (armour)
-		{
-			case 1:
-				switch (power)
-				{
-					case 0:  filename = TEXT_FILES_ARMOUR_CURSED_ARTIFACT; break;
-					case 1:  filename = TEXT_FILES_ARMOUR_LOW_ARTIFACT; break;
-					case 2:  filename = TEXT_FILES_ARMOUR_MED_ARTIFACT; break;
-					default: filename = TEXT_FILES_ARMOUR_HIGH_ARTIFACT; break;
-				}
-				break;
-			default:
-				switch (power)
-				{
-					case 0:  filename = TEXT_FILES_WEAPON_CURSED_ARTIFACT; break;
-					case 1:  filename = TEXT_FILES_WEAPON_LOW_ARTIFACT; break;
-					case 2:  filename = TEXT_FILES_WEAPON_MED_ARTIFACT; break;
-					default: filename = TEXT_FILES_WEAPON_HIGH_ARTIFACT; break;
-				}
-		}
-
-		(void)get_rnd_line(filename, artifact_bias, return_name);
-#ifdef JP
-		 if(return_name[0] == 0) get_table_name(return_name);
-#endif
-	}
+	//TODO reimplement
 }
 
 
