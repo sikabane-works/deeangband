@@ -710,13 +710,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BR_MANA: breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, rad, id); break;
 	case TRAIT_BR_NUKE: breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, rad, id); break;
 
-		/* Bolt Type Trait */
+	/* Bolt Type Spell */
+
 	case TRAIT_BO_ACID_MINI:
 	case TRAIT_BO_ACID:
 		cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, power, TRAIT_BO_ACID); break;
 
 	case TRAIT_BO_ELEC_MINI:
 	case TRAIT_BO_ELEC:
+	case TRAIT_PUNISHMENT:
 		cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, TRAIT_BO_ELEC); break;
 
 	case TRAIT_BO_FIRE_MINI:
@@ -782,8 +784,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
 
-
-		/* Curse Attack Spell */
+	/* Curse Attack Spell */
 
 	case TRAIT_PSI_DRAIN: cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, power, 0); break;
 	case TRAIT_DRAIN_MANA: cast_ball(caster_ptr, DO_EFFECT_DRAIN_MANA, MAX_RANGE_SUB, power, 0); break;
@@ -1439,14 +1440,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_PUNISHMENT:
-		{
-			int dice = 3 + (power - 1) / 5;
-			int sides = 4;
-			cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
-		}
-		break;
-
 	case TRAIT_STAR_DUST:
 		{
 			int dice = 3 + (power - 1) / 9;
@@ -1574,11 +1567,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_CREATE_AMMO:
-		if(!do_cmd_archer(caster_ptr)) return FALSE;
-		break;
+	case TRAIT_CREATE_AMMO: if(!do_cmd_archer(caster_ptr)) return FALSE; break;
 
-		/* Enchant Object Type */
+	/* Enchant Object Type */
 
 	case TRAIT_RUSTPROOF: rustproof(caster_ptr); break;
 	case TRAIT_PURISH_SHIELD: pulish_shield(caster_ptr); break;
@@ -1596,8 +1587,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_ENCHANT_HOLY_BRAND: brand_weapon(caster_ptr, 13); break;
 	case TRAIT_ADD_FIRE_BRAND: (void)brand_bolts(caster_ptr); break;
 
-
-		/* Wonder Type Spell */
+	/* Wonder Type Spell */
 
 	case TRAIT_WANDER: cast_wonder(caster_ptr); break;
 	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
@@ -1605,8 +1595,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BIZARRE_THING_OF_THE_RING: ring_of_power(caster_ptr); break;
 	case TRAIT_CALL_CHAOS: call_chaos(caster_ptr); break;
 
-
-		/* Storm Attack Spell */
+	/* Storm Attack Spell */
 
 	case TRAIT_STORM_FIRE: SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 300 + 3 * power, 8, -1);
 	case TRAIT_STORM_NETHER: cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, power / 5); break;
@@ -1636,14 +1625,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_INSANITY_CIRCLE:
-		{
-			POWER dam = 50 + power;
-			COODINATES rad = 3 + (COODINATES)power / 20;
+		SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, power, rad, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, power, rad, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CHARM, power, rad, -1);
+		break;
 
-			SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, dam, rad, -1);
-			SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, dam, rad, -1);
-			SELF_FIELD(caster_ptr, DO_EFFECT_CHARM, dam, rad, -1);
-		}
+	case TRAIT_SHRIEK:
+		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
+		aggravate_creatures(caster_ptr);
 		break;
 
 		/* Chain Type Spells */
@@ -1785,18 +1774,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, power, -1); break;
 
 	case TRAIT_WOODEN_CRAPPING: aggravate_creatures(caster_ptr); break;
-	case TRAIT_SHRIEK:
-		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
-		aggravate_creatures(caster_ptr);
-		break;
 
 	case TRAIT_CAPTURE_CREATURE: monster_ball(caster_ptr); break;
-
 	case TRAIT_FISHING: fishing(caster_ptr, y, x); break;
-
-	case TRAIT_TELEKINES:
-		fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE);
-		break;
+	case TRAIT_TELEKINES: fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE); break;
 
 	case TRAIT_SPECIAL:
 		{
