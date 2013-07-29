@@ -1792,22 +1792,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_CAPTURE_CREATURE: monster_ball(caster_ptr); break;
 
-	case TRAIT_FISHING:
-		if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WATER))
-		{
-			msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
-			return FALSE;
-		}
-		else if(floor_ptr->cave[y][x].creature_idx)
-		{
-			creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
-			msg_format(MES_PREVENT_BY_CREATURE(target_name));
-			cancel_tactical_action(caster_ptr);
-			return FALSE;
-		}
-		set_action(caster_ptr, ACTION_FISH);
-		prepare_redraw(PR_STATE);
-		break;
+	case TRAIT_FISHING: fishing(caster_ptr, y, x); break;
 
 	case TRAIT_TELEKINES:
 		fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE);

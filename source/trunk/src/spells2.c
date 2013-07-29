@@ -1141,6 +1141,25 @@ void try_livingtrump(creature_type *caster_ptr)
 	}
 }
 
+void fishing(creature_type *caster_ptr, COODINATES y, COODINATES x)
+{
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	char target_name[MAX_NLEN];
+	if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WATER))
+	{
+		msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
+		return FALSE;
+	}
+	else if(floor_ptr->cave[y][x].creature_idx)
+	{
+		creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
+		msg_format(MES_PREVENT_BY_CREATURE(target_name));
+		cancel_tactical_action(caster_ptr);
+		return FALSE;
+	}
+	set_action(caster_ptr, ACTION_FISH);
+	prepare_redraw(PR_STATE);
+}
 
 void monster_ball(creature_type *caster_ptr)
 {
