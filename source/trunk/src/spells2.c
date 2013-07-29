@@ -1118,6 +1118,30 @@ bool rodeo(creature_type *caster_ptr)
 
 }
 
+void try_livingtrump(creature_type *caster_ptr)
+{
+	int mutation;
+
+	//TODO
+	if(one_in_(7))
+		/* Teleport control */
+		mutation = 12;
+	else
+		/* Random teleportation (uncontrolled) */
+		mutation = 77;
+
+	/* Gain the mutation */
+	if(get_mutative_trait(caster_ptr, mutation, TRUE))
+	{
+#ifdef JP
+		msg_print("あなたは生きているカードに変わった。");
+#else
+		msg_print("You have turned into a Living Trump.");
+#endif
+	}
+}
+
+
 void monster_ball(creature_type *caster_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);

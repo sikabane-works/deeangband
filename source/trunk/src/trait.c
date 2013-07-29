@@ -710,77 +710,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BR_MANA: breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, power, rad, id); break;
 	case TRAIT_BR_NUKE: breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, rad, id); break;
 
-	case TRAIT_SLEEP_TOUCH:
-	case TRAIT_SLEEP:
-	case TRAIT_SANCTUARY:
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
-		break;
-
-
-	case TRAIT_PULVERISE:
-		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
-		break;
-
-
-	case TRAIT_CHANGE_BRAND:
-		//get_bloody_moon_flags(object_ptr);
-		if(has_trait(caster_ptr, TRAIT_ANDROID)) calc_android_exp(caster_ptr);
-		prepare_update(caster_ptr, CRU_BONUS | CRU_HP);
-		break;
-
-	case TRAIT_SHIKO:
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 3);
-		break;
-
-	case TRAIT_REMOVE_CURSE_1: if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-	case TRAIT_REMOVE_CURSE_2: if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-
-	case TRAIT_RESTORE_MANA:
-		{
-			int i;
-			for (i = 0; i < EATER_EXT * 2; i++)
-			{
-				caster_ptr->current_charge[i] += (caster_ptr->max_charge[i] < 10) ? EATER_CHARGE * 3 : caster_ptr->max_charge[i]*EATER_CHARGE/3;
-				if(caster_ptr->current_charge[i] > caster_ptr->max_charge[i]*EATER_CHARGE) caster_ptr->current_charge[i] = caster_ptr->max_charge[i]*EATER_CHARGE;
-			}
-			for (; i < EATER_EXT * 3; i++)
-			{
-				OBJECT_KIND_ID k_idx = lookup_kind(TV_ROD, (SVAL)(i - EATER_EXT * 2));
-				caster_ptr->current_charge[i] -= ((caster_ptr->max_charge[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->max_charge[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
-				if(caster_ptr->current_charge[i] < 0) caster_ptr->current_charge[i] = 0;
-			}
-			msg_print(MES_MANA_RECOVERLY);
-			prepare_window(PW_PLAYER);
-
-			inc_mana(caster_ptr, caster_ptr->msp);
-			msg_print(MES_MANA_RECOVERLY);
-			prepare_redraw(PW_PLAYER | PW_SPELL);
-			effected = TRUE;
-
-			if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
-			break;
-		}
-
-	case TRAIT_SALT_WATER:
-		if(!has_trait(caster_ptr, TRAIT_NONLIVING)) (void)set_food(caster_ptr, CREATURE_FOOD_STARVE - 1); // Only living creatures get thirsty
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-		(void)add_timed_trait(caster_ptr, TRAIT_PARALYZED, 4, TRUE);
-		break;
-
-	case TRAIT_DISPEL:
-		{
-			CREATURE_ID creature_idx;
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!creature_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			dispel_creature(caster_ptr);
-			break;
-		}
-
 		/* Bolt Type Trait */
 	case TRAIT_BO_ACID_MINI:
 	case TRAIT_BO_ACID:
@@ -1942,33 +1871,82 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 			break;
 
-	case TRAIT_LIVING_TRUMP:
-		{
-			int mutation;
-
-			//TODO
-			if(one_in_(7))
-				/* Teleport control */
-				mutation = 12;
-			else
-				/* Random teleportation (uncontrolled) */
-				mutation = 77;
-
-			/* Gain the mutation */
-			if(get_mutative_trait(caster_ptr, mutation, TRUE))
-			{
-#ifdef JP
-				msg_print("あなたは生きているカードに変わった。");
-#else
-				msg_print("You have turned into a Living Trump.");
-#endif
-			}
-		}
-		break;
+	case TRAIT_LIVING_TRUMP: try_livingtrump(caster_ptr); break;
 
 	case TRAIT_WEIGH_MAG:
 		//TODO Erase
 		break;
+
+	case TRAIT_SLEEP_TOUCH:
+	case TRAIT_SLEEP:
+	case TRAIT_SANCTUARY:
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		break;
+
+
+	case TRAIT_PULVERISE:
+		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
+		break;
+
+
+	case TRAIT_CHANGE_BRAND:
+		//get_bloody_moon_flags(object_ptr);
+		if(has_trait(caster_ptr, TRAIT_ANDROID)) calc_android_exp(caster_ptr);
+		prepare_update(caster_ptr, CRU_BONUS | CRU_HP);
+		break;
+
+	case TRAIT_SHIKO:
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 3);
+		break;
+
+	case TRAIT_REMOVE_CURSE_1: if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
+	case TRAIT_REMOVE_CURSE_2: if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
+
+	case TRAIT_RESTORE_MANA:
+		{
+			int i;
+			for (i = 0; i < EATER_EXT * 2; i++)
+			{
+				caster_ptr->current_charge[i] += (caster_ptr->max_charge[i] < 10) ? EATER_CHARGE * 3 : caster_ptr->max_charge[i]*EATER_CHARGE/3;
+				if(caster_ptr->current_charge[i] > caster_ptr->max_charge[i]*EATER_CHARGE) caster_ptr->current_charge[i] = caster_ptr->max_charge[i]*EATER_CHARGE;
+			}
+			for (; i < EATER_EXT * 3; i++)
+			{
+				OBJECT_KIND_ID k_idx = lookup_kind(TV_ROD, (SVAL)(i - EATER_EXT * 2));
+				caster_ptr->current_charge[i] -= ((caster_ptr->max_charge[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->max_charge[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
+				if(caster_ptr->current_charge[i] < 0) caster_ptr->current_charge[i] = 0;
+			}
+			msg_print(MES_MANA_RECOVERLY);
+			prepare_window(PW_PLAYER);
+
+			inc_mana(caster_ptr, caster_ptr->msp);
+			msg_print(MES_MANA_RECOVERLY);
+			prepare_redraw(PW_PLAYER | PW_SPELL);
+			effected = TRUE;
+
+			if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
+			break;
+		}
+
+	case TRAIT_SALT_WATER:
+		if(!has_trait(caster_ptr, TRAIT_NONLIVING)) (void)set_food(caster_ptr, CREATURE_FOOD_STARVE - 1); // Only living creatures get thirsty
+		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)add_timed_trait(caster_ptr, TRAIT_PARALYZED, 4, TRUE);
+		break;
+
+	case TRAIT_DISPEL:
+		{
+			CREATURE_ID creature_idx;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
+			creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!creature_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			dispel_creature(caster_ptr);
+			break;
+		}
 
 		}
 
