@@ -180,6 +180,58 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_FRIGHTEN_SOUND:
+		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
+		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, (3 * user_level / 2) + 10);
+		break;
+
+	case TRAIT_BLAZING_LIGHT:
+		SELF_FIELD(caster_ptr, DO_EFFECT_LITE, 300, 6, -1);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * user_level / 2);
+		break;
+
+	case TRAIT_INROU:
+		{
+			int count = 0, i;
+			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_SUKE, PC_FORCE_PET))
+			{
+				msg_print(MES_TRAIT_INROU_SUKE);
+				count++;
+			}
+			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_KAKU, PC_FORCE_PET))
+			{
+				msg_print(MES_TRAIT_INROU_KAKU);
+				count++;
+			}
+			if(!count)
+			{
+				for (i = creature_max - 1; i > 0; i--)
+				{
+					target_ptr = &creature_list[i];
+					if(!target_ptr->species_idx) continue;
+					if(!((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) continue;
+					if(!los(floor_ptr, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
+					if(!projectable(floor_ptr, MAX_RANGE, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
+					count++;
+					break;
+				}
+			}
+
+			if(count)
+			{
+				msg_print(MES_SUMMON_INROU);
+				sukekaku = TRUE;
+				project_all_vision(caster_ptr, DO_EFFECT_STUN, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_STASIS, 120);
+				sukekaku = FALSE;
+			}
+			else msg_print(MES_NO_HAPPEN);
+			break;
+		}
+
 	/* Genocide Spells */
 
 	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
@@ -491,6 +543,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
 		break;
 
+	case TRAIT_SEARCH_UNIQUE:
+		for (i = creature_max - 1; i >= 1; i--) // Access the creature
+		{
+			target_ptr = &creature_list[i];
+			if(!is_valid_creature(target_ptr) && !IS_IN_THIS_FLOOR(target_ptr)) continue;
+			if(has_trait(target_ptr, TRAIT_UNIQUE)) msg_format("%s． ", target_ptr->name);
+			break;
+		}
+
 	/* Identify Spell */
 
 	case TRAIT_IDENTIFY: if(ident_spell(caster_ptr, FALSE)) return TRUE; break;
@@ -615,91 +676,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 
-	case TRAIT_SEARCH_UNIQUE:
-		for (i = creature_max - 1; i >= 1; i--) // Access the creature
-		{
-			target_ptr = &creature_list[i];
-			if(!is_valid_creature(target_ptr) && !IS_IN_THIS_FLOOR(target_ptr)) continue;
-			if(has_trait(target_ptr, TRAIT_UNIQUE)) msg_format("%s． ", target_ptr->name);
-			break;
-		}
-
-	case TRAIT_FRIGHTEN_SOUND:
-		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
-		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, (3 * user_level / 2) + 10);
-		break;
-
-	case TRAIT_BLAZING_LIGHT:
-		SELF_FIELD(caster_ptr, DO_EFFECT_LITE, 300, 6, -1);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * user_level / 2);
-		break;
-
-	case TRAIT_FISHING:
-		if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WATER))
-		{
-			msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
-			return FALSE;
-		}
-		else if(floor_ptr->cave[y][x].creature_idx)
-		{
-			creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
-			msg_format(MES_PREVENT_BY_CREATURE(target_name));
-			cancel_tactical_action(caster_ptr);
-			return FALSE;
-		}
-		set_action(caster_ptr, ACTION_FISH);
-		prepare_redraw(PR_STATE);
-		break;
-
-	case TRAIT_TELEKINES:
-		fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE);
-		break;
-
 	case TRAIT_PULVERISE:
 		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
 		break;
 
-	case TRAIT_INROU:
-		{
-			int count = 0, i;
-			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_SUKE, PC_FORCE_PET))
-			{
-				msg_print(MES_TRAIT_INROU_SUKE);
-				count++;
-			}
-			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_KAKU, PC_FORCE_PET))
-			{
-				msg_print(MES_TRAIT_INROU_KAKU);
-				count++;
-			}
-			if(!count)
-			{
-				for (i = creature_max - 1; i > 0; i--)
-				{
-					target_ptr = &creature_list[i];
-					if(!target_ptr->species_idx) continue;
-					if(!((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) continue;
-					if(!los(floor_ptr, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
-					if(!projectable(floor_ptr, MAX_RANGE, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
-					count++;
-					break;
-				}
-			}
-
-			if(count)
-			{
-				msg_print(MES_SUMMON_INROU);
-				sukekaku = TRUE;
-				project_all_vision(caster_ptr, DO_EFFECT_STUN, 120);
-				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
-				project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 120);
-				project_all_vision(caster_ptr, DO_EFFECT_STASIS, 120);
-				sukekaku = FALSE;
-			}
-			else msg_print(MES_NO_HAPPEN);
-			break;
-		}
 
 	case TRAIT_CHANGE_BRAND:
 		//get_bloody_moon_flags(object_ptr);
@@ -2147,6 +2127,27 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				if(!success) msg_print(MES_OBJECT_MBALL_FAILED);
 			}
 		}
+		break;
+
+	case TRAIT_FISHING:
+		if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WATER))
+		{
+			msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
+			return FALSE;
+		}
+		else if(floor_ptr->cave[y][x].creature_idx)
+		{
+			creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
+			msg_format(MES_PREVENT_BY_CREATURE(target_name));
+			cancel_tactical_action(caster_ptr);
+			return FALSE;
+		}
+		set_action(caster_ptr, ACTION_FISH);
+		prepare_redraw(PR_STATE);
+		break;
+
+	case TRAIT_TELEKINES:
+		fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE);
 		break;
 
 	default: msg_warning("Undefined active trait."); break;
