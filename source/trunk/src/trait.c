@@ -430,6 +430,34 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)heal_creature(caster_ptr, 10);
 		break;
 
+	case TRAIT_POLYMORPH:
+		if(!get_check(MES_POLYSELF_ASK)) return FALSE;
+		do_poly_self(caster_ptr);
+		break;
+
+	case TRAIT_POLYMORPH_VAMPIRE:
+		{
+			int base = 10 + power / 2;
+			set_timed_trait(caster_ptr, TRAIT_VAMPIRE, base + randint1(base), TRUE);
+		}
+		break;
+
+	case TRAIT_POLYMORPH_DEMON:
+		{
+			int base = 10 + power / 2;
+			caster_ptr->mimic_race_idx = RACE_DEMON;
+			set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
+		}
+		break;
+
+	case TRAIT_POLYMORPH_DEMONLORD:
+		{
+			int base = 10 + power / 2;
+			caster_ptr->mimic_race_idx = RACE_FIEND_LORD;
+			set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
+		}
+		break;
+
 	/* Light Spell */
 
 	case TRAIT_ILLUMINE:
@@ -996,66 +1024,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 		break;
 
-	case TRAIT_SPECIAL:
-		{
-			switch (caster_ptr->species_idx)
-			{
-
-			case SPECIES_BANORLUPART:
-				{
-					int dummy_hp = (caster_ptr->chp + 1) / 2;
-					int dummy_mhp = caster_ptr->mhp/2;
-					COODINATES dummy_y = caster_ptr->fy;
-					COODINATES dummy_x = caster_ptr->fx;
-
-					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
-					delete_creature(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
-					creature_list[hack_creature_idx_ii].chp = dummy_hp;
-					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
-					creature_list[hack_creature_idx_ii].chp = dummy_hp;
-					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
-
-					msg_format(MES_TRAIT_SPLIT_TWO_MEN(caster_ptr));
-					break;
-				}
-
-			case SPECIES_BANOR:
-			case SPECIES_LUPART:
-				{
-					int dummy_hp = 0;
-					int dummy_mhp = 0;
-					COODINATES dummy_y = caster_ptr->fy;
-					COODINATES dummy_x = caster_ptr->fx;
-
-					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return FALSE;
-					for (k = 1; k < creature_max; k++)
-					{
-						if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
-						{
-							dummy_hp += creature_list[k].chp;
-							dummy_mhp += creature_list[k].mhp;
-							if(creature_list[k].species_idx != caster_ptr->species_idx)
-							{
-								dummy_y = creature_list[k].fy;
-								dummy_x = creature_list[k].fx;
-							}
-							delete_creature(&creature_list[k]);
-						}
-					}
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
-					creature_list[hack_creature_idx_ii].chp = dummy_hp;
-					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
-					msg_print(MES_TRAIT_COMBINE);
-					break;
-				}
-
-			}
-			break;
-
-		}
-
 	case TRAIT_TELE_TO:
 		{
 			creature_type *target_ptr;
@@ -1277,10 +1245,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_DOUBLE_REVENGE:
 		if(!do_cmd_mane(caster_ptr, TRUE)) return FALSE;
-		break;
-
-	case TRAIT_CREATE_AMMO:
-		if(!do_cmd_archer(caster_ptr)) return FALSE;
 		break;
 
 	case TRAIT_ABSORB_MAGIC:
@@ -1581,34 +1545,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_POLYMORPH:
-		if(!get_check(MES_POLYSELF_ASK)) return FALSE;
-		do_poly_self(caster_ptr);
-		break;
-
-	case TRAIT_POLYMORPH_VAMPIRE:
-		{
-			int base = 10 + power / 2;
-			set_timed_trait(caster_ptr, TRAIT_VAMPIRE, base + randint1(base), TRUE);
-		}
-		break;
-
-	case TRAIT_POLYMORPH_DEMON:
-		{
-			int base = 10 + power / 2;
-			caster_ptr->mimic_race_idx = RACE_DEMON;
-			set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
-		}
-		break;
-
-	case TRAIT_POLYMORPH_DEMONLORD:
-		{
-			int base = 10 + power / 2;
-			caster_ptr->mimic_race_idx = RACE_FIEND_LORD;
-			set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
-		}
-		break;
-
 	case TRAIT_PUNISHMENT:
 		{
 			int dice = 3 + (power - 1) / 5;
@@ -1785,6 +1721,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_CREATE_AMMO:
+		if(!do_cmd_archer(caster_ptr)) return FALSE;
+		break;
 
 	/* Enchant Object Type */
 
@@ -2149,6 +2088,66 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_TELEKINES:
 		fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE);
 		break;
+
+	case TRAIT_SPECIAL:
+		{
+			switch (caster_ptr->species_idx)
+			{
+
+			case SPECIES_BANORLUPART:
+				{
+					int dummy_hp = (caster_ptr->chp + 1) / 2;
+					int dummy_mhp = caster_ptr->mhp/2;
+					COODINATES dummy_y = caster_ptr->fy;
+					COODINATES dummy_x = caster_ptr->fx;
+
+					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
+					delete_creature(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
+					creature_list[hack_creature_idx_ii].chp = dummy_hp;
+					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
+					creature_list[hack_creature_idx_ii].chp = dummy_hp;
+					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
+
+					msg_format(MES_TRAIT_SPLIT_TWO_MEN(caster_ptr));
+					break;
+				}
+
+			case SPECIES_BANOR:
+			case SPECIES_LUPART:
+				{
+					int dummy_hp = 0;
+					int dummy_mhp = 0;
+					COODINATES dummy_y = caster_ptr->fy;
+					COODINATES dummy_x = caster_ptr->fx;
+
+					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return FALSE;
+					for (k = 1; k < creature_max; k++)
+					{
+						if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
+						{
+							dummy_hp += creature_list[k].chp;
+							dummy_mhp += creature_list[k].mhp;
+							if(creature_list[k].species_idx != caster_ptr->species_idx)
+							{
+								dummy_y = creature_list[k].fy;
+								dummy_x = creature_list[k].fx;
+							}
+							delete_creature(&creature_list[k]);
+						}
+					}
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
+					creature_list[hack_creature_idx_ii].chp = dummy_hp;
+					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
+					msg_print(MES_TRAIT_COMBINE);
+					break;
+				}
+
+			}
+			break;
+
+		}
 
 	default: msg_warning("Undefined active trait."); break;
 
