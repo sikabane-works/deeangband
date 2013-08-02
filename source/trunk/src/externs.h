@@ -1041,6 +1041,7 @@ extern bool project_all_vision(creature_type *caster_ptr, int typ, POWER dam);
 extern void fishing(creature_type *caster_ptr, COODINATES y, COODINATES x);
 extern bool rodeo(creature_type *caster_ptr);
 extern void try_livingtrump(creature_type *caster_ptr);
+extern void fetch_servants(creature_type *caster_ptr);
 extern void monster_ball(creature_type *caster_ptr);
 extern bool eat_magic(creature_type *creature_ptr, POWER power);
 extern void discharge_minion(creature_type *caster_ptr);

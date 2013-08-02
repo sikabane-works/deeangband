@@ -11,6 +11,7 @@
 /* Purpose: Spell code (part 2) */
 
 #include "angband.h"
+#include "command.h"
 #include "grid.h"
 #include "diary.h"
 #include "karma.h"
@@ -1140,6 +1141,31 @@ void try_livingtrump(creature_type *caster_ptr)
 #endif
 	}
 }
+
+void fetch_servants(creature_type *caster_ptr)
+{
+			int pet_ctr, i;
+			CREATURE_ID *who;
+			int max_pet = 0;
+			u16b dummy_why;
+			C_MAKE(who, max_creature_idx, CREATURE_ID); /* Allocate the "who" array */
+
+			/* Process the creatures (backwards) */
+			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
+			{
+				if(is_pet(player_ptr, &creature_list[pet_ctr]) && (caster_ptr->riding != pet_ctr)) who[max_pet++] = pet_ctr;
+			}
+
+			ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet, ang_sort_swap_hook);
+
+			for (i = 0; i < max_pet; i++) /* Process the creatures (backwards) */
+			{
+				pet_ctr = who[i];
+				teleport_creature_to2(pet_ctr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+			}
+
+			C_KILL(who, max_creature_idx, CREATURE_ID); /* Free the "who" array */
+		}
 
 void fishing(creature_type *caster_ptr, COODINATES y, COODINATES x)
 {

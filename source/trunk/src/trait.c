@@ -812,7 +812,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-		/* Generate Feature Spell */
+	/* Generate Feature Spell */
 
 	case TRAIT_EXPLOSIVE_RUNE: explosive_rune(caster_ptr); break;
 	case TRAIT_PROTECT_RUNE: warding_glyph(caster_ptr); break;
@@ -830,55 +830,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 		}
 
-		/* Swarm Spell */
+	/* Swarm Spell */
+
 	case TRAIT_METEOR_SWARM: cast_meteor(caster_ptr, power, 2); break;
 	case TRAIT_FIRE_SWARM: rengoku_kaen(caster_ptr); break;
-
-
-	case TRAIT_FETCH_CREATURE:
-		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
-		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
-		{
-			int pet_ctr, i;
-			CREATURE_ID *who;
-			int max_pet = 0;
-			u16b dummy_why;
-
-			/* Allocate the "who" array */
-			C_MAKE(who, max_creature_idx, CREATURE_ID);
-
-			/* Process the creatures (backwards) */
-			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
-			{
-				if(is_pet(player_ptr, &creature_list[pet_ctr]) && (caster_ptr->riding != pet_ctr))
-					who[max_pet++] = pet_ctr;
-			}
-
-			ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet, ang_sort_swap_hook);
-
-			/* Process the creatures (backwards) */
-			for (i = 0; i < max_pet; i++)
-			{
-				pet_ctr = who[i];
-				teleport_creature_to2(pet_ctr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
-			}
-
-			/* Free the "who" array */
-			C_KILL(who, max_creature_idx, CREATURE_ID);
-		}
-		break;
-
-	case TRAIT_WORLD:
-		caster_ptr->time_stopper = TRUE;
-		msg_print(NULL);
-
-		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
-		prepare_redraw(PR_MAP);
-		prepare_update(caster_ptr, PU_CREATURES);
-		prepare_window(PW_OVERHEAD | PW_DUNGEON);
-
-		handle_stuff(caster_ptr);
-		break;
 
 	case TRAIT_ACROBAT:
 		{
@@ -917,9 +872,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_WRATH_OF_GOD:
-		cast_wrath_of_the_god(caster_ptr, power, 2);
-		break;
+	case TRAIT_WRATH_OF_GOD: cast_wrath_of_the_god(caster_ptr, power, 2); break;
 
 	case TRAIT_DIVINE_INTERVENTION:
 		{
@@ -966,38 +919,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		}
 		break;
-
-	case TRAIT_TELE_TO:
-		{
-			creature_type *target_ptr;
-			species_type *species_ptr;
-
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			target_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
-			species_ptr = &species_info[target_ptr->species_idx];
-			creature_desc(target_name, target_ptr, 0);
-			if(has_trait(target_ptr, TRAIT_RES_TELE))
-			{
-				if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_RES_ALL))
-				{
-					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					msg_format(MES_IS_UNAFFECTED, target_name);
-					break;
-				}
-				else if(target_ptr->lev > randint1(100))
-				{
-					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					msg_format(MES_RESISTED, target_name);
-					break;
-				}
-			}
-			msg_format(MES_TRAIT_TELEPORT_BACK_DONE(target_ptr));
-			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
-			break;
-		}
 
 	case TRAIT_PSY_SPEAR:
 		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
@@ -1685,7 +1606,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-		/* Teleport Spells */
+	/* Teleport Spells */
 
 	case TRAIT_BLINK:
 		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
@@ -1732,8 +1653,45 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_RECALL: if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE; break;
 
+	case TRAIT_FETCH_CREATURE:
+		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
+		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
+		fetch_servants(caster_ptr);
+		break;
 
-		/* etc Spells */
+	case TRAIT_TELE_TO:
+		{
+			creature_type *target_ptr;
+			species_type *species_ptr;
+
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
+			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			target_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
+			species_ptr = &species_info[target_ptr->species_idx];
+			creature_desc(target_name, target_ptr, 0);
+			if(has_trait(target_ptr, TRAIT_RES_TELE))
+			{
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_RES_ALL))
+				{
+					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					msg_format(MES_IS_UNAFFECTED, target_name);
+					break;
+				}
+				else if(target_ptr->lev > randint1(100))
+				{
+					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					msg_format(MES_RESISTED, target_name);
+					break;
+				}
+			}
+			msg_format(MES_TRAIT_TELEPORT_BACK_DONE(target_ptr));
+			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+			break;
+		}
+
+	/* etc Spells */
 
 	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
 	case TRAIT_RUMOR: get_rumor(caster_ptr); break;
@@ -1913,6 +1871,18 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			dispel_creature(caster_ptr);
 			break;
 		}
+
+		case TRAIT_WORLD:
+		caster_ptr->time_stopper = TRUE;
+		msg_print(NULL);
+
+		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
+		prepare_redraw(PR_MAP);
+		prepare_update(caster_ptr, PU_CREATURES);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
+
+		handle_stuff(caster_ptr);
+		break;
 
 		}
 
