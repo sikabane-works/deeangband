@@ -1119,6 +1119,24 @@ bool rodeo(creature_type *caster_ptr)
 
 }
 
+void getaway(creature_type *caster_ptr)
+{
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	switch (randint1(13))
+	{
+	case 1: case 2: case 3: case 4: case 5: teleport_creature(caster_ptr, 10, 0L); break;
+	case 6: case 7: case 8: case 9: case 10: teleport_creature(caster_ptr, 222, 0L); break;
+	case 11: case 12: (void)stair_creation(caster_ptr, floor_ptr); break;
+	default:
+		if(get_check(MES_TELEPORT_LEVEL_ASK))
+		{
+			if(autosave_l) do_cmd_save_game(TRUE);
+			subject_change_floor = TRUE;
+		}
+	}
+	return;
+}
+
 void try_livingtrump(creature_type *caster_ptr)
 {
 	int mutation;

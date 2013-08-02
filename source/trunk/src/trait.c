@@ -1635,21 +1635,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DIMENSION_DOOR: if(!dimension_door(caster_ptr)) return FALSE; break;
 
 	case TRAIT_GETAWAY:
-		{
-			switch (randint1(13))
-			{
-			case 1: case 2: case 3: case 4: case 5: teleport_creature(caster_ptr, 10, 0L); break;
-			case 6: case 7: case 8: case 9: case 10: teleport_creature(caster_ptr, 222, 0L); break;
-			case 11: case 12: (void)stair_creation(caster_ptr, floor_ptr); break;
-			default:
-				if(get_check(MES_TELEPORT_LEVEL_ASK))
-				{
-					if(autosave_l) do_cmd_save_game(TRUE);
-					subject_change_floor = TRUE;
-				}
-			}
-			break;
-		}
 
 	case TRAIT_RECALL: if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE; break;
 
