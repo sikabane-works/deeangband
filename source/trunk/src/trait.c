@@ -1351,15 +1351,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
-	case TRAIT_DET_CURSE:
-		for (i = 0; i < INVEN_TOTAL; i++)
-		{
-			object_type *object_ptr = &caster_ptr->inventory[i];
-			if(!is_valid_object(object_ptr)) continue;
-			if(!object_is_cursed(object_ptr)) continue;
-			object_ptr->feeling = FEEL_CURSED;
-		}
-		break;
+	case TRAIT_DET_CURSE: check_cursed_inventory(caster_ptr); break;
 
 	case TRAIT_STAR_DUST:
 		{
@@ -1532,10 +1524,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_STORM_MANA:
 		msg_print(MES_TRAIT_MANA_FIELD_DONE);
 		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-		if(!saving_throw(caster_ptr, SAVING_VO, 120, 0))
-		{
-			(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
-		}
+		if(!saving_throw(caster_ptr, SAVING_VO, 120, 0)) (void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
 		break;
 
 	case TRAIT_HIDE_IN_MYST:
@@ -1632,17 +1621,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_MASS_TELE_AWAY: (void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_TELE_LEVEL: teleport_level(caster_ptr, 0); break;
 	case TRAIT_SWAP_POS: (void)teleport_swap(caster_ptr, dir); break;
-	case TRAIT_DIMENSION_DOOR: if(!dimension_door(caster_ptr)) return FALSE; break;
-
-	case TRAIT_GETAWAY:
-
-	case TRAIT_RECALL: if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE; break;
-
-	case TRAIT_FETCH_CREATURE:
-		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
-		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
-		fetch_servants(caster_ptr);
-		break;
+	case TRAIT_DIMENSION_DOOR: dimension_door(caster_ptr); break;
+	case TRAIT_GETAWAY: getaway(caster_ptr); break;
+	case TRAIT_RECALL: word_of_recall(caster_ptr, randint0(21) + 15); break;
+	case TRAIT_FETCH_CREATURE: fetch_servants(caster_ptr); break;
 
 	case TRAIT_TELE_TO:
 		{

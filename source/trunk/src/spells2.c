@@ -1137,6 +1137,18 @@ void getaway(creature_type *caster_ptr)
 	return;
 }
 
+void check_cursed_inventory(creature_type *caster_ptr)
+{
+	int i;
+	for (i = 0; i < INVEN_TOTAL; i++)
+	{
+		object_type *object_ptr = &caster_ptr->inventory[i];
+		if(!is_valid_object(object_ptr)) continue;
+		if(!object_is_cursed(object_ptr)) continue;
+		object_ptr->feeling = FEEL_CURSED;
+	}
+}
+
 void try_livingtrump(creature_type *caster_ptr)
 {
 	int mutation;
