@@ -239,6 +239,23 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
+	case TRAIT_DIVINE_INTERVENTION:
+		{
+			int b_dam = power * 11;
+			int d_dam = power * 4;
+			int heal = 100;
+
+			project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
+			project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
+			project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
+			project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+			project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
+			project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
+			heal_creature(caster_ptr, heal);
+		}
+		break;
+
 		/* Genocide Spells */
 
 	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
@@ -682,9 +699,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BA_DARK: cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BAZOOKA: cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_SUCCUBUS_KISS: cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_PULVERISE: cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0)); break;
 
 
-		/* Breath Attack Spell */
+	/* Breath Attack Spell */
 
 	case TRAIT_BR_DISI: breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, rad, id); break;
 	case TRAIT_ELEMENTAL_BREATH: breath(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad, id); break;
@@ -874,23 +892,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_WRATH_OF_GOD: cast_wrath_of_the_god(caster_ptr, power, 2); break;
 
-	case TRAIT_DIVINE_INTERVENTION:
-		{
-			int b_dam = power * 11;
-			int d_dam = power * 4;
-			int heal = 100;
-
-			project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
-			project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
-			project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
-			project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
-			project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
-			project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
-			heal_creature(caster_ptr, heal);
-		}
-		break;
-
 	case TRAIT_CRUSADE:
 		{
 			int base = 25;
@@ -918,11 +919,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
 			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		}
-		break;
-
-	case TRAIT_PSY_SPEAR:
-		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
-		(void)cast_beam(caster_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, damage, 0);
 		break;
 
 	case TRAIT_TRAPS:
@@ -1266,8 +1262,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 
-
-		/* Beam Type Attack Spell */
+	/* Beam Type Attack Spell */
 
 	case TRAIT_BE_GRAV: cast_beam(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, diceroll(9 + (power - 5) / 4, 8), 0); break;
 	case TRAIT_SEEKER_RAY: cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(user_level - 5) / 4,8), 0); break;
@@ -1280,6 +1275,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_LITE_LINE:
 	case TRAIT_SUNLIGHT: cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), id); break;
 
+	case TRAIT_PSY_SPEAR:
+		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
+		(void)cast_beam(caster_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, damage, 0);
+		break;
 
 
 	case TRAIT_SHOCK_WAVE: shock_wave(caster_ptr); break;
@@ -1703,12 +1702,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SANCTUARY:
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
-
-
-	case TRAIT_PULVERISE:
-		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
-		break;
-
 
 	case TRAIT_CHANGE_BRAND:
 		//get_bloody_moon_flags(object_ptr);
