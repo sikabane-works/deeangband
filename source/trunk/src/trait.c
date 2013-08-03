@@ -105,7 +105,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	switch(id)
 	{
 
-		/* Mass Spells */
+	/* Mass Spells */
 
 	case TRAIT_DISPEL_EVIL_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, power); break;
 	case TRAIT_DISPEL_GOOD_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, power); break;
@@ -257,6 +257,20 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_EVOCATION:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, user_level * 4);
+		break;
+
+	case TRAIT_CONFUSING_LIGHT:
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
+		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
+		break;
+
 		/* Genocide Spells */
 
 	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
@@ -284,6 +298,35 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		{
 			msg_print(MES_TRAIT_BANISH_UNAFFECTED);
 			if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
+		}
+		break;
+
+	case TRAIT_CRUSADE:
+		{
+			int base = 25;
+			int sp_sides = 20 + power;
+			int sp_base = power;
+
+			int i;
+			project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, user_level * 4);
+			for (i = 0; i < 12; i++)
+			{
+				int attempt = 10;
+				COODINATES my = 0, mx = 0;
+
+				while (attempt--)
+				{
+					scatter(floor_ptr, &my, &mx, caster_ptr->fy, caster_ptr->fx, 4, 0);
+					if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
+				}
+				if(attempt < 0) continue;
+				summoning(NULL, my, mx, power, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
+			}
+			set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		}
 		break;
 
@@ -893,35 +936,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_WRATH_OF_GOD: cast_wrath_of_the_god(caster_ptr, power, 2); break;
 
-	case TRAIT_CRUSADE:
-		{
-			int base = 25;
-			int sp_sides = 20 + power;
-			int sp_base = power;
-
-			int i;
-			project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, user_level * 4);
-			for (i = 0; i < 12; i++)
-			{
-				int attempt = 10;
-				COODINATES my = 0, mx = 0;
-
-				while (attempt--)
-				{
-					scatter(floor_ptr, &my, &mx, caster_ptr->fy, caster_ptr->fx, 4, 0);
-					if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
-				}
-				if(attempt < 0) continue;
-				summoning(NULL, my, mx, power, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
-			}
-			set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
-			set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-		}
-		break;
-
 	case TRAIT_TRAPS:
 		project(caster_ptr, 0, 1, target_row, target_col, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
@@ -990,12 +1004,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(!eat_magic(caster_ptr, user_level * 2)) return FALSE;
 		break;
 
-	case TRAIT_EVOCATION:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, user_level * 4);
-		break;
-
 	case TRAIT_KATON:
 		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + user_level, user_level / 10 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
@@ -1034,14 +1042,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			heal_creature(caster_ptr, user_level);
 		}
 		else msg_print(MES_CONVERT_FAILED);
-		break;
-
-	case TRAIT_CONFUSING_LIGHT:
-		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
-		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
 		break;
 
 	case TRAIT_BINDING_FIELD:
