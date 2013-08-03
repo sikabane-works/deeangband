@@ -1278,36 +1278,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_LASER_EYE: cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, 2 * user_level, 0); break;
 	case TRAIT_SUPERRAY: cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150 + randint1(2 * user_level), 0); break;
 	case TRAIT_LITE_LINE:
-	case TRAIT_SUNLIGHT:
-		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), id);
-		break;
+	case TRAIT_SUNLIGHT: cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), id); break;
 
 
 
-	case TRAIT_SHOCK_WAVE:
-		shock_wave(caster_ptr);
-		break;
+	case TRAIT_SHOCK_WAVE: shock_wave(caster_ptr); break;
+	case TRAIT_MIND_WAVE: msg_print(MES_TRAIT_MIND_WAVE); (void)project_all_vision(caster_ptr, DO_EFFECT_PSI, randint1(user_level * ((user_level - 5) / 10 + 1))); break;
 
-	case TRAIT_MIND_WAVE:
-		msg_print(MES_TRAIT_MIND_WAVE);
-		(void)project_all_vision(caster_ptr, DO_EFFECT_PSI, randint1(user_level * ((user_level - 5) / 10 + 1)));
-		break;
-
-	case TRAIT_RADIATION:
-		SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1);
-		break;
 
 	case TRAIT_EAT_ROCK: eat_rock(caster_ptr, y, x); break;
 	case TRAIT_DET_CURSE: check_cursed_inventory(caster_ptr); break;
-
-	case TRAIT_STAR_DUST:
-		{
-			int dice = 3 + (power - 1) / 9;
-			int sides = 2;
-			fire_blast(caster_ptr, DO_EFFECT_LITE, dir, dice, sides, 10, 3);
-		}
-		break;
-
+	case TRAIT_STAR_DUST: fire_blast(caster_ptr, DO_EFFECT_LITE, dir, power, 2, 10, 3); break;
 	case TRAIT_SCATTER_EVIL: cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0); break;
 
 		/* Scout Spell */
@@ -1491,6 +1472,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
 		aggravate_creatures(caster_ptr);
 		break;
+
+	case TRAIT_RADIATION: SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1); break;
 
 		/* Chain Type Spells */
 
