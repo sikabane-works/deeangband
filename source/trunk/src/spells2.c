@@ -1483,7 +1483,6 @@ bool genocide_aux(creature_type *user_ptr, CREATURE_ID creature_idx, POWER power
 			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
 			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 		}
-
 		delete_creature(&creature_list[creature_idx]);
 	}
 

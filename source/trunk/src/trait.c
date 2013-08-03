@@ -271,35 +271,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
 		break;
 
-		/* Genocide Spells */
-
-	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
-	case TRAIT_SYMBOL_GENOCIDE: (void)symbol_genocide(caster_ptr, 200, TRUE); break;
-	case TRAIT_MASS_GENOCIDE: (void)mass_genocide(caster_ptr, 200, TRUE); break;
-
-	case TRAIT_BANISH:
-		if(!cave_ptr->creature_idx)
-		{
-			msg_print(MES_TRAIT_BANISH_NO_TARGET); break;
-		}
-		target_ptr = &creature_list[cave_ptr->creature_idx];
-		if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
-			!floor_ptr->fight_arena_mode && !floor_ptr->quest && (user_level < randint1(user_level)) && !has_trait(target_ptr, TRAIT_NO_GENOCIDE))
-		{
-			if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
-			{
-				creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
-				write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
-			}
-			delete_creature(&creature_list[cave_ptr->creature_idx]);
-			msg_print(MES_TRAIT_BANISH_DONE);
-		}
-		else
-		{
-			msg_print(MES_TRAIT_BANISH_UNAFFECTED);
-			if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
-		}
-		break;
+	case TRAIT_CHARM_ANIMALS: (void)project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2); break;
+	case TRAIT_CHARM_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2); break;
+	case TRAIT_DOMINATE_LIVES: project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, user_level); break;
+	case TRAIT_HOLDING_DUST: project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level); break;
 
 	case TRAIT_CRUSADE:
 		{
@@ -330,15 +305,20 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+
+		/* Genocide Spells */
+
+	case TRAIT_BANISH:
+	case TRAIT_GENOCIDE_ONE: cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0); break;
+	case TRAIT_SYMBOL_GENOCIDE: (void)symbol_genocide(caster_ptr, 200, TRUE); break;
+	case TRAIT_MASS_GENOCIDE: (void)mass_genocide(caster_ptr, 200, TRUE); break;
+
 		/* Charm Spells */
 
 	case TRAIT_CHARM_ANIMAL: cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_CHARM_UNDEAD: cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_CHARM_OTHER: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
-	case TRAIT_CHARM_ANIMALS: (void)project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2); break;
-	case TRAIT_CHARM_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2); break;
 	case TRAIT_DOMINATE_LIVE: (void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, user_level, 0); break;
-	case TRAIT_DOMINATE_LIVES: project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, user_level); break;
 	case TRAIT_DOMINATE_DEMON: cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0); break;
 
 		/* Summoning Spell */
@@ -1247,11 +1227,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SPIT_ACID:
 		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, user_level, 0);
 		else SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, user_level * 2, 2, -1);
-		break;
-
-	case TRAIT_HOLDING_DUST:
-		if(user_level < 25) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
-		else (void)project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
 		break;
 
 	case TRAIT_TURN_UNDEAD:
