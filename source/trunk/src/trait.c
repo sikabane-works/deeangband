@@ -313,49 +313,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SYMBOL_GENOCIDE: (void)symbol_genocide(caster_ptr, 200, TRUE); break;
 	case TRAIT_MASS_GENOCIDE: (void)mass_genocide(caster_ptr, 200, TRUE); break;
 
-		/* Charm Spells */
-
-	case TRAIT_CHARM_ANIMAL: cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0); break;
-	case TRAIT_CHARM_UNDEAD: cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, user_level, 0); break;
-	case TRAIT_CHARM_OTHER: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
-	case TRAIT_DOMINATE_LIVE: (void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, user_level, 0); break;
-	case TRAIT_DOMINATE_DEMON: cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0); break;
-
-		/* Summoning Spell */
+	/* Summoning Spell */
 
 	case TRAIT_S_KIN:
-		{
-			if(caster_ptr->species_idx == SPECIES_SERPENT)
-			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-				else msg_format("%^sがダンジョンの主を召喚した。", caster_name);
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-				else msg_format("%^s magically summons guardians of dungeons.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-				else msg_format("%^sは魔法で%sを召喚した。", caster_name, (has_trait(caster_ptr, TRAIT_UNIQUE) ? "手下" : "仲間"));
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-				else msg_format("%^s magically summons %s %s.", caster_name, m_poss, has_trait(caster_ptr, TRAIT_UNIQUE) ? "minions" : "kin"));
-#endif
-			}
-
-			switch (caster_ptr->species_idx)
-			{
-			case SPECIES_RICHARD_STOLENMAN: summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode); break;
-			case SPECIES_LOUSY: summoning(caster_ptr, y, x, user_level, TRAIT_S_LOUSE, PC_ALLOW_GROUP); break;
-			default: summoning(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP); break;
-			}
-
-			break;
-		}
-
 	case TRAIT_GRENADE: summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode); break;
 	case TRAIT_S_GREATER_DEMON: cast_summon_greater_demon(caster_ptr); break;
 
@@ -724,6 +684,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BAZOOKA: cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_SUCCUBUS_KISS: cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_PULVERISE: cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0)); break;
+
+	case TRAIT_CHARM_ANIMAL: cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_CHARM_UNDEAD: cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_CHARM_OTHER: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_DOMINATE_LIVE: (void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, user_level, 0); break;
+	case TRAIT_DOMINATE_DEMON: cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0); break;
 
 
 	/* Breath Attack Spell */

@@ -1039,7 +1039,7 @@ extern s32b flag_cost(object_type *object_ptr, int plusses);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);
 extern bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr);
 extern bool project_all_vision(creature_type *caster_ptr, int typ, POWER dam);
-extern void fishing(creature_type *caster_ptr, COODINATES y, COODINATES x);
+extern bool fishing(creature_type *caster_ptr, COODINATES y, COODINATES x);
 extern bool rodeo(creature_type *caster_ptr);
 extern void getaway(creature_type *caster_ptr);
 extern void check_cursed_inventory(creature_type *caster_ptr);

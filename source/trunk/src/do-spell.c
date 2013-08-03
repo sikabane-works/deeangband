@@ -4032,7 +4032,6 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;

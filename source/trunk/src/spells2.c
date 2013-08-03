@@ -122,6 +122,8 @@ bool eat_rock(creature_type *caster_ptr, COODINATES y, COODINATES x)
 
 	/* Move the player */
 	(void)move_creature(caster_ptr, NULL, y, x, MCE_DONT_PICKUP);
+
+	return TRUE;
 }
 
 
@@ -1251,7 +1253,7 @@ void fetch_servants(creature_type *caster_ptr)
 			C_KILL(who, max_creature_idx, CREATURE_ID); /* Free the "who" array */
 		}
 
-void fishing(creature_type *caster_ptr, COODINATES y, COODINATES x)
+bool fishing(creature_type *caster_ptr, COODINATES y, COODINATES x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	char target_name[MAX_NLEN];
@@ -1269,6 +1271,8 @@ void fishing(creature_type *caster_ptr, COODINATES y, COODINATES x)
 	}
 	set_action(caster_ptr, ACTION_FISH);
 	prepare_redraw(PR_STATE);
+
+	return TRUE;
 }
 
 void monster_ball(creature_type *caster_ptr)
