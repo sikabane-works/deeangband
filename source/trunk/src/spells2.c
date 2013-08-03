@@ -69,6 +69,60 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER 
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
 }
 
+bool eat_rock(creature_type *caster_ptr, COODINATES y, COODINATES x)
+{
+	feature_type *mimic_feature_ptr;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	cave_type *cave_ptr = &floor_ptr->cave[caster_ptr->fy][caster_ptr->fx];
+	feature_type *feature_ptr = &feature_info[cave_ptr->feat];
+	mimic_feature_ptr = &feature_info[get_feat_mimic(cave_ptr)];
+	if(!have_flag(mimic_feature_ptr->flags, FF_HURT_ROCK))
+	{
+		msg_print(MES_TRAIT_EAT_ROCK_CANNOT);
+		return FALSE;
+	}
+	else if(have_flag(feature_ptr->flags, FF_PERMANENT))
+	{
+		msg_format(MES_TRAIT_EAT_ROCK_PERMANENT(feature_name + mimic_feature_ptr->name));
+		return FALSE;
+	}
+	else if(cave_ptr->creature_idx)
+	{
+		creature_type *m_ptr = &creature_list[cave_ptr->creature_idx];
+		msg_format(MES_PREVENT_BY_CREATURE(m_ptr->name));
+		if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) close_combat(caster_ptr, y, x, 0);
+		return FALSE;
+	}
+	else if(have_flag(feature_ptr->flags, FF_TREE))
+	{
+		msg_print(MES_TRAIT_EAT_ROCK_HATE_TREE);
+		return FALSE;
+	}
+	else if(have_flag(feature_ptr->flags, FF_GLASS))
+	{
+		msg_print(MES_TRAIT_EAT_ROCK_HATE_GLASS);
+		return FALSE;
+	}
+	else if(have_flag(feature_ptr->flags, FF_DOOR) || have_flag(feature_ptr->flags, FF_CAN_DIG))
+	{
+		(void)set_food(caster_ptr, caster_ptr->food + 3000);
+	}
+	else if(have_flag(feature_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(feature_ptr->flags, FF_HAS_GOLD))
+	{
+		(void)set_food(caster_ptr, caster_ptr->food + 5000);
+	}
+	else
+	{
+		msg_format(MES_TRAIT_EAT_ROCK_DONE(feature_name + mimic_feature_ptr->name));
+		(void)set_food(caster_ptr, caster_ptr->food + 10000);
+	}
+
+	/* Destroy the wall */
+	cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
+
+	/* Move the player */
+	(void)move_creature(caster_ptr, NULL, y, x, MCE_DONT_PICKUP);
+}
 
 
 /*

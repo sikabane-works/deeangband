@@ -989,6 +989,7 @@ extern void seal_of_mirror(creature_type *caster_ptr, POWER dam);
 
 // spells2.c
 extern void message_pain(CREATURE_ID creature_idx, POWER dam);
+extern bool eat_rock(creature_type *caster_ptr, COODINATES y, COODINATES x);
 extern void creature_knowledge(creature_type *creature_ptr);
 extern bool detect_traps(creature_type *creature_ptr, COODINATES range, bool known);
 extern bool detect_doors(creature_type *creature_ptr, COODINATES range);

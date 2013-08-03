@@ -1297,60 +1297,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1);
 		break;
 
-	case TRAIT_EAT_ROCK:
-		{
-			feature_type *mimic_feature_ptr;
-			feature_ptr = &feature_info[cave_ptr->feat];
-			mimic_feature_ptr = &feature_info[get_feat_mimic(cave_ptr)];
-			if(!have_flag(mimic_feature_ptr->flags, FF_HURT_ROCK))
-			{
-				msg_print(MES_TRAIT_EAT_ROCK_CANNOT);
-				break;
-			}
-			else if(have_flag(feature_ptr->flags, FF_PERMANENT))
-			{
-				msg_format(MES_TRAIT_EAT_ROCK_PERMANENT(feature_name + mimic_feature_ptr->name));
-				break;
-			}
-			else if(cave_ptr->creature_idx)
-			{
-				creature_type *m_ptr = &creature_list[cave_ptr->creature_idx];
-				msg_format(MES_PREVENT_BY_CREATURE(m_ptr->name));
-				if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) close_combat(caster_ptr, y, x, 0);
-				break;
-			}
-			else if(have_flag(feature_ptr->flags, FF_TREE))
-			{
-				msg_print(MES_TRAIT_EAT_ROCK_HATE_TREE);
-				break;
-			}
-			else if(have_flag(feature_ptr->flags, FF_GLASS))
-			{
-				msg_print(MES_TRAIT_EAT_ROCK_HATE_GLASS);
-				break;
-			}
-			else if(have_flag(feature_ptr->flags, FF_DOOR) || have_flag(feature_ptr->flags, FF_CAN_DIG))
-			{
-				(void)set_food(caster_ptr, caster_ptr->food + 3000);
-			}
-			else if(have_flag(feature_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(feature_ptr->flags, FF_HAS_GOLD))
-			{
-				(void)set_food(caster_ptr, caster_ptr->food + 5000);
-			}
-			else
-			{
-				msg_format(MES_TRAIT_EAT_ROCK_DONE(feature_name + mimic_feature_ptr->name));
-				(void)set_food(caster_ptr, caster_ptr->food + 10000);
-			}
-
-			/* Destroy the wall */
-			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
-
-			/* Move the player */
-			(void)move_creature(caster_ptr, NULL, y, x, MCE_DONT_PICKUP);
-		}
-		break;
-
+	case TRAIT_EAT_ROCK: eat_rock(caster_ptr, y, x); break;
 	case TRAIT_DET_CURSE: check_cursed_inventory(caster_ptr); break;
 
 	case TRAIT_STAR_DUST:
