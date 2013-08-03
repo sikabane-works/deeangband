@@ -114,6 +114,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_HASTE_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, power); break;
 	case TRAIT_MASS_SLEEP: project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power); break;
 	case TRAIT_MASS_SLOW: project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power); break;
+	case TRAIT_MIND_WAVE: msg_print(MES_TRAIT_MIND_WAVE); (void)project_all_vision(caster_ptr, DO_EFFECT_PSI, power); break;
 
 	case TRAIT_MOON_DAZZLING:
 		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
@@ -1280,16 +1281,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)cast_beam(caster_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, damage, 0);
 		break;
 
-
-	case TRAIT_SHOCK_WAVE: shock_wave(caster_ptr); break;
-	case TRAIT_MIND_WAVE: msg_print(MES_TRAIT_MIND_WAVE); (void)project_all_vision(caster_ptr, DO_EFFECT_PSI, randint1(user_level * ((user_level - 5) / 10 + 1))); break;
-
-
-	case TRAIT_EAT_ROCK: eat_rock(caster_ptr, y, x); break;
-	case TRAIT_DET_CURSE: check_cursed_inventory(caster_ptr); break;
-	case TRAIT_STAR_DUST: fire_blast(caster_ptr, DO_EFFECT_LITE, dir, power, 2, 10, 3); break;
-	case TRAIT_SCATTER_EVIL: cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0); break;
-
 		/* Scout Spell */
 
 	case TRAIT_SELF_KNOWLEDGE: creature_knowledge(caster_ptr); break;
@@ -1632,6 +1623,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CAPTURE_CREATURE: monster_ball(caster_ptr); break;
 	case TRAIT_FISHING: fishing(caster_ptr, y, x); break;
 	case TRAIT_TELEKINES: fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE); break;
+	case TRAIT_SHOCK_WAVE: shock_wave(caster_ptr); break;
+	case TRAIT_EAT_ROCK: eat_rock(caster_ptr, y, x); break;
+	case TRAIT_DET_CURSE: check_cursed_inventory(caster_ptr); break;
+	case TRAIT_STAR_DUST: fire_blast(caster_ptr, DO_EFFECT_LITE, dir, power, 2, 10, 3); break;
+	case TRAIT_SCATTER_EVIL: cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0); break;
 
 	case TRAIT_SPECIAL:
 		{
