@@ -141,15 +141,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DISPEL_SMALL_LIFE: project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4); break;
 
 	case TRAIT_NATURE_WRATH:
-		{
-			int d_dam = 4 * power;
-			int b_dam = (100 + power) * 2;
-			int b_rad = 1 + power / 12;
-			int q_rad = 20 + power / 2;
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
-			earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
-			project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
-		}
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4 * power);
+		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 20 + power / 2);
+		project(caster_ptr, 0, 1 + power / 12, caster_ptr->fy, caster_ptr->fx, (100 + power) * 2, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+		break;
 
 	case TRAIT_EXORCISM:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, power);
@@ -241,20 +236,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 
 	case TRAIT_DIVINE_INTERVENTION:
-		{
-			int b_dam = power * 11;
-			int d_dam = power * 4;
-			int heal = 100;
-
-			project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
-			project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
-			project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
-			project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
-			project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
-			project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
-			heal_creature(caster_ptr, heal);
-		}
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, power, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, power);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
+		project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
+		project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
+		heal_creature(caster_ptr, power);
 		break;
 
 	case TRAIT_EVOCATION:
@@ -690,7 +679,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CHARM_OTHER: cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_DOMINATE_LIVE: (void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, user_level, 0); break;
 	case TRAIT_DOMINATE_DEMON: cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0); break;
-
 
 	/* Breath Attack Spell */
 
