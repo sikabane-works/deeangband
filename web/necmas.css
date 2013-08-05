@@ -1,7 +1,4 @@
 
-/* --------------------------------------------------------------
-	Basic setting 
-   -------------------------------------------------------------- */
 
 a:link 		{ color: #BBAA99;}
 a:visited	{ color: #BBAA99;}
@@ -19,15 +16,56 @@ img {
 
 /* --------------------------------------------------------------
 	LayOut
-   -------------------------------------------------------------- */
+ -------------------------------------------------------------- */
+#wrapper{
+	max-width: 800px;
+	position: relative;
+	padding: 0px;
+	border: 0px;
+	margin: 0 auto;
 
-div.header {
-	width: 960px;
+}
+
+/* Header Elements */
+
+header {
+	width: 800px;
 	height: 300px;
 	padding: 0px;
 	border: 0px;
-	margin: 0px;
-	background-color: #000000;
+	margin: auto;
+}
+
+.copy {
+	left: 50px;
+	top: 100px;
+	position: absolute;
+	padding: 0px;
+}
+
+.title {
+	left: 300px;
+	top: 0px;
+	position: absolute;
+	padding: 0px;
+}
+
+/* Section Elements */
+
+section {
+	width: 640px;
+	padding: 0px;
+	border: 0px;
+	margin: auto auto;
+}
+
+footer {
+	text-align: center;
+	clear: both;
+	width: 640px;
+	padding: 10px;
+	border: 0px;
+	margin: auto auto;
 }
 
 div.left_bar {
@@ -40,14 +78,6 @@ div.left_bar {
 	/*background-image:  url("SideBack.png");*/
 }
 
-div.center_contents {
-	float: left;
-	width: 640px;
-	padding: 0px;
-	border: 0px;
-	margin: 0px;
-}
-
 div.right_bar {
 	float: right;
 	width: 160px;
@@ -58,15 +88,6 @@ div.right_bar {
 	/*background-image:  url("SideBack.png");*/
 }
 
-div.footer {
-	clear:both;
-	text-align: center;
-	width: 960px;
-	background-color: #000000;
-	padding: 10px;
-	border: 0px;
-	margin: 0px;
-}
 
 
 /* --------------------------------------------------------------
@@ -74,9 +95,7 @@ div.footer {
    -------------------------------------------------------------- */
 
 body {
-	text-align: center;
 	color: #D0A672;
-	background-attachment: scrool;
 	background-color: #000000;
 	background-position: top center;
 	background-repeat: repeat-y;
@@ -84,20 +103,11 @@ body {
 	padding: 0px;
 	border: 0px;
 	margin: 0px;
-	font-family:"„É°„Ç§„É™„Ç™","Meiryo",Osaka, "„Éí„É©„ÇÆ„ÉéËßí„Ç¥ Pro W3", Arial, Helvetica, sans-serif;
+	font-family:"ÉÅÉCÉäÉI","Meiryo",Osaka, "ÉqÉâÉMÉmäpÉS Pro W3", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	line-height: 160%;
 }
 
-#wrapper{
-	width: 960px;
-	text-align: left;
-	position: relative;
-	padding: 0px 0px 0px 0px;
-	border: 0px;
-	margin: 0 auto;
-
-}
 
 .paragraph{
 	padding: 10px;
@@ -120,13 +130,7 @@ li{
 	padding: 10px;
 }
 
-.title {
-	text-align: right;
-	padding: 0px;
-}
-
 .newest{
-	text-align: center;
 	padding: 20px;
 }
 
@@ -144,7 +148,7 @@ li{
 }
 
 
-H2.ptitle{
+h2.ptitle{
 	font-size: 18px;
 	line-height: 100%;
 	padding: 10px 10px 10px 10px;
@@ -154,7 +158,7 @@ H2.ptitle{
 	background-image:  url("slate.png");
 }
 
-H2.topmenu{
+h2.topmenu{
 	width: 160px;
 	font-size: 14px;
 	line-height: 32px;
@@ -169,7 +173,7 @@ H2.topmenu{
 	color: #F0C09E;*/
 }
 
-H3{
+h3{
 	font-size: 14px;
 	line-height: 100%;
 	margin: 10px 10px 10px 10px;
