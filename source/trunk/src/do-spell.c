@@ -173,10 +173,10 @@ void cast_wonder(creature_type *caster_ptr)
 
 	if(die > 100) msg_print(MES_TRAIT_CAST_WONDER_MIGHTY);
 
-	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
+	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_CLONE, MAX_RANGE_SUB, 0, -1);
 	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
-	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, diceroll(4, 6), -1);
-	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, lev_bonus, -1);
+	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, diceroll(4, 6), -1);
+	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, -1);
 	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
 	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, -1);
 	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, -1);
@@ -185,12 +185,12 @@ void cast_wonder(creature_type *caster_ptr)
 	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr) - 10);
 	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
 	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
-	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 75, -1);
+	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 75, -1);
 	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + lev_bonus / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + lev_bonus, 2, -1);
 	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + lev_bonus, 3, -1);
 	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + lev_bonus, 3, -1);
-	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, -1);
+	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus+50, TRUE);
@@ -199,7 +199,7 @@ void cast_wonder(creature_type *caster_ptr)
 	{
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150);
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
-		project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_SLEEP, caster_ptr->lev);
 		heal_creature(caster_ptr, 300);
 	}
 }
@@ -232,7 +232,7 @@ void cast_invoke_spirits(creature_type *caster_ptr)
 		msg_print(INVOKE_SPIRIT_LOW3);
 		add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
-	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, lev_bonus, -1);
+	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, -1);
 	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
 	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, -1);
 	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, -1);
@@ -241,12 +241,12 @@ void cast_invoke_spirits(creature_type *caster_ptr)
 	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((lev_bonus-5)/4),8), beam_chance(caster_ptr) - 10);
 	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
 	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
-	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 75, -1);
+	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 75, -1);
 	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + lev_bonus / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + lev_bonus, 2, -1);
 	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + lev_bonus, 3, -1);
 	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + lev_bonus, 3, -1);
-	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, -1);
+	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (DIRECTION)randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus+50, TRUE);
@@ -255,7 +255,7 @@ void cast_invoke_spirits(creature_type *caster_ptr)
 	{
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150);
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
-		project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_SLEEP, caster_ptr->lev);
 		heal_creature(caster_ptr, 300);
 	}
 
@@ -304,7 +304,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 	case 16: case 17:
 		wall_breaker(caster_ptr);
 	case 18:
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 	case 19:
 	case 20:
@@ -449,7 +449,7 @@ void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 72)
 	{
 		msg_print(SHUFFLE_TEMPERANCE);
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 	}
 	else if(die < 80)
 	{
@@ -5023,7 +5023,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cont)
 			{
 				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
-				project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
+				project_all_vision(caster_ptr, DO_EFFECT_SLEEP, power);
 			}
 		}
 
@@ -6645,7 +6645,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(info) return info_damage(1, power, 0);
 		if(cast || cont)
 		{
-			project_all_vision(caster_ptr, DO_EFFECT_OLD_DRAIN, randint1(power));
+			project_all_vision(caster_ptr, DO_EFFECT_DRAIN, randint1(power));
 		}
 		break;
 

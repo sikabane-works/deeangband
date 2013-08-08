@@ -2858,7 +2858,7 @@ bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIN
 			angry = TRUE;
 			break;
 		case SV_POTION_SLEEP:
-			dt = DO_EFFECT_OLD_SLEEP;
+			dt = DO_EFFECT_SLEEP;
 			angry = TRUE;
 			break;
 		case SV_POTION_RUINATION:
@@ -2877,20 +2877,20 @@ bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIN
 			dt = DO_EFFECT_SPEED_OTHERS;
 			break;
 		case SV_POTION_CURE_LIGHT:
-			dt = DO_EFFECT_OLD_HEAL;
+			dt = DO_EFFECT_HEAL;
 			dam = diceroll(2, 3);
 			break;
 		case SV_POTION_CURE_SERIOUS:
-			dt = DO_EFFECT_OLD_HEAL;
+			dt = DO_EFFECT_HEAL;
 			dam = diceroll(4, 3);
 			break;
 		case SV_POTION_CURE_CRITICAL:
 		case SV_POTION_CURING:
-			dt = DO_EFFECT_OLD_HEAL;
+			dt = DO_EFFECT_HEAL;
 			dam = diceroll(6, 3);
 			break;
 		case SV_POTION_HEALING:
-			dt = DO_EFFECT_OLD_HEAL;
+			dt = DO_EFFECT_HEAL;
 			dam = diceroll(10, 10);
 			break;
 		case SV_POTION_RESTORE_EXP:
@@ -2904,7 +2904,7 @@ bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIN
 			radius = 1;
 			break;
 		case SV_POTION_STAR_HEALING:
-			dt = DO_EFFECT_OLD_HEAL;
+			dt = DO_EFFECT_HEAL;
 			dam = diceroll(50, 50);
 			radius = 1;
 			break;

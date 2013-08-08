@@ -112,7 +112,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BANISH_EVIL: project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, power); break;
 	case TRAIT_DISPEL_LIVES: project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(power)); break;
 	case TRAIT_HASTE_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, power); break;
-	case TRAIT_MASS_SLEEP: project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power); break;
+	case TRAIT_MASS_SLEEP: project_all_vision(caster_ptr, DO_EFFECT_SLEEP, power); break;
 	case TRAIT_MASS_SLOW: project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power); break;
 	case TRAIT_MIND_WAVE: msg_print(MES_TRAIT_MIND_WAVE); (void)project_all_vision(caster_ptr, DO_EFFECT_PSI, power); break;
 
@@ -170,7 +170,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			{
 				if(is_mirror_grid(&floor_ptr->cave[y][x]))
 				{
-					project(caster_ptr, 0, 2, y, x, user_level, DO_EFFECT_OLD_SLEEP, (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+					project(caster_ptr, 0, 2, y, x, user_level, DO_EFFECT_SLEEP, (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 				}
 			}
 		}
@@ -263,7 +263,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CHARM_ANIMALS: (void)project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2); break;
 	case TRAIT_CHARM_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2); break;
 	case TRAIT_DOMINATE_LIVES: project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, user_level); break;
-	case TRAIT_HOLDING_DUST: project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level); break;
+	case TRAIT_HOLDING_DUST: project_all_vision(caster_ptr, DO_EFFECT_SLEEP, user_level); break;
 
 	case TRAIT_CRUSADE:
 		{
@@ -614,7 +614,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DESTROY_DOOR_TRAP: project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1); break;
 	case TRAIT_BEAM_DISARM: cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1); break;
 	case TRAIT_DESTROY_DOOR_TRAP_BEAM: cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1); break;
-	case TRAIT_CREATE_CLONE: cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1); break;
+	case TRAIT_CREATE_CLONE: cast_bolt(caster_ptr, DO_EFFECT_CLONE, MAX_RANGE_SUB, 0, -1); break;
 
 	case TRAIT_STAR_DESTROY: if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE; break;
 
@@ -649,7 +649,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BA_HELLFIRE: cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BA_LITE: cast_ball(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, power, rad); break;
 	case TRAIT_BA_DISI: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, rad); break;
-	case TRAIT_BA_DRAI: cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, rad); break;
+	case TRAIT_BA_DRAI: cast_ball(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, power, rad); break;
 
 	case TRAIT_MIRROR_CRASH: cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, power, (COODINATES)(user_level > 20 ? (user_level - 20) / 8 + 1 : 0)); break;
 	case TRAIT_BA_NUKE: cast_ball(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, power, rad); break;
@@ -753,16 +753,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BLASTER:
 		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, power, 0); break;
 
-	case TRAIT_STRANGLING: cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_STRANGLING: cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, power, -1); break;
 
 	case TRAIT_DRAIN_LIFE1:
 	case TRAIT_DRAIN_LIFE2:
-		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id);
+		cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, power, id);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
 	case TRAIT_VAMPIRIC_DRAIN_2:
-		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power); break;
+		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, power, id)) heal_creature(caster_ptr, power); break;
 
 	case TRAIT_SCARE_CREATURE:
 	case TRAIT_SHOUT:
@@ -778,7 +778,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 
 	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
-	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
+	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
 
 	/* Curse Attack Spell */
 
@@ -1135,7 +1135,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				msg_print(MES_TRAIT_VAMPIRISM_DONE);
 
 				dummy = user_level + randint1(user_level) * MAX(1, user_level / 10);   // Dmg
-				if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dummy, -1))
+				if(cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, dummy, -1))
 				{
 					if(caster_ptr->food < CREATURE_FOOD_FULL) (void)heal_creature(caster_ptr, dummy); /* No heal if we are "full" */
 					else msg_print(MES_TRAIT_VAMPIRISM_NO_HUNGER);
@@ -1376,7 +1376,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_HIDE_IN_MYST:
 		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
 		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
 		break;
@@ -1514,7 +1514,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
 	case TRAIT_PHLOGISTON: phlogiston(caster_ptr); break;
 	case TRAIT_SHOOT: if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE; break;
-	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, power, -1); break;
 	case TRAIT_MIDAS_TCH: (void)alchemy(caster_ptr); break;
 	case TRAIT_TRAP_WALK: walk_creature(caster_ptr, dir, easy_disarm, TRUE); break;
 
@@ -1545,7 +1545,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0); break;
 	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
 
-	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, power, -1); break;
 
 	case TRAIT_WOODEN_CRAPPING: aggravate_creatures(caster_ptr); break;
 
@@ -1625,7 +1625,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SLEEP_TOUCH:
 	case TRAIT_SLEEP:
 	case TRAIT_SANCTUARY:
-		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, user_level, DO_EFFECT_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
 	case TRAIT_CHANGE_BRAND:

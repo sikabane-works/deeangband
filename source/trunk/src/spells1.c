@@ -1307,7 +1307,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	creature_desc(target_name, target_ptr, 0);
 
 	if(skipped) return; // Absolutely no effect
-	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_OLD_HEAL) && !(typ == DO_EFFECT_SPEED_OTHERS) && !(typ == DO_EFFECT_STAR_HEAL)) return;
+	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_HEAL) && !(typ == DO_EFFECT_SPEED_OTHERS) && !(typ == DO_EFFECT_STAR_HEAL)) return;
 	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return;
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
@@ -1520,7 +1520,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		//31-36
 
-	case DO_EFFECT_OLD_CLONE:
+	case DO_EFFECT_CLONE:
 		if((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
 			note = MES_IS_UNAFFECTED;
 		else
@@ -1538,7 +1538,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-	case DO_EFFECT_OLD_POLY:
+	case DO_EFFECT_POLY:
 		do_poly = TRUE;
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) || saving_throw(target_ptr, SAVING_AC, dam, 0));
 		{
@@ -1549,7 +1549,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-	case DO_EFFECT_OLD_HEAL:
+	case DO_EFFECT_HEAL:
 		(void)heal_creature(target_ptr, dam);
 
 		// Redraw (later) if needed
@@ -1580,13 +1580,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-	case DO_EFFECT_OLD_SLEEP:
+	case DO_EFFECT_SLEEP:
 		if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
 		add_timed_trait(target_ptr, TRAIT_SLEPT, dam, FALSE);
 		dam = 0;
 		break;
 
-	case DO_EFFECT_OLD_DRAIN:
+	case DO_EFFECT_DRAIN:
 		if(creature_living(target_ptr))
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) has_trait(target_ptr, INFO_TYPE_RACE);

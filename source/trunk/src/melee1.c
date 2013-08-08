@@ -161,7 +161,7 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			int typ[4][2] = {
 			{ SLOT_ID_HEAD, DO_EFFECT_CONF_OTHERS },
-			{ SLOT_ID_HAND, DO_EFFECT_OLD_SLEEP },
+			{ SLOT_ID_HAND, DO_EFFECT_SLEEP },
 			{ SLOT_ID_ARM, DO_EFFECT_TURN_ALL },
 			{ SLOT_ID_FEET, DO_EFFECT_SLOW_OTHERS }
 			};
