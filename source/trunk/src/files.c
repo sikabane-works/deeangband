@@ -1966,8 +1966,8 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	if(have_flag(f->player_vuln, flag1) && !(have_flag(f->known_obj_imm, flag1) || have_flag(f->player_imm, flag1) || have_flag(f->tim_player_imm, flag1)))
 		vuln = TRUE;
 
-	/* Header */
-	if(!(mode & DP_IMM)) c_put_str(TERM_WHITE, header, row, col);
+	
+	if(!(mode & DP_IMM)) c_put_str(TERM_WHITE, header, row, col); /* Header */
 
 	/* Advance */
 	col += strlen(header) + 1;
@@ -4915,15 +4915,8 @@ static void print_tomb(creature_type *creature_ptr)
 		{
 			if(floor_ptr->depth == 0)
 			{
-				cptr town = floor_ptr->town_num ? "ŠX" : "r–ì";
-				if(streq(gameover_from, COD_QUITTING))
-				{
-					sprintf(tmp, "%s‚Å€‚ñ‚¾", town);
-				}
-				else
-				{
-					sprintf(tmp, "‚É%s‚ÅE‚³‚ê‚½", town);
-				}
+				if(streq(gameover_from, COD_QUITTING)) sprintf(tmp, "%s‚Å€‚ñ‚¾", KW_SURFACE);
+				else sprintf(tmp, "‚É%s‚ÅE‚³‚ê‚½", KW_SURFACE);
 			}
 			else
 			{
