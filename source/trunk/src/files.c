@@ -4857,7 +4857,7 @@ static void print_tomb(creature_type *creature_ptr)
 
 #ifdef JP
 		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, "<自殺>");
-		else if(streq(gameover_from, "ripe")) strcpy(tmp, "引退後に天寿を全う");
+		else if(streq(gameover_from, COD_RETIRE)) strcpy(tmp, "引退後に天寿を全う");
 		else if(streq(gameover_from, COD_SEPPUKU)) strcpy(tmp, "勝利の後、切腹");
 		else
 		{
@@ -4901,7 +4901,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 
-		if(!streq(gameover_from, "ripe") && !streq(gameover_from, COD_SEPPUKU))
+		if(!streq(gameover_from, COD_RETIRE) && !streq(gameover_from, COD_SEPPUKU))
 		{
 			if(floor_ptr->depth == 0)
 			{

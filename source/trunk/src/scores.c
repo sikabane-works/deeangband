@@ -282,7 +282,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 			/* Ž€–SŒ´ˆö‚ðƒIƒŠƒWƒiƒ‹‚æ‚è×‚©‚­•\Ž¦ */
 			if(streq(the_score.how, "yet"))
 				sprintf(out_val, "              ‚Ü‚¾¶‚«‚Ä‚¢‚é (%d%s)", cdun, "ŠK");
-			else if(streq(the_score.how, "ripe"))
+			else if(streq(the_score.how, COD_RETIRE))
 				sprintf(out_val, "              Ÿ—˜‚ÌŒã‚Éˆø‘Þ (%d%s)", cdun, "ŠK");
 			else if(streq(the_score.how, COD_SEPPUKU))
 				sprintf(out_val, "              Ÿ—˜‚ÌŒã‚ÉØ•  (%d%s)", cdun, "ŠK");
@@ -758,33 +758,18 @@ void kingly(creature_type *player_ptr)
 	int wid, hgt;
 	int cx, cy;
 	bool seppuku = streq(gameover_from, COD_SEPPUKU);
-
-	/* Hack -- retire in town */
 	player_ptr->depth = 0;
 
-	/* Fake death */
-	if(!seppuku)
-#ifdef JP
-		/* ˆø‘Þ‚µ‚½‚Æ‚«‚ÌŽ¯•Ê•¶Žš */
-		(void)strcpy(gameover_from, "ripe");
-#else
-		(void)strcpy(gameover_from, "Ripe Old Age");
-#endif
+	
+	if(!seppuku) (void)strcpy(gameover_from, COD_RETIRE);
 
-
-	/* Restore the experience */
 	player_ptr->exp = player_ptr->max_max_exp;
-
-	/* Restore the level */
 	player_ptr->lev = player_ptr->max_plv;
-
 	Term_get_size(&wid, &hgt);
 	cy = hgt / 2;
 	cx = wid / 2;
 
-	/* Hack -- Instant Gold */
-	player_ptr->au += 10000000L;
-
+	player_ptr->au += 10000000L; /* Hack -- Instant Gold */
 	Term_clear();
 
 	/* Display a crown */
@@ -812,9 +797,6 @@ void kingly(creature_type *player_ptr)
 		write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
-	/* Flush input */
-	flush();
-
-	/* Wait for response */
-	pause_line(hgt - 1);
+	flush(); /* Flush input */
+	pause_line(hgt - 1); /* Wait for response */
 }
