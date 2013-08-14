@@ -4427,7 +4427,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 	if(character_generated) strcpy(old_player_base, player_base);
 
 	/* Cannot be too long */
-#if defined(MACINTOSH) || defined(USE_EMX) || defined(ACORN) || defined(VM)
+#if defined(MACINTOSH) || defined(USE_EMX) || defined(VM)
 	if(strlen(creature_ptr->name) > 15) quit_fmt(MES_SYS_TOO_LONG_NAME(creature_ptr->name));
 #endif
 

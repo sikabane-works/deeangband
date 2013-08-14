@@ -570,20 +570,6 @@ errr my_fputs(FILE *fff, cptr buf, huge n)
 }
 
 
-#ifdef ACORN
-
-
-/*
- * Most of the "file" routines for "ACORN" should be in "main-acn.c"
- *
- * Many of them can be rewritten now that only "fd_open()" and "fd_make()"
- * and "my_fopen()" should ever create files.
- */
-
-
-#else /* ACORN */
-
-
 /*
  * Code Warrior is a little weird about some functions
  */
@@ -936,11 +922,6 @@ errr fd_close(int fd)
 
 	return SUCCESS;
 }
-
-
-#endif /* ACORN */
-
-
 
 
 /*

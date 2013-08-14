@@ -118,15 +118,6 @@
 #endif
 
 /*
- * Extract the "ACORN" flag from the compiler
- */
-#ifdef __riscos
-# ifndef ACORN
-#  define ACORN
-# endif
-#endif
-
-/*
  * Extract the "SGI" flag from the compiler
  */
 #ifdef sgi
@@ -171,8 +162,7 @@
  * or for the "Atari" platform which is Unix-like, apparently
  */
 #if !defined(MACINTOSH) && !defined(WINDOWS) && \
-    !defined(USE_EMX) && \
-    !defined(ACORN) && !defined(VM)
+    !defined(USE_EMX) && !defined(VM)
 # define SET_UID
 #endif
 
