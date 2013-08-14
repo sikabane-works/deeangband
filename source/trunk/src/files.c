@@ -3050,9 +3050,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			if(creature_ptr->total_winner)
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(gameover_from, "Seppuku") ? COD_SEPPUKU : COD_RETIRE);
+				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(gameover_from, COD_SEPPUKU) ? COD_SEPPUKU : COD_RETIRE);
 #else
-				sprintf(statmsg, "...You %s after the winning.", streq(gameover_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
+				sprintf(statmsg, "...You %s after the winning.", streq(gameover_from, COD_SEPPUKU) ? "did Seppuku" : "retired from the adventure");
 #endif
 			}
 			else if(!floor_ptr->depth)
@@ -4856,19 +4856,9 @@ static void print_tomb(creature_type *creature_ptr)
 		put_str(buf, 13, 11);
 
 #ifdef JP
-		/* 墓に刻む言葉をオリジナルより細かく表示 */
-		if(streq(gameover_from, COD_QUITTING))
-		{
-			strcpy(tmp, "<自殺>");
-		}
-		else if(streq(gameover_from, "ripe"))
-		{
-			strcpy(tmp, "引退後に天寿を全う");
-		}
-		else if(streq(gameover_from, "Seppuku"))
-		{
-			strcpy(tmp, "勝利の後、切腹");
-		}
+		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, "<自殺>");
+		else if(streq(gameover_from, "ripe")) strcpy(tmp, "引退後に天寿を全う");
+		else if(streq(gameover_from, COD_SEPPUKU)) strcpy(tmp, "勝利の後、切腹");
 		else
 		{
 			roff_to_buf(gameover_from, GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
@@ -4911,7 +4901,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 
-		if(!streq(gameover_from, "ripe") && !streq(gameover_from, "Seppuku"))
+		if(!streq(gameover_from, "ripe") && !streq(gameover_from, COD_SEPPUKU))
 		{
 			if(floor_ptr->depth == 0)
 			{

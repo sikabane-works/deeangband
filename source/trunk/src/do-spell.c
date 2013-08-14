@@ -6312,13 +6312,13 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			if(i != '@') return NULL;
 			if(caster_ptr->total_winner)
 			{
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_FORCE, 9999, COD_SEPPUKU, NULL, -1);
 				caster_ptr->total_winner = TRUE;
 			}
 			else
 			{
 				msg_print(MES_TRAIT_SEPPUKU_DONE);
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_FORCE, 9999, COD_SEPPUKU, NULL, -1);
 			}
 		}
 		break;

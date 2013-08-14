@@ -1144,7 +1144,7 @@ static void you_died(cptr hit_from)
 	else
 	{
 		int q_idx = quest_number(floor_ptr);
-		bool seppuku = hit_from ? streq(hit_from, "Seppuku") : FALSE ;
+		bool seppuku = hit_from ? streq(hit_from, COD_SEPPUKU) : FALSE ;
 		bool winning_seppuku = player_ptr->total_winner && seppuku;
 
 #ifdef WORLD_SCORE

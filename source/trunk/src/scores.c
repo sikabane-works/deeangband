@@ -284,7 +284,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 				sprintf(out_val, "              ‚Ü‚¾¶‚«‚Ä‚¢‚é (%d%s)", cdun, "ŠK");
 			else if(streq(the_score.how, "ripe"))
 				sprintf(out_val, "              Ÿ—˜‚ÌŒã‚Éˆø‘Þ (%d%s)", cdun, "ŠK");
-			else if(streq(the_score.how, "Seppuku"))
+			else if(streq(the_score.how, COD_SEPPUKU))
 				sprintf(out_val, "              Ÿ—˜‚ÌŒã‚ÉØ•  (%d%s)", cdun, "ŠK");
 			else
 			{
@@ -757,7 +757,7 @@ void kingly(creature_type *player_ptr)
 {
 	int wid, hgt;
 	int cx, cy;
-	bool seppuku = streq(gameover_from, "Seppuku");
+	bool seppuku = streq(gameover_from, COD_SEPPUKU);
 
 	/* Hack -- retire in town */
 	player_ptr->depth = 0;
