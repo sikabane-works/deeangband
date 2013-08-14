@@ -127,6 +127,8 @@
 #define MES_SYS_ERROR_GAMEOVER "熟慮の上の自殺！"
 
 #define MES_SYS_PARSING(FILE) "'%s'を解析中。", (FILE)
+#define MES_SYS_TOO_LONG_NAME(FILE) "'%s'という名前は長すぎます！", (FILE)
+
 #define MES_SYS_CONTROL_CODE(MESSAGE) "'%s' は不正なコントロールコードを含んでいます。", (MESSAGE)
 
 #define MES_SYS_TMP_FILE_ERROR1 "エラー：古いテンポラリ・ファイルが残っています。"
@@ -235,6 +237,7 @@
 
 #define MES_SYS_PARSING(FILE) "Parsing '%s'.", (FILE)
 #define MES_SYS_CONTROL_CODE(MESSAGE) '%s' contains control chars!", (MESSAGE)
+#define MES_SYS_TOO_LONG_NAME(FILE) "The name '%s' is too long!", (FILE)
 
 #define MES_SYS_TMP_FILE_ERROR1 "Error: There are old temporal files."
 #define MES_SYS_TMP_FILE_ERROR2 "Make sure you are not running two game processes simultaneously."

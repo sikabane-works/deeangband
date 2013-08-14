@@ -4428,17 +4428,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 
 	/* Cannot be too long */
 #if defined(MACINTOSH) || defined(USE_EMX) || defined(ACORN) || defined(VM)
-
-	if(strlen(creature_ptr->name) > 15)
-	{
-		/* Name too long */
-#ifdef JP
-		quit_fmt("'%s'‚Æ‚¢‚¤–¼‘O‚Í’·‚·‚¬‚Ü‚·I", creature_ptr->name);
-#else
-		quit_fmt("The name '%s' is too long!", creature_ptr->name);
-#endif
-
-	}
+	if(strlen(creature_ptr->name) > 15) quit_fmt(MES_SYS_TOO_LONG_NAME(creature_ptr->name));
 #endif
 
 	/* Cannot contain "icky" characters */
