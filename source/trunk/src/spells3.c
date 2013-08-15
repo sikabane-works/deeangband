@@ -3025,9 +3025,6 @@ void display_spell_list(creature_type *creature_ptr)
 
 			chance = calc_trait_difficulty(creature_ptr, 0, magic_info[creature_ptr->class_idx].spell_stat);
 
-			/* Get info */
-			mindcraft_info(creature_ptr, comment, use_mind, i);
-
 			/* Dump the spell */
 			sprintf(psi_desc, "  %c) %-30s%2d %4d %3d%%%s", I2A(i), spell.name, spell.min_lev, spell.mana_cost, chance, comment);
 
