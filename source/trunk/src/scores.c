@@ -691,12 +691,7 @@ void race_score(creature_type *player_ptr, int race_num)
 	/* add player if qualified */
 	if((player_ptr->race_idx1 == race_num) && (player_ptr->lev >= lastlev))
 	{
-#ifdef JP
-		sprintf(out_val, "‚ ‚È‚½) %s‚Ì%s (ƒŒƒxƒ‹ %2d)", race_info[player_ptr->race_idx1].title, player_ptr->name, player_ptr->lev);
-#else
-		sprintf(out_val, "You) %s the %s (Level %3d)", player_ptr->name, race_info[player_ptr->race_idx1].title, player_ptr->lev);
-#endif
-
+		sprintf(out_val, "%s) %s (%s %2d)", KW_YOU, player_ptr->name, KW_LEVEL, player_ptr->lev);
 		prt(out_val, (m + 8), 0);
 	}
 
