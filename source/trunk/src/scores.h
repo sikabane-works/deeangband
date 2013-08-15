@@ -8,4 +8,4 @@ extern errr top_twenty(creature_type *player_ptr);
 extern errr predict_score(creature_type *player_ptr);
 extern void race_legends(creature_type *player_ptr);
 extern void race_score(creature_type *player_ptr, int race_num);
-extern void show_highclass(creature_type *creature_ptr);
+extern void show_highclass(creature_type *current_creature_ptr);

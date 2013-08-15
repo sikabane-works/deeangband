@@ -563,7 +563,7 @@ errr predict_score(creature_type *player_ptr)
  * show_highclass - selectively list highscores based on class
  * -KMW-
  */
-void show_highclass(creature_type *creature_ptr)
+void show_highclass(creature_type *current_creature_ptr)
 {
 	register int i = 0, j, m = 0;
 	int pr, clev/*, al*/;
@@ -608,12 +608,7 @@ void show_highclass(creature_type *creature_ptr)
 		j++;
 	}
 
-#ifdef JP
-	sprintf(out_val, "‚ ‚È‚½) %s‚Ì%s (ƒŒƒxƒ‹ %2d)", race_info[creature_ptr->race_idx1].title,creature_ptr->name, creature_ptr->lev);
-#else
-	sprintf(out_val, "You) %s the %s (Level %2d)", creature_ptr->name, race_info[creature_ptr->race_idx1].title, creature_ptr->lev);
-#endif
-
+	sprintf(out_val, "%s) %s (%s %2d)", KW_YOU, current_creature_ptr->name, KW_LEVEL, current_creature_ptr->lev);
 	prt(out_val, (m + 8), 0);
 
 	(void)fd_close(highscore_fd);
