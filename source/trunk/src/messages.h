@@ -5396,3 +5396,20 @@ static cptr desc_stat_neg[] =
 #define MES_KNOLEDGE_LIST_ENEMY_CHAOS(PERCENT) "You are a enemy of chaos(x%d.%02d by order slaying).", (PERCENT / 100), (PERCENT % 100)
 #define MES_KNOLEDGE_LIST_ENEMY_BALANCE(PERCENT) "You are a enemy of balance(x%d.%02d byslaying).", (PERCENT / 100), (PERCENT % 100)
 #endif
+
+#ifdef JP
+#define MES_TASK_SEARCH "íTçı"
+#define MES_TASK_LEARNING "äwèK"
+#define MES_TASK_FISHING "íﬁÇË"
+#define MES_TASK_SINGING "âÃè•"
+#define MES_TASK_HAYAGAKE "ëÅãÏ"
+#define MES_TASK_SPELL "îOè•"
+#else
+#define MES_TASK_SEARCH "Search"
+#define MES_TASK_LEARNING "Learning"
+#define MES_TASK_FISHING "Fishing"
+#define MES_TASK_SINGING "Singing"
+#define MES_TASK_HAYAGAKE "Hayagake"
+#define MES_TASK_SPELL "Spell"
+#endif
+

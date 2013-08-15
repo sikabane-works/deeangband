@@ -783,22 +783,12 @@ static void prt_state(creature_type *creature_ptr)
 				break;
 			}
 			
-#ifdef JP
-			case ACTION_SEARCH: strcpy(text, "’Tõ"); break;
-			case ACTION_LEARN: strcpy(text, "ŠwK"); break;
-			case ACTION_FISH: strcpy(text, "’Þ‚è"); break;
-			case ACTION_SING: strcpy(text, "‰Ì  "); break;
-			case ACTION_HAYAGAKE: strcpy(text, "‘¬‹ì"); break;
-			case ACTION_SPELL: strcpy(text, "‰r¥"); break;
-#else
-			case ACTION_SEARCH: strcpy(text, "Sear"); break;
-			case ACTION_LEARN: strcpy(text, "lear"); break;
-			case ACTION_FISH: strcpy(text, "fish"); break;
-			case ACTION_SING: strcpy(text, "Sing"); break;
-			case ACTION_HAYAGAKE: strcpy(text, "Fast"); break;
-			case ACTION_SPELL: strcpy(text, "Spel"); break;
-#endif
-
+			case ACTION_SEARCH: strcpy(text, MES_TASK_SEARCH); break;
+			case ACTION_LEARN: strcpy(text, MES_TASK_SINGING); break;
+			case ACTION_FISH: strcpy(text, MES_TASK_FISHING); break;
+			case ACTION_SING: strcpy(text, MES_TASK_SINGING); break;
+			case ACTION_HAYAGAKE: strcpy(text, MES_TASK_HAYAGAKE); break;
+			case ACTION_SPELL: strcpy(text, MES_TASK_SPELL); break;
 			case ACTION_KAMAE:
 			{
 				int i;
@@ -866,12 +856,7 @@ static void prt_speed(creature_type *creature_ptr)
 		else if((is_fast && !has_trait(creature_ptr, TRAIT_SLOW)) || has_trait(creature_ptr, TRAIT_LIGHT_SPEED)) attr = TERM_YELLOW;
 		else if(has_trait(creature_ptr, TRAIT_SLOW) && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
-#ifdef JP
 		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? KW_RIDING : KW_FAST), i);
-#else
-		sprintf(buf, "Fast(%+d)", i);
-#endif
-
 	}
 
 	/* Slow */
@@ -887,11 +872,7 @@ static void prt_speed(creature_type *creature_ptr)
 		else if(is_fast && !creature_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_YELLOW;
 		else if(creature_ptr->timed_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
-#ifdef JP
-		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "æ”n" : "Œ¸‘¬"), i);
-#else
-		sprintf(buf, "Slow(%+d)", i);
-#endif
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? KW_RIDING : KW_SLOW), i);
 	}
 
 	else if(creature_ptr->riding)
