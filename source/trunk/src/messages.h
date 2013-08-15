@@ -5369,3 +5369,12 @@ static cptr desc_stat_neg[] =
 #define MES_TIME_RESTART "You feel time flowing around you once more."
 #endif
 
+#ifdef JP
+#define MES_KNOLEDGE_LIST_PLAYER "あなたはプレイヤーである。"
+#define MES_KNOLEDGE_LIST_DEAD "あなたは死んでいる"
+#define MES_KNOLEDGE_LIST_LEFT_SPELL_SLOT "あなたは呪文や祈りを学ぶことができる。"
+#else
+#define MES_KNOLEDGE_LIST_PLAYER "You are a player. "
+#define MES_KNOLEDGE_LIST_DEAD "You are dead. "
+#define MES_KNOLEDGE_LIST_LEFT_SPELL_SLOT "You can learn some spells/prayers."
+#endif

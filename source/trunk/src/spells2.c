@@ -218,26 +218,8 @@ void creature_knowledge(creature_type *creature_ptr)
 	}
 
 	info[i++] = "";
-
-
-	if(is_player(creature_ptr))
-	{
-#ifdef JP
-		info[i++] = "あなたはプレイヤーである。";
-#else
-		info[i++] = "You are a player. ";
-#endif
-	}
-
-	if(IS_DEAD(creature_ptr))
-	{
-#ifdef JP
-		info[i++] = "あなたは死んでいる";
-#else
-		info[i++] = "You are dead. ";
-#endif
-	}
-
+	if(is_player(creature_ptr)) info[i++] = MES_KNOLEDGE_LIST_PLAYER;
+	if(IS_DEAD(creature_ptr)) info[i++] = MES_KNOLEDGE_LIST_DEAD;
 
 	percent = calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD);
 	if(percent > 100)
@@ -306,15 +288,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		break;
 	}
 
-	if(creature_ptr->new_spells)
-	{
-#ifdef JP
-		info[i++] = "あなたは呪文や祈りを学ぶことができる。";
-#else
-		info[i++] = "You can learn some spells/prayers.";
-#endif
-
-	}
+	if(creature_ptr->new_spells > 0) info[i++] = MES_KNOLEDGE_LIST_LEFT_SPELL_SLOT;
 
 	//TODO old pval status
 
