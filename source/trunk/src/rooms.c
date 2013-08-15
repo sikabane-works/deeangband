@@ -655,14 +655,7 @@ static bool build_type1(floor_type *floor_ptr)
 		if(curtain2) floor_ptr->cave[yval][xval].feat = feat_door[DOOR_CURTAIN].closed;
 	}
 
-	if(one_in_(2)){
-#ifdef JP
-		get_rnd_line_jonly(TEXT_FILES_RUMOR, 0, floor_ptr->cave[yval][xval].message, 10);
-#else
-		get_rnd_line(TEXT_FILES_RUMOR, 0, floor_ptr->cave[yval][xval].message);
-#endif
-	}
-
+	if(one_in_(2)) get_rnd_line(TEXT_FILES_RUMOR, 0, floor_ptr->cave[yval][xval].message);
 
 	return TRUE;
 }
@@ -2467,14 +2460,7 @@ static bool build_type6(floor_type *floor_ptr)
 		}
 	}
 
-	if(cheat_room)
-	{
-#ifdef JP
-		msg_format("クリーチャー部屋(pit)(%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
-#else
-		msg_format("Creature pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
-#endif
-	}
+	if(cheat_room) msg_format("Creature pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 
 	/* Select the entries */
 	for (i = 0; i < 8; i++)

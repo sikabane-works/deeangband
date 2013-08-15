@@ -1178,14 +1178,8 @@ static void creature_speaking(creature_type *creature_ptr)
 	char creature_name[MAX_NLEN];
 
 	// Acquire the creature name/poss
-	if(creature_ptr->see_others)
-		creature_desc(creature_name, creature_ptr, 0);
-	else
-#ifdef JP
-		strcpy(creature_name, "‰½Ò‚©");
-#else
-		strcpy(creature_name, "It");
-#endif
+	if(creature_ptr->see_others) creature_desc(creature_name, creature_ptr, 0);
+	else strcpy(creature_name, KW_SOMEONE);
 
 	// Select the file for creature quotes
 	if(has_trait(creature_ptr, TRAIT_AFRAID)) filename = TEXT_FILES_CREATURE_FEAR;
@@ -1194,14 +1188,7 @@ static void creature_speaking(creature_type *creature_ptr)
 	else filename = TEXT_FILES_CREATURE_SPEAK;
 
 	// Get the creature line
-	if(get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0) // Say something
-	{
-#ifdef JP
-		msg_format("%^s%s", creature_name, monmessage);
-#else
-		msg_format("%^s %s", creature_name, monmessage);
-#endif
-	}
+	if(get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0) msg_format("%^s %s", creature_name, monmessage);
 }
 
 static void creature_lack_food(creature_type *creature_ptr)
