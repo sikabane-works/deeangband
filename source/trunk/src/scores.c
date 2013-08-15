@@ -316,27 +316,13 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 			c_put_str(attr, out_val, n*4 + 4, 0);
 
 			/* And still another line of info */
-#ifdef JP
-			{
-				char buf[11];
-
-				/* 日付を 19yy/mm/dd の形式に変更する */
-				if(strlen(when) == 8 && when[2] == '/' && when[5] == '/') {
-					sprintf(buf, "%d%s/%.5s", 19 + (when[6] < '8'), when + 6, when);
-					when = buf;
-				}
-				sprintf(out_val, "              (ユーザー:%s, 日付:%s, 金:%s, ターン:%s)", user, when, gold, aged);
-			}
-
-#else
-			sprintf(out_val, "               (User %s, Date %s, Gold %s, Turn %s).", user, when, gold, aged);
-#endif
+			sprintf(out_val, "               (User %s, Date %s, %s %s, Turn %s).", user, when, KW_MONEY, gold, aged);
 
 			c_put_str(attr, out_val, n*4 + 5, 0);
 		}
 
-		/* Wait for response */
-		prt(MES_SCORE_PUSHKEY, hgt - 1, 21);
+		
+		prt(MES_SCORE_PUSHKEY, hgt - 1, 21); /* Wait for response */
 
 		j = inkey();
 		prt("", hgt - 1, 0);
@@ -356,22 +342,15 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 void display_scores(int from, int to)
 {
 	char buf[1024];
-
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
-	/* Open the binary high score file, for reading */
-	highscore_fd = fd_open(buf, O_RDONLY);
+	highscore_fd = fd_open(buf, O_RDONLY); /* Open the binary high score file, for reading */
 	if(highscore_fd < 0) quit(MES_SYS_SCORE_FAILED);
 	Term_clear();
 
-	/* Display the scores */
-	display_scores_aux(from, to, -1, NULL);
-
-	/* Shut the high score file */
-	(void)fd_close(highscore_fd);
-
-	/* Forget the high score fd */
-	highscore_fd = -1;
+	display_scores_aux(from, to, -1, NULL); /* Display the scores */
+	(void)fd_close(highscore_fd); /* Shut the high score file */
+	highscore_fd = -1; /* Forget the high score fd */
 
 	quit(NULL);
 }
@@ -412,10 +391,8 @@ bool send_world_score(bool do_send)
  */
 errr top_twenty(creature_type *player_ptr)
 {
-	int          j;
-
+	int j;
 	high_score   the_score;
-
 	time_t ct = time((time_t*)0);
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
@@ -594,9 +571,7 @@ void show_highclass(creature_type *creature_ptr)
 	char buf[1024], out_val[256];
 
 	screen_save();
-
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
-
 	highscore_fd = fd_open(buf, O_RDONLY);
 
 	if(highscore_fd < 0)
@@ -623,9 +598,9 @@ void show_highclass(creature_type *creature_ptr)
 		clev = strtol(the_score.cur_lev, NULL, 10);
 
 #ifdef JP
-		sprintf(out_val, "   %3d) %sの%s (レベル %2d)", (m + 1), race_info[pr].title,the_score.who, clev);
+		sprintf(out_val, "   %3d) %sの%s (%s %2d)", (m + 1), race_info[pr].title,the_score.who, KW_LEVEL, clev);
 #else
-		sprintf(out_val, "%3d) %s the %s (Level %2d)", (m + 1), the_score.who, race_info[pr].title, clev);
+		sprintf(out_val, "%3d) %s the %s (%s %2d)", (m + 1), the_score.who, race_info[pr].title, KW_LEVEL, clev);
 #endif
 
 		prt(out_val, (m + 7), 0);

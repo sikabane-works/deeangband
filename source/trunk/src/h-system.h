@@ -97,7 +97,7 @@
 # include <sys/stat.h>
 
 # ifdef SOLARIS
-#  include <netdb.h>
+#  include <netdb.h>1
 # endif
 
 #endif /* SET_UID */
