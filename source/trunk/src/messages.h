@@ -5399,7 +5399,11 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_TASK_SEARCH "探索"
+#define MES_TASK_SEARCH_START "注意深く歩き始めた。"
+#define MES_TASK_SEARCH_STOP "探索をやめた。"
 #define MES_TASK_LEARNING "学習"
+#define MES_TASK_LEARNING_START "学習を始めた。"
+#define MES_TASK_LEARNING_STOP "学習をやめた。"
 #define MES_TASK_FISHING "釣り"
 #define MES_TASK_SINGING "歌唱"
 #define MES_TASK_HAYAGAKE "早駆"
@@ -5407,7 +5411,11 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_IMITATION "まね"
 #else
 #define MES_TASK_SEARCH "Search"
+#define MES_TASK_SEARCH_START "You begin to walk carefully."
+#define MES_TASK_SEARCH_STOP "You no longer walk carefully."
 #define MES_TASK_LEARNING "Learning"
+#define MES_TASK_LEARNING_START "You begin Learning"
+#define MES_TASK_LEARNING_STOP "You stop Learning"
 #define MES_TASK_FISHING "Fishing"
 #define MES_TASK_SINGING "Singing"
 #define MES_TASK_HAYAGAKE "Hayagake"

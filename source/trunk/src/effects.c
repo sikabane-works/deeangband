@@ -270,11 +270,7 @@ void set_action(creature_type *creature_ptr, int typ)
 		{
 		case ACTION_SEARCH:
 			{
-#ifdef JP
-				msg_print("探索をやめた。");
-#else
-				msg_print("You no longer walk carefully.");
-#endif
+				msg_print(MES_TASK_SEARCH_STOP);
 				prepare_redraw(PR_SPEED);
 				break;
 			}
@@ -285,11 +281,7 @@ void set_action(creature_type *creature_ptr, int typ)
 			}
 		case ACTION_LEARN:
 			{
-#ifdef JP
-				msg_print("学習をやめた。");
-#else
-				msg_print("You stop Learning");
-#endif
+				msg_print(MES_TASK_LEARN_STOP);
 				creature_ptr->new_mane = FALSE;
 				break;
 			}
@@ -354,21 +346,13 @@ void set_action(creature_type *creature_ptr, int typ)
 	{
 	case ACTION_SEARCH:
 		{
-#ifdef JP
-			msg_print("注意深く歩き始めた。");
-#else
-			msg_print("You begin to walk carefully.");
-#endif
+			msg_print(MES_TASK_SEARCH_START);
 			prepare_redraw(PR_SPEED);
 			break;
 		}
 	case ACTION_LEARN:
 		{
-#ifdef JP
-			msg_print("学習を始めた。");
-#else
-			msg_print("You begin Learning");
-#endif
+			msg_print(MES_TASK_LEARN_START);
 			break;
 		}
 	case ACTION_FISH:
