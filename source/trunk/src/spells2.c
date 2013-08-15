@@ -224,55 +224,35 @@ void creature_knowledge(creature_type *creature_ptr)
 	percent = calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD);
 	if(percent > 100)
 	{
-#ifdef JP
-		sprintf(Dummy2[0], "‚ ‚È‚½‚Íq‘Pr‚Ì“G‚Å‚ ‚éB(‘Î×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
-#else
-		sprintf(Dummy2[0], "You are a enemy of good(x%d.%02d by evil slaying).", percent / 100, percent % 100);
-#endif
+		sprintf(Dummy2[0], MES_KNOLEDGE_LIST_ENEMY_GOOD(percent));
 		info[i++] = Dummy2[0];
 	}
 
 	percent = calc_punishment_slay(creature_ptr, ALIGNMENT_EVIL);
 	if(percent > 100)
 	{
-#ifdef JP
-		sprintf(Dummy2[1], "‚ ‚È‚½‚Íqˆ«r‚Ì“G‚Å‚ ‚éB(‘Î‘PƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
-#else
-		sprintf(Dummy2[1], "You are a enemy of evil(x%d.%02d by good slaying).", percent / 100, percent % 100);
-#endif
+		sprintf(Dummy2[0], MES_KNOLEDGE_LIST_ENEMY_EVIL(percent));
 		info[i++] = Dummy2[1];
 	}
 
 	percent = calc_punishment_slay(creature_ptr, ALIGNMENT_ORDER);
 	if(percent > 100)
 	{
-#ifdef JP
-		sprintf(Dummy2[2], "‚ ‚È‚½‚Íq’˜r‚Ì“G‚Å‚ ‚éB(‘Î¬“×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
-#else
-		sprintf(Dummy2[2], "You are a enemy of order(x%d.%02d by chaos slaying).", percent / 100, percent % 100);
-#endif
+		sprintf(Dummy2[0], MES_KNOLEDGE_LIST_ENEMY_ORDER(percent));
 		info[i++] = Dummy2[2];
 	}
 
 	percent = calc_punishment_slay(creature_ptr, ALIGNMENT_CHAOS);
 	if(percent > 100)
 	{
-#ifdef JP
-		sprintf(Dummy2[3], "‚ ‚È‚½‚Íq¬“×r‚Ì“G‚Å‚ ‚éB(‘Î’˜ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
-#else
-		sprintf(Dummy2[3], "You are a enemy of chaos(x%d.%02d by order slaying.)", percent / 100, percent % 100);
-#endif
+		sprintf(Dummy2[0], MES_KNOLEDGE_LIST_ENEMY_CHAOS(percent));
 		info[i++] = Dummy;
 	}
 
 	percent = calc_punishment_slay(creature_ptr, ALIGNMENT_BALANCE);
 	if(percent > 100)
 	{
-#ifdef JP
-		sprintf(Dummy2[4], "‚ ‚È‚½‚Íq“V”‰r‚Ì“G‚Å‚ ‚éB(ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
-#else
-		sprintf(Dummy2[4], "You are a enemy of balance(x%d.%02d by slaying).", percent / 100, percent % 100);
-#endif
+		sprintf(Dummy2[0], MES_KNOLEDGE_LIST_ENEMY_BALANCE(percent));
 		info[i++] = Dummy2[4];
 	}
 
@@ -300,11 +280,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	for (k = 1; k < 24; k++) prt("", k, 3);
 
 	/* Label the information */
-#ifdef JP
-	prt("        ‚ ‚È‚½‚Ìó‘Ô:", 1, 5);
-#else
-	prt("     Your Attributes:", 1, 5);
-#endif
+	prt(MES_KNOLEDGE_HEADER, 1, 5);
 
 	/* We will print on top of the map (column 13) */
 	for (k = 2, j = 0; j < i; j++)

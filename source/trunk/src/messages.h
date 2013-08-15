@@ -5370,11 +5370,23 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_KNOLEDGE_HEADER "あなたの状態"
 #define MES_KNOLEDGE_LIST_PLAYER "あなたはプレイヤーである。"
 #define MES_KNOLEDGE_LIST_DEAD "あなたは死んでいる"
 #define MES_KNOLEDGE_LIST_LEFT_SPELL_SLOT "あなたは呪文や祈りを学ぶことができる。"
+#define MES_KNOLEDGE_LIST_ENEMY_GOOD(PERCENT) "あなたは〈善〉の敵である。(対邪スレイx%d.%02d)", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_EVIL(PERCENT) "あなたは〈悪〉の敵である。(対善スレイx%d.%02d)", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_ORDER(PERCENT) "あなたは〈秩序〉の敵である。(対混沌スレイx%d.%02d)", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_CHAOS(PERCENT) "あなたは〈混沌〉の敵である。(対秩序スレイx%d.%02d)", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_BALANCE(PERCENT) "あなたは〈天秤〉の敵である。(スレイx%d.%02d)", (PERCENT / 100), (PERCENT % 100)
 #else
+#define MES_KNOLEDGE_HEADER "Your Attributes"
 #define MES_KNOLEDGE_LIST_PLAYER "You are a player. "
 #define MES_KNOLEDGE_LIST_DEAD "You are dead. "
 #define MES_KNOLEDGE_LIST_LEFT_SPELL_SLOT "You can learn some spells/prayers."
+#define MES_KNOLEDGE_LIST_ENEMY_GOOD(PERCENT) "You are a enemy of good(x%d.%02d by evil slaying).", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_EVIL(PERCENT) "You are a enemy of evil(x%d.%02d by good slaying).", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_ORDER(PERCENT) "You are a enemy of order(x%d.%02d by chaos slaying).", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_CHAOS(PERCENT) "You are a enemy of chaos(x%d.%02d by order slaying).", (PERCENT / 100), (PERCENT % 100)
+#define MES_KNOLEDGE_LIST_ENEMY_BALANCE(PERCENT) "You are a enemy of balance(x%d.%02d byslaying).", (PERCENT / 100), (PERCENT % 100)
 #endif
