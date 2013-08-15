@@ -747,23 +747,8 @@ static void prt_state(creature_type *creature_ptr)
 	/* Repeating */
 	if(command_rep)
 	{
-		if(command_rep > 999)
-		{
-#ifdef JP
-			sprintf(text, "%2d00", command_rep / 100);
-#else
-			(void)sprintf(text, "%2d00", command_rep / 100);
-#endif
-
-		}
-		else
-		{
-#ifdef JP
-			sprintf(text, "  %2d", command_rep);
-#else
-			(void)sprintf(text, "  %2d", command_rep);
-#endif
-		}
+		if(command_rep > 999) sprintf(text, "%2d00", command_rep / 100);
+		else sprintf(text, "  %2d", command_rep);
 	}
 
 	/* Action */
@@ -774,11 +759,8 @@ static void prt_state(creature_type *creature_ptr)
 			case ACTION_REST:
 			{
 				strcpy(text, "    ");
-
 				if(creature_ptr->resting > 0) sprintf(text, "%5d", creature_ptr->resting);
-				/* Rest until healed */
 				else if(creature_ptr->resting == -1) text[0] = text[1] = text[2] = text[3] = '*';
-				/* Rest until done */
 				else if(creature_ptr->resting == -2) text[0] = text[1] = text[2] = text[3] = '&';
 				break;
 			}
@@ -894,19 +876,8 @@ static void prt_study(creature_type *creature_ptr)
 	col_study = wid + COL_STUDY;
 	row_study = hgt + ROW_STUDY;
 
-	if(creature_ptr->new_spells)
-	{
-#ifdef JP
-		put_str("ŠwK", row_study, col_study);
-#else
-		put_str("Stud", row_study, col_study);
-#endif
-
-	}
-	else
-	{
-		put_str("    ", row_study, col_study);
-	}
+	if(creature_ptr->new_spells) put_str(MES_TASK_LEARNING, row_study, col_study);
+	else put_str("    ", row_study, col_study);
 }
 
 
@@ -925,16 +896,9 @@ static void prt_imitation(creature_type *creature_ptr)
 			byte attr;
 			if(creature_ptr->new_mane) attr = TERM_L_RED;
 			else attr = TERM_WHITE;
-#ifdef JP
-			c_put_str(attr, "‚Ü‚Ë", row_study, col_study);
-#else
-			c_put_str(attr, "Imit", row_study, col_study);
-#endif
+			c_put_str(attr, MES_TASK_IMITATION, row_study, col_study);
 		}
-		else
-		{
-			put_str("    ", row_study, col_study);
-		}
+		else put_str("    ", row_study, col_study);
 	}
 }
 

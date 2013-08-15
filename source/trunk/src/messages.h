@@ -5404,6 +5404,7 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_SINGING "âÃè•"
 #define MES_TASK_HAYAGAKE "ëÅãÏ"
 #define MES_TASK_SPELL "îOè•"
+#define MES_TASK_IMITATION "Ç‹ÇÀ"
 #else
 #define MES_TASK_SEARCH "Search"
 #define MES_TASK_LEARNING "Learning"
@@ -5411,5 +5412,6 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_SINGING "Singing"
 #define MES_TASK_HAYAGAKE "Hayagake"
 #define MES_TASK_SPELL "Spell"
+#define MES_TASK_IMITATION "Imitation"
 #endif
 
