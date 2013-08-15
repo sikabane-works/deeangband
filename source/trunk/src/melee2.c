@@ -1203,11 +1203,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 		// Faint occasionally
 		if(!has_trait(creature_ptr, TRAIT_PARALYZED) && (PROB_PERCENT(10)))
 		{
-#ifdef JP
-			msg_print("Ç†Ç‹ÇËÇ…Ç‡ãÛï†Ç≈ãCê‚ÇµÇƒÇµÇ‹Ç¡ÇΩÅB");
-#else
-			msg_print("You faint from the lack of food.");
-#endif
+			msg_print(MES_CREATURE_FAINT_HUNGRY);
 			disturb(player_ptr, 1, 0);
 			(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 1 + randint0(5), FALSE); // Hack -- faint (bypass free action)
 		}

@@ -2493,6 +2493,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_WHICH_GAIN "‚Ç‚Ì”\—Í’l‚ðã‚°‚Ü‚·‚©H"
 #define MES_CREATURE_KARMA(TYPE, NUM) "[%s]‚Ì‹Æ: %d\n", (TYPE), (NUM)
 #define MES_CREATURE_ANGER(CREATURE) "%^s‚Í“{‚Á‚½I", (CREATURE)->name
+#define MES_CREATURE_FAINT_HUNGRY "‚ ‚Ü‚è‚É‚à‹ó• ‚Å‹Câ‚µ‚Ä‚µ‚Ü‚Á‚½B"
 #else
 #define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
 #define MES_CREATURE_HP_GAIN(POINT) "Max-HitPoint increased in %d.", (POINT)
@@ -2507,6 +2508,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_WHICH_GAIN "Which stat do you want to raise?"
 #define MES_CREATURE_KARMA(TYPE, NUM) "Your karma of %s is %d.", (TYPE), (NUM)
 #define MES_CREATURE_ANGER(CREATURE) , "%^s gets angry!", (CREATURE)->name
+#define MES_CREATURE_FAINT_HUNGRY "You faint from the lack of food."
 #endif
 
 #ifdef JP
@@ -4133,6 +4135,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MOON_DAZZLING_DONE "•Ší‚ð•s‹K‘¥‚É—h‚ç‚µ‚½DDD"
 #define MES_TRAIT_WARNING_DONE(OBJECT) "%s‚ª‰s‚­k‚¦‚½I", (OBJECT)->name
 #define MES_TRAIT_WARNING_DONE2(OBJECT) "%s‚ªk‚¦‚½I", (OBJECT)->name
+#define MES_TRAIT_SHADOW_MOVE_FAILED "‰eˆÚ“®‚ÉŽ¸”s‚µ‚½B"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4251,6 +4254,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MOON_DAZZLING_DONE "You irregularly wave your weapon..."
 #define MES_TRAIT_WARNING_DONE(OBJECT) "Your %s pulsates sharply!", (OBJECT)->name
 #define MES_TRAIT_WARNING_DONE2(OBJECT) "Your %s pulsates!", (OBJECT)->name
+#define MES_TRAIT_SHADOW_MOVE_FAILED "Oops!"
 #endif
 
 #ifdef JP

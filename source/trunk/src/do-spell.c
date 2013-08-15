@@ -7180,11 +7180,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			if(flag && randint0(lev_bonus * lev_bonus / 2)) teleport_creature_to(caster_ptr, y, x, 0L);
 			else
 			{
-#ifdef JP
-				msg_print("Ç®Ç¡Ç∆ÅI");
-#else
-				msg_print("Oops!");
-#endif
+				msg_print(MES_TRAIT_SHADOW_MOVE_FAILED);
 				teleport_creature(caster_ptr, 30, 0L);
 			}
 
