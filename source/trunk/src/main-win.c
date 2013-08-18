@@ -2320,7 +2320,7 @@ static errr Term_text_win(int x, int y, int n, byte a, const char *s)
 				rc.left += 2 * td->tile_wid;
 				rc.right += 2 * td->tile_wid;
 			}
-			else if( iskanji(*(s+i)) )  /*  ２バイト文字  */
+			else if( is_mbyte(*(s+i)) )  /*  ２バイト文字  */
 			{
 				rc.right += td->font_wid;
 				/* Dump the text */
@@ -4041,12 +4041,12 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 
 				if(ox > 0)
 				{
-					if(iskanji(scr[oy + i][ox - 1])) s[0] = ' ';
+					if(is_mbyte(scr[oy + i][ox - 1])) s[0] = ' ';
 				}
 
 				if(ox + dx < (signed int)data[0].cols)
 				{
-					if(iskanji(scr[oy + i][ox + dx - 1])) s[dx - 1] = ' ';
+					if(is_mbyte(scr[oy + i][ox + dx - 1])) s[dx - 1] = ' ';
 				}
 
 				for (j = 0; j < dx; j++)

@@ -967,7 +967,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			for (xx=0; temp[xx] && xx<80; xx++)
 			{
 #ifdef JP
-				if(iskanji(temp[xx])) { xx++; continue; }
+				if(is_mbyte(temp[xx])) { xx++; continue; }
 #endif
 				if(isupper(temp[xx])) temp[xx]=(char)tolower(temp[xx]);
 			}

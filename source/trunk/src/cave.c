@@ -1811,7 +1811,7 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 	while(*c)
 	{
 #ifdef JP
-		if(iskanji(*c))
+		if(is_mbyte(*c))
 		{
 			if(len + 2 > 12) break;
 			c+=2;

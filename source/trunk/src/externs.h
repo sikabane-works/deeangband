@@ -1467,7 +1467,7 @@ extern void jverb( const char *in , char *out , int flag);
 extern void sjis2euc(char *str);
 extern void euc2sjis(char *str);
 extern byte codeconv(char *str);
-extern bool iskanji2(cptr s, int x);
+extern bool is_mbyte2(cptr s, int x);
 #endif
 
 #ifdef WORLD_SCORE

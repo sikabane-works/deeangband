@@ -501,13 +501,13 @@ static bool string_is_repeat(char *str, int len)
 
 	if(len < 2) return FALSE;
 #ifdef JP
-	if(iskanji(c)) return FALSE;
+	if(is_mbyte(c)) return FALSE;
 #endif
 
 	for (i = 1; i < len; i++)
 	{
 #ifdef JP
-		if(c != str[i] || iskanji(str[i])) return FALSE;
+		if(c != str[i] || is_mbyte(str[i])) return FALSE;
 #else
 		if(c != str[i]) return FALSE;
 #endif
@@ -854,7 +854,7 @@ static void win2unix(int col, char *buf)
 	while (*buf)
 	{
 #ifdef JP
-		if(iskanji(*buf))
+		if(is_mbyte(*buf))
 		{
 			buf += 2;
 			continue;

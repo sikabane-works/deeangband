@@ -2574,7 +2574,7 @@ static bool research_creature(creature_type *creature_ptr)
 			for (xx = 0; temp[xx] && xx < 80; xx++)
 			{
 #ifdef JP
-				if(iskanji(temp[xx]))
+				if(is_mbyte(temp[xx]))
 				{
 					xx++;
 					continue;

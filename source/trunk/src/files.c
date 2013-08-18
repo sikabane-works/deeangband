@@ -843,9 +843,9 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 	{
 		/* Accept all printables except spaces and brackets */
 #ifdef JP
-		while (iskanji(*s) || (isprint(*s) && !my_strchr(" []", *s)))
+		while (is_mbyte(*s) || (isprint(*s) && !my_strchr(" []", *s)))
 		{
-			if(iskanji(*s)) s++;
+			if(is_mbyte(*s)) s++;
 			s++;
 		}
 #else
@@ -890,7 +890,7 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 				for (pn = creature_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
-					if(iskanji(*pn))
+					if(is_mbyte(*pn))
 					{
 						*(tpn++) = *(pn++);
 						*tpn = *pn;
@@ -965,7 +965,7 @@ static errr process_pref_file_aux(cptr name, int preftype)
 
 		/* Skip "blank" lines */
 #ifdef JP
-		if(!iskanji(buf[0]))
+		if(!is_mbyte(buf[0]))
 #endif
 		if(isspace(buf[0])) continue;
 
@@ -4436,7 +4436,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 	{
 		/* No control characters */
 #ifdef JP
-		if(iskanji(creature_ptr->name[i])){i++;continue;}
+		if(is_mbyte(creature_ptr->name[i])){i++;continue;}
 		if(iscntrl( (unsigned char)creature_ptr->name[i]))
 #else
 		if(iscntrl(creature_ptr->name[i]))
@@ -4473,7 +4473,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 
 		/* Accept some letters */
 #ifdef JP
-		if(iskanji(c)){
+		if(is_mbyte(c)){
 		  if(k + 2 >= sizeof(player_base) || !creature_ptr->name[i+1]) break;
 		  player_base[k++] = c;
 		  i++;
@@ -4858,7 +4858,7 @@ static void print_tomb(creature_type *creature_ptr)
 				strcpy(dummy, t); /* 2nd line */
 				if(*(t + strlen(t) + 1)) /* Does 3rd line exist? */
 				{
-					for (t = dummy + strlen(dummy) - 2; iskanji(*(t - 1)); t--) /* Loop */;
+					for (t = dummy + strlen(dummy) - 2; is_mbyte(*(t - 1)); t--) /* Loop */;
 					strcpy(t, "c");
 				}
 				else if(my_strstr(tmp, "w") && suffix(dummy, "x"))
@@ -5344,7 +5344,7 @@ errr get_rnd_line_jonly(cptr file_name, int entry, char *output, int count)
 		result = get_rnd_line(file_name, entry, output);
 		if(result) break;
 		kanji = 0;
-		for (j = 0; output[j]; j++) kanji |= iskanji(output[j]);
+		for (j = 0; output[j]; j++) kanji |= is_mbyte(output[j]);
 		if(kanji) break;
 	}
 	return result;

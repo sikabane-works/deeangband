@@ -1104,7 +1104,7 @@ static void spoil_out(cptr str)
 	static char roff_waiting_buf[256];
 
 #ifdef JP
-	bool iskanji_flag = FALSE;
+	bool is_mbyte_flag = FALSE;
 #endif
 	/* Current pointer into line roff_buf */
 	static char *roff_p = roff_buf;
@@ -1145,14 +1145,14 @@ static void spoil_out(cptr str)
 	{
 #ifdef JP
 		char cbak;
-		bool k_flag = iskanji((unsigned char)(*str));
+		bool k_flag = is_mbyte((unsigned char)(*str));
 #endif
 		char ch = *str;
 		bool wrap = (ch == '\n');
 
 #ifdef JP
-		if(!isprint(ch) && !k_flag && !iskanji_flag) ch = ' ';
-		iskanji_flag = k_flag && !iskanji_flag;
+		if(!isprint(ch) && !k_flag && !is_mbyte_flag) ch = ' ';
+		is_mbyte_flag = k_flag && !is_mbyte_flag;
 #else
 		if(!isprint(ch)) ch = ' ';
 #endif
@@ -1178,7 +1178,7 @@ static void spoil_out(cptr str)
 			{
 #ifdef JP
 				bool k_flag_local;
-				bool iskanji_flag_local = FALSE;
+				bool is_mbyte_flag_local = FALSE;
 				cptr tail = str + (k_flag ? 2 : 1);
 #else
 				cptr tail = str + 1;
@@ -1189,9 +1189,9 @@ static void spoil_out(cptr str)
 					if(*tail == ' ') continue;
 
 #ifdef JP
-					k_flag_local = iskanji((unsigned char)(*tail));
-					if(isprint(*tail) || k_flag_local || iskanji_flag_local) break;
-					iskanji_flag_local = k_flag_local && !iskanji_flag_local;
+					k_flag_local = is_mbyte((unsigned char)(*tail));
+					if(isprint(*tail) || k_flag_local || is_mbyte_flag_local) break;
+					is_mbyte_flag_local = k_flag_local && !is_mbyte_flag_local;
 #else
 					if(isprint(*tail)) break;
 #endif
@@ -1237,7 +1237,7 @@ static void spoil_out(cptr str)
 			}
 			else
 			{
-				if(iskanji_flag &&
+				if(is_mbyte_flag &&
 				    strncmp(str, "ÅB", 2) != 0 &&
 				    strncmp(str, "ÅA", 2) != 0 &&
 				    strncmp(str, "ÉB", 2) != 0 &&

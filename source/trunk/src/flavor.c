@@ -1068,7 +1068,7 @@ static void get_inscription(char *buff, object_type *object_ptr)
 		{
 			if(*insc == '#') break;
 #ifdef JP
-			if(iskanji(*insc)) *buff++ = *insc++;
+			if(is_mbyte(*insc)) *buff++ = *insc++;
 #endif
 			*buff++ = *insc++;
 		}
@@ -1760,7 +1760,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 			while(*str)
 			{
-				if(iskanji(*str))
+				if(is_mbyte(*str))
 				{
 					str += 2;
 					continue;

@@ -2202,7 +2202,7 @@ static void edit_history(creature_type *creature_ptr)
 
 		for (i = 0; i < HISTORY_ROW; i++) put_str(creature_ptr->history[i], i + 4, 3);
 #ifdef JP
-		if(iskanji2(creature_ptr->history[y], x))
+		if(is_mbyte2(creature_ptr->history[y], x))
 			c_put_str(TERM_L_BLUE, format("%c%c", creature_ptr->history[y][x],creature_ptr->history[y][x+1]), y + 4, x + 3);
 		else
 #endif
@@ -2223,7 +2223,7 @@ static void edit_history(creature_type *creature_ptr)
 			y--;
 			if(y < 0) y = HISTORY_ROW - 1;
 #ifdef JP
-			if((x > 0) && (iskanji2(creature_ptr->history[y], x-1))) x--;
+			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x-1))) x--;
 #endif
 		}
 		else if(skey == SKEY_DOWN || c == KTRL('n'))
@@ -2231,13 +2231,13 @@ static void edit_history(creature_type *creature_ptr)
 			y++;
 			if(y >= HISTORY_ROW) y = 0;
 #ifdef JP
-			if((x > 0) && (iskanji2(creature_ptr->history[y], x-1))) x--;
+			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x-1))) x--;
 #endif
 		}
 		else if(skey == SKEY_RIGHT || c == KTRL('f'))
 		{
 #ifdef JP
-			if(iskanji2(creature_ptr->history[y], x)) x++;
+			if(is_mbyte2(creature_ptr->history[y], x)) x++;
 #endif
 			x++;
 			if(x > HISTORY_COL - 2)
@@ -2260,7 +2260,7 @@ static void edit_history(creature_type *creature_ptr)
 			}
 
 #ifdef JP
-			if((x > 0) && (iskanji2(creature_ptr->history[y], x-1))) x--;
+			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x-1))) x--;
 #endif
 		}
 		else if(c == '\r' || c == '\n')
@@ -2287,7 +2287,7 @@ static void edit_history(creature_type *creature_ptr)
 			if(do_cmd_histpref(creature_ptr))
 			{
 #ifdef JP
-				if((x > 0) && (iskanji2(creature_ptr->history[y], x - 1))) x--;
+				if((x > 0) && (is_mbyte2(creature_ptr->history[y], x - 1))) x--;
 #endif
 			}
 		}
@@ -2306,7 +2306,7 @@ static void edit_history(creature_type *creature_ptr)
 
 			creature_ptr->history[y][x] = ' ';
 #ifdef JP
-			if((x > 0) && (iskanji2(creature_ptr->history[y], x - 1)))
+			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x - 1)))
 			{
 				x--;
 				creature_ptr->history[y][x] = ' ';
@@ -2314,14 +2314,14 @@ static void edit_history(creature_type *creature_ptr)
 #endif
 		}
 #ifdef JP
-		else if(iskanji(c) || isprint(c))
+		else if(is_mbyte(c) || isprint(c))
 #else
 		else if(isprint(c)) /* BUGFIX */
 #endif
 		{
 #ifdef JP
-			if(iskanji2(creature_ptr->history[y], x)) creature_ptr->history[y][x+1] = ' ';
-			if(iskanji(c))
+			if(is_mbyte2(creature_ptr->history[y], x)) creature_ptr->history[y][x+1] = ' ';
+			if(is_mbyte(c))
 			{
 				if(x > HISTORY_COL - 3)
 				{
@@ -2330,7 +2330,7 @@ static void edit_history(creature_type *creature_ptr)
 					if(y > HISTORY_ROW - 1) y = 0;
 				}
 
-				if(iskanji2(creature_ptr->history[y], x+1)) creature_ptr->history[y][x+2] = ' ';
+				if(is_mbyte2(creature_ptr->history[y], x+1)) creature_ptr->history[y][x+2] = ' ';
 
 				creature_ptr->history[y][x++] = c;
 

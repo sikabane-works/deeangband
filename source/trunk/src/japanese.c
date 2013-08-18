@@ -81,7 +81,7 @@ void sindarin_to_kana(char *kana, const char *sindarin)
 			}
 			else
 			{
-				if(iskanji(*src))
+				if(is_mbyte(*src))
 				{
 					*dest = *src;
 					src++;
@@ -403,15 +403,15 @@ case 2:
 }
 
 /* 文字列sのxバイト目が漢字の1バイト目かどうか判定する */
-bool iskanji2(cptr s, int x)
+bool is_mbyte2(cptr s, int x)
 {
 	int i;
 
 	for (i = 0; i < x; i++)
 	{
-		if(iskanji(s[i])) i++;
+		if(is_mbyte(s[i])) i++;
 	}
-	if((x == i) && iskanji(s[x])) return TRUE;
+	if((x == i) && is_mbyte(s[x])) return TRUE;
 
 	return FALSE;
 }

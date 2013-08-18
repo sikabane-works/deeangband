@@ -281,7 +281,7 @@ void set_action(creature_type *creature_ptr, int typ)
 			}
 		case ACTION_LEARN:
 			{
-				msg_print(MES_TASK_LEARN_STOP);
+				msg_print(MES_TASK_LEARNING_STOP);
 				creature_ptr->new_mane = FALSE;
 				break;
 			}
@@ -352,7 +352,7 @@ void set_action(creature_type *creature_ptr, int typ)
 		}
 	case ACTION_LEARN:
 		{
-			msg_print(MES_TASK_LEARN_START);
+			msg_print(MES_TASK_LEARNING_START);
 			break;
 		}
 	case ACTION_FISH:

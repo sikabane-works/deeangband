@@ -260,7 +260,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 	{
 		char c = *str++;
 #ifdef JP
-		if(iskanji(c))
+		if(is_mbyte(c))
 		{
 			buf[i++] = c;
 			buf[i] = *str++;
@@ -803,7 +803,7 @@ errr process_autopick_file_command(char *buf)
 	for(i = 0; buf[i]; i++)
 	{
 #ifdef JP
-		if(iskanji(buf[i]))
+		if(is_mbyte(buf[i]))
 		{
 			i++;
 			continue;
@@ -928,8 +928,7 @@ cptr autopick_line_from_entry(autopick_type *entry)
 		while (entry->name[j] && i < MAX_LINELEN - 2 - 1)
 		{
 #ifdef JP
-			if(iskanji(entry->name[j]))
-				buf[i++] = entry->name[j++];
+			if(is_mbyte(entry->name[j])) buf[i++] = entry->name[j++];
 #endif
 			buf[i++] = entry->name[j++];
 		}
@@ -945,7 +944,7 @@ cptr autopick_line_from_entry(autopick_type *entry)
 		while (entry->insc[j] && i < MAX_LINELEN - 2)
 		{
 #ifdef JP
-			if(iskanji(entry->insc[j]))
+			if(is_mbyte(entry->insc[j]))
 				buf[i++] = entry->insc[j++];
 #endif
 			buf[i++] = entry->insc[j++];
@@ -3093,7 +3092,7 @@ static bool insert_return_code(text_body_type *tb)
 	for (i = j = 0; tb->lines_list[tb->cy][i] && i < tb->cx; i++)
 	{
 #ifdef JP
-		if(iskanji(tb->lines_list[tb->cy][i]))
+		if(is_mbyte(tb->lines_list[tb->cy][i]))
 			buf[j++] = tb->lines_list[tb->cy][i++];
 #endif
 		buf[j++] = tb->lines_list[tb->cy][i];
@@ -3221,7 +3220,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 				int next_pos = i + 1;
 
 #ifdef JP
-				if(iskanji(buf[i])) next_pos++;
+				if(is_mbyte(buf[i])) next_pos++;
 #endif
 
 				/* Is there the cursor at next position? */ 
@@ -3247,7 +3246,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 
 #ifdef JP
 			/* Move right */
-			if(iskanji(buf[pos])) pos += 2;
+			if(is_mbyte(buf[pos])) pos += 2;
 			else pos++;
 #else
 			pos++;
@@ -3297,7 +3296,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 				int next_pos = i + 1;
 
 #ifdef JP
-				if(iskanji(buf[i])) next_pos++;
+				if(is_mbyte(buf[i])) next_pos++;
 #endif
 
 				/* Is there the cursor at next position? */ 
@@ -3330,7 +3329,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 
 #ifdef JP
 			/* Next character is one more byte away */
-			if(iskanji(buf[pos])) src++;
+			if(is_mbyte(buf[pos])) src++;
 #endif
 
 			dst = pos;
@@ -3379,7 +3378,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 			/* Save right part of string */
 			strcpy(tmp, buf + pos);
 #ifdef JP
-			if(iskanji(c))
+			if(is_mbyte(c))
 			{
 				char next;
 
@@ -4294,7 +4293,7 @@ static void draw_text_editor(text_body_type *tb)
 #ifdef JP
 	/* Don't let cursor at second byte of kanji */
 	for (i = 0; tb->lines_list[tb->cy][i]; i++)
-		if(iskanji(tb->lines_list[tb->cy][i]))
+		if(is_mbyte(tb->lines_list[tb->cy][i]))
 		{
 			i++;
 			if(i == tb->cx)
@@ -4426,7 +4425,7 @@ static void draw_text_editor(text_body_type *tb)
 				leftcol = 1;
 				break;
 			}
-			if(iskanji(*msg))
+			if(is_mbyte(*msg))
 			{
 				msg++;
 				j++;
@@ -4838,7 +4837,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 			/* Don't let cursor at second byte of kanji */
 			for (i = 0; tb->lines_list[tb->cy][i]; i++)
 			{
-				if(iskanji(tb->lines_list[tb->cy][i]))
+				if(is_mbyte(tb->lines_list[tb->cy][i]))
 				{
 					i++;
 					if(i == tb->cx)
@@ -4884,7 +4883,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 
 		int len;
 #ifdef JP
-		if(iskanji(tb->lines_list[tb->cy][tb->cx])) tb->cx++;
+		if(is_mbyte(tb->lines_list[tb->cy][tb->cx])) tb->cx++;
 #endif
 		tb->cx++;
 		len = strlen(tb->lines_list[tb->cy]);
@@ -5267,7 +5266,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		}
 
 #ifdef JP
-		if(iskanji(tb->lines_list[tb->cy][tb->cx])) tb->cx++;
+		if(is_mbyte(tb->lines_list[tb->cy][tb->cx])) tb->cx++;
 #endif
 		tb->cx++;
 
@@ -5344,7 +5343,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		{
 			k = j;
 #ifdef JP
-			if(iskanji(tb->lines_list[tb->cy][i]))
+			if(is_mbyte(tb->lines_list[tb->cy][i]))
 				buf[j++] = tb->lines_list[tb->cy][i++];
 #endif
 			buf[j++] = tb->lines_list[tb->cy][i];
@@ -5650,7 +5649,7 @@ static void insert_single_letter(text_body_type *tb, char key)
 
 	/* Add a character */
 #ifdef JP
-	if(iskanji(key))
+	if(is_mbyte(key))
 	{
 		char next;
 

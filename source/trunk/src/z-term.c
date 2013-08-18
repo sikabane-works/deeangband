@@ -744,7 +744,7 @@ void Term_queue_chars(int x, int y, int n, byte a, cptr s)
 		/* 特殊文字としてMSBが立っている可能性がある */
 		/* その場合attrのMSBも立っているのでこれで識別する */
 /* check */
-		if(!(a & AF_TILE1) && iskanji(*s))
+		if(!(a & AF_TILE1) && is_mbyte(*s))
 		{
 			char nc1 = *s++;
 			char nc2 = *s;
@@ -899,7 +899,7 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 		/* 特殊文字としてMSBが立っている可能性がある */
 		/* その場合attrのMSBも立っているのでこれで識別する */
 /* check */
-		kanji = (iskanji(nc) && !(na & AF_TILE1));
+		kanji = (is_mbyte(nc) && !(na & AF_TILE1));
 #endif
 
 		ota = old_taa[x];
@@ -1033,7 +1033,7 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		/* 特殊文字としてMSBが立っている可能性がある */
 		/* その場合attrのMSBも立っているのでこれで識別する */
 /* check */
-		kanji = (iskanji(nc) && !(na & AF_TILE1));
+		kanji = (is_mbyte(nc) && !(na & AF_TILE1));
 #endif
 
 		ota = old_taa[x];
@@ -1216,7 +1216,7 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 	int kanji = 0;
 
 	for (x = 0; x < x1; x++)
-		if(!(old_aa[x] & AF_TILE1) && iskanji(old_cc[x]))
+		if(!(old_aa[x] & AF_TILE1) && is_mbyte(old_cc[x]))
 		{
 			if(x == x1 - 1)
 			{
@@ -1251,7 +1251,7 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 		/* 特殊文字としてMSBが立っている可能性がある */
 		/* その場合attrのMSBも立っているのでこれで識別する */
 /* check */
-		kanji = (iskanji(nc) && !(na & AF_TILE1));
+		kanji = (is_mbyte(nc) && !(na & AF_TILE1));
 #endif
 		/* Handle unchanged grids */
 #ifdef JP
@@ -1564,7 +1564,7 @@ errr Term_fresh(void)
 
 #ifdef JP
 			if(tx + 1 < Term->wid && !(old_aa[tx] & AF_TILE1)
-			    && iskanji(old_cc[tx]))
+			    && is_mbyte(old_cc[tx]))
 				csize = 2;
 #endif
 			/* Hack -- use "Term_pict()" always */
@@ -1679,7 +1679,7 @@ errr Term_fresh(void)
 			if((scr->cx + 1 < w) &&
 			    ((old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2 ||
 			     (!(old->a[scr->cy][scr->cx] & AF_TILE1) &&
-			      iskanji(old->c[scr->cy][scr->cx]))))
+			      is_mbyte(old->c[scr->cy][scr->cx]))))
 #else
 			if((scr->cx + 1 < w) && (old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2)
 #endif
@@ -1969,7 +1969,7 @@ errr Term_putstr_v(int x, int y, int n, byte a, cptr s)
 	  /* Move first */
 	  if((res = Term_gotoxy(x, y0)) != 0) return (res);
 
-	  if(iskanji(s[i]))
+	  if(is_mbyte(s[i]))
 	  {
 	    if((res = Term_addstr(2, a, &s[i])) != 0) return (res);
 	    i++;

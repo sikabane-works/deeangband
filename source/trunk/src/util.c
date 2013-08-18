@@ -83,7 +83,7 @@ void usespecies_name(char *buf, int id)
 #ifdef CAPITALIZE_USER_NAME
 		/* Hack -- capitalize the user name */
 #ifdef JP
-		if(!iskanji(buf[0]))
+		if(!is_mbyte(buf[0]))
 #endif
 			if(islower(buf[0]))
 				buf[0] = toupper(buf[0]);
@@ -409,7 +409,7 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 			}
 
 #ifdef JP
-			else if(iskanji(*s))
+			else if(is_mbyte(*s))
 			{
 				if(!s[1]) break;
 				buf[i++] = *s++;
@@ -513,7 +513,7 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			}
 
 #ifdef JP
-			else if(iskanji(*s))
+			else if(is_mbyte(*s))
 			{
 				if(!s[1]) break;
 				buf[i++] = *s++;
@@ -2325,7 +2325,7 @@ void message_add(cptr str)
 	  cptr t = str;
 
 	  for (n = 0; n < 80; n++, t++)
-	    if(iskanji(*t)) {
+	    if(is_mbyte(*t)) {
 	      t++;
 	      n++;
 	    }
@@ -2378,7 +2378,7 @@ void message_add(cptr str)
 		/* Find multiple */
 #ifdef JP
  for (t = buf; *t && (*t != '<' || (*(t+1) != 'x' )); t++) 
-     if( iskanji(*t))t++;
+     if( is_mbyte(*t))t++;
 #else
 		for (t = buf; *t && (*t != '<'); t++);
 #endif
@@ -2707,7 +2707,7 @@ void msg_print(cptr msg)
 			}
 
 			/* Found a valid split point */
-			if(iskanji(t[check]))
+			if(is_mbyte(t[check]))
 			{
 				k_flag = TRUE;
 				split = check;
@@ -2909,7 +2909,7 @@ void c_roff(byte a, cptr str)
 		char ch;
 
 #ifdef JP
-		int k_flag = iskanji(*s);
+		int k_flag = is_mbyte(*s);
 #endif
 		/* Force wrap */
 		if(*s == '\n')
@@ -3142,7 +3142,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 				int next_pos = i + 1;
 
 #ifdef JP
-				if(iskanji(buf[i])) next_pos++;
+				if(is_mbyte(buf[i])) next_pos++;
 #endif
 
 				/* Is there the cursor at next position? */ 
@@ -3168,7 +3168,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 
 #ifdef JP
 			/* Move right */
-			if(iskanji(buf[pos])) pos += 2;
+			if(is_mbyte(buf[pos])) pos += 2;
 			else pos++;
 #else
 			pos++;
@@ -3201,7 +3201,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 				int next_pos = i + 1;
 
 #ifdef JP
-				if(iskanji(buf[i])) next_pos++;
+				if(is_mbyte(buf[i])) next_pos++;
 #endif
 
 				/* Is there the cursor at next position? */ 
@@ -3234,7 +3234,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 
 #ifdef JP
 			/* Next character is one more byte away */
-			if(iskanji(buf[pos])) src++;
+			if(is_mbyte(buf[pos])) src++;
 #endif
 
 			dst = pos;
@@ -3271,7 +3271,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			/* Save right part of string */
 			strcpy(tmp, buf + pos);
 #ifdef JP
-			if(iskanji(c))
+			if(is_mbyte(c))
 			{
 				char next;
 
@@ -4766,7 +4766,7 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 		ch[0] = str[read_pt];
 		ch[1] = '\0';
 #ifdef JP
-		kanji  = iskanji(ch[0]);
+		kanji  = is_mbyte(ch[0]);
 
 		if(kanji)
 		{
@@ -4866,7 +4866,7 @@ size_t my_strcpy(char *buf, const char *src, size_t bufsize)
 		/* Copy as many bytes as will fit */
 		while (*s && (len < bufsize))
 		{
-			if(iskanji(*s))
+			if(is_mbyte(*s))
 			{
 				if(len + 1 >= bufsize || !*(s+1)) break;
 				*d++ = *s++;
@@ -4956,7 +4956,7 @@ char *my_strstr(const char *haystack, const char *needle)
 				return (char *)haystack + i;
 
 #ifdef JP
-			if(iskanji(*(haystack + i))) i++;
+			if(is_mbyte(*(haystack + i))) i++;
 #endif
 		}
 	}
@@ -4977,7 +4977,7 @@ char *my_strchr(const char *ptr, char ch)
 		if(*ptr == ch) return (char *)ptr;
 
 #ifdef JP
-		if(iskanji(*ptr)) ptr++;
+		if(is_mbyte(*ptr)) ptr++;
 #endif
 	}
 
@@ -4991,7 +4991,7 @@ void str_tolower(char *str)
 	for (; *str; str++)
 	{
 #ifdef JP
-		if(iskanji(*str))
+		if(is_mbyte(*str))
 		{
 			str++;
 			continue;

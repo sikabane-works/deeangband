@@ -1257,7 +1257,7 @@ void monster_ball(creature_type *caster_ptr)
 			for (s = buf;*s && (*s != '#'); s++)
 			{
 			#ifdef JP
-			if(iskanji(*s)) s++;
+			if(is_mbyte(*s)) s++;
 			#endif
 			}
 			*s = '#';
@@ -1307,7 +1307,7 @@ void monster_ball(creature_type *caster_ptr)
 					for (t = quark_str(object_ptr->inscription);*t && (*t != '#'); t++)
 					{
 #ifdef JP
-						if(iskanji(*t)) t++;
+						if(is_mbyte(*t)) t++;
 #endif
 					}
 					if(*t)

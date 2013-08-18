@@ -3498,7 +3498,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 		while (object_name[i] && (i < 26))
 		{
 #ifdef JP
-			if(iskanji(object_name[i])) i++;
+			if(is_mbyte(object_name[i])) i++;
 #endif
 			i++;
 		}
@@ -6425,7 +6425,7 @@ static void do_cmd_knowledge_home(void)
 					int n;
 					char *t;
 					for (n = 0, t = object_name; n < 80-3; n++, t++)
-						if(iskanji(*t)) {t++; n++;}
+						if(is_mbyte(*t)) {t++; n++;}
 					if(n == 81-3) n = 79-3; // ÅŒã‚ªŠ¿Žš”¼•ª
 
 					fprintf(fff, "%c%s %.*s\n", I2A(i%12), paren, n, object_name);

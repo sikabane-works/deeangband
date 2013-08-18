@@ -762,7 +762,7 @@ static bool add_text(STRING_OFFSET *offset, header *head, cptr buf, bool normal_
 		if(head->text_size > 0 &&
 #ifdef JP
 		    (*(head->text_ptr + head->text_size - 1) != ' ') &&
-		    ((head->text_size == 1) || !iskanji(*(head->text_ptr + head->text_size - 2))) && (buf[0] != ' ') && !iskanji(buf[0])
+		    ((head->text_size == 1) || !is_mbyte(*(head->text_ptr + head->text_size - 2))) && (buf[0] != ' ') && !is_mbyte(buf[0])
 #else
 		    (*(head->text_ptr + head->text_size - 1) != ' ') && (buf[0] != ' ')
 #endif
@@ -6952,9 +6952,9 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 	{
 		/* Accept all printables except spaces and brackets */
 #ifdef JP
-		while (iskanji(*s) || (isprint(*s) && !my_strchr(" []", *s)))
+		while (is_mbyte(*s) || (isprint(*s) && !my_strchr(" []", *s)))
 		{
-			if(iskanji(*s)) s++;
+			if(is_mbyte(*s)) s++;
 			s++;
 		}
 #else
@@ -7045,7 +7045,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 				for (pn = player_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
-					if(iskanji(*pn))
+					if(is_mbyte(*pn))
 					{
 						*(tpn++) = *(pn++);
 						*tpn = *pn;

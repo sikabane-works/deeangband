@@ -234,7 +234,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 
 			when = the_score.day;
 #if JP
-			while(!iskanji(*when) && isspace(*when))
+			while(!is_mbyte(*when) && isspace(*when))
 #else
 			while(isspace(*when))
 #endif
