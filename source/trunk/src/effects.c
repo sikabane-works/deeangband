@@ -286,6 +286,7 @@ void set_action(creature_type *creature_ptr, int typ)
 				break;
 			}
 		case ACTION_KAMAE:
+		case ACTION_KATA:
 			{
 #ifdef JP
 				msg_print("構えをといた。");
@@ -293,15 +294,6 @@ void set_action(creature_type *creature_ptr, int typ)
 				msg_print("You stop assuming the posture.");
 #endif
 				creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
-				break;
-			}
-		case ACTION_KATA:
-			{
-#ifdef JP
-				msg_print("型を崩した。");
-#else
-				msg_print("You stop assuming the posture.");
-#endif
 				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				prepare_update(creature_ptr, PU_CREATURES);
 				prepare_redraw(PR_STATUS);
@@ -345,25 +337,15 @@ void set_action(creature_type *creature_ptr, int typ)
 	switch (creature_ptr->action)
 	{
 	case ACTION_SEARCH:
-		{
 			msg_print(MES_TASK_SEARCH_START);
 			prepare_redraw(PR_SPEED);
 			break;
-		}
 	case ACTION_LEARN:
-		{
 			msg_print(MES_TASK_LEARNING_START);
 			break;
-		}
 	case ACTION_FISH:
-		{
-#ifdef JP
-			msg_print("水面に糸を垂らした．．．");
-#else
-			msg_print("You begin fishing...");
-#endif
+			msg_print(MES_TASK_FISHING_START);
 			break;
-		}
 	case ACTION_HAYAGAKE:
 		{
 #ifdef JP
