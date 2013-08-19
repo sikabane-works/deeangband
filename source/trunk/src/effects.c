@@ -309,14 +309,8 @@ void set_action(creature_type *creature_ptr, int typ)
 				break;
 			}
 		case ACTION_HAYAGAKE:
-			{
-#ifdef JP
-				msg_print("ë´Ç™èdÇ≠Ç»Ç¡ÇΩÅB");
-#else
-				msg_print("You are no longer walking extremely fast.");
-#endif
-				break;
-			}
+			msg_print(MES_TASK_HAYAGAKE_STOP);
+			break;
 		case ACTION_SPELL:
 			{
 #ifdef JP
@@ -347,14 +341,8 @@ void set_action(creature_type *creature_ptr, int typ)
 			msg_print(MES_TASK_FISHING_START);
 			break;
 	case ACTION_HAYAGAKE:
-		{
-#ifdef JP
-			msg_print("ë´Ç™âHÇÃÇÊÇ§Ç…åyÇ≠Ç»Ç¡ÇΩÅB");
-#else
-			msg_print("You begin to walk extremely fast.");
-#endif
+			msg_print(MES_TASK_HAYAGAKE_START);
 			break;
-		}
 	default:
 		{
 			break;

@@ -5408,6 +5408,8 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_FISHING_START "水面に糸を垂らした．．．"
 #define MES_TASK_SINGING "歌唱"
 #define MES_TASK_HAYAGAKE "早駆"
+#define MES_TASK_HAYAGAKE_START "足が羽のように軽くなった。"
+#define MES_TASK_HAYAGAKE_STOP "足が重くなった。"
 #define MES_TASK_SPELL "念唱"
 #define MES_TASK_IMITATION "まね"
 #else
@@ -5421,6 +5423,8 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_FISHING_START "You begin fishing..."
 #define MES_TASK_SINGING "Singing"
 #define MES_TASK_HAYAGAKE "Hayagake"
+#define MES_TASK_HAYAGAKE_START "You begin to walk extremely fast."
+#define MES_TASK_HAYAGAKE_STOP "You are no longer walking extremely fast."
 #define MES_TASK_SPELL "Spell"
 #define MES_TASK_IMITATION "Imitation"
 #endif
