@@ -1831,17 +1831,18 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 			if(allow_floor)
 			{
 				if(!use_menu) strcat(out_val, MES_INTERFACE_FLOOR_OBJECT);
-#ifdef JP
 				else if(allow_inven)
-					strcat(out_val, " '6' è∞è„,");
+				{
+					strcat(out_val, " '4' ");
+					strcat(out_val, KW_FLOORITEM);
+					strcat(out_val, ",");
+				}
 				else
-					strcat(out_val, " '4'or'6' è∞è„,");
-#else
-				else if(allow_inven)
-					strcat(out_val, " 6 for floor,");
-				else
-					strcat(out_val, " 4 or 6 for floor,");
-#endif
+				{
+					strcat(out_val, " '4'or'6' ");
+					strcat(out_val, KW_FLOORITEM);
+					strcat(out_val, ",");
+				}
 			}
 		}
 
