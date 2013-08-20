@@ -5202,17 +5202,11 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 
 	case EC_DELETE_CHAR:
 	{
-		/* DELETE == go forward + BACK SPACE */
-
-		int len;
-
-		/* Ignore selection */
-		if(tb->mark)
+		int len; /* DELETE == go forward + BACK SPACE */
+		if(tb->mark) /* Ignore selection */
 		{
 			tb->mark = 0;
-
-			/* Now dirty */
-			tb->dirty_flags |= DIRTY_ALL;
+			tb->dirty_flags |= DIRTY_ALL; /* Now dirty */
 		}
 
 		if(is_mbyte(tb->lines_list[tb->cy][tb->cx])) tb->cx++;
@@ -5274,15 +5268,9 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 
 			tb->lines_list[i] = NULL;
 			tb->cy--;
-
-			/* Now dirty */
-			tb->dirty_flags |= DIRTY_ALL;
-
-			/* Expressions need re-evaluation */
-			tb->dirty_flags |= DIRTY_EXPRESSION;
-
-			/* Text is changed */
-			tb->changed = TRUE;
+			tb->dirty_flags |= DIRTY_ALL; /* Now dirty */
+			tb->dirty_flags |= DIRTY_EXPRESSION; /* Expressions need re-evaluation */
+			tb->changed = TRUE; /* Text is changed */
 			break;
 		}
 
@@ -5297,20 +5285,13 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 			tb->cx--;
 			j--;
 		}
-		for (; tb->lines_list[tb->cy][i]; i++)
-			buf[j++] = tb->lines_list[tb->cy][i];
+		for (; tb->lines_list[tb->cy][i]; i++) buf[j++] = tb->lines_list[tb->cy][i];
 		buf[j] = '\0';
 		string_free(tb->lines_list[tb->cy]);
 		tb->lines_list[tb->cy] = string_make(buf);
-
-		/* Now dirty */
-		tb->dirty_line = tb->cy;
-
-		/* Expressions may need re-evaluation */
-		check_expression_line(tb, tb->cy);
-
-		/* Text is changed */
-		tb->changed = TRUE;
+		tb->dirty_line = tb->cy; /* Now dirty */
+		check_expression_line(tb, tb->cy); /* Expressions may need re-evaluation */
+		tb->changed = TRUE; /* Text is changed */
 
 		break;
 	}
@@ -5592,7 +5573,6 @@ static void insert_single_letter(text_body_type *tb, char key)
 		buf[j++] = tb->lines_list[tb->cy][i];
 
 	/* Add a character */
-#ifdef JP
 	if(is_mbyte(key))
 	{
 		char next;
@@ -5605,11 +5585,9 @@ static void insert_single_letter(text_body_type *tb, char key)
 			buf[j++] = next;
 			tb->cx += 2;
 		}
-		else
-			bell();
+		else bell();
 	}
 	else
-#endif
 	{
 		if(j+1 < MAX_LINELEN) buf[j++] = key;
 		tb->cx++;
@@ -5627,15 +5605,9 @@ static void insert_single_letter(text_body_type *tb, char key)
 	/* Move to correct collumn */
 	len = strlen(tb->lines_list[tb->cy]);
 	if(len < tb->cx) tb->cx = len;
-
-	/* Now dirty */
-	tb->dirty_line = tb->cy;
-
-	/* Expressions may need re-evaluation */
-	check_expression_line(tb, tb->cy);
-
-	/* Text is changed */
-	tb->changed = TRUE;
+	tb->dirty_line = tb->cy; /* Now dirty */
+	check_expression_line(tb, tb->cy); /* Expressions may need re-evaluation */
+	tb->changed = TRUE; /* Text is changed */
 }
 
 

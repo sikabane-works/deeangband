@@ -1711,7 +1711,6 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"何かで攻撃された。",
 	"何かで攻撃された。",
 	"何かで攻撃された。",
-	"",
 
 	"何か鋭いもので攻撃された。",
 	"轟音で攻撃された。",
