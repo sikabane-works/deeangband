@@ -69,11 +69,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 				/* Display a list of spells */
 				prt("", y, x);
 				put_str(KW_NAME, y, x + 5);
-#ifdef JP
-				put_str(format("%4s Œø‰Ê", KW_FAIL), y, x + 36);
-#else
-				put_str(format("%4s Info", KW_FAIL), y, x + 36);
-#endif
+				put_str(format("%4s Œø‰Ê", KW_FAIL, KW_EFFECT), y, x + 36);
 
 				/* Dump the spells */
 				for (i = 0; i < num; i++)
