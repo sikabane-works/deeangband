@@ -138,7 +138,7 @@ static byte spell_color(int type)
 		case DO_EFFECT_BRAIN_SMASH:
 			return (0x09);
 		case DO_EFFECT_CURSE:
-		case DO_EFFECT_CURSE_4:        return (0x0E);
+		case DO_EFFECT_KEIRAKU:        return (0x0E);
 		case DO_EFFECT_HAND_DOOM:      return (0x07);
 		case DO_EFFECT_CAPTURE  :      return (0x0E);
 		case DO_EFFECT_IDENTIFY:       return (0x01);
@@ -638,7 +638,7 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 	case DO_EFFECT_CAPTURE:
 	case DO_EFFECT_HAND_DOOM:
 	case DO_EFFECT_CURSE:
-	case DO_EFFECT_CURSE_4:
+	case DO_EFFECT_KEIRAKU:
 	case DO_EFFECT_MIND_BLAST:
 	case DO_EFFECT_BRAIN_SMASH:
 	case DO_EFFECT_DRAIN_MANA:
@@ -2210,7 +2210,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 		break;
 
-	case DO_EFFECT_CURSE_4:
+	case DO_EFFECT_KEIRAKU:
 		add_timed_trait(target_ptr, TRAIT_CUT, diceroll(10, 10), FALSE);
 		break;
 

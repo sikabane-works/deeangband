@@ -789,7 +789,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CAUSE_1: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_CAUSE_2: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE, MAX_RANGE_SUB, damage, 0); break;
-	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE_4, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_KEIRAKU, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_HAND_DOOM: cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, 200, 0); break;
 	case TRAIT_DEATH_RAY: cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, user_level, -1); break;
 	case TRAIT_CAUSE_BLOODY_CURSE:
