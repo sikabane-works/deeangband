@@ -163,7 +163,7 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 			{ SLOT_ID_HEAD, DO_EFFECT_CONF_OTHERS },
 			{ SLOT_ID_HAND, DO_EFFECT_SLEEP },
 			{ SLOT_ID_ARM, DO_EFFECT_TURN_ALL },
-			{ SLOT_ID_FEET, DO_EFFECT_SLOW_OTHERS }
+			{ SLOT_ID_FEET, DO_EFFECT_SLOW }
 			};
 
 			// Some cursed armours gives an extra effect

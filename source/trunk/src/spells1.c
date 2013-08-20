@@ -1307,7 +1307,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	creature_desc(target_name, target_ptr, 0);
 
 	if(skipped) return; // Absolutely no effect
-	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_HEAL) && !(typ == DO_EFFECT_SPEED_OTHERS) && !(typ == DO_EFFECT_STAR_HEAL)) return;
+	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_HEAL) && !(typ == DO_EFFECT_HASTE) && !(typ == DO_EFFECT_STAR_HEAL)) return;
 	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return;
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
@@ -1558,12 +1558,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-	case DO_EFFECT_SPEED_OTHERS:
+	case DO_EFFECT_HASTE:
 		(void)add_timed_trait(target_ptr, TRAIT_FAST, randint1(5), TRUE);
 		dam = 0;
 		break;
 
-	case DO_EFFECT_SLOW_OTHERS:
+	case DO_EFFECT_SLOW:
 		(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
 		dam = 0;
 		break;

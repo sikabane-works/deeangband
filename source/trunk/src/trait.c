@@ -111,9 +111,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DISPEL_GOOD_1: project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, power); break;
 	case TRAIT_BANISH_EVIL: project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, power); break;
 	case TRAIT_DISPEL_LIVES: project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(power)); break;
-	case TRAIT_HASTE_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, power); break;
+	case TRAIT_HASTE_OTHERS: project_all_vision(caster_ptr, DO_EFFECT_HASTE, power); break;
 	case TRAIT_MASS_SLEEP: project_all_vision(caster_ptr, DO_EFFECT_SLEEP, power); break;
-	case TRAIT_MASS_SLOW: project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power); break;
+	case TRAIT_MASS_SLOW: project_all_vision(caster_ptr, DO_EFFECT_SLOW, power); break;
 	case TRAIT_MIND_WAVE: msg_print(MES_TRAIT_MIND_WAVE); (void)project_all_vision(caster_ptr, DO_EFFECT_PSI, power); break;
 
 	case TRAIT_MOON_DAZZLING:
@@ -238,7 +238,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DIVINE_INTERVENTION:
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, power, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, power);
-		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW, power);
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
@@ -253,7 +253,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_CONFUSING_LIGHT:
-		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW, user_level);
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
@@ -746,7 +746,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else cast_bolt(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((user_level-1)/5),4), 0);
 		break;
 
-	case TRAIT_HASTE_OTHER: cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, user_level, -1); break;
+	case TRAIT_HASTE_OTHER: cast_bolt(caster_ptr, DO_EFFECT_HASTE, MAX_RANGE_SUB, user_level, -1); break;
 
 	case TRAIT_MISSILE:
 	case TRAIT_RAY_GUN:
@@ -777,7 +777,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CONF:
 		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
 
-	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
+	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW, MAX_RANGE_SUB, user_level * 2, id); break;
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
 
 	/* Curse Attack Spell */

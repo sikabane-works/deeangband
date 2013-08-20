@@ -2840,7 +2840,7 @@ bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIN
 			/* All of the above potions have no effect when shattered */
 			return FALSE;
 		case SV_POTION_SLOWNESS:
-			dt = DO_EFFECT_SLOW_OTHERS;
+			dt = DO_EFFECT_SLOW;
 			dam = 5;
 			angry = TRUE;
 			break;
@@ -2874,7 +2874,7 @@ bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIN
 			radius = 1;
 			break;
 		case SV_POTION_SPEED:
-			dt = DO_EFFECT_SPEED_OTHERS;
+			dt = DO_EFFECT_HASTE;
 			break;
 		case SV_POTION_CURE_LIGHT:
 			dt = DO_EFFECT_HEAL;

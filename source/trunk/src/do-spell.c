@@ -174,7 +174,7 @@ void cast_wonder(creature_type *caster_ptr)
 	if(die > 100) msg_print(MES_TRAIT_CAST_WONDER_MIGHTY);
 
 	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_CLONE, MAX_RANGE_SUB, 0, -1);
-	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
+	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_HASTE, MAX_RANGE_SUB, caster_ptr->lev, -1);
 	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, diceroll(4, 6), -1);
 	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, -1);
 	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
@@ -198,7 +198,7 @@ void cast_wonder(creature_type *caster_ptr)
 	else
 	{
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150);
-		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW, caster_ptr->lev);
 		project_all_vision(caster_ptr, DO_EFFECT_SLEEP, caster_ptr->lev);
 		heal_creature(caster_ptr, 300);
 	}
@@ -254,7 +254,7 @@ void cast_invoke_spirits(creature_type *caster_ptr)
 	else
 	{
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150);
-		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW, caster_ptr->lev);
 		project_all_vision(caster_ptr, DO_EFFECT_SLEEP, caster_ptr->lev);
 		heal_creature(caster_ptr, 300);
 	}
@@ -5022,7 +5022,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
+				project_all_vision(caster_ptr, DO_EFFECT_SLOW, power);
 				project_all_vision(caster_ptr, DO_EFFECT_SLEEP, power);
 			}
 		}
