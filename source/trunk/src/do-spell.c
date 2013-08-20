@@ -5126,7 +5126,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
+				project_all_vision(caster_ptr, DO_EFFECT_HOLD, power);
 			}
 		}
 

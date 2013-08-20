@@ -228,7 +228,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				project_all_vision(caster_ptr, DO_EFFECT_STUN, 120);
 				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
 				project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 120);
-				project_all_vision(caster_ptr, DO_EFFECT_STASIS, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_HOLD, 120);
 				sukekaku = FALSE;
 			}
 			else msg_print(MES_NO_HAPPEN);
@@ -242,7 +242,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
-		project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
+		project_all_vision(caster_ptr, DO_EFFECT_HOLD, power);
 		heal_creature(caster_ptr, power);
 		break;
 
@@ -257,7 +257,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_HOLD, user_level * 4);
 		break;
 
 	case TRAIT_CHARM_ANIMALS: (void)project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2); break;
@@ -1542,8 +1542,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
 		break;
 
-	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, user_level*2, 0); break;
-	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
+	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_HOLD, MAX_RANGE_SUB, user_level*2, 0); break;
+	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_HOLD_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
 
 	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, power, -1); break;
 

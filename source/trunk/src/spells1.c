@@ -1801,7 +1801,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		//57-58
 
-	case DO_EFFECT_STASIS:
+	case DO_EFFECT_HOLD:
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			note = MES_IS_IMMUNE;
@@ -2087,8 +2087,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			/* Memorize a flag */
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+			if(has_trait(target_ptr, TRAIT_NO_CONF)) if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 
 			/* Resist */
 			do_conf = 0;
@@ -2596,7 +2595,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 
-	case DO_EFFECT_STASIS_EVIL:
+	case DO_EFFECT_HOLD_EVIL:
 
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || !(is_enemy_of_good_creature(target_ptr)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
