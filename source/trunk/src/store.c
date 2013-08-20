@@ -607,17 +607,6 @@ static cptr comment_1[MAX_COMMENT_1] =
 
 };
 
-#ifdef JP
-/* ブラックマーケット追加メッセージ（承諾） */
-static cptr comment_1_B[MAX_COMMENT_1] = {
-	"まあ、それでいいや。",
-	"今日はそれで勘弁してやる。",
-	"分かったよ。",
-	"しょうがない。",
-	"それで我慢するよ。",
-	"こんなもんだろう。"
-};
-#endif
 #define MAX_COMMENT_2A	2
 
 static cptr comment_2a[MAX_COMMENT_2A] =
@@ -666,25 +655,7 @@ static cptr comment_2b[MAX_COMMENT_2B] =
 
 };
 
-#ifdef JP
-/* ブラックマーケット用追加メッセージ（売るとき） */
-static cptr comment_2b_B[MAX_COMMENT_2B] = {
-	"いくら俺様がお人好しとはいえ $%s が限界だね。嫌なら帰りな。",
-	"金がないのかい、あんた？まずは家に帰って $%s 揃えてきな。",
-	"物の価値が分からん奴だな。これは $%s が普通なんだよ。",
-	"俺の付けた値段に文句があるのか？ $%s が限界だ。",
-	"ひょっとして新手の冗談かい？ $%s 持ってないなら帰りな。",
-	"うちは他の店とは違うんだよ。$%s ぐらいは出しな。",
-	"買う気がないなら帰りな。 $%s だと言っているんだ。",
-	"話にならないね。 $%s くらい持っているんだろ？",
-	"は？なんだそりゃ？ $%s の間違いか、ひょっとして？",
-	"出口はあっちだよ。それとも $%s 出せるのかい、あんたに。",
-	"命知らずな奴だな。 $%s 出せば今日の所は勘弁してやるよ。",
-	"うちの店は貧乏人お断りだ。 $%s ぐらい出せないのかい？"
-};
-#endif
 #define MAX_COMMENT_3A	2
-
 static cptr comment_3a[MAX_COMMENT_3A] =
 {
 #ifdef JP
@@ -696,7 +667,6 @@ static cptr comment_3a[MAX_COMMENT_3A] =
 #endif
 
 };
-
 
 #define MAX_COMMENT_3B	12
 
@@ -732,23 +702,6 @@ static cptr comment_3b[MAX_COMMENT_3B] =
 
 };
 
-#ifdef JP
-/* ブラックマーケット用追加メッセージ（買い取り） */
-static cptr comment_3b_B[MAX_COMMENT_3B] = {
-	" $%s ってところだね。そのどうしようもないガラクタは。",
-	"この俺が $%s って言っているんだから、その通りにした方が身のためだぞ。",
-	"俺の優しさに甘えるのもいい加減にしておけ。 $%s だ。",
-	"その品なら $%s で売ってくれているがね、常識ある紳士はみんな。",
-	"こりゃまた、がめつい奴だな。いくら俺が温厚とはいえ $%s が限界だ。",
-	" $%s だ。別に俺はそんなガラクタ欲しくはないんだから。",
-	"俺の鑑定額が気に入らないのか？ $%s 、嫌なら帰りな。",
-	" $%s で引き取ってやるよ。喜んで受け取りな、貧乏人。",
-	"物の価値が分からん奴は始末におえんな。それは $%s なんだよ。",
-	"そんなに金が欲しいのか、あんた？ $%s で満足できんのか？",
-	"入る店間違えてんじゃないのか？ $%s で嫌なら他をあたってくれ。",
-	"俺の言い値にケチをつける奴がいるとは！ その度胸に免じて $%s だ。"
-};
-#endif
 #define MAX_COMMENT_4A	4
 
 static cptr comment_4a[MAX_COMMENT_4A] =
@@ -764,18 +717,8 @@ static cptr comment_4a[MAX_COMMENT_4A] =
 	"That does it!  You shall waste my time no more!",
 	"This is getting nowhere!  I'm going to Londis!"
 #endif
-
 };
 
-#ifdef JP
-/* ブラックマーケット用追加メッセージ（怒りの頂点） */
-static cptr comment_4a_B[MAX_COMMENT_4A] = {
-	"なめやがって！温厚な俺様でも限界があるってことを知れ！",
-	"俺をここまで怒らせて...命があるだけでもありがたいと思え！",
-	"ふざけてるのか！冷やかしなら相手を見てからにしろ！",
-	"いいかげんにしろ！今度こんなまねしたらただじゃおかねえぞ！"
-};
-#endif
 #define MAX_COMMENT_4B	4
 
 static cptr comment_4b[MAX_COMMENT_4B] =
@@ -880,22 +823,12 @@ static void say_comment_1(store_type *st_ptr)
 {
 	char rumour[1024];
 
-#ifdef JP
-	if(is_black_market(st_ptr)) msg_print(comment_1_B[randint0(MAX_COMMENT_1)]);
-	else msg_print(comment_1[randint0(MAX_COMMENT_1)]);
-#else
 	msg_print(comment_1[randint0(MAX_COMMENT_1)]);
-#endif
-
 
 	if(one_in_(RUMOR_CHANCE))
 	{
 		msg_print(MES_STORE_RUMOR);
-#ifdef JP
-		if(!get_rnd_line_jonly(TEXT_FILES_RUMOR, 0, rumour, 10))
-#else
 		if(!get_rnd_line(TEXT_FILES_RUMOR, 0, rumour))
-#endif
 		msg_print(rumour);
 	}
 }
@@ -918,23 +851,7 @@ static void say_comment_2(store_type *st_ptr, s32b value, int annoyed)
 		msg_format(comment_2a[randint0(MAX_COMMENT_2A)], tmp_val);
 	}
 
-	/* Normal offer */
-	else
-	{
-		/* Formatted message */
-#ifdef JP
-		/* ブラックマーケットの時は別のメッセージを出す */
-		if( is_black_market(st_ptr) ){
-			msg_format(comment_2b_B[randint0(MAX_COMMENT_2B)], tmp_val);
-		}
-		else{
-		msg_format(comment_2b[randint0(MAX_COMMENT_2B)], tmp_val);
-	}
-#else
-		msg_format(comment_2b[randint0(MAX_COMMENT_2B)], tmp_val);
-#endif
-
-	}
+	else msg_format(comment_2b[randint0(MAX_COMMENT_2B)], tmp_val);
 }
 
 
@@ -943,35 +860,10 @@ static void say_comment_2(store_type *st_ptr, s32b value, int annoyed)
  */
 static void say_comment_3(store_type *st_ptr, s32b value, int annoyed)
 {
-	char	tmp_val[80];
-
-	/* Prepare a string to insert */
+	char tmp_val[80];
 	sprintf(tmp_val, "%ld", (long)value);
-
-	/* Final offer */
-	if(annoyed > 0)
-	{
-		/* Formatted message */
-		msg_format(comment_3a[randint0(MAX_COMMENT_3A)], tmp_val);
-	}
-
-	/* Normal offer */
-	else
-	{
-		/* Formatted message */
-#ifdef JP
-		/* ブラックマーケットの時は別のメッセージを出す */
-		if( is_black_market(st_ptr) ){
-			msg_format(comment_3b_B[randint0(MAX_COMMENT_3B)], tmp_val);
-		}
-		else{
-		msg_format(comment_3b[randint0(MAX_COMMENT_3B)], tmp_val);
-	}
-#else
-		msg_format(comment_3b[randint0(MAX_COMMENT_3B)], tmp_val);
-#endif
-
-	}
+	if(annoyed > 0) msg_format(comment_3a[randint0(MAX_COMMENT_3A)], tmp_val);
+	else msg_format(comment_3b[randint0(MAX_COMMENT_3B)], tmp_val);
 }
 
 
@@ -980,21 +872,8 @@ static void say_comment_3(store_type *st_ptr, s32b value, int annoyed)
  */
 static void say_comment_4(store_type *st_ptr)
 {
-#ifdef JP
-	/* ブラックマーケットの時は別のメッセージを出す */
-	if( is_black_market(st_ptr) ){
-		msg_print(comment_4a_B[randint0(MAX_COMMENT_4A)]);
-		msg_print(comment_4b_B[randint0(MAX_COMMENT_4B)]);
-	}
-	else{
-		msg_print(comment_4a[randint0(MAX_COMMENT_4A)]);
-		msg_print(comment_4b[randint0(MAX_COMMENT_4B)]);
-	}
-#else
 	msg_print(comment_4a[randint0(MAX_COMMENT_4A)]);
 	msg_print(comment_4b[randint0(MAX_COMMENT_4B)]);
-#endif
-
 }
 
 
@@ -1003,18 +882,7 @@ static void say_comment_4(store_type *st_ptr)
  */
 static void say_comment_5(store_type *st_ptr)
 {
-#ifdef JP
-	/* ブラックマーケットの時は別のメッセージを出す */
-	if( is_black_market(st_ptr) ){
-		msg_print(comment_5_B[randint0(MAX_COMMENT_5)]);
-	}
-	else{
-		msg_print(comment_5[randint0(MAX_COMMENT_5)]);
-	}
-#else
 	msg_print(comment_5[randint0(MAX_COMMENT_5)]);
-#endif
-
 }
 
 
