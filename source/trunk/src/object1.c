@@ -1786,17 +1786,18 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 			if(allow_floor)
 			{
 				if(!use_menu) strcat(out_val, MES_INTERFACE_FLOOR_OBJECT);
-#ifdef JP
 				else if(allow_equip)
-					strcat(out_val, " '4' è∞è„,");
+				{
+					strcat(out_val, " '4' ");
+					strcat(out_val, KW_FLOORITEM);
+					strcat(out_val, ",");
+				}
 				else
-					strcat(out_val, " '4'or'6' è∞è„,");
-#else
-				else if(allow_equip)
-					strcat(out_val, " 4 for floor,");
-				else
-					strcat(out_val, " 4 or 6 for floor,");
-#endif
+				{
+					strcat(out_val, " '4'or'6' ");
+					strcat(out_val, KW_FLOORITEM);
+					strcat(out_val, ",");
+				}
 			}
 		}
 
@@ -1818,15 +1819,11 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 			if(allow_inven)
 			{
 #ifdef JP
-				if(!use_menu)
-					strcat(out_val, " '/' éùÇøï®,");
-				else if(allow_floor)
-					strcat(out_val, " '4' éùÇøï®,");
+				if(!use_menu) strcat(out_val, " '/' éùÇøï®,");
+				else if(allow_floor) strcat(out_val, " '4' éùÇøï®,");
 #else
-				if(!use_menu)
-					strcat(out_val, " / for Inven,");
-				else if(allow_floor)
-					strcat(out_val, " 4 for Inven,");
+				if(!use_menu) strcat(out_val, " / for Inven,");
+				else if(allow_floor) strcat(out_val, " 4 for Inven,");
 #endif
 				else strcat(out_val, MES_INTERFACE_INVEN);
 			}
@@ -1852,11 +1849,7 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 		else if(command_wrk == (USE_FLOOR))
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "è∞è„: ");
-#else
-			sprintf(out_val, "Floor: ");
-#endif
+			sprintf(out_val, "%s: ", KW_FLOORITEM);
 			if(!use_menu)
 			{
 				sprintf(tmp_val, PROMPT_LABEL(n1, n2));
