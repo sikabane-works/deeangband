@@ -137,10 +137,10 @@ static byte spell_color(int type)
 		case DO_EFFECT_MIND_BLAST:
 		case DO_EFFECT_BRAIN_SMASH:
 			return (0x09);
-		case DO_EFFECT_CAUSE_1:
-		case DO_EFFECT_CAUSE_2:
-		case DO_EFFECT_CAUSE_3:
-		case DO_EFFECT_CAUSE_4:        return (0x0E);
+		case DO_EFFECT_CURSE_1:
+		case DO_EFFECT_CURSE_2:
+		case DO_EFFECT_CURSE_3:
+		case DO_EFFECT_CURSE_4:        return (0x0E);
 		case DO_EFFECT_HAND_DOOM:      return (0x07);
 		case DO_EFFECT_CAPTURE  :      return (0x0E);
 		case DO_EFFECT_IDENTIFY:       return (0x01);
@@ -639,10 +639,10 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 		/* Ignore most effects */
 	case DO_EFFECT_CAPTURE:
 	case DO_EFFECT_HAND_DOOM:
-	case DO_EFFECT_CAUSE_1:
-	case DO_EFFECT_CAUSE_2:
-	case DO_EFFECT_CAUSE_3:
-	case DO_EFFECT_CAUSE_4:
+	case DO_EFFECT_CURSE_1:
+	case DO_EFFECT_CURSE_2:
+	case DO_EFFECT_CURSE_3:
+	case DO_EFFECT_CURSE_4:
 	case DO_EFFECT_MIND_BLAST:
 	case DO_EFFECT_BRAIN_SMASH:
 	case DO_EFFECT_DRAIN_MANA:
@@ -1712,10 +1712,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				do_fear = 0;
 			}
 		}
-		else
-		{
-			skipped = TRUE;
-		}
+		else skipped = TRUE;
 		dam = 0;
 		break;
 
@@ -2211,19 +2208,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!has_trait(target_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		break;
 
-	case DO_EFFECT_CAUSE_1:
+	case DO_EFFECT_CURSE_1:
 		curse_equipment(target_ptr, 15, 0);
 		break;
 
-	case DO_EFFECT_CAUSE_2:
+	case DO_EFFECT_CURSE_2:
 		curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 		break;
 
-	case DO_EFFECT_CAUSE_3:
+	case DO_EFFECT_CURSE_3:
 		curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 		break;
 
-	case DO_EFFECT_CAUSE_4:
+	case DO_EFFECT_CURSE_4:
 		add_timed_trait(target_ptr, TRAIT_CUT, diceroll(10, 10), FALSE);
 		break;
 
