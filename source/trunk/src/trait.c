@@ -786,9 +786,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DRAIN_MANA: cast_ball(caster_ptr, DO_EFFECT_DRAIN_MANA, MAX_RANGE_SUB, power, 0); break;
 	case TRAIT_MIND_BLAST: cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, MAX_RANGE_SUB, power, 0); break;
 	case TRAIT_BRAIN_SMASH: cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB, power, 0); break;
-	case TRAIT_CAUSE_1: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE_1, MAX_RANGE_SUB, damage, 0); break;
-	case TRAIT_CAUSE_2: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE_2, MAX_RANGE_SUB, damage, 0); break;
-	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE_3, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_1: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_2: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE, MAX_RANGE_SUB, damage, 0); break;
+	case TRAIT_CAUSE_3: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_CAUSE_4: cast_ball_hide(caster_ptr, DO_EFFECT_CURSE_4, MAX_RANGE_SUB, damage, 0); break;
 	case TRAIT_HAND_DOOM: cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, 200, 0); break;
 	case TRAIT_DEATH_RAY: cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, user_level, -1); break;

@@ -1781,8 +1781,6 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 	"",
 	"",
-	"",
-	"",
 
 	"",
 	"",
