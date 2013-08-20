@@ -4975,10 +4975,7 @@ char *my_strchr(const char *ptr, char ch)
 	for ( ; *ptr != '\0'; ptr++)
 	{
 		if(*ptr == ch) return (char *)ptr;
-
-#ifdef JP
 		if(is_mbyte(*ptr)) ptr++;
-#endif
 	}
 
 	return NULL;
