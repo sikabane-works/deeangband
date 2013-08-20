@@ -901,76 +901,69 @@ static void say_comment_6(void)
  */
 
 #define MAX_COMMENT_7A	4
+#define MAX_COMMENT_7B	4
+#define MAX_COMMENT_7C	4
+#define MAX_COMMENT_7D	4
 
+#ifdef JP
 static cptr comment_7a[MAX_COMMENT_7A] =
 {
-#ifdef JP
 	"うわああぁぁ！",
 	"なんてこった！",
 	"誰かがむせび泣く声が聞こえる...。",
 	"店主が悔しげにわめいている！"
-#else
-	"Arrgghh!",
-	"You bastard!",
-	"You hear someone sobbing...",
-	"The shopkeeper howls in agony!"
-#endif
-
 };
-
-#define MAX_COMMENT_7B	4
-
 static cptr comment_7b[MAX_COMMENT_7B] =
 {
-#ifdef JP
 	"くそう！",
 	"この悪魔め！",
 	"店主が恨めしそうに見ている。",
 	"店主が睨んでいる。"
-#else
-	"Damn!",
-	"You fiend!",
-	"The shopkeeper curses at you.",
-	"The shopkeeper glares at you."
-#endif
-
 };
-
-#define MAX_COMMENT_7C	4
-
 static cptr comment_7c[MAX_COMMENT_7C] =
 {
-#ifdef JP
 	"すばらしい！",
 	"君が天使に見えるよ！",
 	"店主がクスクス笑っている。",
 	"店主が大声で笑っている。"
-#else
-	"Cool!",
-	"You've made my day!",
-	"The shopkeeper giggles.",
-	"The shopkeeper laughs loudly."
-#endif
-
 };
-
-#define MAX_COMMENT_7D	4
-
 static cptr comment_7d[MAX_COMMENT_7D] =
 {
-#ifdef JP
 	"やっほぅ！",
 	"こんなおいしい思いをしたら、真面目に働けなくなるなぁ。",
 	"店主は嬉しくて跳ね回っている。",
 	"店主は満面に笑みをたたえている。"
+};
 #else
+static cptr comment_7a[MAX_COMMENT_7A] =
+{
+	"Arrgghh!",
+	"You bastard!",
+	"You hear someone sobbing...",
+	"The shopkeeper howls in agony!"
+};
+static cptr comment_7b[MAX_COMMENT_7B] =
+{
+	"Damn!",
+	"You fiend!",
+	"The shopkeeper curses at you.",
+	"The shopkeeper glares at you."
+};
+static cptr comment_7c[MAX_COMMENT_7C] =
+{
+	"Cool!",
+	"You've made my day!",
+	"The shopkeeper giggles.",
+	"The shopkeeper laughs loudly."
+};
+static cptr comment_7d[MAX_COMMENT_7D] =
+{
 	"Yipee!",
 	"I think I'll retire!",
 	"The shopkeeper jumps for joy.",
 	"The shopkeeper smiles gleefully."
-#endif
-
 };
+#endif
 
 // Let a shop-keeper React to a purchase
 // We paid "price", it was worth "value", and we thought it was worth "guess
