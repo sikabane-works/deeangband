@@ -483,9 +483,9 @@ errr report_score(creature_type *player_ptr)
 		(void)inkey();
 		
 #ifdef JP
-		if(!get_check_strict("‚à‚¤ˆê“xÚ‘±‚ğ‚İ‚Ü‚·‚©? ", CHECK_NO_HISTORY))
+		if(!get_check_strict(, CHECK_NO_HISTORY))
 #else
-		if(!get_check_strict("Try again? ", CHECK_NO_HISTORY))
+		if(!get_check_strict(, CHECK_NO_HISTORY))
 #endif
 		{
 			err = 1;
