@@ -1221,23 +1221,14 @@ void do_cmd_mind(creature_type *caster_ptr)
 	else if(mana_cost <= old_csp) // Sufficient mana
 	{
 		dec_mana(caster_ptr, mana_cost);
-
-		if((use_mind == MIND_MINDCRAFTER) && (n == 13)) // THE WORLD
-		{
-			caster_ptr->csp = 0;
-			caster_ptr->csp_frac = 0;
-		}
+		if((use_mind == MIND_MINDCRAFTER) && (n == 13)) set_mana(caster_ptr, 0);
 	}
 
 	/* Over-exert the player */
 	else
 	{
 		int oops = mana_cost - old_csp;
-
-		/* No mana left */
-		if((caster_ptr->csp - mana_cost) < 0) caster_ptr->csp_frac = 0;
-		caster_ptr->csp = MAX(0, caster_ptr->csp - mana_cost);
-
+		set_mana(caster_ptr, 0); /* No mana left */
 		msg_print(MES_CAST_FAINT);
 
 		/* Hack -- Bypass free action */

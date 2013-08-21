@@ -2037,14 +2037,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			int b = diceroll(5, dam) / 4;
 #ifdef JP
-			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
-			msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
+			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力"; msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
 #else
-			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
-			msg_format("You convert %s%s pain into %s!", target_name, (seen ? "'s" : "s"), str);
+			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana"; msg_format("You convert %s%s pain into %s!", target_name, (seen ? "'s" : "s"), str);
 #endif
-			b = MIN(caster_ptr->msp, caster_ptr->csp + b);
-			caster_ptr->csp = b;
+			inc_mana(caster_ptr, b);
 			prepare_redraw(PR_MANA);
 			prepare_window(PW_SPELL);
 		}
