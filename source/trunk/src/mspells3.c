@@ -492,15 +492,10 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 	if(randint1(creature_ptr->lev + 70) > trait_info[trait_index].base_level + 40)
 	{
 		creature_ptr->blue_learned_trait[trait_index / 32] |= 0x01 << (trait_index % 32);
-#ifdef JP
-		msg_format("%s‚ðŠwK‚µ‚½I", trait_info[trait_index].title);
-#else
-		msg_format("You have learned %s!", trait_info[trait_index].title);
-#endif
+		msg_format(MES_SPELL_LEARNED_BLUE(trait_info[trait_index].title));
 		gain_exp(creature_ptr, trait_info[trait_index].base_level * trait_info[trait_index].mp_cost, 0, TRUE);
 
 		sound(SOUND_STUDY);
-
 		creature_ptr->new_mane = TRUE;
 		prepare_redraw(PR_STATE);
 	}
