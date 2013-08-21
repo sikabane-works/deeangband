@@ -4910,7 +4910,8 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_AUTOPICK "自動拾い/破壊 設定リスト"
 #define MES_INFO_AUTOPICK_NO_LINE "自動破壊/拾いには何も登録されていません。"
 #define MES_INFO_AUTOPICK_LINE(NUM) "   自動拾い/破壊には現在 %d行登録されています。\n\n", (NUM)
-#define MES_INFO_LEADING_SERVANT "主な下僕"
+#define MES_INFO_LEADING_SERVANT "[主な下僕]"
+#define MES_INFO_LEADING_OPTIONS "[オプション設定]"
 #else
 #define MES_INFO_UNKNOWN_ARTIFACT "Unknown Artifact"
 #define MES_INFO_KNOWN_ARTIFACT "Artifacts Seen"
@@ -4926,6 +4927,7 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_AUTOPICK_NO_LINE "No preference for auto picker/destroyer."
 #define MES_INFO_AUTOPICK_LINE(NUM) "   There are %d registered lines for auto picker/destroyer.\n\n", (NUM)
 #define MES_INFO_LEADING_SERVANT "[Leading Servants]"
+#define MES_INFO_LEADING_OPTIONS "[Option Settings]"
 #endif
 
 #ifdef JP

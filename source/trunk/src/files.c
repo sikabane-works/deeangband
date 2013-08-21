@@ -3493,9 +3493,8 @@ static void dump_aux_recall(FILE *fff)
 static void dump_aux_options(FILE *fff)
 {
 
+	fprintf(fff, "\n  %s\n", MES_INFO_LEADING_OPTIONS);
 #ifdef JP
-	fprintf(fff, "\n  [オプション設定]\n");
-
 	if(ironman_small_levels) fprintf(fff, "\n 小さいダンジョン:   ALWAYS");
 	else if(always_small_levels) fprintf(fff, "\n 小さいダンジョン:   ON");
 	else fprintf(fff, "\n 小さいダンジョン:   OFF");
@@ -3513,7 +3512,6 @@ static void dump_aux_options(FILE *fff)
 	if(noscore) fprintf(fff, "\n 何か不正なことをしてしまっています。\n");
 
 #else
-	fprintf(fff, "\n  [Option Settings]\n");
 
 	if(ironman_small_levels) fprintf(fff, "\n Small Levels:       ALWAYS");
 	else if(always_small_levels) fprintf(fff, "\n Small Levels:       ON");
