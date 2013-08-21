@@ -2717,8 +2717,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
 	species_ptr = &species_info[target_ptr->species_idx];
-
-	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0, TRUE);
+	(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 
 	if(has_trait(target_ptr, TRAIT_RES_TELE))
 	{

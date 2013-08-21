@@ -477,13 +477,8 @@ errr report_score(creature_type *player_ptr)
 		/* Connect to the score server */
 		sd = connect_server(HTTP_TIMEOUT, SCORE_SERVER, SCORE_PORT);
 
-
 		if(!(sd < 0)) break;
-#ifdef JP
-		sprintf(buff, "スコア・サーバへの接続に失敗しました。(%s)", soc_err());
-#else
-		sprintf(buff, "Failed to connect to the score server.(%s)", soc_err());
-#endif
+		sprintf(buff, MES_SCORE_FAILED(soc_err()));
 		prt(buff, 0, 0);
 		(void)inkey();
 		
@@ -497,11 +492,7 @@ errr report_score(creature_type *player_ptr)
 			goto report_end;
 		}
 	}
-#ifdef JP
-	prt("スコア送信中...", 0, 0);
-#else
-	prt("Sending the score...", 0, 0);
-#endif
+	prt(MES_SCORE_SENDING, 0, 0);
 	Term_fresh();
 	http_post(sd, SCORE_PATH, score);
 

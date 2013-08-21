@@ -5123,6 +5123,7 @@ static cptr desc_stat_neg[] =
 #define MES_SCORE_ASK_SEND_SCORE "スコアをスコア・サーバに登録しますか? "
 #define MES_SCORE_SENDING "送信中．．"
 #define MES_SCORE_SEND "完了。何かキーを押してください。"
+#define MES_SCORE_FAILED(ERR) "スコア・サーバへの接続に失敗しました。(%s)", (ERR)
 #define MES_SCORE_DISABLE_WIZARD "ウィザード・モードではスコアが記録されません。"
 #define MES_SCORE_DISABLE_UNIQUE "ユニーク・モードではスコアが記録されません。"
 #define MES_SCORE_DISABLE_CHEAT "詐欺をやった人はスコアが記録されません。"
@@ -5138,6 +5139,7 @@ static cptr desc_stat_neg[] =
 #define MES_SCORE_ASK_SEND_SCORE "Do you send score to the world score sever? "
 #define MES_SCORE_SENDING "Sending..."
 #define MES_SCORE_SEND "Completed.  Hit any key."
+#define MES_SCORE_FAILED(ERR) "Failed to connect to the score server.(%s)", (ERR)
 #define MES_SCORE_DISABLE_WIZARD "Score not registered for wizards."
 #define MES_SCORE_DISABLE_UNIQUE "Score not registered for uniques."
 #define MES_SCORE_DISABLE_CHEAT "Score not registered for cheaters."
@@ -5429,4 +5431,5 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_SPELL "Spell"
 #define MES_TASK_IMITATION "Imitation"
 #endif
+
 
