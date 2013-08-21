@@ -3525,18 +3525,12 @@ static void dump_aux_options(FILE *fff)
 	else fprintf(fff, "\n Arena Levels:       OFF");
 
 	fputc('\n', fff);
-
 	if(noscore) fprintf(fff, "\n You have done something illegal.\n");
-
 #endif
 
 	fputc('\n', fff);
 }
 
-
-/*
- *
- */
 static void dump_aux_arena(FILE *fff)
 {
 
@@ -3561,53 +3555,35 @@ static void dump_aux_arena(FILE *fff)
 
 static void dump_aux_creatures(FILE *fff)
 {
-	/* Creatures slain */
-	SPECIES_ID k;
+	SPECIES_ID k; /* Creatures slain */
 	long uniq_total = 0;
 	long norm_total = 0;
 	SPECIES_ID *who;
 
-	/* Sort by creature level */
-	u16b why = 2;
+	u16b why = 2; /* Sort by creature level */
 	fprintf(fff, MES_INTERFACE_DEFEATED_CREATURE);
 
-	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, SPECIES_ID);
+	C_MAKE(who, max_species_idx, SPECIES_ID); /* Allocate the "who" array */
 
-	/* Count creature kills */
-	for (k = 1; k < max_species_idx; k++)
+	for (k = 1; k < max_species_idx; k++) /* Count creature kills */
 	{
 		species_type *species_ptr = &species_info[k];
-
-		/* Ignore unused index */
- 		if(!species_ptr->name) continue;
-
-		/* Unique creatures */
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
+		if(!species_ptr->name) continue; /* Ignore unused index */
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) /* Unique creatures */
 		{
 			bool dead = (species_ptr->max_num == 0);
 			if(dead)
 			{
 				norm_total++;
-
-				/* Add a unique creature to the list */
-				who[uniq_total++] = k;
+				who[uniq_total++] = k; /* Add a unique creature to the list */
 			}
 		}
-
-		/* Normal creatures */
-		else if(species_ptr->killed_by_player > 0) norm_total += species_ptr->killed_by_player;
+		else if(species_ptr->killed_by_player > 0) norm_total += species_ptr->killed_by_player; /* Normal creatures */
 	}
 
-
-	/* No creatures is defeated */
-	if(norm_total < 1) fprintf(fff, MES_KNOW_NO_KILLED);
-
-	/* Defeated more than one normal creatures */
-	else if(uniq_total == 0) fprintf(fff, MES_KNOW_KILLED(norm_total));
-
-	/* Defeated more than one unique creatures */
-	else
+	if(norm_total < 1) fprintf(fff, MES_KNOW_NO_KILLED); /* No creatures is defeated */
+	else if(uniq_total == 0) fprintf(fff, MES_KNOW_KILLED(norm_total)); /* Defeated more than one normal creatures */
+	else /* Defeated more than one unique creatures */
 	{
 		fprintf(fff, MES_INTERFACE_DEFEATED_SCORE(uniq_total, norm_total)); 
 		ang_sort(who, &why, uniq_total, ang_sort_comp_hook, ang_sort_swap_hook); /* Sort the array by dungeon depth of creatures */
@@ -3823,9 +3799,9 @@ errr make_character_dump(creature_type *creature_ptr, FILE *fff)
  */
 errr file_character(cptr name)
 {
-	int		fd = -1;
-	FILE		*fff = NULL;
-	char		buf[1024];
+	int fd = -1;
+	FILE *fff = NULL;
+	char buf[1024];
 
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, name);
 
@@ -3835,23 +3811,16 @@ errr file_character(cptr name)
 	/* Check for existing file */
 	fd = fd_open(buf, O_RDONLY);
 
-	/* Existing file */
-	if(fd >= 0)
+	if(fd >= 0) /* Existing file */
 	{
 		char out_val[160];
-
 		(void)fd_close(fd);
-
-		/* Build query */
-		(void)sprintf(out_val, MES_SYS_REPLACE_FILE, buf);
+		(void)sprintf(out_val, MES_SYS_REPLACE_FILE, buf); /* Build query */
 		if(get_check_strict(out_val, CHECK_NO_HISTORY)) fd = -1;
 	}
 
-	/* Open the non-existing file */
-	if(fd < 0) fff = my_fopen(buf, "w");
-
-	/* Invalid file */
-	if(!fff)
+	if(fd < 0) fff = my_fopen(buf, "w"); /* Open the non-existing file */
+	if(!fff) /* Invalid file */
 	{
 		prt(format(MES_FILE_SAVED_FAIL(buf)), 0, 0);
 		(void)inkey();
@@ -3885,16 +3854,13 @@ static void show_file_aux_line(cptr str, int cy, cptr shower)
 	int i;
 	char lcstr[1024];
 
-	if(shower)
+	if(shower) /* Make a lower case version of str for searching */
 	{
-		/* Make a lower case version of str for searching */
 		strcpy(lcstr, str);
 		str_tolower(lcstr);
 	}
 
-	/* Initial cursor position */
 	Term_gotoxy(cx, cy);
-
 	for (i = 0; str[i];)
 	{
 		int len = strlen(&str[i]);
@@ -3914,30 +3880,22 @@ static void show_file_aux_line(cptr str, int cy, cptr shower)
 		ptr = in_tag ? my_strchr(&str[i], in_tag) : my_strstr(&str[i], tag_str);
 		if(ptr) bracketcol = ptr - &str[i];
 
-		/* A color tag is found */
-		if(bracketcol < endcol) endcol = bracketcol;
-
-		/* The shower string is found before the color tag */
-		if(showercol < endcol) endcol = showercol;
+		if(bracketcol < endcol) endcol = bracketcol; /* A color tag is found */
+		if(showercol < endcol) endcol = showercol; /* The shower string is found before the color tag */
 
 		/* Print a segment of the line */
 		Term_addstr(endcol, color, &str[i]);
 		cx += endcol;
 		i += endcol;
 
-		/* Shower string? */
-		if(endcol == showercol)
+		if(endcol == showercol) /* Shower string? */
 		{
 			int showerlen = strlen(shower);
-
-			/* Print the shower string in yellow */
-			Term_addstr(showerlen, TERM_YELLOW, &str[i]);
+			Term_addstr(showerlen, TERM_YELLOW, &str[i]); /* Print the shower string in yellow */
 			cx += showerlen;
 			i += showerlen;
 		}
-
-		/* Colored segment? */
-		else if(endcol == bracketcol)
+		else if(endcol == bracketcol) /* Colored segment? */
 		{
 			if(in_tag)
 			{
@@ -4115,27 +4073,16 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		if(next > line)
 		{
 			my_fclose(fff);
-
-			/* Hack -- Re-Open the file */
-			fff = my_fopen(path, "r");
-
+			fff = my_fopen(path, "r"); /* Hack -- Re-Open the file */
 			if(!fff) return FALSE;
-
-			/* File has been restarted */
-			next = 0;
+			next = 0; /* File has been restarted */
 		}
 
-		/* Goto the selected line */
-		while (next < line)
+		while (next < line) /* Goto the selected line */
 		{
-			/* Get a line */
-			if(my_fgets(fff, buf, sizeof(buf))) break;
-
-			/* Skip tags/links */
-			if(prefix(buf, "***** ")) continue;
-
-			/* Count the lines */
-			next++;
+			if(my_fgets(fff, buf, sizeof(buf))) break; /* Get a line */
+			if(prefix(buf, "***** ")) continue; /* Skip tags/links */
+			next++; /* Count the lines */
 		}
 
 		/* Dump the next 20, or rows, lines of the file */
