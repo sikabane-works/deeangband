@@ -4089,50 +4089,30 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		for (i = 0; i < rows; )
 		{
 			cptr str = buf;
+			if(!i) line = next; /* Hack -- track the "first" line */
+			if(my_fgets(fff, buf, sizeof(buf))) break; /* Get a line of the file or stop */
+			if(prefix(buf, "***** ")) continue; /* Hack -- skip "special" lines */
+			next++; /* Count the "real" lines */
 
-			/* Hack -- track the "first" line */
-			if(!i) line = next;
-
-			/* Get a line of the file or stop */
-			if(my_fgets(fff, buf, sizeof(buf))) break;
-
-			/* Hack -- skip "special" lines */
-			if(prefix(buf, "***** ")) continue;
-
-			/* Count the "real" lines */
-			next++;
-
-			/* Hack -- keep searching */
-			if(find && !i)
+			if(find && !i) /* Hack -- keep searching */
 			{
 				char lc_buf[1024];
-
-				/* Make a lower case version of str for searching */
-				strcpy(lc_buf, str);
+				strcpy(lc_buf, str); /* Make a lower case version of str for searching */
 				str_tolower(lc_buf);
 
 				if(!my_strstr(lc_buf, find)) continue;
 			}
-
-			/* Hack -- stop searching */
-			find = NULL;
-
-			/* Dump the line */
-			show_file_aux_line(str, i + 2, shower);
-
-			/* Count the printed lines */
-			i++;
+			find = NULL; /* Hack -- stop searching */
+			show_file_aux_line(str, i + 2, shower); /* Dump the line */
+			i++; /* Count the printed lines */
 		}
 
 		while (i < rows)
 		{
-			/* Clear rest of line */
-			Term_erase(0, i + 2, 255);
+			Term_erase(0, i + 2, 255); /* Clear rest of line */
 			i++;
 		}
-
-		/* Hack -- failed search */
-		if(find)
+		if(find) /* Hack -- failed search */
 		{
 			bell();
 			line = back;
@@ -4781,8 +4761,8 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 13, 11);
 
+		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, KW_SUICIDE);
 #ifdef JP
-		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, "<©E>");
 		else if(streq(gameover_from, COD_RETIRE)) strcpy(tmp, "ˆø‘ŞŒã‚É“Võ‚ğ‘S‚¤");
 		else if(streq(gameover_from, COD_SEPPUKU)) strcpy(tmp, "Ÿ—˜‚ÌŒãAØ• ");
 		else
