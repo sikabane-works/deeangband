@@ -4135,6 +4135,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_WARNING_DONE(OBJECT) "%s‚ª‰s‚­k‚¦‚½I", (OBJECT)->name
 #define MES_TRAIT_WARNING_DONE2(OBJECT) "%s‚ªk‚¦‚½I", (OBJECT)->name
 #define MES_TRAIT_SHADOW_MOVE_FAILED "‰eˆÚ“®‚ÉŽ¸”s‚µ‚½B"
+#define MES_TRAIT_CANNOT_SWAP "‚»‚ê‚Æ‚ÍêŠ‚ðŒðŠ·‚Å‚«‚Ü‚¹‚ñB"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4254,6 +4255,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_WARNING_DONE(OBJECT) "Your %s pulsates sharply!", (OBJECT)->name
 #define MES_TRAIT_WARNING_DONE2(OBJECT) "Your %s pulsates!", (OBJECT)->name
 #define MES_TRAIT_SHADOW_MOVE_FAILED "Oops!"
+#define MES_TRAIT_CANNOT_SWAP "You can't trade places with that."
 #endif
 
 #ifdef JP

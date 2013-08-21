@@ -2705,11 +2705,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	if(!c_ptr->creature_idx || (c_ptr->creature_idx == creature_ptr->riding))
 	{
-#ifdef JP
-		msg_print("ÇªÇÍÇ∆ÇÕèÍèäÇåä∑Ç≈Ç´Ç‹ÇπÇÒÅB");
-#else
-		msg_print("You can't trade places with that!");
-#endif
+		msg_print(MES_TRAIT_CANNOT_SWAP);
 		return FALSE;
 	}
 
@@ -2774,20 +2770,16 @@ void call_chaos(creature_type *creature_ptr)
 		{
 			if(dummy - 5)
 			{
-				if(line_chaos)
-					cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 150, 0);
-				else
-					cast_ball(creature_ptr, Chaos_type, dummy, 150, 2);
+				if(line_chaos) cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 150, 0);
+				else cast_ball(creature_ptr, Chaos_type, dummy, 150, 2);
 			}
 		}
 	}
 	else if(one_in_(3)) SELF_FIELD(creature_ptr, Chaos_type, 500, 8, -1);
 	else
 	{
-		if(line_chaos)
-			cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 0);
-		else
-			cast_ball(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 3 + (lev_bonus / 35));
+		if(line_chaos) cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 0);
+		else cast_ball(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 3 + (lev_bonus / 35));
 	}
 }
 
