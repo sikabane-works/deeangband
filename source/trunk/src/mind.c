@@ -1071,8 +1071,7 @@ void do_cmd_mind(creature_type *caster_ptr)
 		if(n == 5)
 		{
 			int j;
-			for (j = 0; j < caster_ptr->charged_force / 50; j++)
-				mana_cost += (j+1) * 3 / 2;
+			for (j = 0; j < caster_ptr->charged_force / 50; j++) mana_cost += (j+1) * 3 / 2;
 		}
 	}
 

@@ -6113,7 +6113,6 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			const int mana_cost_per_creature = 8;
 			bool new = TRUE;
 			bool mdeath;
-
 			do
 			{
 				if(!rush_attack(caster_ptr, &mdeath)) break;
@@ -6122,7 +6121,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					dec_mana(caster_ptr, technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana); 
 					new = FALSE;
 				}
-				else caster_ptr->csp -= mana_cost_per_creature;
+				else dec_mana(caster_ptr, mana_cost_per_creature);
 
 				if(!mdeath) break;
 				command_dir = 0;
@@ -6133,9 +6132,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			while (caster_ptr->csp > mana_cost_per_creature);
 
 			if(new) return NULL;
-	
-			/* Restore reserved mana */
-			caster_ptr->csp += technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
+			inc_mana(caster_ptr, technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana); /* Restore reserved mana */
 		}
 		break;
 
