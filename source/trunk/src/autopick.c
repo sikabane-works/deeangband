@@ -5412,13 +5412,10 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		/* Conditional Expression for Class and Race */
 		sprintf(expression, "?:[AND [EQU $RACE %s] [EQU $CLASS %s] [GEQ $LEVEL %02d]]", 
 #ifdef JP
-			race_info[creature_ptr->race_idx1].E_title, class_info[creature_ptr->class_idx].E_title,
+			race_info[creature_ptr->race_idx1].E_title, class_info[creature_ptr->class_idx].E_title, creature_ptr->lev);
 #else
-			race_info[creature_ptr->race_idx1].title, class_info[creature_ptr->class_idx].title,
+			race_info[creature_ptr->race_idx1].title, class_info[creature_ptr->class_idx].title, creature_ptr->lev);
 #endif
-			creature_ptr->lev
-			);
-
 		tb->cx = 0;
 		insert_return_code(tb);
 		string_free(tb->lines_list[tb->cy]);

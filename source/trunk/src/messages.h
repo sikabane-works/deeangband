@@ -4910,6 +4910,7 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_AUTOPICK "©“®E‚¢/”j‰ó İ’èƒŠƒXƒg"
 #define MES_INFO_AUTOPICK_NO_LINE "©“®”j‰ó/E‚¢‚É‚Í‰½‚à“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"
 #define MES_INFO_AUTOPICK_LINE(NUM) "   ©“®E‚¢/”j‰ó‚É‚ÍŒ»İ %ds“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B\n\n", (NUM)
+#define MES_INFO_LEADING_SERVANT "å‚È‰º–l"
 #else
 #define MES_INFO_UNKNOWN_ARTIFACT "Unknown Artifact"
 #define MES_INFO_KNOWN_ARTIFACT "Artifacts Seen"
@@ -4924,6 +4925,7 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_AUTOPICK "Auto-picker/Destroyer"
 #define MES_INFO_AUTOPICK_NO_LINE "No preference for auto picker/destroyer."
 #define MES_INFO_AUTOPICK_LINE(NUM) "   There are %d registered lines for auto picker/destroyer.\n\n", (NUM)
+#define MES_INFO_LEADING_SERVANT "[Leading Servants]"
 #endif
 
 #ifdef JP

@@ -3096,10 +3096,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			{
 				/* Clear the text */
 				/* Must be done before doing INIT_SHOW_TEXT */
-				for (i = 0; i < 10; i++)
-				{
-					questp_text[i][0] = '\0';
-				}
+				for (i = 0; i < 10; i++) questp_text[i][0] = '\0';
 				questp_text_line = 0;
 
 				// Get the quest text
@@ -3379,11 +3376,7 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 		if(!m_ptr->nickname && (creature_ptr->riding != i)) continue;
 		if(!pet)
 		{
-#ifdef JP
-			fprintf(fff, "\n\n  [主なペット]\n\n");
-#else
-			fprintf(fff, "\n\n  [Leading Pets]\n\n");
-#endif
+			fprintf(fff, "\n\n  %s\n\n", MES_INFO_LEADING_SERVANT);
 			pet = TRUE;
 		}
 		creature_desc(pet_name, m_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
@@ -3399,7 +3392,7 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 		fprintf(fff, "\n テレポート系魔法を使う:             %s", (creature_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
 		fprintf(fff, "\n 攻撃魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
 		fprintf(fff, "\n 召喚魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) ? "ON" : "OFF");
-		fprintf(fff, "\n プレイヤーを巻き込む範囲魔法を使う: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n 主を巻き込む範囲魔法を使う: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #else
 		fprintf(fff, "\n\n  [Command for Pets]\n");
 		fprintf(fff, "\n Pets open doors:                    %s", (creature_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
@@ -3407,7 +3400,7 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 		fprintf(fff, "\n Allow teleport:                     %s", (creature_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
 		fprintf(fff, "\n Allow cast attack spell:            %s", (creature_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
 		fprintf(fff, "\n Allow cast summon spell:            %s", (creature_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) ? "ON" : "OFF");
-		fprintf(fff, "\n Allow involve player in area spell: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow involve master in area spell: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #endif
 		fputc('\n', fff);
 	}
