@@ -1140,19 +1140,15 @@ void do_cmd_mind(creature_type *caster_ptr)
 					else if(b < 90) add_timed_trait(caster_ptr, TRAIT_STUN, randint1(8), TRUE);
 					else
 					{
-						/* Mana storm */
-						msg_format(MES_PSIONIC_FAILED_MANASTORM(p));
-						/*TODO*/
+						msg_format(MES_PSIONIC_FAILED_MANASTORM(p)); /* Mana storm */
 						project(caster_ptr, 0, 2 + (COODINATES)lev_bonus / 10, caster_ptr->fy, caster_ptr->fx, (COODINATES)lev_bonus * 2,
-							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
+							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1); /*TODO*/
 						caster_ptr->csp = MAX(0, caster_ptr->csp - lev_bonus * MAX(1, lev_bonus / 10));
 					}
 				}
-				if(use_mind == MIND_MIRROR_MASTER){
-					if(b < 51)
-					{
-						/* Nothing has happen */
-					}
+				if(use_mind == MIND_MIRROR_MASTER)
+				{
+					if(b < 51) { /* Nothing has happen */ }
 					else if(b < 81)
 					{
 						msg_print(MES_PSIONIC_FAILED_TELEPORT);

@@ -1525,7 +1525,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	return damage;
 }
 
-bool dec_mana(creature_type *creature_ptr, int val)
+bool dec_mana(creature_type *creature_ptr, STAT val)
 {
 	bool sufficient = TRUE;
 	creature_ptr->csp -= val;
@@ -1538,7 +1538,7 @@ bool dec_mana(creature_type *creature_ptr, int val)
 	return sufficient;
 }
 
-void inc_mana(creature_type *creature_ptr, int val)
+void inc_mana(creature_type *creature_ptr, STAT val)
 {		
 	creature_ptr->csp += val;
 	if(creature_ptr->csp >= creature_ptr->msp)
@@ -1549,6 +1549,11 @@ void inc_mana(creature_type *creature_ptr, int val)
 	if(is_player(creature_ptr)) prepare_redraw(PR_MANA);
 }
 
+void set_mana(creature_type *creature_ptr, STAT val)
+{
+		creature_ptr->csp = val;
+		creature_ptr->csp_frac = 0;
+}
 
 /*
 * Gain experience
