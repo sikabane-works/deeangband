@@ -3921,10 +3921,7 @@ static int get_com_id(char key)
 
 	for (i = 0; menu_data[i].name; i++)
 	{
-		if(menu_data[i].key == key)
-		{
-			return menu_data[i].com_id;
-		}
+		if(menu_data[i].key == key) return menu_data[i].com_id;
 	}
 
 	return 0;
@@ -4044,10 +4041,7 @@ static int do_command_menu(int level, int start)
 					if(com_id) return com_id;
 					else redraw = TRUE;
 				}
-				else if(com_id)
-				{
-					return com_id;
-				}
+				else if(com_id) return com_id;
 			}
 		}
 

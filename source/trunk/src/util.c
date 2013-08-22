@@ -407,40 +407,28 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 				buf[i++] = ' '; /* Append a space */
 				while (0 != (i % 8)) buf[i++] = ' '; /* Append some more spaces */
 			}
-
-#ifdef JP
 			else if(is_mbyte(*s))
 			{
 				if(!s[1]) break;
 				buf[i++] = *s++;
 				buf[i++] = *s;
 			}
-
-			/* ”¼Šp‚©‚È‚É‘Î‰ž */
-			else if(iskana(*s))
+			else if(iskana(*s)) /* ”¼Šp‚©‚È‚É‘Î‰ž */
 			{
 				buf[i++] = *s;
 				if(i >= n) break;
 			}
-#endif
-			/* Handle printables */
-			else if(isprint(*s))
+			else if(isprint(*s)) /* Handle printables */
 			{
-				/* Copy */
 				buf[i++] = *s;
-
-				/* Check length */
 				if(i >= n) break;
 			}
 		}
-		/* No newline character, but terminate */
-		buf[i] = '\0';
+		buf[i] = '\0'; /* No newline character, but terminate */
 
 		return SUCCESS;
 	}
-
-	/* Nothing */
-	buf[0] = '\0';
+	buf[0] = '\0'; /* Nothing */
 
 	return FAILURE;
 }

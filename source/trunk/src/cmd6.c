@@ -1343,29 +1343,12 @@ void do_cmd_use(creature_type *creature_ptr)
 
 	switch (object_ptr->tval)
 	{
-		case TV_SPIKE:
-			do_cmd_spike(creature_ptr);
-			break;
-
-		case TV_FOOD:
-			do_cmd_eat_food_aux(creature_ptr, item);
-			break;
-
-		case TV_WAND:
-			exe_wand(creature_ptr, item);
-			break;
-
-		case TV_STAFF:
-			exe_staff(creature_ptr, item);
-			break;
-
-		case TV_ROD:
-			exe_rod(creature_ptr, item);
-			break;
-
-		case TV_POTION:
-			do_cmd_quaff_potion_aux(creature_ptr, item);
-			break;
+		case TV_SPIKE: do_cmd_spike(creature_ptr); break;
+		case TV_FOOD: do_cmd_eat_food_aux(creature_ptr, item); break;
+		case TV_WAND: exe_wand(creature_ptr, item); break;
+		case TV_STAFF: exe_staff(creature_ptr, item); break;
+		case TV_ROD: exe_rod(creature_ptr, item); break;
+		case TV_POTION: do_cmd_quaff_potion_aux(creature_ptr, item); break;
 
 		/* Read a scroll */
 		case TV_SCROLL:

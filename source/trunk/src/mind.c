@@ -1113,11 +1113,7 @@ void do_cmd_mind(creature_type *caster_ptr)
 	if(PROB_PERCENT(chance))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("èWíÜÇ…é∏îsÇµÇΩÅI");
-#else
-		msg_print("You failed to concentrate hard enough!");
-#endif
+		msg_print(MES_SPELL_FAILED2);
 		sound(SOUND_FAIL);
 
 		if((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
