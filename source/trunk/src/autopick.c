@@ -1758,12 +1758,7 @@ static bool clear_auto_register(void)
 		{
 			okay = FALSE;
 			autoregister = FALSE;
-
-#ifdef JP
-			msg_print("エディタのカット&ペースト等を使って必要な行を避難してください。");
-#else
-			msg_print("Use cut & paste of auto picker editor (_) to keep old prefs.");
-#endif
+			msg_print(MES_AUTOPICK_CUTPASTE);
 		}
 	}
 

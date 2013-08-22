@@ -3022,6 +3022,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_AUTOPICK_CUTPASTE "エディタのカット&ペースト等を使って必要な行を避難してください。"
 #define MES_AUTOPICK_COMMANDKEY "C:%d:<コマンドキー>: "
 #define MES_AUTOPICK_WHICH_ENTRY "どのアイテムを登録しますか"
 #define MES_AUTOPICK_NO_ENTRY "アイテムを持っていない。"
@@ -3047,6 +3048,7 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_EDITOR "(^Q:終了 ^W:セーブして終了, ESC:メニュー, その他:入力)"
 #define MES_AUTOPICK_TRIGGER_KEY "P:<トリガーキー>: "
 #else
+#define MES_AUTOPICK_CUTPASTE "Use cut & paste of auto picker editor (_) to keep old prefs."
 #define MES_AUTOPICK_COMMANDKEY "<Keypress>"
 #define MES_AUTOPICK_WHICH_ENTRY "Enter which item? "
 #define MES_AUTOPICK_NO_ENTRY "You have nothing to enter."

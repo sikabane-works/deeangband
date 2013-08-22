@@ -103,11 +103,9 @@ static int get_spell(creature_type *creature_ptr, KEY *sn, cptr prompt, SVAL sva
 	/* Build a prompt (accept all spells) */
 #ifdef JP
 	jverb1(prompt, jverb_buf);
-	(void) strnfmt(out_val, 78, "(%^s:%c-%c, '*'‚Åˆê——, ESC‚Å’†’f) ‚Ç‚Ì%s‚ð%^s‚Ü‚·‚©? ",
-		p, I2A(0), I2A(num - 1), p, jverb_buf );
+	(void) strnfmt(out_val, 78, "(%^s:%c-%c, '*'‚Åˆê——, ESC‚Å’†’f) ‚Ç‚Ì%s‚ð%^s‚Ü‚·‚©? ", p, I2A(0), I2A(num - 1), p, jverb_buf );
 #else
-	(void)strnfmt(out_val, 78, "(%^ss %c-%c, *=List, ESC=exit) %^s which %s? ",
-		p, I2A(0), I2A(num - 1), prompt, p);
+	(void)strnfmt(out_val, 78, "(%^ss %c-%c, *=List, ESC=exit) %^s which %s? ", p, I2A(0), I2A(num - 1), prompt, p);
 #endif
 
 	/* Get a spell from the user */
