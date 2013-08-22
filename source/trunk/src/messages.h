@@ -446,6 +446,7 @@
 #define KW_HELPFILE "ヘルプ・ファイル"
 #define KW_POWER "能力"
 #define KW_SUICIDE "自殺"
+#define KW_CHARGES "使用回数"
 #else
 #define KW_CURSOR ">>"
 #define KW_MORE "-more-"
@@ -594,6 +595,7 @@
 #define KW_HELPFILE "Help file"
 #define KW_POWER "Power"
 #define KW_SUICIDE "Suicide"
+#define KW_CHARGES "Charges"
 #endif
 
 #ifdef JP
@@ -4557,6 +4559,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAINMAGIC_ABSORBED(OBJECT) "%sの魔力を取り込んだ。", (OBJECT)
 #define MES_GAINMAGIC_NONE "魔法を覚えていない！"
 #define MES_GAINMAGIC_WHICH "('*'で一覧, ESCで中断) どの魔力を使いますか？"
+#define MES_GAINMAGIC_WHICH2 "どの種類の魔法を使いますか？"
 #else
 #define MES_GAINMAGIC_LIST "[A] staff, [B] wand, [C] rod:"
 #define MES_GAINMAGIC_NO_TYPE "You don't have that type of magic."
@@ -4570,6 +4573,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAINMAGIC_ABSORBED(OBJECT) "You absorb magic of %s.", (OBJECT)
 #define MES_GAINMAGIC_NONE "You don't have any magic!"
 #define MES_GAINMAGIC_WHICH ""(*=List, ESC=exit) Use which power? "
+#define MES_GAINMAGIC_WHICH2 "Which type of magic do you use?"
 #endif
 
 #ifdef JP

@@ -1426,17 +1426,11 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 
 		while(!tval)
 		{
-#ifdef JP
-			prt(format(" %s 杖", (menu_line == 1) ? KET_D_ANGLE : "  "), 2, 14);
-			prt(format(" %s 魔法棒", (menu_line == 2) ? KET_D_ANGLE : "  "), 3, 14);
-			prt(format(" %s ロッド", (menu_line == 3) ? KET_D_ANGLE : "  "), 4, 14);
-			prt("どの種類の魔法を使いますか？", 0, 0);
-#else
-			prt(format(" %s staff", (menu_line == 1) ? "> " : "  "), 2, 14);
-			prt(format(" %s wand", (menu_line == 2) ? "> " : "  "), 3, 14);
-			prt(format(" %s rod", (menu_line == 3) ? "> " : "  "), 4, 14);
-			prt("Which type of magic do you use?", 0, 0);
-#endif
+			prt(format(" %s %s", (menu_line == 1) ? KET_D_ANGLE : "  ", KW_STAFF), 2, 14);
+			prt(format(" %s %s", (menu_line == 2) ? KET_D_ANGLE : "  ", KW_WAND), 3, 14);
+			prt(format(" %s %s", (menu_line == 3) ? KET_D_ANGLE : "  ", KW_ROD), 4, 14);
+			prt(MES_GAINMAGIC_WHICH2, 0, 0);
+
 			choice = inkey();
 			switch(choice)
 			{
@@ -1535,9 +1529,9 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 
 			/* Print header(s) */
 #ifdef JP
-			prt(format("                           %s 失率                           %s 失率", (tval == TV_ROD ? "  状態  " : "使用回数"), (tval == TV_ROD ? "  状態  " : "使用回数")), y++, x);
+			prt(format("                           %s 失率                           %s 失率", (tval == TV_ROD ? "  状態  " : KW_CHARGES), (tval == TV_ROD ? "  状態  " : KW_CHARGES)), y++, x);
 #else
-			prt(format("                           %s Fail                           %s Fail", (tval == TV_ROD ? "  Stat  " : " Charges"), (tval == TV_ROD ? "  Stat  " : " Charges")), y++, x);
+			prt(format("                           %s Fail                           %s Fail", (tval == TV_ROD ? "  Stat  " : KW_CHARGES), (tval == TV_ROD ? "  Stat  " : KW_CHARGES)), y++, x);
 #endif
 
 			/* Print list */
