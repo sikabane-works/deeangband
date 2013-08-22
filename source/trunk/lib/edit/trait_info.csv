@@ -103,7 +103,7 @@ ID,ID2,SPELL,PRE_ID,ANTI_ID,DISP_PRIORITY,NAME,E_NAME,EFFECT,STR,INT,WIS,DEX,CON
 101,TRUE_RETURNING_THROW,CONSTANT,-1,-1,10,真・投擲反転,True Returning Throw,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 102,SEIZING_ATTACK,CONSTANT,-1,-1,10,分捕る,Seizing Attack,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 103,PANIC_CREATURE,CONSTANT,-1,-1,10,パニック・クリーチャー,Panic Creature,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
-104,BR_ACID,TARGET,-1,-1,10,酸のブレス,Breath Acid,"BREATH(ACID,200,3,)",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sは酸のブレスを吐いた。,%^s breathes acid.,%^sは何かのブレスを吐いた。,%^s breathes.
+104,BR_ACID,TARGET,-1,-1,10,酸のブレス,Breath Acid,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sは酸のブレスを吐いた。,%^s breathes acid.,%^sは何かのブレスを吐いた。,%^s breathes.
 105,BR_ELEC,TARGET,-1,-1,10,電撃のブレス,Breath Lightning,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sは稲妻のブレスを吐いた。,%^s breathes lightning.,%^sは何かのブレスを吐いた。,%^s breathes.
 106,BR_FIRE,TARGET,-1,-1,10,火炎のブレス,Breath Fire,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sは火炎のブレスを吐いた。,%^s breathes fire.,%^sは何かのブレスを吐いた。,%^s breathes.
 107,BR_COLD,TARGET,-1,-1,10,冷気のブレス,Breath Cold,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sは冷気のブレスを吐いた。,%^s breathes frost.,%^sは何かのブレスを吐いた。,%^s breathes.
@@ -738,7 +738,7 @@ ID,ID2,SPELL,PRE_ID,ANTI_ID,DISP_PRIORITY,NAME,E_NAME,EFFECT,STR,INT,WIS,DEX,CON
 736,SALT_WATER,SELF,-1,-1,10,塩水,Salt Water,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,は激しく嘔吐した。,,,
 737,SEARCHING,POSTURE,-1,-1,10,探索中,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 738,REST,POSTURE,-1,-1,10,休息中,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
-739,XXX_0739,POSTURE,-1,-1,10,未定義,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
+739,BECOME_ARTIFACT,POSTURE,-1,-1,10,アーティファクト化,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 740,POSTURE_GENBU,POSTURE,-1,-1,10,玄武の構え,Undefined,REFLECTING,0,-1,-1,-2,3,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 741,POSTURE_BYAKKO,POSTURE,-1,-1,10,白虎の構え,Undefined,,2,2,0,0,-3,0,-40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 742,POSTURE_SEIRYU,POSTURE,-1,-1,10,青龍の構え,Undefined,RES_FIRE|RES_COLD|RES_ELEC|RES_ACID|RES_POIS|AURA_FIRE|AURA_COLD|AURA_ELEC,0,0,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,

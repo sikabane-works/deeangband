@@ -673,10 +673,6 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
 			break;
 
-		case SV_SCROLL_PROTECTION_FROM_EVIL:
-			do_active_trait_tmp(caster_ptr, TRAIT_PROT_EVIL, TRUE);
-			break;
-
 		case SV_SCROLL_SPELL:
 			caster_ptr->add_spells++;
 			prepare_update(caster_ptr, CRU_SPELLS);
@@ -704,14 +700,7 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 			ident = TRUE;
 			break;
 
-		case SV_SCROLL_ARTIFACT:
-		{
-			ident = TRUE;
-			if(!artifact_scroll(caster_ptr)) used_up = FALSE;
-			break;
 		}
-
-	}
 	}
 	else if(object_ptr->art_id == ART_GHB)
 	{
@@ -1584,11 +1573,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					if(tval == TV_ROD)
 					{
 						strcat(dummy, format(
-#ifdef JP
-							       " %-22.22s [“U:%2d/%2d%3d%%",
-#else
 							       " %-22.22s   (%2d/%2d) %3d%%",
-#endif
 							       object_kind_name + object_kind_info[k_idx].name, 
 							       creature_ptr->current_charge[ctr+ext] ? 
 							       (creature_ptr->current_charge[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
@@ -1710,16 +1695,12 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			if(isalpha(choice))
 			{
 				ask = (isupper(choice));
-
 				if(ask) choice = (char)tolower(choice);
-
-				/* Extract request */
-				i = (islower(choice) ? A2I(choice) : -1);
+				i = (islower(choice) ? A2I(choice) : -1); /* Extract request */
 			}
 			else
 			{
 				ask = FALSE; /* Can't uppercase digits */
-
 				i = choice - '0' + 26;
 			}
 		}
@@ -1856,18 +1837,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 	else
 	{
-		if(tval == TV_ROD)
-		{
-			//TODO do_active_trait()
-		}
-		else if(tval == TV_WAND)
-		{
-			//TODO do_active_trait()
-		}
-		else
-		{
-			//TODO do_active_trait()
-		}
+		//TODO do_active_trait()
 	}
 	cost_tactical_energy(creature_ptr, 100);
 	if(tval == TV_ROD) creature_ptr->current_charge[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;

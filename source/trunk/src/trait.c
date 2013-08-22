@@ -1328,6 +1328,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_CREATE_AMMO: if(!do_cmd_archer(caster_ptr)) return FALSE; break;
+	case TRAIT_BECOME_ARTIFACT: artifact_scroll(caster_ptr); break;
 
 	/* Enchant Object Type */
 
