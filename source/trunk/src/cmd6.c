@@ -642,33 +642,6 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 			if(project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1)) ident = TRUE;
 			break;
 
-		case SV_SCROLL_ENCHANT_ARMOR:
-			ident = TRUE;
-			if(!enchant_spell(caster_ptr, 0, 0, 1, 0, 0)) used_up = FALSE;
-			break;
-
-		case SV_SCROLL_ENCHANT_WEAPON_TO_HIT:
-			if(!enchant_spell(caster_ptr, 1, 0, 0, 0, 0)) used_up = FALSE;
-			ident = TRUE;
-			break;
-
-		case SV_SCROLL_ENCHANT_WEAPON_TO_DAM:
-			if(!enchant_spell(caster_ptr, 0, 1, 0, 0, 0)) used_up = FALSE;
-			ident = TRUE;
-			break;
-
-		case SV_SCROLL_STAR_ENCHANT_ARMOR:
-			if(!enchant_spell(caster_ptr, 0, 0, randint1(3) + 2, 0, 0)) used_up = FALSE;
-			ident = TRUE;
-			break;
-
-		case SV_SCROLL_STAR_ENCHANT_WEAPON:
-		{
-			if(!enchant_spell(caster_ptr, randint1(3), randint1(3), 0, 0, 0)) used_up = FALSE;
-			ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_MONSTER_CONFUSION:
 			if(set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
 			break;
