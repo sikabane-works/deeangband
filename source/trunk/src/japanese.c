@@ -406,13 +406,8 @@ case 2:
 bool is_mbyte2(cptr s, int x)
 {
 	int i;
-
-	for (i = 0; i < x; i++)
-	{
-		if(is_mbyte(s[i])) i++;
-	}
+	for (i = 0; i < x; i++) if(is_mbyte(s[i])) i++;
 	if((x == i) && is_mbyte(s[x])) return TRUE;
-
 	return FALSE;
 }
 

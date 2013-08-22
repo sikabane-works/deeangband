@@ -2201,44 +2201,29 @@ static void edit_history(creature_type *creature_ptr)
 		char c;
 
 		for (i = 0; i < HISTORY_ROW; i++) put_str(creature_ptr->history[i], i + 4, 3);
-#ifdef JP
-		if(is_mbyte2(creature_ptr->history[y], x))
-			c_put_str(TERM_L_BLUE, format("%c%c", creature_ptr->history[y][x],creature_ptr->history[y][x+1]), y + 4, x + 3);
-		else
-#endif
-		c_put_str(TERM_L_BLUE, format("%c", creature_ptr->history[y][x]), y + 4, x + 3);
+		if(is_mbyte2(creature_ptr->history[y], x)) c_put_str(TERM_L_BLUE, format("%c%c", creature_ptr->history[y][x],creature_ptr->history[y][x+1]), y + 4, x + 3);
+		else c_put_str(TERM_L_BLUE, format("%c", creature_ptr->history[y][x]), y + 4, x + 3);
 
-		/* Place cursor just after cost of current stat */
-		Term_gotoxy(x + 3, y + 4);
-
-		/* Get special key code */
-		skey = inkey_special(TRUE);
-
-		/* Get a character code */
-		if(!(skey & SKEY_MASK)) c = (char)skey;
+		Term_gotoxy(x + 3, y + 4); /* Place cursor just after cost of current stat */
+		skey = inkey_special(TRUE); /* Get special key code */
+		if(!(skey & SKEY_MASK)) c = (char)skey; /* Get a character code */
 		else c = 0;
 
 		if(skey == SKEY_UP || c == KTRL('p'))
 		{
 			y--;
 			if(y < 0) y = HISTORY_ROW - 1;
-#ifdef JP
 			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x-1))) x--;
-#endif
 		}
 		else if(skey == SKEY_DOWN || c == KTRL('n'))
 		{
 			y++;
 			if(y >= HISTORY_ROW) y = 0;
-#ifdef JP
 			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x-1))) x--;
-#endif
 		}
 		else if(skey == SKEY_RIGHT || c == KTRL('f'))
 		{
-#ifdef JP
 			if(is_mbyte2(creature_ptr->history[y], x)) x++;
-#endif
 			x++;
 			if(x > HISTORY_COL - 2)
 			{
