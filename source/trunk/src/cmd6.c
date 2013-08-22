@@ -1508,17 +1508,9 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		return -1;
 	}
 
-	/* Nothing chosen yet */
 	flag = FALSE;
-
-#ifdef JP
-	(void)strnfmt(out_val, 78, "('*'‚Åˆê——, ESC‚Å’†’f) ‚Ç‚Ì–‚—Í‚ğg‚¢‚Ü‚·‚©H");
-#else
-	(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Use which power? ");
-#endif
-	
+	(void)strnfmt(out_val, 78, MES_GAINMAGIC_WHICH);	
 	screen_save();
-
 	request_list = TRUE;
 
 	/* Get a spell from the user */

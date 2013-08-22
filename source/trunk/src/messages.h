@@ -4556,6 +4556,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAINMAGIC_STILL_CHARGING "充填中のアイテムは取り込めない。"
 #define MES_GAINMAGIC_ABSORBED(OBJECT) "%sの魔力を取り込んだ。", (OBJECT)
 #define MES_GAINMAGIC_NONE "魔法を覚えていない！"
+#define MES_GAINMAGIC_WHICH "('*'で一覧, ESCで中断) どの魔力を使いますか？"
 #else
 #define MES_GAINMAGIC_LIST "[A] staff, [B] wand, [C] rod:"
 #define MES_GAINMAGIC_NO_TYPE "You don't have that type of magic."
@@ -4568,6 +4569,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAINMAGIC_STILL_CHARGING "This item is still charging."
 #define MES_GAINMAGIC_ABSORBED(OBJECT) "You absorb magic of %s.", (OBJECT)
 #define MES_GAINMAGIC_NONE "You don't have any magic!"
+#define MES_GAINMAGIC_WHICH ""(*=List, ESC=exit) Use which power? "
 #endif
 
 #ifdef JP
