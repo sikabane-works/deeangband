@@ -4003,27 +4003,16 @@ static int do_command_menu(int level, int start)
 				/* Ignore lower level sub menus */
 				if(menu_data[i].level > level) continue;
 
-				if(menu_data[i].com_id == -1)
-				{
-#ifdef JP
-					strcpy(com_key_str, "Бе");
-#else
-					strcpy(com_key_str, ">");
-#endif
-				}
+				if(menu_data[i].com_id == -1) strcpy(com_key_str, KW_CURSOR);
 				else if(menu_data[i].key != -1)
 				{
 					com_key_str[0] = '^';
 					com_key_str[1] = (char)menu_data[i].key + '@';
 					com_key_str[2] = '\0';
 				}
-				else
-				{
-					com_key_str[0] = '\0';
-				}
+				else com_key_str[0] = '\0';
 
 				str = format("| %c) %-*s %2s | ", menu_key + 'a', max_len, menu_data[i].name, com_key_str);
-
 				Term_putstr(col0, row1++, -1, TERM_WHITE, str);
 
 				menu_key++;

@@ -298,6 +298,7 @@
 #endif
 
 #if JP
+#define KW_CURSOR "▼"
 #define KW_MORE "-続く-"
 #define KW_CREATURE "クリーチャー"
 #define KW_WEIRD_CREATURE "変なクリーチャー"
@@ -446,6 +447,7 @@
 #define KW_POWER "能力"
 #define KW_SUICIDE "自殺"
 #else
+#define KW_CURSOR ">>"
 #define KW_MORE "-more-"
 #define KW_CREATURE "creatures"
 #define KW_WEIRD_CREATURE "weird creatures"
