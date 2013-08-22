@@ -3357,24 +3357,12 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 			}
 			else
 			{
-#ifdef JP
-				if(pos < len && (isprint(c) || iskana(c)))
-#else
-				if(pos < len && isprint(c))
-#endif
-				{
-					buf[pos++] = c;
-				}
-				else
-				{
-					bell();
-				}
+				if(pos < len && (isprint(c) || iskana(c))) buf[pos++] = c;
+				else bell();
 			}
 
 			buf[pos] = '\0';
-
-			/* Write back the left part of string */
-			my_strcat(buf, tmp, len + 1);
+			my_strcat(buf, tmp, len + 1); /* Write back the left part of string */
 
 			break;
 		} /* default: */
@@ -4047,11 +4035,7 @@ static int do_command_menu(int level, int start)
 			/* The menu was shown */
 			redraw = FALSE;
 		}
-#ifdef JP
-		prt(format("(a-%c) ƒRƒ}ƒ“ƒh:", menu_key + 'a' - 1), 0, 0);
-#else
-		prt(format("(a-%c) Command:", menu_key + 'a' - 1), 0, 0);
-#endif
+		prt(format("(a-%c) %s", menu_key + 'a' - 1, PROMPT_COMMAND), 0, 0);
 		key = inkey();
 
 		if(key == ESCAPE) return 0;
