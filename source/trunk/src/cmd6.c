@@ -610,18 +610,6 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_TRAIT_S_MONSTER:
-		{
-			for (k = 0; k < randint1(3); k++)
-			{
-				if(summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
-				{
-					ident = TRUE;
-				}
-			}
-			break;
-		}
-
 		case SV_SCROLL_SPELL:
 			caster_ptr->add_spells++;
 			prepare_update(caster_ptr, CRU_SPELLS);
