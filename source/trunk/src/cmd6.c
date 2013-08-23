@@ -622,22 +622,6 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_TRAIT_S_UNDEAD:
-		{
-			for (k = 0; k < randint1(3); k++)
-			{
-				if(summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
-				{
-					ident = TRUE;
-				}
-			}
-			break;
-		}
-
-		case SV_SCROLL_MONSTER_CONFUSION:
-			if(set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
-			break;
-
 		case SV_SCROLL_SPELL:
 			caster_ptr->add_spells++;
 			prepare_update(caster_ptr, CRU_SPELLS);
