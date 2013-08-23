@@ -573,22 +573,18 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 	}
 
 	if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
+	if(HEX_SPELLING_ANY(caster_ptr) && ((caster_ptr->lev < 35) || hex_spell_fully(caster_ptr))) stop_hex_spell_all(caster_ptr); /* Hex */
+	ident = FALSE; /* Not identified yet */
 
-	/* Hex */
-	if(HEX_SPELLING_ANY(caster_ptr) && ((caster_ptr->lev < 35) || hex_spell_fully(caster_ptr))) stop_hex_spell_all(caster_ptr);
-
-	/* Not identified yet */
-	ident = FALSE;
-
-	/* Object level */
-	lev = object_kind_info[object_ptr->k_idx].level;
+	lev = object_kind_info[object_ptr->k_idx].level; /* Object level */
 
 	/* Assume the scroll will get used up */
 	used_up = TRUE;
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i))
-			do_active_trait_tmp(caster_ptr, i, FALSE);
+	{
+		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(caster_ptr, i, FALSE);
+	}
 
 	if(object_ptr->tval == TV_SCROLL)
 	{
@@ -637,10 +633,6 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 			}
 			break;
 		}
-
-		case SV_SCROLL_TRAP_CREATION:
-			if(project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1)) ident = TRUE;
-			break;
 
 		case SV_SCROLL_MONSTER_CONFUSION:
 			if(set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
@@ -693,40 +685,27 @@ static void exe_scroll(creature_type *caster_ptr, int item)
 
 		screen_save();
 
-		q=format("book-%d_jp.txt",object_ptr->sval);
+		q = format("book-%d_jp.txt", object_ptr->sval);
 
-		/* Display object description */
-		object_desc(object_name, object_ptr, OD_NAME_ONLY);
-
+		object_desc(object_name, object_ptr, OD_NAME_ONLY); /* Display object description */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, q);
-
-		/* Peruse the help file */
-		(void)show_file(TRUE, buf, object_name, 0, 0);
+		(void)show_file(TRUE, buf, object_name, 0, 0); /* Peruse the help file */
 
 		screen_load();
-
 		used_up=FALSE;
 	}
 
+	prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER); /* Combine / Reorder the pack (later) */
+	object_tried(object_ptr); /* The item was tried */
 
-	/* Combine / Reorder the pack (later) */
-	prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER);
-
-	/* The item was tried */
-	object_tried(object_ptr);
-
-	/* An identification was made */
-	if(ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object_ptr)) /* An identification was made */
 	{
 		object_aware(object_ptr);
 		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
-
-
-	/* Hack -- allow certain scrolls to be "preserved" */
-	if(!used_up) return;
+	if(!used_up) return; /* Hack -- allow certain scrolls to be "preserved" */
 
 	sound(SOUND_SCROLL);
 	increase_item(caster_ptr, item, -1, TRUE);
