@@ -314,7 +314,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 }
 
 // Quaff a potion (from the pack or the floor)
-static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
+static void exe_quaff(creature_type *caster_ptr, int item)
 {
 	floor_type  *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int effected, lev, i;
@@ -537,10 +537,10 @@ static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *obj
 void do_cmd_quaff_potion(creature_type *creature_ptr)
 {
 	OBJECT_ID item;
-
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+
 	if(!get_item(creature_ptr, &item, MES_QUAFF_WHICH_POTION, MES_QUAFF_NO_POTION, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
-	do_cmd_quaff_potion_aux(creature_ptr, item);
+	exe_quaff(creature_ptr, item);
 }
 
 
@@ -1239,7 +1239,7 @@ void do_cmd_use(creature_type *creature_ptr)
 		case TV_WAND: exe_wand(creature_ptr, item); break;
 		case TV_STAFF: exe_staff(creature_ptr, item); break;
 		case TV_ROD: exe_rod(creature_ptr, item); break;
-		case TV_POTION: do_cmd_quaff_potion_aux(creature_ptr, item); break;
+		case TV_POTION: exe_quaff(creature_ptr, item); break;
 
 		/* Read a scroll */
 		case TV_SCROLL:
