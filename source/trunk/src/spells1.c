@@ -1324,29 +1324,24 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ELEC:
-		if(!has_trait(target_ptr, TRAIT_OPP_ELEC))
-			inven_damage(target_ptr, set_elec_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
+		if(!has_trait(target_ptr, TRAIT_OPP_ELEC)) inven_damage(target_ptr, set_elec_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_POIS:
-		if(!has_trait(target_ptr, TRAIT_RES_POIS))
-			add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_POIS)) add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
 		break;
 
 	case DO_EFFECT_ACID:
 		dissolve_armour(target_ptr);
-		if(!!has_trait(target_ptr, TRAIT_OPP_ACID))
-			inven_damage(target_ptr, set_acid_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
+		if(!has_trait(target_ptr, TRAIT_OPP_ACID)) inven_damage(target_ptr, set_acid_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_COLD:
-		if(!!has_trait(target_ptr, TRAIT_OPP_COLD))
-			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
+		if(!has_trait(target_ptr, TRAIT_OPP_COLD)) inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_FIRE:
-		if(!!has_trait(target_ptr, TRAIT_OPP_FIRE))
-			inven_damage(target_ptr, set_fire_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
+		if(!has_trait(target_ptr, TRAIT_OPP_FIRE)) inven_damage(target_ptr, set_fire_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_PSY_SPEAR:
@@ -1356,8 +1351,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_PLASMA:
 		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
-		if(!(has_trait(target_ptr, TRAIT_RES_FIRE) || has_trait(target_ptr, TRAIT_IM_FIRE)))
-			inven_damage(target_ptr, set_acid_destroy, 3);
+		if(!(has_trait(target_ptr, TRAIT_RES_FIRE) || has_trait(target_ptr, TRAIT_IM_FIRE))) inven_damage(target_ptr, set_acid_destroy, 3);
 		break;
 
 		//10
@@ -3745,10 +3739,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 	{
 		breath = FALSE;
 		gm_rad = rad;
-		if(!old_hide)
-		{
-			flg &= ~(PROJECT_HIDE);
-		}
+		if(!old_hide) flg &= ~(PROJECT_HIDE);
 	}
 
 	/* Start the "explosion" */
@@ -3769,14 +3760,14 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 		if((flg & (PROJECT_BEAM)) && (grids > 0)) grids--;
 
 		/*
-		* Create a conical breath attack
-		*
-		*         ***
-		*     ********
-		* D********@**
-		*     ********
-		*         ***
-		*/
+		 * Create a conical breath attack
+		 *
+		 *         ***
+		 *     ********
+		  * D********@**
+		 *     ********
+		 *         ***
+		 */
 
 		if(breath)
 		{
@@ -3832,7 +3823,6 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 	/* Speed -- ignore "non-explosions" */
 	if(!grids) return FALSE;
 
-
 	/* Display the "blast area" if requested */
 	if(!blind && !(flg & (PROJECT_HIDE)))
 	{
@@ -3850,17 +3840,13 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 				if(panel_contains(y, x) && player_has_los_bold(y, x))
 				{
 					u16b p;
-
 					byte a;
 					char c;
 
 					drawn = TRUE;
 
-					/* Obtain the explosion pict */
-					p = bolt_pict(y, x, y, x, typ);
-
-					/* Extract attr/char */
-					a = PICT_A(p);
+					p = bolt_pict(y, x, y, x, typ); /* Obtain the explosion pict */
+					a = PICT_A(p); /* Extract attr/char */
 					c = PICT_C(p);
 
 					/* Visual effects -- Display */
@@ -3875,10 +3861,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			/*if(fresh_before)*/ Term_fresh();
 
 			/* Delay (efficiently) */
-			if(visual || drawn)
-			{
-				Term_xtra(TERM_XTRA_DELAY, msec);
-			}
+			if(visual || drawn) Term_xtra(TERM_XTRA_DELAY, msec);
 		}
 
 		/* Flush the erasing */
@@ -3917,31 +3900,19 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			see_s_msg = (!is_player(caster_ptr)) ? is_seen(caster_ptr, caster_ptr) :
 				(is_player(caster_ptr) ? TRUE : (creature_can_see_bold(caster_ptr, y1, x1) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y1, x1)));
 		}
-		else
-		{
-			see_s_msg = TRUE;
-		}
+		else see_s_msg = TRUE;
 	}
 
-
-	/* Check features */
-	if(flg & (PROJECT_GRID))
+	if(flg & (PROJECT_GRID)) /* Check features */
 	{
-		/* Start with "dist" of zero */
-		dist = 0;
+		dist = 0; /* Start with "dist" of zero */
 
-		/* Scan for features */
-		for (i = 0; i < grids; i++)
+		for (i = 0; i < grids; i++) /* Scan for features */
 		{
-			/* Hack -- Notice new "dist" values */
-			if(gm[dist+1] == i) dist++;
-
-			/* Get the grid location */
-			y = gy[i];
+			if(gm[dist+1] == i) dist++; /* Hack -- Notice new "dist" values */
+			y = gy[i]; /* Get the grid location */
 			x = gx[i];
-
-			/* Find the closest point in the blast */
-			if(breath)
+			if(breath) /* Find the closest point in the blast */
 			{
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 				if(project_feature(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
@@ -3952,35 +3923,21 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 
 	update_creature(player_ptr, TRUE);
 
-	/* Check objects */
-	if(flg & (PROJECT_ITEM))
+	if(flg & (PROJECT_ITEM)) /* Check objects */
 	{
-		/* Start with "dist" of zero */
-		dist = 0;
-
-		/* Scan for objects */
-		for (i = 0; i < grids; i++)
+		dist = 0; /* Start with "dist" of zero */
+		for (i = 0; i < grids; i++) /* Scan for objects */
 		{
-			/* Hack -- Notice new "dist" values */
-			if(gm[dist+1] == i) dist++;
-
-			/* Get the grid location */
-			y = gy[i];
+			if(gm[dist+1] == i) dist++; /* Hack -- Notice new "dist" values */
+			y = gy[i]; /* Get the grid location */
 			x = gx[i];
 
-			/* Find the closest point in the blast */
-			if(breath)
+			if(breath) /* Find the closest point in the blast */
 			{
 				int d = dist_to_line(y, x, y1, x1, by, bx);
-
-				/* Affect the object in the grid */
-				if(project_object(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if(project_object(caster_ptr, d, y, x, dam, typ)) notice = TRUE; /* Affect the object in the grid */
 			}
-			else
-			{
-				/* Affect the object in the grid */
-				if(project_object(caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
-			}
+			else if(project_object(caster_ptr, dist, y, x, dam, typ)) notice = TRUE; /* Affect the object in the grid */
 		}
 	}
 
@@ -4038,8 +3995,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 					if(is_seen(player_ptr, m_ptr))
 					{
 #ifdef JP
-						if((m_ptr->species_idx == SPECIES_KENSHIROU) || (m_ptr->species_idx == SPECIES_RAOU))
-							msg_print("「北斗神拳奥義・二指真空把！」");
+						if((m_ptr->species_idx == SPECIES_KENSHIROU) || (m_ptr->species_idx == SPECIES_RAOU)) msg_print("「北斗神拳奥義・二指真空把！」");
 						else if(m_ptr->species_idx == SPECIES_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
 						else msg_print("攻撃は跳ね返った！");
 #else
@@ -4223,7 +4179,7 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	COODINATES mirror_x[10], mirror_y[10];
-	int mirror_num=0;               // Number of mirror
+	int mirror_num = 0; // Number of mirror
 	COODINATES x, y, x1, x2, y1, y2;
 	int centersign;
 	u16b p;
@@ -4240,15 +4196,14 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 	{
 		for( y=0 ; y < floor_ptr->height ; y++ )
 		{
-			if( is_mirror_grid(&floor_ptr->cave[y][x]) &&
+			if(is_mirror_grid(&floor_ptr->cave[y][x]) &&
 				distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
 				distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
-				player_has_los_bold(y,x) &&
-				projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)
-				){
-					mirror_y[mirror_num] = y;
-					mirror_x[mirror_num] = x;
-					mirror_num++;
+				player_has_los_bold(y,x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x))
+			{
+				mirror_y[mirror_num] = y;
+				mirror_x[mirror_num] = x;
+				mirror_num++;
 			}
 		}
 	}
@@ -4338,14 +4293,13 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 			}
 		}
 	}
-	for(y = y1; y <= y2 ; y++ ){
-		for(x = x1; x <= x2 ; x++ ){
-			if( centersign*( (point_x[0]-x)*(point_y[1]-y)
-				-(point_y[0]-y)*(point_x[1]-x)) >=0 &&
-				centersign*( (point_x[1]-x)*(point_y[2]-y)
-				-(point_y[1]-y)*(point_x[2]-x)) >=0 &&
-				centersign*( (point_x[2]-x)*(point_y[0]-y)
-				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
+	for(y = y1; y <= y2; y++)
+	{
+		for(x = x1; x <= x2; x++)
+		{
+			if( centersign*( (point_x[0]-x)*(point_y[1]-y) - (point_y[0]-y)*(point_x[1]-x)) >=0 &&
+				centersign*( (point_x[1]-x)*(point_y[2]-y) - (point_y[1]-y)*(point_x[2]-x)) >=0 &&
+				centersign*( (point_x[2]-x)*(point_y[0]-y) - (point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x))
 				{

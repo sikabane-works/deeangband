@@ -1350,7 +1350,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Wonder Type Spell */
 
-	case TRAIT_WANDER: cast_wonder(caster_ptr); break;
 	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
 	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
 	case TRAIT_BIZARRE_THING_OF_THE_RING: ring_of_power(caster_ptr); break;
@@ -1705,6 +1704,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	default: msg_warning("Undefined active trait."); break;
 
 	}
+
+	switch(id)
+	{
+		case DO_EFFECT_WANDER: cast_wonder(caster_ptr); break;
+		default: break;
+	}
+
 
 	if(fumble_summoned) msg_format(MES_SUMMON_FUMBLE(summoned_name));
 
