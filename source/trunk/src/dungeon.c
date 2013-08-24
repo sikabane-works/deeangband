@@ -1410,7 +1410,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You feel less energetic.");
 #endif
-
 			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait(creature_ptr, TRAIT_FAST, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
 		}

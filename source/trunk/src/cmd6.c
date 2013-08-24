@@ -80,8 +80,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	lev = object_kind_info[object1_ptr->k_idx].level;
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object1_ptr, i))
-			do_active_trait_tmp(creature_ptr, i, TRUE);
+	{
+		if(has_trait_object(object1_ptr, i)) do_active_trait_tmp(creature_ptr, i, TRUE);
+	}
 
 	if(object1_ptr->tval == TV_FOOD)
 	{
@@ -165,11 +166,8 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		}
 	}
 
-	/* Combine / Reorder the pack (later) */
-	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
-	/* We have tried it */
-	if(object1_ptr->tval == TV_FOOD) object_tried(object1_ptr);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER); /* Combine / Reorder the pack (later) */
+	if(object1_ptr->tval == TV_FOOD) object_tried(object1_ptr); /* We have tried it */
 
 	/* The player is now aware of the object */
 	if(ident && !object_is_aware(object1_ptr))
@@ -180,14 +178,10 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
-
-	/* Food can feed the player */
-	if(has_trait(creature_ptr, TRAIT_BLOOD_DRINKER))
+	if(has_trait(creature_ptr, TRAIT_BLOOD_DRINKER)) /* Food can feed the player */
 	{
-		// Reduced nutritional benefit
-		(void)set_food(creature_ptr, creature_ptr->food + (object1_ptr->fuel / 10));
-		msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE);
-		// Hungry
+		(void)set_food(creature_ptr, creature_ptr->food + (object1_ptr->fuel / 10)); // Reduced nutritional benefit
+		msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE); // Hungry
 		if(creature_ptr->food < CREATURE_FOOD_ALERT) msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE2);
 	}
 	else if(has_trait(creature_ptr, TRAIT_UNDEAD) && (object1_ptr->tval == TV_STAFF || object1_ptr->tval == TV_WAND))
@@ -218,8 +212,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		set_food(creature_ptr, creature_ptr->food + 5000); /* Eat a charge */
 
 		/* XXX Hack -- unstack if necessary */
-		if(object1_ptr->tval == TV_STAFF &&
-		    (item >= 0) && (object1_ptr->number > 1))
+		if(object1_ptr->tval == TV_STAFF && (item >= 0) && (object1_ptr->number > 1))
 		{
 			object_type forge;
 			object_type *object2_ptr;
@@ -278,7 +271,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 	increase_item(creature_ptr, item, -1, TRUE);
 }
-
 
 /*
  * Hook to determine if an object is eatable
@@ -396,8 +388,7 @@ static void exe_quaff(creature_type *caster_ptr, int item)
 			{
 				if(one_in_(2))
 				{
-					if(add_timed_trait(caster_ptr, TRAIT_HALLUCINATION, randint0(150) + 150, TRUE))
-						effected = TRUE;
+					if(add_timed_trait(caster_ptr, TRAIT_HALLUCINATION, randint0(150) + 150, TRUE)) effected = TRUE;
 				}
 				if(one_in_(13) && (caster_ptr->class_idx != CLASS_MONK))
 				{
@@ -783,17 +774,9 @@ static void exe_staff(creature_type *creature_ptr, int item)
 		if(has_trait(creature_ptr, TRAIT_MAGIC_EATER)) msg_print(MES_OBJECT_WASTE_FOOD);
 	}
 
-	/* Combine / Reorder the pack (later) */
-	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
-	/* Tried the item */
-	object_tried(object_ptr);
-
-	/* An identification was made */
-	if(!object_is_aware(object_ptr))
-	{
-		object_aware(object_ptr);
-	}
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER); /* Combine / Reorder the pack (later) */
+	object_tried(object_ptr); /* Tried the item */
+	if(!object_is_aware(object_ptr)) object_aware(object_ptr); /* An identification was made */
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
