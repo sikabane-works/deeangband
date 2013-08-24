@@ -3287,45 +3287,31 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t;
-	COODINATES dist;
-
-	COODINATES y1, x1;
-	COODINATES y2, x2;
-	COODINATES by, bx;
-
+	COODINATES dist, y1, x1, y2, x2, by, bx;
 	int dist_hack = 0;
 
 	COODINATES y_saver, x_saver; // For reflecting creatures
 
 	int msec = delay_factor * delay_factor * delay_factor;
-
-	bool notice = FALSE;	// Assume the player sees nothing
-	bool visual = FALSE;	// Assume the player has seen nothing
-	bool drawn = FALSE;		// Assume the player has seen no blast grids
-	bool breath = FALSE;	// Assume to be a normal ball spell
+	bool notice = FALSE; // Assume the player sees nothing
+	bool visual = FALSE; // Assume the player has seen nothing
+	bool drawn = FALSE; // Assume the player has seen no blast grids
+	bool breath = FALSE; // Assume to be a normal ball spell
 	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);	// Is the player blind?
 	bool old_hide = FALSE;
 
 	int path_n = 0;	// Number of grids in the "path"
 	int grids = 0;	// Number of grids in the "blast area" (including the "beam" path)
-
 	COODINATES path_g[512];		// Actual grids in the "path"
 	COODINATES gx[1024], gy[1024];	// Coordinates of the affected grids
 	int gm[32];	// Encoded "radius" info (see above)
 
-	/* Actual radius encoded in gm[] */
-	int gm_rad = rad;
-
+	int gm_rad = rad; /* Actual radius encoded in gm[] */
 	bool jump = FALSE;
 
-	/* Attacker's name (prepared before polymorph)*/
-	char who_name[80];
-
-	/* Can the player see the source of this effect? */
-	bool see_s_msg = TRUE;
-
-	/* Initialize by null string */
-	who_name[0] = '\0';
+	char who_name[80]; /* Attacker's name (prepared before polymorph)*/
+	bool see_s_msg = TRUE; /* Can the player see the source of this effect? */
+	who_name[0] = '\0'; /* Initialize by null string */
 
 	do_thrown_from_ridingdam_p = 0;
 	do_thrown_from_ridingdam_m = 0;
@@ -3334,20 +3320,15 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 	creature_target_y = player_ptr->fy;
 	creature_target_x = player_ptr->fx;
 
-	/* Hack -- Jump to target */
-	if(flg & (PROJECT_JUMP))
+	if(flg & (PROJECT_JUMP)) /* Hack -- Jump to target */
 	{
 		x1 = x;
 		y1 = y;
-
-		/* Clear the flag */
-		flg &= ~(PROJECT_JUMP);
-
+		flg &= ~(PROJECT_JUMP); /* Clear the flag */
 		jump = TRUE;
 	}
 
-	/* Start at creature */
-	if(!caster_ptr)
+	if(!caster_ptr) /* Start at creature */
 	{
 		x1 = x;
 		y1 = y;
@@ -3447,8 +3428,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 					byte a;
 					char c;
 
-					/* Obtain the bolt pict */
-					p = bolt_pict(oy, ox, y, x, typ);
+					p = bolt_pict(oy, ox, y, x, typ); /* Obtain the bolt pict */
 
 					/* Extract attr/char */
 					a = PICT_A(p);
@@ -3654,7 +3634,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 				path_n += project_path(&(path_g[path_n+1]), (range ? range : MAX_RANGE), floor_ptr, y, x, y+1, x+1, flg);
 			}
 		}
-		for( i = 0; i < path_n ; i++ )
+		for(i = 0; i < path_n ; i++ )
 		{
 			COODINATES x, y;
 			y = GRID_Y(path_g[i]);
@@ -4358,8 +4338,8 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 			}
 		}
 	}
-	for( y=y1 ; y <=y2 ; y++ ){
-		for( x=x1 ; x <=x2 ; x++ ){
+	for(y = y1; y <= y2 ; y++ ){
+		for(x = x1; x <= x2 ; x++ ){
 			if( centersign*( (point_x[0]-x)*(point_y[1]-y)
 				-(point_y[0]-y)*(point_x[1]-x)) >=0 &&
 				centersign*( (point_x[1]-x)*(point_y[2]-y)
@@ -4367,9 +4347,9 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 				centersign*( (point_x[2]-x)*(point_y[0]-y)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_creature(caster_ptr, 0, y, x, dam, DO_EFFECT_MANA,
-						(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), 0);
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x))
+				{
+					(void)project(caster_ptr, 0, 0, y, x, dam, DO_EFFECT_MANA, (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), 0);
 				}
 			}
 		}

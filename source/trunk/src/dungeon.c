@@ -1971,8 +1971,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				msg_print(MES_TRAIT_RECALL_DOWN);
 				floor_ptr->dungeon_id = creature_ptr->recall_dungeon;
 
-				if(record_stair)
-					write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
+				if(record_stair) write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
 
 				/* New depth */
 				floor_ptr->depth = max_dlv[floor_ptr->dungeon_id];
@@ -1991,9 +1990,8 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 					creature_ptr->wy = creature_ptr->fy;
 					creature_ptr->wx = creature_ptr->fx;
 				}
-				else
+				else /* Save player position */
 				{
-					/* Save player position */
 					creature_ptr->oldpx = creature_ptr->fx;
 					creature_ptr->oldpy = creature_ptr->fy;
 				}
