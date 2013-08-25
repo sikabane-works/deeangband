@@ -2610,6 +2610,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dispel_creature(target_ptr);
 		break;
 
+	case DO_EFFECT_VOMITING:
+		if(!has_trait(target_ptr, TRAIT_NONLIVING)) (void)set_food(target_ptr, CREATURE_FOOD_STARVE - 1); // Only living creatures get thirsty
+		(void)set_timed_trait(target_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)add_timed_trait(target_ptr, TRAIT_PARALYZED, 4, TRUE);
+		break;
+
 	default:
 		dam = 0;
 		break;
