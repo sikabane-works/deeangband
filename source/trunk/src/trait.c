@@ -1615,8 +1615,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 			break;
 
-	case TRAIT_LIVING_TRUMP: try_livingtrump(caster_ptr); break;
-
 	case TRAIT_WEIGH_MAG:
 		//TODO Erase
 		break;
@@ -1683,6 +1681,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	{
 		case DO_EFFECT_WANDER: cast_wonder(caster_ptr); break;
 		case DO_EFFECT_RUMOR: get_rumor(caster_ptr); break;
+		case DO_EFFECT_TRY_LIVINGTRUMP: try_livingtrump(caster_ptr); break;
+
 		case DO_EFFECT_TIMESTOP:
 		caster_ptr->time_stopper = TRUE;
 		msg_print(NULL);
