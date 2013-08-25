@@ -1510,7 +1510,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	/* etc Spells */
 
 	case TRAIT_RESET_RECALL: reset_recall(caster_ptr); break;
-	case TRAIT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
 	case TRAIT_PHLOGISTON: phlogiston(caster_ptr); break;
 	case TRAIT_SHOOT: if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE; break;
 	case TRAIT_POLYMORPH_OTHER: cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, power, -1); break;
@@ -1674,7 +1673,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		case DO_EFFECT_WANDER: cast_wonder(caster_ptr); break;
 		case DO_EFFECT_RUMOR: get_rumor(caster_ptr); break;
 		case DO_EFFECT_TRY_LIVINGTRUMP: try_livingtrump(caster_ptr); break;
-
+		case DO_EFFECT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
 		case DO_EFFECT_TIMESTOP:
 		caster_ptr->time_stopper = TRUE;
 		msg_print(NULL);
