@@ -1545,8 +1545,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, power, -1); break;
 
-	case TRAIT_WOODEN_CRAPPING: aggravate_creatures(caster_ptr); break;
-
 	case TRAIT_CAPTURE_CREATURE: monster_ball(caster_ptr); break;
 	case TRAIT_FISHING: fishing(caster_ptr, y, x); break;
 	case TRAIT_TELEKINES: fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE); break;
@@ -1674,6 +1672,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		case DO_EFFECT_RUMOR: get_rumor(caster_ptr); break;
 		case DO_EFFECT_TRY_LIVINGTRUMP: try_livingtrump(caster_ptr); break;
 		case DO_EFFECT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
+		case DO_EFFECT_AGGRAVATE: aggravate_creatures(caster_ptr); break;
 		case DO_EFFECT_TIMESTOP:
 		caster_ptr->time_stopper = TRUE;
 		msg_print(NULL);
