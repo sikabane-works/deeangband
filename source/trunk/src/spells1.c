@@ -2606,6 +2606,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_SUPER_RAY:
 		break;
 
+	case DO_EFFECT_DISPEL:
+		dispel_creature(target_ptr);
+		break;
+
 	default:
 		dam = 0;
 		break;

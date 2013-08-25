@@ -1673,19 +1673,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
 		(void)add_timed_trait(caster_ptr, TRAIT_PARALYZED, 4, TRUE);
 		break;
-
-	case TRAIT_DISPEL:
-		{
-			CREATURE_ID creature_idx;
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!creature_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			dispel_creature(caster_ptr);
-			break;
-		}
-
 		}
 
 	default: msg_warning("Undefined active trait."); break;
