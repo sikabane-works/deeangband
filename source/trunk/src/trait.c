@@ -1686,7 +1686,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
-	case TRAIT_WORLD:
+		}
+
+	default: msg_warning("Undefined active trait."); break;
+
+	}
+
+	switch(id)
+	{
+		case DO_EFFECT_WANDER: cast_wonder(caster_ptr); break;
+		case DO_EFFECT_RUMOR: get_rumor(caster_ptr); break;
+		case DO_EFFECT_TIMESTOP:
 		caster_ptr->time_stopper = TRUE;
 		msg_print(NULL);
 
@@ -1698,16 +1708,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		handle_stuff(caster_ptr);
 		break;
 
-		}
-
-	default: msg_warning("Undefined active trait."); break;
-
-	}
-
-	switch(id)
-	{
-		case DO_EFFECT_WANDER: cast_wonder(caster_ptr); break;
-		case DO_EFFECT_RUMOR: get_rumor(caster_ptr); break;
 		default: break;
 	}
 
