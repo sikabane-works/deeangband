@@ -1637,9 +1637,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, user_level * 3);
 		break;
 
-	case TRAIT_REMOVE_CURSE_1: if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-	case TRAIT_REMOVE_CURSE_2: if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-
 	case TRAIT_RESTORE_MANA:
 		{
 			int i;

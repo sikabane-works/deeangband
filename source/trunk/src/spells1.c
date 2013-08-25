@@ -2616,6 +2616,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		(void)add_timed_trait(target_ptr, TRAIT_PARALYZED, 4, TRUE);
 		break;
 
+	case DO_EFFECT_REMOVE_CURSE_1:
+		if(remove_curse(target_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
+		break;
+
+	case DO_EFFECT_REMOVE_CURSE_2:
+		if(remove_all_curse(target_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
+		break;
+
 	default:
 		dam = 0;
 		break;
