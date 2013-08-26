@@ -1265,16 +1265,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(restore_exp(caster_ptr)) effected = TRUE;
 		break;
 
-	case TRAIT_GAIN_EXP:
-		if(caster_ptr->exp < CREATURE_MAX_EXP)
-		{
-			s32b ee = (caster_ptr->exp / 2) + 10;
-			if(ee > 100000L) ee = 100000L;
-			gain_exp(caster_ptr, ee, 0, TRUE);
-			effected = TRUE;
-		}
-		break;
-
 		/* Cure Spell */
 
 	case TRAIT_RESTORE_ALL:
