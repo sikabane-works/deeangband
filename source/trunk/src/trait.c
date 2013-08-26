@@ -1258,13 +1258,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)heal_creature(caster_ptr, 777);
 		break;
 
-		/* Restore Soul Spell */
-
-	case TRAIT_RESTORE_LIFE:
-	case TRAIT_RESTORE_LEVEL:
-		if(restore_exp(caster_ptr)) effected = TRUE;
-		break;
-
 		/* Cure Spell */
 
 	case TRAIT_RESTORE_ALL:

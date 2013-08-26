@@ -2641,13 +2641,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		break;
 
-	case TRAIT_GAIN_EXP:
+	case DO_EFFECT_GAIN_EXP:
 		if(caster_ptr->exp < CREATURE_MAX_EXP)
 		{
 			s32b ee = (caster_ptr->exp / 2) + 10;
 			if(ee > 100000L) ee = 100000L;
 			gain_exp(caster_ptr, ee, 0, TRUE);
 		}
+		break;
+
+	case DO_EFFECT_RESTORE_EXP:
+		restore_exp(caster_ptr);
 		break;
 
 	default:
