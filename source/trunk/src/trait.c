@@ -1516,18 +1516,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_MIDAS_TCH: (void)alchemy(caster_ptr); break;
 	case TRAIT_TRAP_WALK: walk_creature(caster_ptr, dir, easy_disarm, TRUE); break;
 
-	case TRAIT_IMPROVE_FORCE:
-		msg_print(MES_TRAIT_FORCE_IMPROVE);
-		caster_ptr->charged_force += (70 + user_level);
-		prepare_update(caster_ptr, CRU_BONUS);
-		if(randint1(caster_ptr->charged_force) > (user_level * 4 + 120))
-		{
-			msg_print(MES_TRAIT_FORCE_EXPRODE);
-			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, caster_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
-		}
-		break;
-
 	case TRAIT_DISCHARGE_MINION: discharge_minion(caster_ptr); break;
 	case TRAIT_STERILITY:
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, COD_ABSTINENCE, NULL, -1);

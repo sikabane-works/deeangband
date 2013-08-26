@@ -2629,6 +2629,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
 		break;
 
+	case DO_EFFECT_IMPROVE_FORCE:
+		msg_print(MES_TRAIT_FORCE_IMPROVE);
+		caster_ptr->charged_force += (70 + caster_ptr->lev);
+		prepare_update(caster_ptr, CRU_BONUS);
+		if(randint1(caster_ptr->charged_force) > (caster_ptr->lev * 4 + 120))
+		{
+			msg_print(MES_TRAIT_FORCE_EXPRODE);
+			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, caster_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
+		}
+		break;
 
 	default:
 		dam = 0;
