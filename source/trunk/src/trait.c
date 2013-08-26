@@ -1535,10 +1535,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_MIRROR_SEAL: seal_of_mirror(caster_ptr, user_level * 4 + 100); break;
-	case TRAIT_MIRROR_SET:
-		if(number_of_mirrors(caster_ptr) < 4 + user_level / 10) place_mirror(caster_ptr);
-		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
-		break;
 
 	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_HOLD, MAX_RANGE_SUB, user_level*2, 0); break;
 	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_HOLD_EVIL, MAX_RANGE_SUB, power * 2, 0); break;

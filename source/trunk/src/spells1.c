@@ -2624,6 +2624,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(remove_all_curse(target_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 		break;
 
+	case DO_EFFECT_MIRROR_SET:
+		if(number_of_mirrors(caster_ptr) < 4 + caster_ptr->lev / 10) place_mirror(caster_ptr);
+		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
+		break;
+
+
 	default:
 		dam = 0;
 		break;
