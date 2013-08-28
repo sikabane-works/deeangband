@@ -1034,6 +1034,9 @@ extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int 
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
 extern bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int prob);
+extern void cast_breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
+extern void cast_breath_aux(creature_type *caster_ptr, int y, int x, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id);
+extern void cast_ball_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
 extern bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count);
 extern int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, bool can_pet);
 extern int summon_cyber(creature_type *summoner_ptr, COODINATES y, COODINATES x);
@@ -1130,9 +1133,6 @@ extern bool mirror_tunnel(creature_type *creature_ptr);
 extern bool summon_kin_player(creature_type *creature_ptr, FLOOR_LEV level, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern cptr spell_category_name(TVAL tval);
 extern void ring_of_power(creature_type *creature_ptr);
-extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
-extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
-extern void cast_ball_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
 
 // bldg.c
 extern void have_nightmare(creature_type *watcher_ptr, SPECIES_ID species_idx);

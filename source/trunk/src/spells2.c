@@ -39,7 +39,7 @@ bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, 
 		}
 		cast_bolt(caster_ptr, typ, range, power, trait_id);
 	}
-	return;
+	return TRUE;
 }
 
 bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
@@ -63,7 +63,7 @@ bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, P
 		}
 		cast_beam(caster_ptr, typ, range, power, trait_id);
 	}
-	return;
+	return TRUE;
 }
 
 bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int prob)
@@ -72,10 +72,16 @@ bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POW
 	else return cast_bolt(caster_ptr, typ, range, dam, 0);
 }
 
-void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
+void cast_breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
+
+void cast_breath_aux(creature_type *caster_ptr, int y, int x, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
+{
+	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
+}
+
 
 void cast_ball_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
