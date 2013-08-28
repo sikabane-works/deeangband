@@ -77,7 +77,7 @@ void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, C
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
 
-void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id)
+void cast_ball_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
 	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id);

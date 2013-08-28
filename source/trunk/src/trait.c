@@ -620,7 +620,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 		/* Ball Attack Spells */
 
-	case TRAIT_STAR_BALL: cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id); break;
+	case TRAIT_STAR_BALL: cast_ball_aux(caster_ptr, y, x, DO_EFFECT_LITE, 200, 3, id); break;
 	case TRAIT_FORCE_FIST: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, 0); break;
 	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3); break;
 

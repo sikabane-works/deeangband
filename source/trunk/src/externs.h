@@ -1132,7 +1132,7 @@ extern cptr spell_category_name(TVAL tval);
 extern void ring_of_power(creature_type *creature_ptr);
 extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
 extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
-extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
+extern void cast_ball_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
 
 // bldg.c
 extern void have_nightmare(creature_type *watcher_ptr, SPECIES_ID species_idx);
