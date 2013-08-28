@@ -2606,9 +2606,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_SUPER_RAY:
 		break;
 
-	case DO_EFFECT_DISPEL:
-		dispel_creature(target_ptr);
-		break;
+	case DO_EFFECT_DISPEL: dispel_creature(target_ptr); break;
 
 	case DO_EFFECT_VOMITING:
 		if(!has_trait(target_ptr, TRAIT_NONLIVING)) (void)set_food(target_ptr, CREATURE_FOOD_STARVE - 1); // Only living creatures get thirsty

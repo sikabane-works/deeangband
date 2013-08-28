@@ -1310,7 +1310,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Wonder Type Spell */
 
-	case TRAIT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
 	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
 	case TRAIT_BIZARRE_THING_OF_THE_RING: ring_of_power(caster_ptr); break;
 	case TRAIT_CALL_CHAOS: call_chaos(caster_ptr); break;
@@ -1613,6 +1612,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	switch(id)
 	{
 		case DO_EFFECT_WANDER: cast_wonder(caster_ptr); break;
+		case DO_EFFECT_INVOKE_SPIRITS: cast_invoke_spirits(caster_ptr); break;
 		case DO_EFFECT_RUMOR: get_rumor(caster_ptr); break;
 		case DO_EFFECT_TRY_LIVINGTRUMP: try_livingtrump(caster_ptr); break;
 		case DO_EFFECT_SATIATE: (void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1); break;
