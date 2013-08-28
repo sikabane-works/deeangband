@@ -1024,6 +1024,7 @@ extern bool lite_area(creature_type *creature_ptr, POWER dam, COODINATES rad);
 extern bool unlite_area(creature_type *caster_ptr, POWER dam, COODINATES rad);
 extern bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
 extern bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER dam, TRAIT_ID trait_id);
+extern bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id);
 extern bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);

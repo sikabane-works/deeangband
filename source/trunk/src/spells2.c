@@ -47,6 +47,25 @@ bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
 }
 
+bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id)
+{
+	COODINATES x = caster_ptr->fx, y = caster_ptr->fy;
+	int attempts, k;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	for (k = 0; k < num; k++)
+	{
+		attempts = 1000;
+		while (attempts--)
+		{
+			scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
+			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+			if(!CREATURE_BOLD(caster_ptr, y, x)) break;
+		}
+		cast_beam(caster_ptr, typ, range, power, trait_id);
+	}
+	return;
+}
+
 bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int prob)
 {
 	if(PROB_PERCENT(prob)) return (cast_beam(caster_ptr, range, typ, dam, 0));
