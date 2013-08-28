@@ -23,6 +23,26 @@ bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
 }
 
+bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER dam, TRAIT_ID trait_id)
+{
+	COODINATES x, y;
+	int attempts, k;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	for (k = 0; k < num; k++)
+	{
+		attempts = 1000;
+		while (attempts--)
+		{
+			scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
+			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+			if(!CREATURE_BOLD(caster_ptr, y, x)) break;
+		}
+		project(caster_ptr, 0, 3, y, x, 150, typ, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+	}
+	return;
+}
+
+
 bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
 {
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
