@@ -2650,9 +2650,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		break;
 
-	case DO_EFFECT_RESTORE_EXP:
-		restore_exp(caster_ptr);
-		break;
+	case DO_EFFECT_RESTORE_EXP: restore_exp(caster_ptr); break;
+
+	case DO_EFFECT_DEC_STR: do_dec_stat(caster_ptr, STAT_STR); break;
+	case DO_EFFECT_DEC_INT: do_dec_stat(caster_ptr, STAT_INT); break;
+	case DO_EFFECT_DEC_WIS: do_dec_stat(caster_ptr, STAT_WIS); break;
+	case DO_EFFECT_DEC_DEX: do_dec_stat(caster_ptr, STAT_DEX); break;
+	case DO_EFFECT_DEC_CON: do_dec_stat(caster_ptr, STAT_CON); break;
+	case DO_EFFECT_DEC_CHA: do_dec_stat(caster_ptr, STAT_CHA); break;
 
 	default:
 		dam = 0;
