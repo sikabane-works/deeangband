@@ -1215,29 +1215,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SELF_KNOWLEDGE: creature_knowledge(caster_ptr); break;
 	case TRAIT_SCAN_CREATURE: probing(floor_ptr); break;
 
-		/* Status Spell */
-
-	case TRAIT_RES_STR: if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
-	case TRAIT_RES_INT: if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
-	case TRAIT_RES_WIS: if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE; break;
-	case TRAIT_RES_DEX: if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE; break;
-	case TRAIT_RES_CON: if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
-	case TRAIT_RES_CHR: if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
-
-	case TRAIT_INC_STR: if(do_inc_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
-	case TRAIT_INC_INT: if(do_inc_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
-	case TRAIT_INC_WIS: if(do_inc_stat(caster_ptr, STAT_WIS)) effected = TRUE; break;
-	case TRAIT_INC_DEX: if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE; break;
-	case TRAIT_INC_CON: if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
-	case TRAIT_INC_CHR: if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
-
-	case TRAIT_DEC_STR: if(do_dec_stat(caster_ptr, STAT_STR)) effected = TRUE; break;
-	case TRAIT_DEC_INT: if(do_dec_stat(caster_ptr, STAT_INT)) effected = TRUE; break;
-	case TRAIT_DEC_WIS: if(do_dec_stat(caster_ptr, STAT_WIS)) effected = TRUE; break;
-	case TRAIT_DEC_DEX: if(do_dec_stat(caster_ptr, STAT_DEX)) effected = TRUE; break;
-	case TRAIT_DEC_CON: if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE; break;
-	case TRAIT_DEC_CHR: if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE; break;
-
 		/* Standard Healing Spell */
 
 	case TRAIT_REGAL_HEAL_OF_AMBER:
