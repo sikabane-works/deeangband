@@ -1023,6 +1023,7 @@ extern void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1)
 extern bool lite_area(creature_type *creature_ptr, POWER dam, COODINATES rad);
 extern bool unlite_area(creature_type *caster_ptr, POWER dam, COODINATES rad);
 extern bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
+extern bool cast_bolt_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
 extern bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER dam, TRAIT_ID trait_id);
 extern bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id);
 extern bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
@@ -1033,6 +1034,7 @@ extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, POWER dam,
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
+extern bool cast_beam_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
 extern void cast_breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
 extern void cast_breath_aux(creature_type *caster_ptr, int y, int x, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id);
 extern void cast_ball_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);

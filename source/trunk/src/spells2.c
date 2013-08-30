@@ -23,6 +23,21 @@ bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
 }
 
+bool cast_bolt_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
+{
+	return project(caster_ptr, range, 0, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
+}
+
+bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
+{
+	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
+}
+
+bool cast_beam_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
+{
+	return project(caster_ptr, range, 0, y, x, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
+}
+
 bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id)
 {
 	COODINATES x = caster_ptr->fx, y = caster_ptr->fy;
@@ -40,11 +55,6 @@ bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, 
 		cast_bolt(caster_ptr, typ, range, power, trait_id);
 	}
 	return TRUE;
-}
-
-bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
-{
-	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
 }
 
 bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id)
