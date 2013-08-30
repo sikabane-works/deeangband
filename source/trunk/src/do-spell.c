@@ -163,7 +163,7 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, COOD
  * while keeping the results quite random.  It also allows some potent
  * effects only at high level.
  */
-void cast_wonder(creature_type *caster_ptr)
+void cast_wonder(creature_type *caster_ptr, TRAIT_ID trait_id)
 {
 	//TODO target_select
 	COODINATES y = 0, x = 0;

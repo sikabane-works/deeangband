@@ -758,7 +758,7 @@ extern cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int
 extern void wild_magic(creature_type *creature_ptr, int spell);
 extern void cast_meteor(creature_type *caster_ptr, POWER dam, COODINATES rad);
 extern bool cast_wrath_of_the_god(creature_type *creature_ptr, POWER dam, COODINATES rad);
-extern void cast_wonder(creature_type *caster_ptr);
+extern void cast_wonder(creature_type *caster_ptr, TRAIT_ID trait_id);
 extern int beam_chance(creature_type *creature_ptr);
 extern void cast_invoke_spirits(creature_type *caster_ptr);
 extern void cast_shuffle(creature_type *caster_ptr);
