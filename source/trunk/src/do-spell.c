@@ -204,8 +204,7 @@ void cast_wonder(creature_type *caster_ptr, TRAIT_ID trait_id)
 	}
 }
 
-
-void cast_invoke_spirits(creature_type *caster_ptr)
+void cast_invoke_spirits(creature_type *caster_ptr, TRAIT_ID trait_id)
 {
 	//TODO: target
 	COODINATES y = 0, x = 0;
