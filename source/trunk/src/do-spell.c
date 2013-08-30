@@ -121,7 +121,7 @@ static cptr info_weight(int weight)
 	return format("%s:%s", MES_SYS_MAX_WEIGHT, buf);
 }
 
-// Prepare standard probability to become beam for cast_bolt_or_beam()
+// Prepare standard probability to become beam for cast_bolt()
 int beam_chance(creature_type *creature_ptr)
 {
 	if(has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST)) return creature_ptr->lev;
@@ -177,14 +177,14 @@ void cast_wonder(creature_type *caster_ptr)
 	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_HASTE, MAX_RANGE_SUB, caster_ptr->lev, -1);
 	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, diceroll(4, 6), -1);
 	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, -1);
-	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
+	else if(die < 36) cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
 	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, -1);
 	else if(die < 46) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, -1);
 	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
-	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
+	else if(die < 56) cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr) - 10);
+	else if(die < 61) cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr) - 10);
+	else if(die < 66) cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
+	else if(die < 71) cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
 	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 75, -1);
 	else if(die < 81) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_ELEC, 30 + lev_bonus / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_ACID, 40 + lev_bonus, 2, -1);
@@ -233,14 +233,14 @@ void cast_invoke_spirits(creature_type *caster_ptr)
 		add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
 	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, -1);
-	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
+	else if(die < 36) cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
 	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, -1);
 	else if(die < 46) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, -1);
 	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((lev_bonus-5)/4),8), beam_chance(caster_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((lev_bonus-5)/4),8), beam_chance(caster_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
-	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
+	else if(die < 56) cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((lev_bonus-5)/4),8), beam_chance(caster_ptr) - 10);
+	else if(die < 61) cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((lev_bonus-5)/4),8), beam_chance(caster_ptr) - 10);
+	else if(die < 66) cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
+	else if(die < 71) cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
 	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 75, -1);
 	else if(die < 81) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_ELEC, 30 + lev_bonus / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_ACID, 40 + lev_bonus, 2, -1);

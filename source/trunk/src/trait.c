@@ -734,7 +734,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BO_PLAS: cast_bolt(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, power, TRAIT_BO_PLAS); break;
 	case TRAIT_BO_ICEE: cast_bolt(caster_ptr, DO_EFFECT_ICE, MAX_RANGE_SUB, power, TRAIT_BO_ICEE); break;
 	case TRAIT_BO_SOUN: cast_bolt(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, power, 0); break;
-	case TRAIT_BO_CHAO: cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, beam_chance(caster_ptr)); break;
+	case TRAIT_BO_CHAO: cast_bolt(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, beam_chance(caster_ptr)); break;
 	case TRAIT_BO_JAM: cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, power, -1); break;
 	case TRAIT_MIND_BLST: cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, power, 0); break;
 

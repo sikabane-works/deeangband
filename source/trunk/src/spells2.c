@@ -66,12 +66,6 @@ bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, P
 	return TRUE;
 }
 
-bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int prob)
-{
-	if(PROB_PERCENT(prob)) return (cast_beam(caster_ptr, range, typ, dam, 0));
-	else return cast_bolt(caster_ptr, typ, range, dam, 0);
-}
-
 void cast_breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
