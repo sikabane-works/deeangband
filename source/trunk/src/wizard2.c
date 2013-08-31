@@ -1724,15 +1724,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 	case 'Y': break; /* Y: No Use */
 	case 'z': do_cmd_wiz_zap(creature_ptr); break; /* Zap Creatures (Genocide) */
 	case 'Z': do_cmd_wiz_zap_all(creature_ptr); break; /* Zap Creatures (Omnicide) */
-
-	// Hack -- whatever I desire
-	case '_':
-		(void)probing(GET_FLOOR_PTR(creature_ptr));
-		break;
-
-	// Not a Wizard Command
-	default:
-		msg_print("That is not a valid debug command.");
-		break;
+	case '_': (void)probing(GET_FLOOR_PTR(creature_ptr)); break; /* Hack -- whatever I desire */
+	default: msg_print("That is not a valid debug command."); break; /* Not a Wizard Command */
 	}
 }

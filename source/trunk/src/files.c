@@ -283,6 +283,7 @@ static named_num gf_desc[] =
 	{"INC_DEX", DO_EFFECT_INC_DEX},
 	{"INC_CON", DO_EFFECT_INC_CON},
 	{"INC_CHA", DO_EFFECT_INC_CHA},
+	{"INC_WIZLITE", DO_EFFECT_WIZLITE},
 
 	{NULL, 0}
 };

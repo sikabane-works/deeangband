@@ -1628,6 +1628,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 		handle_stuff(caster_ptr);
 		break;
+		case DO_EFFECT_WIZLITE: wiz_lite(floor_ptr, caster_ptr, FALSE); break;
+
 
 		default: break;
 	}
