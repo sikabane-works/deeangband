@@ -276,22 +276,18 @@ void wild_magic(creature_type *caster_ptr, int spell)
 	case 1:
 	case 2:
 	case 3:
-		teleport_creature(caster_ptr, 10, TELEPORT_PASSIVE);
-		break;
+		teleport_creature(caster_ptr, 10, TELEPORT_PASSIVE); break;
 	case 4:
 	case 5:
 	case 6:
-		teleport_creature(caster_ptr, 100, TELEPORT_PASSIVE);
-		break;
+		teleport_creature(caster_ptr, 100, TELEPORT_PASSIVE); break;
 	case 7:
 	case 8:
-		teleport_creature(caster_ptr, 200, TELEPORT_PASSIVE);
-		break;
+		teleport_creature(caster_ptr, 200, TELEPORT_PASSIVE); break;
 	case 9:
 	case 10:
 	case 11:
-		unlite_area(caster_ptr, 10, 3);
-		break;
+		unlite_area(caster_ptr, 10, 3); break;
 	case 12:
 	case 13:
 	case 14:
@@ -326,18 +322,10 @@ void wild_magic(creature_type *caster_ptr, int spell)
 		(void)get_mutative_trait(caster_ptr, 0, TRUE);
 		break;
 	case 29:
-	case 30:
-		apply_disenchant(caster_ptr, TRUE);
-		break;
-	case 31:
-		lose_all_info(caster_ptr);
-		break;
-	case 32:
-		cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, spell + 5, 1 + (spell / 10));
-		break;
-	case 33:
-		wall_stone(caster_ptr);
-		break;
+	case 30: apply_disenchant(caster_ptr, TRUE); break;
+	case 31: lose_all_info(caster_ptr); break;
+	case 32: cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, spell + 5, 1 + (spell / 10)); break;
+	case 33: wall_stone(caster_ptr); break;
 	case 34:
 	case 35:
 		while (counter++ < 8) (void)summoning(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
@@ -347,7 +335,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 		activate_hi_summon(caster_ptr, caster_ptr->fy, caster_ptr->fx, FALSE);
 		break;
 	case 38:
-		(void)summon_cyber(NULL, caster_ptr->fy, caster_ptr->fx);
+		summoning(NULL, caster_ptr->fy, caster_ptr->fx, 150, TRAIT_S_CYBER, (PC_ALLOW_GROUP));
 		break;
 	default:
 		{

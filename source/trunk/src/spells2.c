@@ -2954,7 +2954,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			*/
 			if((floor_ptr->depth > 65) && !stop_ty)
 			{
-				(*count) += summon_cyber(NULL, creature_ptr->fy, creature_ptr->fx);
+				summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth * 3, TRAIT_S_CYBER, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				stop_ty = TRUE;
 				break;
 			}
@@ -3061,28 +3061,6 @@ int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 
 	return count;
 }
-
-int summon_cyber(creature_type *summoner_ptr, COODINATES y, COODINATES x)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
-	int i;
-	int max_cyber = (floor_ptr->depth / 50) + randint1(2);
-	int count = 0;
-	FLAGS_32 mode = PC_ALLOW_GROUP;
-
-	// Summoned by a creature
-	if(summoner_ptr) if(is_pet(player_ptr, summoner_ptr)) mode |= PC_FORCE_PET;
-
-	if(max_cyber > 4) max_cyber = 4;
-
-	for (i = 0; i < max_cyber; i++)
-	{
-		count += summoning(summoner_ptr, y, x, 100, TRAIT_S_CYBER, mode);
-	}
-
-	return count;
-}
-
 
 void wall_breaker(creature_type *creature_ptr)
 {
