@@ -335,6 +335,7 @@ typedef enum QUEST_STATUS QUEST_STATUS;
 #define WRITE_QUEST_STATUS(VALUE) wr_s32b((s32b)VALUE);
 
 typedef enum TRAIT_EFFECT_TYPE TRAIT_EFFECT_TYPE;
+typedef enum STAT_ID STAT_ID;
 
 /*
  * Creature flags

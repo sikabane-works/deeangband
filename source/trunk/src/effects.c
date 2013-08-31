@@ -579,7 +579,7 @@ bool set_food(creature_type *creature_ptr, int v)
 * Note that this function (used by stat potions) now restores
 * the stat BEFORE increasing it.
 */
-bool inc_stat(creature_type *creature_ptr, int stat)
+bool inc_stat(creature_type *creature_ptr, STAT_ID stat)
 {
 	int value, gain;
 	value = creature_ptr->stat_cur[stat];	// Then augment the current/max stat
@@ -623,7 +623,7 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 * if your stat is already drained, the "max" value will not drop all
 * the way down to the "cur" value.
 */
-bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
+bool dec_stat(creature_type *creature_ptr, STAT_ID stat, int amount, int permanent)
 {
 	int cur, max, loss, same, res = FALSE;
 
@@ -668,7 +668,7 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 
 
 // Restore a stat.  Return TRUE only if this actually makes a difference.
-bool res_stat(creature_type *creature_ptr, int stat)
+bool res_stat(creature_type *creature_ptr, STAT_ID stat)
 {
 	if(creature_ptr->stat_cur[stat] != creature_ptr->stat_max[stat])
 	{
