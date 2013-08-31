@@ -723,7 +723,7 @@ extern bool has_indirect_skill_flags(traits_precondition *flags_pre_ptr);
 extern bool has_non_magic_skill_flags(traits_precondition *flags_pre_ptr);
 extern bool has_magic_power(creature_type *creature_ptr);
 
-extern bool has_status(creature_type *creature_ptr, int stat);
+extern bool has_status(creature_type *creature_ptr, STAT_ID stat);
 
 extern int get_equip_weapon_num(creature_type *creature_ptr);
 extern WEIGHT calc_equipping_weight_limit(creature_type *creature_ptr);
@@ -1105,7 +1105,7 @@ extern bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJ
 extern void display_spell_list(creature_type *creature_ptr);
 extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_ID realm);
 extern PROB calc_device_difficulty(creature_type *caster_ptr, object_type *object_ptr);
-extern PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type);
+extern PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, STAT_ID stat_type);
 extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
 extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);
 extern PERCENT spell_chance(creature_type *creature_ptr, TRAIT_ID spell, REALM_ID realm);
@@ -1255,9 +1255,9 @@ extern bool inc_stat(creature_type *creature_ptr, STAT_ID stat);
 extern bool dec_stat(creature_type *creature_ptr, STAT_ID stat, int amount, int permanent);
 extern bool res_stat(creature_type *creature_ptr, STAT_ID stat);
 extern bool heal_creature(creature_type *creature_ptr, POWER healing_power);
-extern bool do_dec_stat(creature_type *creature_ptr, int stat);
-extern bool do_res_stat(creature_type *creature_ptr, int stat);
-extern bool do_inc_stat(creature_type *creature_ptr, int stat);
+extern bool do_dec_stat(creature_type *creature_ptr, STAT_ID stat);
+extern bool do_res_stat(creature_type *creature_ptr, STAT_ID stat);
+extern bool do_inc_stat(creature_type *creature_ptr, STAT_ID stat);
 extern bool restore_exp(creature_type *creature_ptr);
 extern bool lose_all_info(creature_type *creature_ptr);
 extern bool dec_mana(creature_type *creature_ptr, STAT val);

@@ -408,7 +408,7 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	int i;
 	int val;
 	int sum = 0;
-	int stat = creature_ptr->stat_cur[pd_ptr->stat];
+	STAT_ID stat = creature_ptr->stat_cur[pd_ptr->stat];
 
 	if((creature_ptr->lev < min_level) || has_trait(creature_ptr, TRAIT_CONFUSED)) return SUCCESS;
 

@@ -835,7 +835,7 @@ static void spoil_species_desc(cptr fname)
 {
 	int i, j, n = 0;
 	int tmpht, tmpwt, tmpsize;
-	int stat[6];
+	STAT_ID stat[6];
 
 	u16b why = 2;
 	SPECIES_ID *who;

@@ -3170,7 +3170,7 @@ PROB calc_device_difficulty(creature_type *caster_ptr, object_type *object_ptr)
 	return chance;
 }
 
-PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type)
+PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, STAT_ID stat_type)
 {
 	trait_type spell_;
 	PROB chance, minfail;

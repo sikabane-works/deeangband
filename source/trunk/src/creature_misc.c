@@ -1064,7 +1064,7 @@ bool has_magic_power(creature_type *creature_ptr)
 	return TRUE;
 }
 
-bool has_status(creature_type *creature_ptr, int stat)
+bool has_status(creature_type *creature_ptr, STAT_ID stat)
 {
 	switch(stat)
 	{

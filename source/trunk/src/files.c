@@ -2627,7 +2627,7 @@ static void display_creature_underings(creature_type *creature_ptr)
 static void display_player_stat_info(creature_type *creature_ptr)
 {
 	int i, j, e_adj;
-	int stat_col, stat;
+	STAT_ID stat_col, stat;
 	int row, col;
 	object_type *object_ptr;
 	u32b flgs[MAX_TRAITS_FLAG];

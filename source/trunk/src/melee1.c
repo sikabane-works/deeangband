@@ -623,7 +623,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			case 6: case 7: case 8: case 9:
 				{
-					int stat = randint0(STAT_MAX);
+					STAT_ID stat = randint0(STAT_MAX);
 					msg_format(MES_EFFECT_HEAVY_REDUCE_STAT(target_ptr, stat));
 					target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
 					if(target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;

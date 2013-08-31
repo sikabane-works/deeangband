@@ -735,7 +735,7 @@ bool heal_creature(creature_type *creature_ptr, POWER healing_power)
 
 
 // Lose a "point"
-bool do_dec_stat(creature_type *creature_ptr, int stat)
+bool do_dec_stat(creature_type *creature_ptr, STAT_ID stat)
 {
 	bool sust = FALSE;
 
@@ -764,7 +764,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 }
 
 // Restore lost "points" in a stat
-bool do_res_stat(creature_type *creature_ptr, int stat)
+bool do_res_stat(creature_type *creature_ptr, STAT_ID stat)
 {
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
@@ -778,7 +778,7 @@ bool do_res_stat(creature_type *creature_ptr, int stat)
 }
 
 // Gain a "point" in a stat
-bool do_inc_stat(creature_type *creature_ptr, int stat)
+bool do_inc_stat(creature_type *creature_ptr, STAT_ID stat)
 {
 	bool res;
 	res = res_stat(creature_ptr, stat); // Restore strength

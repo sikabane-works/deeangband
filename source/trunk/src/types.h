@@ -1325,7 +1325,7 @@ struct player_patron
 
 	s16b p_mhp;			/* patron hit-dice modifier */
 
-	int status_boost;
+	STAT_ID status_boost;
 	int rewards[20];
 };
 

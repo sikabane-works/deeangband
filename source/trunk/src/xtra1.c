@@ -116,7 +116,7 @@ static void prt_dungeon(void)
 /*
  * Print character stat in given row, column
  */
-static void prt_stat(creature_type *creature_ptr, int stat)
+static void prt_stat(creature_type *creature_ptr, STAT_ID stat)
 {
 	char tmp[32];
 
