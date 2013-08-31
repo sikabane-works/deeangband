@@ -2438,7 +2438,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					{
 						msg_print(MES_TY_CURSE_TELEPORT);
 						if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
-						if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+						if(one_in_(13)) count += summoning(NULL, target_ptr->fy, target_ptr->fx, floor_ptr->depth, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 						if(!one_in_(6)) break;
 					}
 				case 9: case 10: case 11:
@@ -2449,7 +2449,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					aggravate_creatures(caster_ptr);
 					if(!one_in_(6)) break;
 				case 17: case 18:
-					count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+					count += summoning(NULL, target_ptr->fy, target_ptr->fx, floor_ptr->depth, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));;
 					if(!one_in_(6)) break;
 				case 19: case 20: case 21: case 22:
 					{

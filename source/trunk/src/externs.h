@@ -1039,7 +1039,6 @@ extern void cast_breath(creature_type *caster_ptr, int typ, COODINATES range, PO
 extern void cast_breath_aux(creature_type *caster_ptr, int y, int x, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id);
 extern void cast_ball_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
 extern bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count);
-extern int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, bool can_pet);
 extern void wall_breaker(creature_type *creature_ptr);
 extern s32b flag_cost(object_type *object_ptr, int plusses);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);

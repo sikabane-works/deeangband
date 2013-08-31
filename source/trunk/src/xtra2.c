@@ -2869,7 +2869,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_H_SUMMON);
 			reward = MES_DIARY_PATRON_S_ENEMY;
-			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
+			summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			break;
 
 		case REW_DO_HAVOC:
@@ -2962,7 +2962,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				reward = MES_DIARY_PATRON_TY_CURSE;
 				break;
 			case 2:
-				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
+				summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 				reward = MES_DIARY_PATRON_S_ENEMY;
 				break;
 			case 3:
@@ -3001,8 +3001,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_print(MES_PATRON_WRATH);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), FALSE);
-
-			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
+			summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 			if(one_in_(2))
 			{
