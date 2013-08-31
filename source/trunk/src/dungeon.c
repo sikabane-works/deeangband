@@ -1367,7 +1367,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		disturb(player_ptr, 0, 0);
 		msg_print(MES_TRAIT_FLATULENT);
 		msg_print(NULL);
-		SELF_FIELD(creature_ptr, DO_EFFECT_POIS, creature_ptr->lev, 3, -1);
+		cast_storm(creature_ptr, DO_EFFECT_POIS, creature_ptr->lev, 3, -1);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_PROD_MANA) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(9000))
@@ -1489,7 +1489,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		disturb(player_ptr, 0, 0);
 		msg_print(MES_TRAIT_RAW_CHAOS_DONE);
 		msg_print(NULL);
-		SELF_FIELD(creature_ptr, DO_EFFECT_CHAOS, creature_ptr->lev, 8, -1);
+		cast_storm(creature_ptr, DO_EFFECT_CHAOS, creature_ptr->lev, 8, -1);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_NORMALITY) && one_in_(5000))

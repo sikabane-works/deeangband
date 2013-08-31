@@ -2917,7 +2917,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HURT_LOT);
 			reward = MES_DIARY_PATRON_HURT_LOT;
-			SELF_FIELD(creature_ptr, DO_EFFECT_NUKE, creature_ptr->lev * 4, 4, -1);
+			cast_storm(creature_ptr, DO_EFFECT_NUKE, creature_ptr->lev * 4, 4, -1);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			break;
 

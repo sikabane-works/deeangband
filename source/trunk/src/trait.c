@@ -190,7 +190,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_BLAZING_LIGHT:
-		SELF_FIELD(caster_ptr, DO_EFFECT_LITE, 300, 6, -1);
+		cast_storm(caster_ptr, DO_EFFECT_LITE, 300, 6, -1);
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * user_level / 2);
 		break;
 
@@ -550,7 +550,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			POWER dam = 150;
 			COODINATES rad = 8;
 
-			SELF_FIELD(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
+			cast_storm(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
 			wiz_lite(floor_ptr, caster_ptr, FALSE);
 
 			if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
@@ -822,7 +822,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		{
 			POWER dam = (55 + power) * 2;
 			COODINATES rad = 3;
-			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
+			cast_storm(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
 			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 		}
 
@@ -939,7 +939,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_KATON:
-		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + user_level, user_level / 10 + 2, -1);
+		cast_storm(caster_ptr, DO_EFFECT_FIRE, 50 + user_level, user_level / 10 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
 		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, user_level, FALSE);
 		break;
@@ -1180,7 +1180,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SPIT_ACID:
 		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, user_level, 0);
-		else SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, user_level * 2, 2, -1);
+		else cast_storm(caster_ptr, DO_EFFECT_SOUND, user_level * 2, 2, -1);
 		break;
 
 	case TRAIT_TURN_UNDEAD:
@@ -1311,7 +1311,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	/* Storm Attack Spell */
 
-	case TRAIT_STORM_FIRE: SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 300 + 3 * power, 8, -1);
+	case TRAIT_STORM_FIRE: cast_storm(caster_ptr, DO_EFFECT_FIRE, 300 + 3 * power, 8, -1);
 	case TRAIT_STORM_NETHER: cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, power, power / 5); break;
 	case TRAIT_STORM_CHAOS: cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, power, power / 5); break;
 	case TRAIT_LIGHTNING_STORM: cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, power, rad); break;
@@ -1329,24 +1329,24 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_HIDE_IN_MYST:
-		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		cast_storm(caster_ptr, DO_EFFECT_POIS, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		cast_storm(caster_ptr, DO_EFFECT_DRAIN, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
+		cast_storm(caster_ptr, DO_EFFECT_CONFUSION, 75 + user_level * 2 / 3, user_level / 5 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
 		break;
 
 	case TRAIT_INSANITY_CIRCLE:
-		SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, power, rad, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, power, rad, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CHARM, power, rad, -1);
+		cast_storm(caster_ptr, DO_EFFECT_CHAOS, power, rad, -1);
+		cast_storm(caster_ptr, DO_EFFECT_CONFUSION, power, rad, -1);
+		cast_storm(caster_ptr, DO_EFFECT_CHARM, power, rad, -1);
 		break;
 
 	case TRAIT_SHRIEK:
-		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
+		cast_storm(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
 		aggravate_creatures(caster_ptr);
 		break;
 
-	case TRAIT_RADIATION: SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1); break;
+	case TRAIT_RADIATION: cast_storm(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1); break;
 
 		/* Chain Type Spells */
 
