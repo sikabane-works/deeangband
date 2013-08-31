@@ -351,8 +351,8 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 
 void get_max_stats(creature_type *creature_ptr)
 {
-	int		i, j;
-	int		dice[STAT_MAX];
+	int i, j;
+	int dice[STAT_MAX];
 
 	/* Roll and verify some stats */
 	while (TRUE)

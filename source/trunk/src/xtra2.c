@@ -2989,8 +2989,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				}
 				break;
 			default:
-				for (dummy = 0; dummy < STAT_MAX; dummy++)
-					(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
+				for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
 				msg_print(MES_PATRON_RUIN_ABL);
 				break;
 			}

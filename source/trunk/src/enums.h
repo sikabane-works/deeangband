@@ -1,4 +1,16 @@
 
+// Indexes of the various "stats" (hard-coded by savefiles, etc).
+enum STAT_ID
+{
+	STAT_STR,
+	STAT_INT,
+	STAT_WIS,
+	STAT_DEX,
+	STAT_CON,
+	STAT_CHA,
+	STAT_MAX
+};
+
 enum CAMPAIGN_ID
 {
 	CAMPAIGN_FATE_OF_STIGMA,

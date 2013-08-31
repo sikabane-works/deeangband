@@ -452,16 +452,6 @@
 #define INDEX_VARIABLE  30001
 
 
-// Indexes of the various "stats" (hard-coded by savefiles, etc).
-#define STAT_STR   0
-#define STAT_INT   1
-#define STAT_WIS   2
-#define STAT_DEX   3
-#define STAT_CON   4
-#define STAT_CHA   5
-#define STAT_MAX   6
-#define STAT_FRACTION 10
-
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
  */
