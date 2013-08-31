@@ -331,12 +331,8 @@ void wild_magic(creature_type *caster_ptr, int spell)
 		while (counter++ < 8) (void)summoning(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
 		break;
 	case 36:
-	case 37:
-		activate_hi_summon(caster_ptr, caster_ptr->fy, caster_ptr->fx, FALSE);
-		break;
-	case 38:
-		summoning(NULL, caster_ptr->fy, caster_ptr->fx, 150, TRAIT_S_CYBER, (PC_ALLOW_GROUP));
-		break;
+	case 37: summoning(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)); break;
+	case 38: summoning(NULL, caster_ptr->fy, caster_ptr->fx, 150, TRAIT_S_CYBER, (PC_ALLOW_GROUP)); break;
 	default:
 		{
 			int count = 0;
@@ -369,7 +365,9 @@ void cast_shuffle(creature_type *caster_ptr)
 	{
 		msg_print(SHUFFLE_DEATH);
 		for (i = 0; i < randint1(3); i++)
-			activate_hi_summon(caster_ptr, caster_ptr->fy, caster_ptr->fx, FALSE);
+		{
+			summoning(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		}
 	}
 	else if(die < 14)
 	{

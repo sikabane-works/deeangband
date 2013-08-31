@@ -391,14 +391,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	{
 		int num = 2 + randint1(3);
 		msg_print(MES_TRAP_SUMMONING);
-
-		for (i = 0; i < num; i++)
-		{
-			if(randint1(100) < floor_ptr->depth)
-				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
-			else
-				(void)summoning(0, y, x, mon_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
-		}
+		for (i = 0; i < num; i++) summoning(NULL, y, x, mon_level, TRAIT_S_MONSTER, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 
 	/* Elemental summon. */
@@ -407,7 +400,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 		msg_print(MES_TRAP_S_ELEMENTAL);
 		for (i = 0; i < randint1(3) + 5; i++)
 		{
-			(void)summoning(0, y, x, mon_level, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+			(void)summoning(NULL, y, x, mon_level, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
