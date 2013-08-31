@@ -1647,38 +1647,12 @@ void do_cmd_debug(creature_type *creature_ptr)
 		wiz_drop_named_art(creature_ptr);
 		break;
 
-	// Detect everything
-	case 'd':
-		detect_all(creature_ptr, DETECT_RAD_ALL * 3);
-		break;
-
-	// Dimension_door
-	case 'D':
-		wiz_dimension_door(creature_ptr);
-		break;
-
-	// Edit character
-	case 'e':
-		do_cmd_wiz_change(creature_ptr);
-		break;
-
-	// Blue Mage Only
-	case 'E':
-		if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
-		{
-			do_cmd_wiz_blue_mage(creature_ptr);
-		}
-		break;
-
-	// View item info
-	case 'f':
-		identify_fully(creature_ptr, FALSE);
-		break;
-
-	// Create desired feature
-	case 'F':
-		do_cmd_wiz_create_feature(creature_ptr);
-		break;
+	case 'd': detect_all(creature_ptr, DETECT_RAD_ALL * 3); break; /* Detect everything */
+	case 'D': wiz_dimension_door(creature_ptr); break; /* Dimension_door */
+	case 'e': do_cmd_wiz_change(creature_ptr); break; /* Edit character */
+	case 'E': do_cmd_wiz_blue_mage(creature_ptr); break; /* Blue Mage Only */
+	case 'f': identify_fully(creature_ptr, FALSE); break; /* View item info */
+	case 'F': do_cmd_wiz_create_feature(creature_ptr); break; /* Create desired feature */
 
 	// Good Objects
 	case 'g':
@@ -1686,71 +1660,20 @@ void do_cmd_debug(creature_type *creature_ptr)
 		acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, command_arg, FALSE, TRUE);
 		break;
 
-	// Put goods list
-	case 'G':
-		do_cmd_wiz_floor_object_list();
-		break;
-
-	// Hitpoint rerating
-	case 'h':
-		do_cmd_rerate(creature_ptr, TRUE);
-		break;
-
-	case 'H':
-		do_cmd_summon_horde(creature_ptr);
-		break;
-
-	// Identify
-	case 'i':
-		(void)ident_spell(creature_ptr, FALSE);
-		break;
-
-	// I: No Use
-	case 'I':
-		do_cmd_wiz_invoke(creature_ptr);
-		break;
-
-	// Go up or down in the dungeon
-	case 'j':
-		do_cmd_generate_floor(creature_ptr);
-		break;
-
-	// J: No Use
-	case 'J':
-		break;
-
-	// Self-Knowledge
-	case 'k':
-		creature_knowledge(creature_ptr);
-		break;
-
-	// K: No Use
-	case 'K':
-		break;
-
-	// Learn about objects
-	case 'l':
-		do_cmd_wiz_learn();
-		break;
-
-	// L: No Use
-	case 'L':
-		break;
-
-	// Magic Mapping
-	case 'm':
-		map_area(creature_ptr, DETECT_RAD_ALL * 3);
-		break;
-
-	// Mutation
-	case 'M':
-		(void)get_mutative_trait(creature_ptr, command_arg, TRUE);
-		break;
-
-	// Summon Named Creature
-	case 'n':
-		do_cmd_wiz_named(creature_ptr, command_arg);
-		break;
+	case 'G': do_cmd_wiz_floor_object_list(); break; /* Put goods list */
+	case 'h': do_cmd_rerate(creature_ptr, TRUE); break; /* Hitpoint rerating */
+	case 'H': do_cmd_summon_horde(creature_ptr); break;
+	case 'i': (void)ident_spell(creature_ptr, FALSE); break; /* Identify */
+	case 'I': do_cmd_wiz_invoke(creature_ptr); break;
+	case 'j': do_cmd_generate_floor(creature_ptr); break; /* Go up or down in the dungeon */
+	case 'J': break; /* J: No Use */
+	case 'k': creature_knowledge(creature_ptr); break; /* Self-Knowledge */
+	case 'K': break; /* K: No Use */
+	case 'l': do_cmd_wiz_learn(); break; /* Learn about objects */
+	case 'L': break; /* L: No Use */
+	case 'm': map_area(creature_ptr, DETECT_RAD_ALL * 3); break; /* Magic Mapping */
+	case 'M': (void)get_mutative_trait(creature_ptr, command_arg, TRUE); break; /* Mutation */
+	case 'n': do_cmd_wiz_named(creature_ptr, command_arg); break; /* Summon Named Creature */
 
 		// Summon _friendly_ named creature
 	case 'N':
@@ -1769,9 +1692,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		break;
 
 	// Phase Door
-	case 'p':
-		teleport_creature(creature_ptr, 10, 0L);
-		break;
+	case 'p': teleport_creature(creature_ptr, 10, 0L); break;
 
 	// P: No Use
 	case 'P':
