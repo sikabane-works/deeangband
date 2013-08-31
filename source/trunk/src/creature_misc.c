@@ -1118,8 +1118,7 @@ WEIGHT calc_carrying_weight_limit(creature_type *creature_ptr)
 int get_equip_weapon_num(creature_type *creature_ptr)
 {
 	int i, n = 0;
-	for(i = 0; i <= INVEN_TOTAL; i++)
-		if(object_is_weapon(&creature_ptr->inventory[i])) n++;
+	for(i = 0; i <= INVEN_TOTAL; i++) if(object_is_weapon(&creature_ptr->inventory[i])) n++;
 	return n++;
 }
 

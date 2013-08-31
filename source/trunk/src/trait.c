@@ -1308,11 +1308,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_ENCHANT_HOLY_BRAND: brand_weapon(caster_ptr, 13); break;
 	case TRAIT_ADD_FIRE_BRAND: (void)brand_bolts(caster_ptr); break;
 
-	/* Wonder Type Spell */
-
-	case TRAIT_SHUFFLE: cast_shuffle(caster_ptr); break;
-	case TRAIT_BIZARRE_THING_OF_THE_RING: ring_of_power(caster_ptr); break;
-	case TRAIT_CALL_CHAOS: call_chaos(caster_ptr); break;
 
 	/* Storm Attack Spell */
 
@@ -1629,6 +1624,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		handle_stuff(caster_ptr);
 		break;
 		case DO_EFFECT_WIZLITE: wiz_lite(floor_ptr, caster_ptr, FALSE); break;
+		case DO_EFFECT_SHUFFLE: cast_shuffle(caster_ptr); break;
+		case DO_EFFECT_RING_POWER: ring_of_power(caster_ptr); break;
+		case DO_EFFECT_CALL_CHAOS: call_chaos(caster_ptr); break;
 
 
 		default: break;
