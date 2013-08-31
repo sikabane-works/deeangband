@@ -1397,7 +1397,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CONFUSION:
-		if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
+		do_conf = diceroll(3, (dam / 2)) + 1;
+		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || saving_throw(target_ptr, SAVING_VO, dam, 0))
+		{
+			if(has_trait(target_ptr, TRAIT_NO_CONF)) if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+			do_conf = 0;
+			note = MES_IS_UNAFFECTED;
+			obvious = FALSE;
+		}
+		dam = 0;
 		break;
 
 	case DO_EFFECT_FORCE:
@@ -1555,18 +1563,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_SLOW:
 		(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
-		dam = 0;
-		break;
-
-	case DO_EFFECT_CONF_OTHERS:
-		do_conf = diceroll(3, (dam / 2)) + 1;
-		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || saving_throw(target_ptr, SAVING_VO, dam, 0))
-		{
-			if(has_trait(target_ptr, TRAIT_NO_CONF)) if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-			do_conf = 0;
-			note = MES_IS_UNAFFECTED;
-			obvious = FALSE;
-		}
 		dam = 0;
 		break;
 

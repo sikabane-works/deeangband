@@ -2854,7 +2854,7 @@ bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIN
 			angry = TRUE;
 			break;
 		case SV_POTION_CONFUSION: /* Booze */
-			dt = DO_EFFECT_CONF_OTHERS;
+			dt = DO_EFFECT_CONFUSION;
 			angry = TRUE;
 			break;
 		case SV_POTION_SLEEP:

@@ -2842,7 +2842,7 @@ void call_chaos(creature_type *creature_ptr)
 			}
 		}
 	}
-	else if(one_in_(3)) SELF_FIELD(creature_ptr, Chaos_type, 500, 8, -1);
+	else if(one_in_(3)) cast_storm(creature_ptr, Chaos_type, 500, 8, -1);
 	else
 	{
 		if(line_chaos) cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 0);

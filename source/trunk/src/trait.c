@@ -159,7 +159,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_DAZZLE:
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+		project_all_vision(caster_ptr, DO_EFFECT_CONFUSION, power);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
 		break;
 
@@ -191,7 +191,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_BLAZING_LIGHT:
 		cast_storm(caster_ptr, DO_EFFECT_LITE, 300, 6, -1);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * user_level / 2);
+		project_all_vision(caster_ptr, DO_EFFECT_CONFUSION, 3 * user_level / 2);
 		break;
 
 	case TRAIT_INROU:
@@ -226,7 +226,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				msg_print(MES_SUMMON_INROU);
 				sukekaku = TRUE;
 				project_all_vision(caster_ptr, DO_EFFECT_STUN, 120);
-				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_CONFUSION, 120);
 				project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 120);
 				project_all_vision(caster_ptr, DO_EFFECT_HOLD, 120);
 				sukekaku = FALSE;
@@ -240,7 +240,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, power);
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW, power);
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+		project_all_vision(caster_ptr, DO_EFFECT_CONFUSION, power);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
 		project_all_vision(caster_ptr, DO_EFFECT_HOLD, power);
 		heal_creature(caster_ptr, power);
@@ -255,7 +255,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_CONFUSING_LIGHT:
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW, user_level);
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
-		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_CONFUSION, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
 		project_all_vision(caster_ptr, DO_EFFECT_HOLD, user_level * 4);
 		break;
@@ -622,7 +622,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_STAR_BALL: cast_ball_aux(caster_ptr, y, x, DO_EFFECT_LITE, 200, 3, id); break;
 	case TRAIT_FORCE_FIST: cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, power, 0); break;
-	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level*3, 3); break;
+	case TRAIT_SMOKE_BALL: cast_ball(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, user_level*3, 3); break;
 
 	case TRAIT_ROCKET:
 	case TRAIT_CRIMSON_ROCKET:
@@ -770,12 +770,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, user_level, -1);
 		break;
 
-	case TRAIT_BLIND: cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
+	case TRAIT_BLIND: cast_bolt(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, user_level * 2, id); break;
 
 	case TRAIT_CONFUSE_TOUCH:
 	case TRAIT_PANIC_CREATURE:
 	case TRAIT_CONF:
-		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id); break;
+		cast_bolt(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, user_level * 2, id); break;
 
 	case TRAIT_SLOW: cast_bolt(caster_ptr, DO_EFFECT_SLOW, MAX_RANGE_SUB, user_level * 2, id); break;
 	case TRAIT_HOLD: cast_bolt(caster_ptr, DO_EFFECT_SLEEP, MAX_RANGE_SUB, user_level, -1); break;
@@ -803,7 +803,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			int effect = randint1(1000);
 			if(effect == 666) cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, power * 200, 0);
 			else if(effect < 500) cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, power, 0);
-			else if(effect < 800) cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, power, 0);
+			else if(effect < 800) cast_ball_hide(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, power, 0);
 			else cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, 0);
 		}
 		break;

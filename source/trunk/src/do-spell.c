@@ -178,7 +178,7 @@ void cast_wonder(creature_type *caster_ptr, TRAIT_ID trait_id)
 	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, diceroll(4, 6), trait_id);
 	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, trait_id);
 	else if(die < 36) cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), trait_id);
-	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, trait_id);
+	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, lev_bonus, trait_id);
 	else if(die < 46) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, trait_id);
 	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), trait_id);
 	else if(die < 56) cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 5) / 4), 8), trait_id);
@@ -233,7 +233,7 @@ void cast_invoke_spirits(creature_type *caster_ptr, TRAIT_ID trait_id)
 	}
 	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, trait_id);
 	else if(die < 36) cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), trait_id);
-	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, trait_id);
+	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, lev_bonus, trait_id);
 	else if(die < 46) cast_ball_aux(caster_ptr, y, x, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, trait_id);
 	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), trait_id);
 	else if(die < 56) cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((lev_bonus-5)/4),8), trait_id);
@@ -4774,7 +4774,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+				project_all_vision(caster_ptr, DO_EFFECT_CONFUSION, power);
 			}
 		}
 
