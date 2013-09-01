@@ -1027,6 +1027,7 @@ extern bool cast_bolt_aux(creature_type *caster_ptr, COODINATES y, COODINATES x,
 extern bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER dam, TRAIT_ID trait_id);
 extern bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id);
 extern bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
+extern bool cast_self(creature_type *caster_ptr, int typ, POWER power, TRAIT_ID trait_id);
 extern bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_swarm(creature_type *caster_ptr, int typ, COODINATES range, COODINATES rad, int num, POWER power, TRAIT_ID trait_id);

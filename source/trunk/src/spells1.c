@@ -1823,43 +1823,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISINTEGRATE:
 		break;
 
-	case DO_EFFECT_CHARM:
-		dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
-		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
-		{
-			note = MES_IS_IMMUNE;
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
-
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-			dam = dam * 2 / 3;
-
-		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_NO_CONF) || has_trait(target_ptr, TRAIT_NO_PET) || saving_throw(target_ptr, SAVING_VO, dam, 0))
-		{
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-
-			note = MES_IS_UNAFFECTED;
-			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
-		}
-
-		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
-		{
-			note = MES_EFFECT_ANTIPATHY;
-			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
-		}
-		else
-		{
-			note = MES_EFFECT_FRIENDLY;
-			set_pet(caster_ptr, target_ptr);
-		}
-		dam = 0;
-		break;
-
 	case DO_EFFECT_CONTROL_UNDEAD:
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
@@ -2085,17 +2048,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					switch (randint1(4))
 					{
-					case 1:
-						add_timed_trait(caster_ptr, TRAIT_STUN, dam / 2, TRUE);
-						break;
-					case 2:
-						add_timed_trait(caster_ptr, TRAIT_CONFUSED, dam / 2, TRUE);
-						break;
+					case 1: add_timed_trait(caster_ptr, TRAIT_STUN, dam / 2, TRUE); break;
+					case 2: add_timed_trait(caster_ptr, TRAIT_CONFUSED, dam / 2, TRUE); break;
 					default:
-						if(has_trait(target_ptr, TRAIT_FEARLESS))
-							note = MES_IS_UNAFFECTED;
-						else
-							add_timed_trait(caster_ptr, TRAIT_AFRAID, dam, TRUE);
+						if(has_trait(target_ptr, TRAIT_FEARLESS)) note = MES_IS_UNAFFECTED;
+						else add_timed_trait(caster_ptr, TRAIT_AFRAID, dam, TRUE);
 					}
 				}
 			}
@@ -2121,6 +2078,42 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				default: do_fear = dam;
 				}
 			}
+		}
+		dam = 0;
+		break;
+
+		case DO_EFFECT_CHARM:
+		dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
+		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+		{
+			note = MES_IS_IMMUNE;
+			dam = 0;
+			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+			break;
+		}
+
+		if(has_trait(target_ptr, TRAIT_UNIQUE)) dam = dam * 2 / 3;
+
+		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_NO_CONF) || has_trait(target_ptr, TRAIT_NO_PET) || saving_throw(target_ptr, SAVING_VO, dam, 0))
+		{
+			if(has_trait(target_ptr, TRAIT_NO_CONF))
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+
+			note = MES_IS_UNAFFECTED;
+			obvious = FALSE;
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+		}
+
+		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
+		{
+			note = MES_EFFECT_ANTIPATHY;
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+		}
+		else
+		{
+			note = MES_EFFECT_FRIENDLY;
+			set_pet(caster_ptr, target_ptr);
 		}
 		dam = 0;
 		break;

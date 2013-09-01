@@ -122,6 +122,10 @@ bool cast_swarm(creature_type *caster_ptr, int typ, COODINATES range, COODINATES
 	return;
 }
 
+bool cast_self(creature_type *caster_ptr, int typ, POWER power, TRAIT_ID trait_id)
+{
+	return (project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id));
+}
 
 bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad)
 {
@@ -1228,12 +1232,8 @@ void try_livingtrump(creature_type *caster_ptr)
 	int mutation;
 
 	//TODO
-	if(one_in_(7))
-		/* Teleport control */
-		mutation = 12;
-	else
-		/* Random teleportation (uncontrolled) */
-		mutation = 77;
+	if(one_in_(7)) mutation = 12; /* Teleport control */
+	else mutation = 77; /* Random teleportation (uncontrolled) */
 
 	/* Gain the mutation */
 	if(get_mutative_trait(caster_ptr, mutation, TRUE))
@@ -1481,10 +1481,10 @@ void aggravate_creatures(creature_type *target_ptr)
 // Delete a non-unique/non-quest creature
 bool genocide_aux(creature_type *user_ptr, CREATURE_ID creature_idx, POWER power, bool player_cast, POWER dam_side, cptr spell_name)
 {
-	int          msec = delay_factor * delay_factor * delay_factor;
+	int msec = delay_factor * delay_factor * delay_factor;
 	creature_type *target_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
-	bool         resist = FALSE;
+	bool resist = FALSE;
 	char target_name[MAX_NLEN];
 
 	if(is_pet(player_ptr, target_ptr) && !player_cast) return FALSE;
@@ -1532,20 +1532,16 @@ bool genocide_aux(creature_type *user_ptr, CREATURE_ID creature_idx, POWER power
 	prepare_redraw(PR_HP);
 	prepare_window(PW_PLAYER);
 
-	/* Handle */
 	handle_stuff(user_ptr);
-
 	Term_fresh();
-
 	Term_xtra(TERM_XTRA_DELAY, msec);
-
 	return !resist;
 }
 
 
 /*
-* Delete all non-unique/non-quest creatures of a given "type" from the level
-*/
+ * Delete all non-unique/non-quest creatures of a given "type" from the level
+ */
 bool symbol_genocide(creature_type *caster_ptr, POWER power, bool player_cast)
 {
 	int  i;

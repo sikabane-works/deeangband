@@ -193,7 +193,7 @@ void cast_wonder(creature_type *caster_ptr, TRAIT_ID trait_id)
 	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, trait_id);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE);
-	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus+50, TRUE);
+	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus + 50, TRUE);
 	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
@@ -248,7 +248,7 @@ void cast_invoke_spirits(creature_type *caster_ptr, TRAIT_ID trait_id)
 	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, trait_id);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (DIRECTION)randint0(5), FALSE);
-	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus+50, TRUE);
+	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus + 50, TRUE);
 	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{

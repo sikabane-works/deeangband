@@ -1034,13 +1034,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		inc_mana(caster_ptr, 3 + user_level / 20);
 		break;
 
-	case TRAIT_TAKE_PHOTO:
-		cast_beam(caster_ptr, DO_EFFECT_PHOTO, 1, 1, 0);
-		break;
+	case TRAIT_TAKE_PHOTO: cast_beam(caster_ptr, DO_EFFECT_PHOTO, 1, 1, 0); break;
 
-	case TRAIT_DOUBLE_REVENGE:
-		if(!do_cmd_mane(caster_ptr, TRUE)) return FALSE;
-		break;
+	case TRAIT_DOUBLE_REVENGE: if(!do_cmd_mane(caster_ptr, TRUE)) return FALSE; break;
 
 	case TRAIT_ABSORB_MAGIC:
 		if(!gain_magic(caster_ptr)) return FALSE;
