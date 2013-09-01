@@ -23,9 +23,9 @@ bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
 }
 
-bool cast_bolt_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
+bool cast_bolt_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id, FLAGS_32 options)
 {
-	return project(caster_ptr, range, 0, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
+	return project(caster_ptr, range, 0, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE | options, trait_id);
 }
 
 bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
