@@ -1303,7 +1303,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	creature_desc(target_name, target_ptr, 0);
 
 	if(skipped) return; // Absolutely no effect
-	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_HEAL) && !(typ == DO_EFFECT_HASTE) && !(typ == DO_EFFECT_STAR_HEAL)) return;
+	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_HEAL_HP) && !(typ == DO_EFFECT_HASTE) && !(typ == DO_EFFECT_STAR_HEAL)) return;
 	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return;
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
@@ -1547,10 +1547,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-	case DO_EFFECT_HEAL:
+	case DO_EFFECT_HEAL_HP:
 		(void)heal_creature(target_ptr, dam);
+		if(npc_status_id == c_ptr->creature_idx) prepare_redraw(PR_HEALTH);
+		if(player_ptr->riding == c_ptr->creature_idx) prepare_redraw(PR_UHEALTH);
+		dam = 0;
+		break;
 
-		// Redraw (later) if needed
+	case DO_EFFECT_HEAL_MP:
+		(void)inc_mana(target_ptr, dam);
 		if(npc_status_id == c_ptr->creature_idx) prepare_redraw(PR_HEALTH);
 		if(player_ptr->riding == c_ptr->creature_idx) prepare_redraw(PR_UHEALTH);
 		dam = 0;

@@ -175,7 +175,7 @@ void cast_wonder(creature_type *caster_ptr, TRAIT_ID trait_id)
 
 	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_CLONE, MAX_RANGE_SUB, 0, trait_id);
 	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_HASTE, MAX_RANGE_SUB, caster_ptr->lev, trait_id);
-	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, diceroll(4, 6), trait_id);
+	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_HEAL_HP, MAX_RANGE_SUB, diceroll(4, 6), trait_id);
 	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_POLY, MAX_RANGE_SUB, lev_bonus, trait_id);
 	else if(die < 36) cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), trait_id);
 	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, lev_bonus, trait_id);

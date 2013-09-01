@@ -1477,7 +1477,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_ARREST_CREATURE: cast_ball_hide(caster_ptr, DO_EFFECT_HOLD, MAX_RANGE_SUB, user_level*2, 0); break;
 	case TRAIT_ARREST_EVIL: cast_ball_hide(caster_ptr, DO_EFFECT_HOLD_EVIL, MAX_RANGE_SUB, power * 2, 0); break;
 
-	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_HEAL, MAX_RANGE_SUB, power, -1); break;
+	case TRAIT_HEAL_OTHER: cast_bolt(caster_ptr, DO_EFFECT_HEAL_HP, MAX_RANGE_SUB, power, -1); break;
 
 	case TRAIT_CAPTURE_CREATURE: monster_ball(caster_ptr); break;
 	case TRAIT_FISHING: fishing(caster_ptr, y, x); break;
