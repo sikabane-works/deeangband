@@ -473,10 +473,8 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 				else if(one_in_(5)) (void)add_timed_trait(creature_ptr, TRAIT_CUT, 200, TRUE);
 				else if(one_in_(4))
 				{
-					if(!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
-						(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 2 +  randint0(6), TRUE);
-					else 
-						(void)add_timed_trait(creature_ptr, TRAIT_STUN, 10 + randint0(100), TRUE);
+					if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))  (void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 2 +  randint0(6), TRUE);
+					else (void)add_timed_trait(creature_ptr, TRAIT_STUN, 10 + randint0(100), TRUE);
 				}
 				else if(one_in_(3)) apply_disenchant(creature_ptr, FALSE);
 				else if(one_in_(2))

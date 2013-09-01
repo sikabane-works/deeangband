@@ -1129,7 +1129,6 @@ extern bool brand_bolts(creature_type *creature_ptr);
 extern bool polymorph_creature(creature_type *creature_ptr);
 extern bool dimension_door(creature_type *creature_ptr);
 extern bool mirror_tunnel(creature_type *creature_ptr);
-extern bool summon_kin_player(creature_type *creature_ptr, FLOOR_LEV level, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern cptr spell_category_name(TVAL tval);
 extern void ring_of_power(creature_type *creature_ptr);
 

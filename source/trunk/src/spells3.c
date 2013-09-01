@@ -2340,22 +2340,14 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 
 	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
 
-	if(only_equip)
-		item_tester_hook = item_tester_hook_identify_fully_weapon_armour;
-	else
-		item_tester_hook = item_tester_hook_identify_fully;
+	if(only_equip) item_tester_hook = item_tester_hook_identify_fully_weapon_armour;
+	else item_tester_hook = item_tester_hook_identify_fully;
 
-	if(can_get_item(creature_ptr))
-	{
-		q = MES_OBJECT_WHICH_INDEN_FULLY;
-	}
+	if(can_get_item(creature_ptr)) q = MES_OBJECT_WHICH_INDEN_FULLY;
 	else
 	{
-		if(only_equip)
-			item_tester_hook = object_is_weapon_armour_ammo2;
-		else
-			item_tester_hook = NULL;
-
+		if(only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
+		else item_tester_hook = NULL;
 		q = MES_OBJECT_WHICH_ALL_INDEN_FULLY;
 	}
 
@@ -2370,12 +2362,9 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	handle_stuff(creature_ptr);
 	object_desc(object_name, object_ptr, 0);
 
-	if(IS_EQUIPPED(object_ptr))
-		msg_format(MES_INDENTIFY_RESULT_EQUIPMENT(describe_use(creature_ptr, item), object_name, index_to_label(item)));
-	else if(item >= 0)
-		msg_format(MES_INDENTIFY_RESULT_IN_ZACK(object_name, index_to_label(item)));
-	else
-		msg_format(MES_INDENTIFY_RESULT_ON_GROUND(object_name));
+	if(IS_EQUIPPED(object_ptr)) msg_format(MES_INDENTIFY_RESULT_EQUIPMENT(describe_use(creature_ptr, item), object_name, index_to_label(item)));
+	else if(item >= 0) msg_format(MES_INDENTIFY_RESULT_IN_ZACK(object_name, index_to_label(item)));
+	else msg_format(MES_INDENTIFY_RESULT_ON_GROUND(object_name));
 
 	/* Describe it fully */
 	(void)screen_object(object_ptr, 0L);
@@ -4318,14 +4307,6 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 	prepare_window(PW_INVEN);
 
 	return TRUE;
-}
-
-
-bool summon_kin_player(creature_type *creature_ptr, FLOOR_LEV level, COODINATES y, COODINATES x, FLAGS_32 mode)
-{
-	bool pet = (bool)(mode & PC_FORCE_PET);
-	if(!pet) mode |= PC_NO_PET;
-	return summoning((pet ? creature_ptr : NULL), y, x, level, TRAIT_S_KIN, mode);
 }
 
 cptr spell_category_name(TVAL tval)
