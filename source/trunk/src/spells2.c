@@ -76,12 +76,12 @@ bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, P
 	return TRUE;
 }
 
-void cast_breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
+void cast_breath(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
 
-void cast_breath_aux(creature_type *caster_ptr, int y, int x, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
+void cast_breath_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, EFFECT_ID typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
