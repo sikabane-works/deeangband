@@ -1042,7 +1042,7 @@ void toggle_inven_equip(void)
  *
  * The item can be negative to mean "item on floor".
  */
-static bool verify(creature_type *creature_ptr, cptr prompt, int item)
+static bool verify(creature_type *creature_ptr, cptr prompt, OBJECT_ID item)
 {
 	char        object_name[MAX_NLEN];
 	char        out_val[MAX_NLEN+20];
@@ -1066,7 +1066,7 @@ static bool verify(creature_type *creature_ptr, cptr prompt, int item)
  *
  * The item can be negative to mean "item on floor".
  */
-static bool get_item_allow(creature_type *creature_ptr, int item)
+static bool get_item_allow(creature_type *creature_ptr, OBJECT_ID item)
 {
 	cptr s;
 	object_type *object_ptr;

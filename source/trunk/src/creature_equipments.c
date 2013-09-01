@@ -1,7 +1,7 @@
 #include "angband.h"
 #include "creature_equipments.h"
 
-void kamaenaoshi(creature_type *creature_ptr, int item)
+void kamaenaoshi(creature_type *creature_ptr, OBJECT_ID item)
 {
 	object_type *object_ptr, *new_object_ptr;
 	char object_name[MAX_NLEN];
@@ -58,7 +58,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 	}
 }
 
-void creature_equipping(creature_type *creature_ptr, int item, int slot, int n)
+void creature_equipping(creature_type *creature_ptr, OBJECT_ID item, int slot, int n)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
 	int old_item = get_equipped_slot_idx(creature_ptr, slot, n);

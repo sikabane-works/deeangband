@@ -59,7 +59,7 @@
  */
 
 
-static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
+static void do_cmd_eat_food_aux(creature_type *creature_ptr, OBJECT_ID item)
 {
 	int ident, lev, i;
 	object_type *object1_ptr;
@@ -306,7 +306,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 }
 
 // Quaff a potion (from the pack or the floor)
-static void exe_quaff(creature_type *caster_ptr, int item)
+static void exe_quaff(creature_type *caster_ptr, OBJECT_ID item)
 {
 	floor_type  *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int effected, lev, i;
@@ -539,14 +539,11 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 // Certain scrolls can be "aborted" without losing the scroll.  These
 // include scrolls with no effects but recharge or identify, which are
 // cancelled before use.  XXX Reading them still takes a turn, though.
-static void exe_scroll(creature_type *caster_ptr, int item)
+static void exe_scroll(creature_type *caster_ptr, OBJECT_ID item)
 {
 	int i, k, used_up, ident, lev;
 	object_type *object_ptr;
-
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	object_ptr = GET_ITEM(caster_ptr, item);
-
 	cost_tactical_energy(caster_ptr, 100); // Take a turn
 
 	if(caster_ptr->time_stopper)
@@ -710,7 +707,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
  * One charge of one staff disappears.
  * Hack -- staffs of identify can be "cancelled".
  */
-static void exe_staff(creature_type *creature_ptr, int item)
+static void exe_staff(creature_type *creature_ptr, OBJECT_ID item)
 {
 	int chance, i;
 	object_type *object_ptr;
@@ -831,7 +828,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
  * basic "bolt" rods, but the basic "ball" wands do the same damage
  * as the basic "ball" rods.
  */
-static void exe_wand(creature_type *creature_ptr, int item)
+static void exe_wand(creature_type *creature_ptr, OBJECT_ID item)
 {
 	int chance, ident = FALSE, i;
 	DIRECTION dir;
@@ -930,7 +927,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
  *
  * pvals are defined for each rod in object_kind_info. -LM-
  */
-static void exe_rod(creature_type *creature_ptr, int item)
+static void exe_rod(creature_type *creature_ptr, OBJECT_ID item)
 {
 	int ident = FALSE, chance, fail = 0, i;
 	object_type *object_ptr;
@@ -1088,7 +1085,7 @@ bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
  * Note that it always takes a turn to activate an artifact, even if
  * the user hits "escape" at the "direction" prompt.
  */
-static void exe_activate(creature_type *creature_ptr, int item)
+static void exe_activate(creature_type *creature_ptr, OBJECT_ID item)
 {
 	int chance, fail = 0, i;
 	object_type *object_ptr;

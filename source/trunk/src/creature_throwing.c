@@ -306,7 +306,7 @@ static int tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_ptr
  * for the damage multiplier.
  * Note that Bows of "Extra Shots" give an extra shot.
  */
-void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
+void do_cmd_fire_aux(creature_type *creature_ptr, OBJECT_ID item, object_type *j_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION dir;

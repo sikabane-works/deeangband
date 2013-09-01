@@ -1530,7 +1530,7 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 }
 
 //  Auto-destroy marked item
-static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
+static void autopick_delayed_alter_aux(creature_type *creature_ptr, OBJECT_ID item)
 {
 	object_type *object_ptr;
 	object_ptr = GET_ITEM(creature_ptr, item);
@@ -1579,7 +1579,7 @@ void autopick_delayed_alter(creature_type *creature_ptr)
  * Auto-destroyer works only on inventory or on floor stack only when
  * requested.
  */
-void autopick_alter_item(creature_type *creature_ptr, int item, bool destroy)
+void autopick_alter_item(creature_type *creature_ptr, OBJECT_ID item, bool destroy)
 {
 	object_type *object_ptr;
 	int idx;

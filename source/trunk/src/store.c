@@ -1898,7 +1898,7 @@ static int store_carry(store_type *st_ptr, object_type *object_ptr)
  * Increase, by a given amount, the number of a certain item
  * in a certain store.	This can result in zero items.
  */
-static void store_item_increase(store_type *st_ptr, int item, int num)
+static void store_item_increase(store_type *st_ptr, OBJECT_ID item, int num)
 {
 	int cnt;
 	object_type *object_ptr;
@@ -1916,7 +1916,7 @@ static void store_item_increase(store_type *st_ptr, int item, int num)
 /*
  * Remove a slot if it is empty
  */
-static void store_item_optimize(store_type *st_ptr, int item)
+static void store_item_optimize(store_type *st_ptr, OBJECT_ID item)
 {
 	int j;
 	object_type *object_ptr;

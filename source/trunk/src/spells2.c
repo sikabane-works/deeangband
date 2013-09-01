@@ -83,7 +83,7 @@ void cast_breath(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, POW
 
 void cast_breath_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, EFFECT_ID typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
-	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
+	(void)project(caster_ptr, range, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
 
 
@@ -119,7 +119,7 @@ bool cast_swarm(creature_type *caster_ptr, int typ, COODINATES range, COODINATES
 		}
 		cast_ball(caster_ptr, typ, range, power, rad);
 	}
-	return;
+	return TRUE;
 }
 
 bool cast_self(creature_type *caster_ptr, EFFECT_ID typ, POWER power, TRAIT_ID trait_id)

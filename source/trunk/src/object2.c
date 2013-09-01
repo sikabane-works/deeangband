@@ -3112,7 +3112,7 @@ void place_trap(floor_type *floor_ptr, int y, int x)
 }
 
 // Describe the charges on an item in the creature_ptr->inventory.
-void inven_item_charges(creature_type *creature_ptr, int item)
+void inven_item_charges(creature_type *creature_ptr, OBJECT_ID item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
 
@@ -3156,7 +3156,7 @@ void inven_item_increase(creature_type *creature_ptr, OBJECT_ID item, QUANTITY n
 }
 
 // Erase an inventory slot if it has no more items
-void inven_item_optimize(creature_type *creature_ptr, int item)
+void inven_item_optimize(creature_type *creature_ptr, OBJECT_ID item)
 {
 	int i;
 	object_type *object_ptr = &creature_ptr->inventory[item];
@@ -3186,7 +3186,7 @@ void inven_item_optimize(creature_type *creature_ptr, int item)
 }
 
 // Describe the charges on an item on the floor.
-void floor_item_charges(int item)
+void floor_item_charges(OBJECT_ID item)
 {
 	object_type *object_ptr = &object_list[item];
 	if((object_ptr->tval != TV_STAFF) && (object_ptr->tval != TV_WAND)) return;
@@ -3200,7 +3200,7 @@ void floor_item_charges(int item)
 /*
 * Describe an item in the creature_ptr->inventory.
 */
-void floor_item_describe(creature_type *creature_ptr, int item)
+void floor_item_describe(creature_type *creature_ptr, OBJECT_ID item)
 {
 	object_type *object_ptr = &object_list[item];
 	char object_name[MAX_NLEN];
@@ -3213,7 +3213,7 @@ void floor_item_describe(creature_type *creature_ptr, int item)
 
 
 // Increase the "number" of an item on the floor
-void floor_item_increase(int item, int num)
+void floor_item_increase(OBJECT_ID item, int num)
 {
 	object_type *object_ptr = &object_list[item];
 
@@ -3228,7 +3228,7 @@ void floor_item_increase(int item, int num)
 
 
 // Optimize an item on the floor (destroy "empty" items)
-void floor_item_optimize(int item)
+void floor_item_optimize(OBJECT_ID item)
 {
 	object_type *object_ptr = &object_list[item];
 	if(!is_valid_object(object_ptr)) return;
@@ -3330,7 +3330,7 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 *
 * Return the inventory slot into which the item is placed.
 */
-SLOT_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
+SLOT_ID inven_takeoff(creature_type *creature_ptr, OBJECT_ID item, int amt)
 {
 	SLOT_ID slot;
 	object_type forge;
@@ -3377,7 +3377,7 @@ SLOT_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
  * Drop (some of) a non-cursed inventory/equipment item
  * The object will be dropped "near" the current location
  */
-void inven_drop(creature_type *creature_ptr, int item, int amt)
+void inven_drop(creature_type *creature_ptr, OBJECT_ID item, int amt)
 {
 	object_type forge;
 	object_type *object_drop_ptr;

@@ -697,7 +697,7 @@ static void init_turn(creature_type *creature_ptr)
 	}
 }
 
-static int wield_one(creature_type *creature_ptr, int item, FLAGS_32 flags)
+static int wield_one(creature_type *creature_ptr, OBJECT_ID item, FLAGS_32 flags)
 {
 	object_type *object_ptr; 
 	object_type *i_ptr; 
