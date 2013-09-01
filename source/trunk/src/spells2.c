@@ -2684,13 +2684,6 @@ bool unlite_area(creature_type *caster_ptr, POWER dam, COODINATES rad)
 	return TRUE;
 }
 
-bool fire_meteor(int who, int typ, COODINATES y, COODINATES x, POWER dam, COODINATES rad)
-{
-	/* Analyze the "target" and the caster. */
-	return (project(&creature_list[who], 0, rad, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
-}
-
-
 bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev)
 {
 	COODINATES ly, lx, ty, tx, y, x, ld;

@@ -488,7 +488,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 					(void)do_dec_stat(creature_ptr, STAT_WIS);
 					(void)do_dec_stat(creature_ptr, STAT_CHA);
 				}
-				else (void)fire_meteor(-1, DO_EFFECT_NETHER, y, x, 150, 1);
+				else (void)cast_swarm(creature_ptr, DO_EFFECT_NETHER, 4, 5, 1, 150, -1, PROJECT_FUMBLE);
 			}
 		}
 	}

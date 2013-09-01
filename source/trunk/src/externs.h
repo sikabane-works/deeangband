@@ -1031,7 +1031,6 @@ extern bool cast_self(creature_type *caster_ptr, EFFECT_ID typ, POWER power, TRA
 extern bool cast_grenade(creature_type *caster_ptr, COODINATES y, COODINATES x, EFFECT_ID typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_swarm(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, COODINATES rad, QUANTITY num, POWER power, TRAIT_ID trait_id, FLAGS_32 option);
-extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, POWER dam, COODINATES rad);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
