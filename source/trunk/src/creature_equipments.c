@@ -53,11 +53,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 			set_inventory_weight(creature_ptr);
 			inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 1), -((int)object_ptr->number));
 			inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 1));
-#ifdef JP
-			msg_format("%s‚ğ‚¿‘Ö‚¦‚½B", object_name);
-#else
-			msg_format("You switched hand of %s.", object_name);
-#endif
+			msg_format(MES_OBJECT_CHANGE_HAND(object_ptr));
 		}
 	}
 }
