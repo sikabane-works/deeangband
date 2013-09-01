@@ -3154,13 +3154,9 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			/* No move at end of line */
 			if('\0' == buf[pos]) break;
 
-#ifdef JP
 			/* Move right */
 			if(is_mbyte(buf[pos])) pos += 2;
 			else pos++;
-#else
-			pos++;
-#endif
 
 			break;
 
@@ -3187,10 +3183,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			while (TRUE)
 			{
 				int next_pos = i + 1;
-
-#ifdef JP
 				if(is_mbyte(buf[i])) next_pos++;
-#endif
 
 				/* Is there the cursor at next position? */ 
 				if(next_pos >= pos) break;
@@ -3217,14 +3210,8 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			/* No move at end of line */
 			if('\0' == buf[pos]) break;
 
-			/* Position of next character */
-			src = pos + 1;
-
-#ifdef JP
-			/* Next character is one more byte away */
-			if(is_mbyte(buf[pos])) src++;
-#endif
-
+			src = pos + 1; /* Position of next character */
+			if(is_mbyte(buf[pos])) src++; /* Next character is one more byte away */
 			dst = pos;
 
 			/* Move characters at src to dst */
@@ -3258,7 +3245,6 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 
 			/* Save right part of string */
 			strcpy(tmp, buf + pos);
-#ifdef JP
 			if(is_mbyte(c))
 			{
 				char next;
@@ -3278,13 +3264,8 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 				}
 			}
 			else
-#endif
 			{
-#ifdef JP
 				if(pos < len && (isprint(c) || iskana(c)))
-#else
-				if(pos < len && isprint(c))
-#endif
 				{
 					buf[pos++] = c;
 				}
@@ -4282,8 +4263,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 			}
 		}
 	}
-	if(!caretcmd)
-		caretcmd = command_cmd;
+	if(!caretcmd) caretcmd = command_cmd;
 #endif
 
 	/* Hack -- Scan equipment */
@@ -4744,18 +4724,15 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 
 	while (str[read_pt])
 	{
-#ifdef JP
 		bool kinsoku = FALSE;
 		bool kanji;
-#endif
 		int ch_len = 1;
 
 		/* Prepare one character */
 		ch[0] = str[read_pt];
 		ch[1] = '\0';
-#ifdef JP
-		kanji  = is_mbyte(ch[0]);
 
+		kanji  = is_mbyte(ch[0]);
 		if(kanji)
 		{
 			ch[1] = str[read_pt+1];
@@ -4767,12 +4744,7 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 			    strcmp(ch, "[") == 0)
 				kinsoku = TRUE;
 		}
-		else if(!isprint(ch[0]))
-			ch[0] = ' ';
-#else
-		if(!isprint(ch[0]))
-			ch[0] = ' ';
-#endif
+		else if(!isprint(ch[0])) ch[0] = ' ';
 
 		if(line_len + ch_len > maxlen - 1 || str[read_pt] == '\n')
 		{
@@ -4781,11 +4753,8 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 			/* return to better wrapping point. */
 			/* Space character at the end of the line need not to be printed. */
 			word_len = read_pt - word_punct;
-#ifdef JP
-			if(kanji && !kinsoku)
-				/* nothing */ ;
+			if(kanji && !kinsoku) /* nothing */ ;
 			else
-#endif
 			if(ch[0] == ' ' || word_len >= line_len/2)
 				read_pt++;
 			else
@@ -4801,11 +4770,8 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 			word_punct = read_pt;
 			continue;
 		}
-		if(ch[0] == ' ')
-			word_punct = read_pt;
-#ifdef JP
+		if(ch[0] == ' ') word_punct = read_pt;
 		if(!kinsoku) word_punct = read_pt;
-#endif
 
 		/* Not enough buffer size */
 		if((size_t)(write_pt + 3) >= bufsize) break;
@@ -4813,14 +4779,14 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 		tbuf[write_pt++] = ch[0];
 		line_len++;
 		read_pt++;
-#ifdef JP
+
 		if(kanji)
 		{
 			tbuf[write_pt++] = ch[1];
 			line_len++;
 			read_pt++;
 		}
-#endif
+
 	}
 	tbuf[write_pt] = '\0';
 	tbuf[write_pt+1] = '\0';
@@ -4871,7 +4837,6 @@ size_t my_strcpy(char *buf, const char *src, size_t bufsize)
 	}
 
 	while(*s++) len++;
-
 	return len;
 
 #else
@@ -4975,13 +4940,11 @@ void str_tolower(char *str)
 	/* Force to be lower case string */
 	for (; *str; str++)
 	{
-#ifdef JP
 		if(is_mbyte(*str))
 		{
 			str++;
 			continue;
 		}
-#endif
 		*str = (char)tolower(*str);
 	}
 }
@@ -5050,8 +5013,7 @@ int inkey_special(bool numpad_cursor)
 	 */
 	inkey_macro_trigger_string[0] = '\0';
 
-	/* Get a keypress */
-	key = inkey();
+	key = inkey(); /* Get a keypress */
 
 	/* Examine trigger string */
 	trig_len = strlen(inkey_macro_trigger_string);
@@ -5065,12 +5027,8 @@ int inkey_special(bool numpad_cursor)
 	if(trig_len == 1 && parse_macro)
 	{
 		char c = inkey_macro_trigger_string[0];
-
-		/* Cancel macro action on the queue */
-		forget_macro_action();
-
-		/* Return the originaly pressed key */
-		return (int)((unsigned char)c);
+		forget_macro_action(); /* Cancel macro action on the queue */
+		return (int)((unsigned char)c); /* Return the originaly pressed key */
 	}
 
 	/* Convert the trigger */
@@ -5079,11 +5037,8 @@ int inkey_special(bool numpad_cursor)
 	/* Check the prefix "\[" */
 	if(prefix(str, "\\["))
 	{
-		/* Skip "\[" */
-		str += 2;
-
-		/* Examine modifier keys */
-		while (TRUE)
+		str += 2; /* Skip "\[" */
+		while (TRUE) /* Examine modifier keys */
 		{
 			for (i = 0; modifier_key_list[i].keyname; i++)
 			{
@@ -5094,9 +5049,7 @@ int inkey_special(bool numpad_cursor)
 					modifier |= modifier_key_list[i].keyflag;
 				}
 			}
-
-			/* No more modifier key found */
-			if(!modifier_key_list[i].keyname) break;
+			if(!modifier_key_list[i].keyname) break; /* No more modifier key found */
 		}
 
 		/* numpad_as_cursorkey option force numpad keys to input numbers */

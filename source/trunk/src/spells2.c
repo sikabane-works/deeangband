@@ -122,9 +122,9 @@ bool cast_swarm(creature_type *caster_ptr, int typ, COODINATES range, COODINATES
 	return;
 }
 
-bool cast_self(creature_type *caster_ptr, int typ, POWER power, TRAIT_ID trait_id)
+bool cast_self(creature_type *caster_ptr, EFFECT_ID typ, POWER power, TRAIT_ID trait_id)
 {
-	return (project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id));
+	return (project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, power, typ, PROJECT_SELF | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id));
 }
 
 bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad)

@@ -1569,30 +1569,30 @@
  *   DISI: Disintegrate non-permanent features
  *   PLAYER: Main target is player (used for riding player)
  *   AIMED: Target is only player or creature, so don't affect another.
- *          Depend on PROJECT_PLAYER.
+ *          Depend on PROJECT_SELF.
  *          (used for minimum (rad == 0) balls on riding player)
  *   REFLECTABLE: Refrectable spell attacks (used for "bolts")
  *   NO_HANGEKI: Avoid counter attacks of creatures
  *   PATH: Only used for printing project path
  *   FAST: Hide "visual" of flying bolts until blast
  */
-#define PROJECT_JUMP        0x01
-#define PROJECT_BEAM        0x02
-#define PROJECT_THRU        0x04
-#define PROJECT_STOP        0x08
-#define PROJECT_GRID        0x10
-#define PROJECT_ITEM        0x20
-#define PROJECT_KILL        0x40
-#define PROJECT_HIDE        0x80
-#define PROJECT_DISI        0x100
-#define PROJECT_PLAYER      0x200
-#define PROJECT_AIMED       0x400
-#define PROJECT_REFLECTABLE 0x800
-#define PROJECT_NO_HANGEKI  0x1000
-#define PROJECT_PATH        0x2000
-#define PROJECT_FAST        0x4000
-#define PROJECT_LOS         0x8000
-#define PROJECT_BREATH      0x10000
+#define PROJECT_JUMP 0x00000001
+#define PROJECT_BEAM 0x00000002
+#define PROJECT_THRU 0x00000004
+#define PROJECT_STOP 0x00000008
+#define PROJECT_GRID 0x00000010
+#define PROJECT_ITEM 0x00000020
+#define PROJECT_KILL 0x00000040
+#define PROJECT_HIDE 0x00000080
+#define PROJECT_DISI 0x00000100
+#define PROJECT_SELF 0x00000200
+#define PROJECT_AIMED 0x00000400
+#define PROJECT_REFLECTABLE 0x00000800
+#define PROJECT_NO_HANGEKI 0x00001000
+#define PROJECT_PATH 0x00002000
+#define PROJECT_FAST 0x00004000
+#define PROJECT_LOS 0x00008000
+#define PROJECT_BREATH 0x00010000
 
 #define PRJ_BOLT PROJECT_STOP | PROJECT_KILL | PROJECT_GRID | PROJECT_REFLECTABLE
 #define PRJ_BEAM PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM

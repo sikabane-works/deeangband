@@ -4025,7 +4025,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 
 				if((flg & PROJECT_REFLECTABLE) && floor_ptr->cave[y][x].creature_idx && has_trait(m_ptr, TRAIT_REFLECTING) &&
-					((floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
+					((floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_SELF)) &&
 					((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
@@ -4059,8 +4059,8 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_REFLECTING);
 
 					/* Reflected bolts randomly target either one */
-					if(CREATURE_BOLD(player_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
-					else flg |= PROJECT_PLAYER;
+					if(CREATURE_BOLD(player_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_SELF);
+					else flg |= PROJECT_SELF;
 
 					/* The bolt is reflected */
 					project(&creature_list[floor_ptr->cave[y][x].creature_idx], 0, 0, t_y, t_x, dam, typ, flg, trait_id);
@@ -4078,7 +4078,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			if(caster_ptr && player_ptr->riding && CREATURE_BOLD(caster_ptr, y, x))
 			{
 				/* Aimed on the player */
-				if(flg & PROJECT_PLAYER)
+				if(flg & PROJECT_SELF)
 				{
 					if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
 					{
@@ -4126,11 +4126,8 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 					}
 					else
 					{
-						/* Hit the player later */
-						flg |= PROJECT_PLAYER;
-
-						/* Don't affect the mount */
-						continue;
+						flg |= PROJECT_SELF; /* Hit the player later */
+						continue; /* Don't affect the mount */
 					}
 				}
 
@@ -4192,7 +4189,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			if(player_ptr->riding)
 			{
 				/* Aimed on the player */
-				if(flg & PROJECT_PLAYER)
+				if(flg & PROJECT_SELF)
 				{
 					/* Hit the player with full damage */
 				}
