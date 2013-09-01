@@ -408,7 +408,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	if(trap & (CHEST_BIRD_STORM))
 	{
 		msg_print(MES_TRAP_S_BIRD);
-		(void)cast_swarm(creature_ptr, DO_EFFECT_FORCE, 12, 3, 5, object_ptr->chest_mode / 5, -1);
+		(void)cast_swarm(creature_ptr, DO_EFFECT_FORCE, 12, 3, 5, object_ptr->chest_mode / 5, -1, PROJECT_FUMBLE);
 		(void)summoning(0, y, x, mon_level, TRAIT_S_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 
@@ -421,7 +421,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 			msg_print(MES_TRAP_S_H_DEMON);
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)cast_swarm(creature_ptr, DO_EFFECT_FIRE, 5, 3, 3, 10, -1);
+				(void)cast_swarm(creature_ptr, DO_EFFECT_FIRE, 5, 3, 3, 10, -1, PROJECT_FUMBLE);
 				(void)summoning(0, y, x, mon_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}

@@ -103,7 +103,7 @@ bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_swarm(creature_type *caster_ptr, int typ, COODINATES range, COODINATES rad, int num, POWER power, TRAIT_ID trait_id)
+bool cast_swarm(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, COODINATES rad, QUANTITY num, POWER power, TRAIT_ID trait_id, FLAGS_32 option)
 {
 	COODINATES x = caster_ptr->fx, y = caster_ptr->fy;
 	int attempts, k;
