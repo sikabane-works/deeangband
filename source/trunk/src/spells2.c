@@ -3022,11 +3022,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 
 	if(!success && one_in_(3))
 	{
-#ifdef JP
-		msg_format("失敗！%sは変わり身で逃げられなかった。", user_name);
-#else
-		msg_format("Failed! %s couldn't run away.", user_name);
-#endif
+		msg_format(MES_TRAIT_KAWARIMI_FAILED(user_ptr));
 		user_ptr->posture &= ~(NINJA_KAWARIMI);
 		prepare_redraw(PR_STATUS);
 		return FALSE;
@@ -3039,9 +3035,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	object_wipe(object_ptr);
 	generate_object(object_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE));
 	object_ptr->pval = SPECIES_NINJA;
-
-	/* Drop it in the dungeon */
-	(void)drop_near(floor_ptr, object_ptr, -1, y, x);
+	(void)drop_near(floor_ptr, object_ptr, -1, y, x); /* Drop it in the dungeon */
 
 #ifdef JP
 	if(success) msg_format("%sは攻撃を受ける前に素早く身をひるがえした。", user_name);
