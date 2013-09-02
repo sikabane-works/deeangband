@@ -823,43 +823,19 @@ static void display_cards(void)
 				  "            "};
 #endif
 
-	for (i = 0; i < 5; i++)
-	{
-#ifdef JP
-		prt("„¬„ª„ª„ª„ª„ª„ª„­", 5, i*16);
-#else
-		prt(" +------------+ ", 5, i*16);
-#endif
-	}
+	for (i = 0; i < 5; i++) prt(" +------------+ ", 5, i*16);
 
 	for (i = 0; i < 5; i++)
 	{
 		for (j = 0; j < 7; j++)
 		{
-#ifdef JP
-			prt("„«", j+6, i*16);
-#else
 			prt(" |", j+6, i*16);
-#endif
-			if(IS_JOKER(cards[i]))
-				c_put_str(TERM_VIOLET, joker_grph[j], j+6, 2+i*16);
-			else
-				c_put_str(suitcolor[SUIT_OF(cards[i])], format(card_grph[NUM_OF(cards[i])][j], suit[SUIT_OF(cards[i])], suit[SUIT_OF(cards[i])]), j+6, 2+i*16);
-#ifdef JP
-			prt("„«", j+6, i*16+14);
-#else
+			if(IS_JOKER(cards[i])) c_put_str(TERM_VIOLET, joker_grph[j], j+6, 2+i*16);
+			else c_put_str(suitcolor[SUIT_OF(cards[i])], format(card_grph[NUM_OF(cards[i])][j], suit[SUIT_OF(cards[i])], suit[SUIT_OF(cards[i])]), j+6, 2+i*16);
 			prt("| ", j+6, i*16+14);
-#endif
 		}
 	}
-	for (i = 0; i < 5; i++)
-	{
-#ifdef JP
-		prt("„¯„ª„ª„ª„ª„ª„ª„®", 13, i*16);
-#else
-		prt(" +------------+ ", 13, i*16);
-#endif
-	}
+	for (i = 0; i < 5; i++) prt(" +------------+ ", 13, i*16);
 }
 
 static int do_poker(void)
@@ -1050,10 +1026,8 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 					sprintf(tmp_str, MES_GAMBLE_CRAPS_FIRST(roll1, roll2, roll3));
 					prt(tmp_str, 7, 5);
-					if((roll3 == 7) || (roll3 == 11))
-						win = TRUE;
-					else if((roll3 == 2) || (roll3 == 3) || (roll3 == 12))
-						win = FALSE;
+					if((roll3 == 7) || (roll3 == 11)) win = TRUE;
+					else if((roll3 == 2) || (roll3 == 3) || (roll3 == 12)) win = FALSE;
 					else
 						do
 						{
@@ -1316,10 +1290,7 @@ void battle_creatures(void)
 					if((species_info[species_idx].level + 10) > ave_enemy_level) continue;
 				}
 
-				for (j = 0; j < i; j++)
-				{
-					if(species_idx == battle_creature[j]) break;
-				}
+				for (j = 0; j < i; j++) if(species_idx == battle_creature[j]) break;
 
 				if(j < i) continue;
 
@@ -1431,8 +1402,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 		}
 
 		clear_bldg(4, 4);
-		for(i = 0; i < 4; i++)
-			if(i != sel_creature) clear_bldg(i + 5, i + 5);
+		for(i = 0; i < 4; i++) if(i != sel_creature) clear_bldg(i + 5, i + 5);
 
 		maxbet = creature_ptr->lev * 200;
 
@@ -1519,7 +1489,6 @@ static void shoukinkubi(void)
 {
 	int i;
 	int y = 0;
-
 	clear_bldg(4, 18);
 
 	prt(MES_BOUNTY_DETAIL, 4, 10);
@@ -1650,7 +1619,6 @@ static bool kankin(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
-
 		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (object_ptr->source_idx == today_mon))
 		{
 			char buf[MAX_NLEN+20];
@@ -1684,7 +1652,6 @@ static bool kankin(creature_type *creature_ptr)
 				if(!get_check(buf)) continue;
 
 				increase_item(creature_ptr, i, -object_ptr->number, TRUE);
-
 				kubi_species_idx[j] += 10000;
 
 				// Count number of unique corpses already handed
@@ -1863,13 +1830,11 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 /*
  * Display quest information
  */
-static void get_questinfo(int questnum)
+static void get_questinfo(QUEST_ID questnum)
 {
 	int     i;
 	char    tmp_str[80];
-
-	// Clear the text
-	for (i = 0; i < 10; i++) questp_text[i][0] = '\0';
+	for (i = 0; i < 10; i++) questp_text[i][0] = '\0'; /* Clear the text */
 
 	questp_text_line = 0;
 	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT | INIT_ASSIGN, questnum);
@@ -1886,10 +1851,10 @@ static void get_questinfo(int questnum)
 // Request a quest from the Lord.
 static void castle_quest(creature_type *creature_ptr)
 {
-	int             q_index = 0;
-	species_type    *species_ptr;
-	quest_type      *quest_ptr;
-	cptr            name;
+	int q_index = 0;
+	species_type *species_ptr;
+	quest_type *quest_ptr;
+	cptr name;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	clear_bldg(4, 18);
@@ -1916,10 +1881,7 @@ static void castle_quest(creature_type *creature_ptr)
 	else if(quest_ptr->status == QUEST_STATUS_FAILED)
 	{
 		get_questinfo(q_index);
-
-		/* Mark quest as done (but failed) */
-		quest_ptr->status = QUEST_STATUS_FAILED_DONE;
-
+		quest_ptr->status = QUEST_STATUS_FAILED_DONE; /* Mark quest as done (but failed) */
 		creature_ptr->reinit_wilderness = TRUE;
 	}
 	/* Quest is still unfinished */
@@ -2052,12 +2014,12 @@ static bool resize_item(creature_type *creature_ptr)
 // Enchant item
 static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int to_damageam, int to_ac, int item_tester_tval)
 {
-	int         i;
+	int i;
 	OBJECT_ID item;
-	bool        okay = FALSE;
+	bool okay = FALSE;
 	object_type *object_ptr;
-	int         maxenchant = (creature_ptr->lev / 5);
-	char        tmp_str[MAX_NLEN];
+	int maxenchant = (creature_ptr->lev / 5);
+	char tmp_str[MAX_NLEN];
 
 	clear_bldg(4, 18);
 	prt(format(MES_ENCHANT_RANGE(maxenchant)), 5, 0);
@@ -2238,10 +2200,8 @@ static void building_recharge(creature_type *creature_ptr)
 	}
 	if(IS_ROD(object_ptr))
 	{
-		if(get_check(format(MES_RECHARGE_ROD_PRICE(object_ptr->number, price))))
-			object_ptr->timeout = 0;
-		else
-			return;
+		if(get_check(format(MES_RECHARGE_ROD_PRICE(object_ptr->number, price)))) object_ptr->timeout = 0;
+		else return;
 	}
 	else
 	{
@@ -2251,14 +2211,9 @@ static void building_recharge(creature_type *creature_ptr)
 
 		if(charges < 1) return;
 
-		/* Get the new price */
-		price *= charges;
-
-		/* Recharge */
-		object_ptr->pval += (PVAL)charges;
-
-		/* We no longer think the item is empty */
-		object_ptr->ident &= ~(IDENT_EMPTY);
+		price *= charges; /* Get the new price */
+		object_ptr->pval += (PVAL)charges; /* Recharge */
+		object_ptr->ident &= ~(IDENT_EMPTY); /* We no longer think the item is empty */
 	}
 
 	/* Give feedback */
