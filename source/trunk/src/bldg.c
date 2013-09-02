@@ -2544,8 +2544,7 @@ static bool research_creature(creature_type *creature_ptr)
 	else if(ident_info[i]) sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
 	else sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
 
-	/* Display the result */
-	prt(buf, 16, 10);
+	prt(buf, 16, 10); /* Display the result */
 
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, SPECIES_ID);
@@ -2573,13 +2572,11 @@ static bool research_creature(creature_type *creature_ptr)
 
 			for (xx = 0; temp[xx] && xx < 80; xx++)
 			{
-#ifdef JP
 				if(is_mbyte(temp[xx]))
 				{
 					xx++;
 					continue;
 				}
-#endif
 				if(isupper(temp[xx])) temp[xx] = (char)tolower(temp[xx]);
 			}
 
@@ -2587,12 +2584,7 @@ static bool research_creature(creature_type *creature_ptr)
 			for (xx = 0; temp2[xx] && xx < 80; xx++)
 				if(isupper(temp2[xx])) temp2[xx] = (char)tolower(temp2[xx]);
 
-#ifdef JP
-			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp))
-#else
-			if(my_strstr(temp2, temp))
-#endif
-				who[n++] = i;
+			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp)) who[n++] = i;
 		}
 		else if(all || (species_ptr->d_char == sym)) who[n++] = i;
 	}

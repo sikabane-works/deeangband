@@ -1093,11 +1093,8 @@ void ang_sort_aux(vptr u, vptr v, int p, int q,
 
 		/* Done partition */
 		if(a >= b) break;
-
 		(*ang_sort_swap)(u, v, a, b);
-
-		/* Advance */
-		a++, b--;
+		a++, b--; /* Advance */
 	}
 
 	/* Recurse left side */
@@ -1199,7 +1196,6 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
 {
 	byte *x = (byte*)(u);
 	byte *y = (byte*)(v);
-
 	int da, db, kx, ky;
 
 	/* Absolute distance components */
@@ -1317,19 +1313,13 @@ static void ang_sort_swap_distance(vptr u, vptr v, int a, int b)
 	y[b] = temp;
 }
 
-
-
 /*
-* Hack -- help "select" a location (see below)
-*/
+ * Hack -- help "select" a location (see below)
+ */
 static s16b target_pick(int y1, int x1, int dy, int dx)
 {
-	int i, v;
-
-	int x2, y2, x3, y3, x4, y4;
-
+	int i, v, x2, y2, x3, y3, x4, y4;
 	int b_i = -1, b_v = 9999;
-
 
 	/* Scan the locations */
 	for (i = 0; i < temp_n; i++)
@@ -2490,14 +2480,11 @@ bool get_rep_dir(creature_type *creature_ptr, DIRECTION *dp, bool under)
 	creature_desc(creature_name, creature_ptr, 0);
 
 	(*dp) = 0;
-
-	/* Global direction */
-	dir = command_dir;
+	dir = command_dir; /* Global direction */
 
 	if(repeat_pull((KEY *)dp)) // TODO
 	{
-		dir = *dp;
-		/*		return TRUE; */
+		dir = *dp; /* return TRUE; */
 	}
 
 	/* Get a direction */
@@ -2509,25 +2496,12 @@ bool get_rep_dir(creature_type *creature_ptr, DIRECTION *dp, bool under)
 		if(!dir) bell();
 	}
 
-	/* Prevent weirdness */
-	if((dir == 5) && (!under)) dir = 0;
-
-	/* Aborted */
+	if((dir == 5) && (!under)) dir = 0; /* Prevent weirdness */
 	if(!dir) return FALSE;
-
-	/* Save desired direction */
-	command_dir = (s16b)dir;
+	command_dir = (s16b)dir; /* Save desired direction */
 
 	/* Apply "confusion" */
-	if(has_trait(creature_ptr, TRAIT_CONFUSED))
-	{
-		/* Standard confusion */
-		if(PROB_PERCENT(75))
-		{
-			/* Random direction */
-			dir = ddd[randint0(8)];
-		}
-	}
+	if(has_trait(creature_ptr, TRAIT_CONFUSED) && PROB_PERCENT(75)) dir = ddd[randint0(8)]; /* Random direction by confusion*/
 	else if(creature_ptr->riding)
 	{
 		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
@@ -2582,7 +2556,7 @@ bool get_rep_dir2(creature_type *creature_ptr, DIRECTION *dp)
 	if(repeat_pull((KEY *)dp)) //TODO
 	{
 		dir = *dp;
-		/*		return TRUE; */
+		/* return TRUE; */
 	}
 
 	/* Get a direction */
