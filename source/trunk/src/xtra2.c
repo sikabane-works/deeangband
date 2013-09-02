@@ -3406,13 +3406,12 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 // Return alignment title
 void show_alignment(char* buf, creature_type *creature_ptr)
 {
-#ifdef JP
-	sprintf(buf, "‘P[%d]/ˆ«[%d]/’˜[%d]/¬“×[%d]/“V”‰[%d]",
-		creature_ptr->good_rank, creature_ptr->evil_rank, creature_ptr->order_rank, creature_ptr->chaos_rank, creature_ptr->balance_rank);
-#else
-	sprintf(buf, "Good[%d]/Evil[%d]/Order[%d]/Chaos[%d]/Balance[%d]",
-		creature_ptr->good_rank, creature_ptr->evil_rank, creature_ptr->order_rank, creature_ptr->chaos_rank, creature_ptr->balance_rank);
-#endif
+	sprintf(buf, "%s[%d]/%s[%d]/%s[%d]/%s[%d]/%s[%d]",
+		KW_GOOD, creature_ptr->good_rank,
+		KW_EVIL, creature_ptr->evil_rank,
+		KW_LAW, creature_ptr->order_rank,
+		KW_CHAOS, creature_ptr->chaos_rank,
+		KW_BALANCE, creature_ptr->balance_rank);
 }
 
 
