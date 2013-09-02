@@ -3017,7 +3017,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if(!(user_ptr->posture & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev * 3 / 5 + 20))) return FALSE;
 
 	if(gameover) return FALSE;
-	if(user_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(user_ptr, TRAIT_BLIND) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
+	if(has_trait(user_ptr, TRAIT_CONFUSED) ||has_trait(user_ptr, TRAIT_BLIND) || has_trait(user_ptr, TRAIT_PARALYZED) || has_trait(user_ptr, TRAIT_HALLUCINATION)) return FALSE;
 	if(randint0(200) < user_ptr->timed_trait[TRAIT_STUN]) return FALSE;
 
 	if(!success && one_in_(3))
@@ -3037,13 +3037,8 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	object_ptr->pval = SPECIES_NINJA;
 	(void)drop_near(floor_ptr, object_ptr, -1, y, x); /* Drop it in the dungeon */
 
-#ifdef JP
-	if(success) msg_format("%s‚ÍUŒ‚‚ðŽó‚¯‚é‘O‚É‘f‘‚­g‚ð‚Ð‚é‚ª‚¦‚µ‚½B", user_name);
-	else msg_format("%s‚Í•Ï‚í‚èg‚ÉŽ¸”s‚µ‚ÄUŒ‚‚ðŽó‚¯‚½B", user_name);
-#else
-	if(success) msg_format("%s have turned around just before the attack hit you.", user_name); // TODO
-	else msg_format("Failed! %s are hit by the attack.", user_name); // TODO
-#endif
+	if(success) msg_format(MES_TRAIT_KAWARIMI_SUCCESS(user_ptr));
+	else msg_format(MES_TRAIT_KAWARIMI_FAILED2(user_ptr));
 
 	user_ptr->posture &= ~(NINJA_KAWARIMI);
 	prepare_redraw(PR_STATUS);
