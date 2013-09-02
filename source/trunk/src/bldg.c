@@ -2284,12 +2284,12 @@ static void building_recharge(creature_type *creature_ptr)
  */
 static void building_recharge_all(creature_type *creature_ptr)
 {
-	int         i;
-	int         lev;
+	OBJECT_ID i;
+	FLOOR_LEV lev;
 	object_type *object_ptr;
 	object_kind *object_kind_ptr;
-	int         price = 0;
-	int         total_cost = 0;
+	PRICE price = 0;
+	PRICE total_cost = 0;
 
 	// Display some info
 	msg_flag = FALSE;
@@ -2297,18 +2297,12 @@ static void building_recharge_all(creature_type *creature_ptr)
 	prt(MES_RECHARGE_COMMENT, 6, 2);
 
 	/* Calculate cost */
-	for ( i = 0; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
-				
-		/* skip non magic device */
-		if(object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue;
-
-		/* need identified */
-		if(!object_is_known(object_ptr)) total_cost += 50;
-
-		/* Extract the object "level" */
-		lev = object_kind_info[object_ptr->k_idx].level;
+		if(object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue; /* skip non magic device */
+		if(!object_is_known(object_ptr)) total_cost += 50; /* need identified */
+		lev = object_kind_info[object_ptr->k_idx].level; /* Extract the object "level" */
 
 		object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
@@ -2330,14 +2324,9 @@ static void building_recharge_all(creature_type *creature_ptr)
 			break;
 
 		case TV_WAND:
-			/* Price per charge ( = double the price paid by shopkeepers for the charge) */
-			price = (object_kind_info[object_ptr->k_idx].cost / 10);
-
-			/* Pay at least 10 gold per charge */
-			price = MAX(10, price);
-
-			/* Fully charge */
-			price = (object_ptr->number * object_kind_ptr->pval - object_ptr->pval) * price;
+			price = (object_kind_info[object_ptr->k_idx].cost / 10); /* Price per charge ( = double the price paid by shopkeepers for the charge) */
+			price = MAX(10, price); /* Pay at least 10 gold per charge */
+			price = (object_ptr->number * object_kind_ptr->pval - object_ptr->pval) * price; /* Fully charge */
 			break;
 		}
 
@@ -2406,7 +2395,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 }
 
 
-bool tele_town(creature_type *creature_ptr)
+bool teleport_town(creature_type *creature_ptr)
 {
 	int i, x, y;
 	int num = 0;
@@ -2545,17 +2534,12 @@ static bool research_creature(creature_type *creature_ptr)
 	else sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
 
 	prt(buf, 16, 10); /* Display the result */
+	C_MAKE(who, max_species_idx, SPECIES_ID); /* Allocate the "who" array */
 
-	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, SPECIES_ID);
-
-	/* Collect matching creatures */
-	for (n = 0, i = 1; i < max_species_idx; i++)
+	for (n = 0, i = 1; i < max_species_idx; i++) /* Collect matching creatures */
 	{
 		species_type *species_ptr = &species_info[i];
-
-		/* Empty creature */
-		if(!species_ptr->name) continue;
+		if(!species_ptr->name) continue; /* Empty creature */
 
 		/* XTRA HACK WHATSEARCH */
 		/* Require non-unique creatures if needed */
@@ -2919,7 +2903,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		break;
 
 	case BUILDING_FUNCTION_TELE_TOWN:
-		paid = tele_town(creature_ptr);
+		paid = teleport_town(creature_ptr);
 		break;
 
 	case BUILDING_FUNCTION_EVAL_AC:
