@@ -57,7 +57,7 @@ bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, 
 	return TRUE;
 }
 
-bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id)
+bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id, FLAGS_32 options)
 {
 	COODINATES x = caster_ptr->fx, y = caster_ptr->fy;
 	int attempts, k;
