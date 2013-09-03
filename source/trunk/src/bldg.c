@@ -349,8 +349,8 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_VIOLET, " ###### ", row + 5, col);
 			c_put_str(TERM_VIOLET, "  ####  ", row + 6, col);
 			c_put_str(TERM_VIOLET, "   ##   ", row + 7, col);
-
 			break;
+
 		case 5: /* cherry */
 			c_put_str(TERM_RED, "      ##", row, col);
 			c_put_str(TERM_RED, "   ###  ", row + 1, col);
@@ -360,7 +360,6 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_RED, "#..##..#", row + 5, col);
 			c_put_str(TERM_RED, "#..##..#", row + 6, col);
 			c_put_str(TERM_RED, " ##  ## ", row + 7, col);
-
 			break;
 	}
 }
@@ -403,18 +402,14 @@ static void reset_deck(int deck[])
 static bool have_joker(void)
 {
 	int i;
-
-	for (i = 0; i < 5; i++){
-	  if(IS_JOKER(cards[i])) return TRUE;
-	}
+	for (i = 0; i < 5; i++) if(IS_JOKER(cards[i])) return TRUE;
 	return FALSE;
 }
 
 static bool find_card_num(int num)
 {
 	int i;
-	for (i = 0; i < 5; i++)
-		if(NUM_OF(cards[i]) == num && !IS_JOKER(cards[i])) return TRUE;
+	for (i = 0; i < 5; i++) if(NUM_OF(cards[i]) == num && !IS_JOKER(cards[i])) return TRUE;
 	return FALSE;
 }
 

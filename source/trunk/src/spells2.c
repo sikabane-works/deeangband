@@ -38,7 +38,7 @@ bool cast_beam_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int ty
 	return project(caster_ptr, range, 0, y, x, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM | options, trait_id);
 }
 
-bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id)
+bool cast_splash(creature_type *caster_ptr, int typ, COODINATES range, int num, POWER power, TRAIT_ID trait_id, FLAGS_32 options)
 {
 	COODINATES x = caster_ptr->fx, y = caster_ptr->fy;
 	int attempts, k;
@@ -2799,7 +2799,7 @@ bool wall_stone(creature_type *caster_ptr)
 
 void call_chaos(creature_type *creature_ptr)
 {
-	EFFECT_ID Chaos_type;
+	EFFECT_ID effect_type;
 	COODINATES dummy;
 	CREATURE_LEV lev_bonus = creature_ptr->lev;
 	bool line_chaos = FALSE;
@@ -2816,7 +2816,7 @@ void call_chaos(creature_type *creature_ptr)
 		DO_EFFECT_HELL_FIRE, DO_EFFECT_DISINTEGRATE, DO_EFFECT_PSY_SPEAR
 	};
 
-	Chaos_type = hurt_types[randint0(31)];
+	effect_type = hurt_types[randint0(31)];
 	if(one_in_(4)) line_chaos = TRUE;
 
 	if(one_in_(6))
@@ -2825,16 +2825,16 @@ void call_chaos(creature_type *creature_ptr)
 		{
 			if(dummy - 5)
 			{
-				if(line_chaos) cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 150, 0);
-				else cast_ball(creature_ptr, Chaos_type, dummy, 150, 2);
+				if(line_chaos) cast_beam(creature_ptr, effect_type, MAX_RANGE_SUB, 150, 0);
+				else cast_ball(creature_ptr, effect_type, dummy, 150, 2);
 			}
 		}
 	}
-	else if(one_in_(3)) cast_storm(creature_ptr, Chaos_type, 500, 8, -1);
+	else if(one_in_(3)) cast_storm(creature_ptr, effect_type, 500, 8, -1);
 	else
 	{
-		if(line_chaos) cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 0);
-		else cast_ball(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 3 + (lev_bonus / 35));
+		if(line_chaos) cast_beam(creature_ptr, effect_type, MAX_RANGE_SUB, 250, 0);
+		else cast_ball(creature_ptr, effect_type, MAX_RANGE_SUB, 250, 3 + (lev_bonus / 35));
 	}
 }
 
@@ -2847,7 +2847,7 @@ void call_chaos(creature_type *creature_ptr)
 bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int     i = 0, j;
+	int i = 0, j;
 
 	j = randint1(34);
 	do
@@ -2927,7 +2927,6 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!one_in_(6)) break;
 
 		case 21: case 22: case 23:
-
 			(void)do_dec_stat(creature_ptr, randint0(6));
 			if(!one_in_(6)) break;
 
@@ -2937,10 +2936,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!one_in_(6)) break;
 
 		case 25:
-			/*
-			* Only summon Cyberdemons deep in the dungeon.
-			*/
-			if((floor_ptr->depth > 65) && !stop_ty)
+			if((floor_ptr->depth > 65) && !stop_ty) /* Only summon Cyberdemons deep in the dungeon. */
 			{
 				summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth * 3, TRAIT_S_CYBER, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				stop_ty = TRUE;
@@ -2956,14 +2952,12 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 					(void)do_dec_stat(creature_ptr, i);
 				}
 				while (one_in_(2));
-
 				i++;
 			}
 		}
 	}
 
 	while (one_in_(3) && !stop_ty);
-
 	return stop_ty;
 }
 
@@ -3053,7 +3047,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION dir;
 	COODINATES tx, ty;
-	int tcreature_idx = 0;
+	CREATURE_ID tcreature_idx = 0;
 	COODINATES path_g[32];
 	int path_n, i;
 	bool tmp_mdeath = FALSE;
@@ -3062,7 +3056,6 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	char m_name[MAX_NLEN];
 
 	if(mdeath) *mdeath = FALSE;
-
 	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 	/* Use the given direction */
@@ -3111,11 +3104,8 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		/* Move player before updating the creature */
 		if(!CREATURE_BOLD(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
-		/* Update the creature */
-		update_creature_view(player_ptr, floor_ptr->cave[ny][nx].creature_idx, TRUE);
-
-		/* Found a creature */
-		m_ptr = &creature_list[floor_ptr->cave[ny][nx].creature_idx];
+		update_creature_view(player_ptr, floor_ptr->cave[ny][nx].creature_idx, TRUE); /* Update the creature */
+		m_ptr = &creature_list[floor_ptr->cave[ny][nx].creature_idx]; /* Found a creature */ 
 
 		if(tcreature_idx != floor_ptr->cave[ny][nx].creature_idx) msg_print(MES_CREATURE_IN_THE_WAY);
 		else if(!CREATURE_BOLD(creature_ptr, ty, tx))
