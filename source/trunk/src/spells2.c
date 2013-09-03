@@ -71,7 +71,7 @@ bool cast_chain(creature_type *caster_ptr, int typ, COODINATES range, int num, P
 			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
 			if(!CREATURE_BOLD(caster_ptr, y, x)) break;
 		}
-		cast_beam(caster_ptr, typ, range, power, trait_id);
+		cast_beam_aux(caster_ptr, y, x, typ, range, power, trait_id, options);
 	}
 	return TRUE;
 }
@@ -103,7 +103,7 @@ bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_swarm(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, COODINATES rad, QUANTITY num, POWER power, TRAIT_ID trait_id, FLAGS_32 option)
+bool cast_swarm(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, COODINATES rad, QUANTITY num, POWER power, TRAIT_ID trait_id, FLAGS_32 options)
 {
 	COODINATES x = caster_ptr->fx, y = caster_ptr->fy;
 	int attempts, k;
@@ -117,7 +117,7 @@ bool cast_swarm(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, COOD
 			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
 			if(!CREATURE_BOLD(caster_ptr, y, x)) break;
 		}
-		cast_ball(caster_ptr, typ, range, power, rad);
+		cast_ball_aux(caster_ptr, y, x, typ, power, rad, trait_id, options);
 	}
 	return TRUE;
 }

@@ -1030,7 +1030,7 @@ extern bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWE
 extern bool cast_self(creature_type *caster_ptr, EFFECT_ID typ, POWER power, TRAIT_ID trait_id);
 extern bool cast_grenade(creature_type *caster_ptr, COODINATES y, COODINATES x, EFFECT_ID typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
-extern bool cast_swarm(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, COODINATES rad, QUANTITY num, POWER power, TRAIT_ID trait_id, FLAGS_32 option);
+extern bool cast_swarm(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, COODINATES rad, QUANTITY num, POWER power, TRAIT_ID trait_id, FLAGS_32 options);
 extern bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
 extern bool cast_beam_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id, FLAGS_32 options);
 extern void cast_breath(creature_type *caster_ptr, EFFECT_ID typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
