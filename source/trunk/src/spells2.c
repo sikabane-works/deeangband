@@ -427,36 +427,23 @@ static bool detect_feat_flag(creature_type *creature_ptr, COODINATES range, int 
 			int dist = distance(creature_ptr->fy, creature_ptr->fx, y, x);
 			if(dist > range) continue;
 
-			/* Access the grid */
-			c_ptr = &floor_ptr->cave[y][x];
-
-			/* Hack -- Safe */
-			if(flag == FF_TRAP)
+			c_ptr = &floor_ptr->cave[y][x]; /* Access the grid */
+			if(flag == FF_TRAP) /* Hack -- Safe */
 			{
-				/* Mark as detected */
-				if(dist <= range && known)
+				if(dist <= range && known) /* Mark as detected */
 				{
 					if(dist <= range - 1) c_ptr->info |= (CAVE_IN_DETECT);
-
 					c_ptr->info &= ~(CAVE_UNSAFE);
-
 					lite_spot(floor_ptr, y, x);
 				}
 			}
 
-			/* Detect flags */
-			if(CAVE_HAVE_FLAG_GRID(c_ptr, flag))
+			if(CAVE_HAVE_FLAG_GRID(c_ptr, flag)) /* Detect flags */
 			{
-				/* Detect secrets */
-				disclose_grid(floor_ptr, y, x);
-
-				/* Hack -- Memorize */
-				c_ptr->info |= (CAVE_MARK);
-
+				disclose_grid(floor_ptr, y, x); /* Detect secrets */
+				c_ptr->info |= (CAVE_MARK); /* Hack -- Memorize */
 				lite_spot(floor_ptr, y, x);
-
-				/* Obvious */
-				detect = TRUE;
+				detect = TRUE; /* Obvious */
 			}
 		}
 	}
@@ -471,19 +458,16 @@ static bool detect_feat_flag(creature_type *creature_ptr, COODINATES range, int 
 bool detect_traps(creature_type *creature_ptr, COODINATES range, bool known)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_TRAP, known);
-
 	if(known) detect_trap = TRUE;
-
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 0) detect = FALSE;
-
 	if(detect) msg_print(MES_DETECT_TRAPS);
 	return detect;
 }
 
 
 /*
-* Detect all doors on current panel
-*/
+ * Detect all doors on current panel
+ */
 bool detect_doors(creature_type *creature_ptr, COODINATES range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_DOOR, TRUE);
@@ -494,8 +478,8 @@ bool detect_doors(creature_type *creature_ptr, COODINATES range)
 
 
 /*
-* Detect all stairs on current panel
-*/
+ * Detect all stairs on current panel
+ */
 bool detect_stairs(creature_type *creature_ptr, COODINATES range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_STAIRS, TRUE);
@@ -504,10 +488,9 @@ bool detect_stairs(creature_type *creature_ptr, COODINATES range)
 	return detect;
 }
 
-
 /*
-* Detect any treasure on the current panel
-*/
+ * Detect any treasure on the current panel
+ */
 bool detect_treasure(creature_type *creature_ptr, COODINATES range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_HAS_GOLD, TRUE);
@@ -516,12 +499,10 @@ bool detect_treasure(creature_type *creature_ptr, COODINATES range)
 	return detect;
 }
 
-
-
 // Detect all "gold" objects on the current panel
 bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 {
-	int i;
+	OBJECT_ID i;
 	COODINATES y, x;
 	COODINATES range2 = range;
 
@@ -534,12 +515,8 @@ bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 	for (i = 1; i < object_max; i++)
 	{
 		object_type *object_ptr = &object_list[i];
-
-		/* Skip dead objects */
-		if(!is_valid_object(object_ptr)) continue;
-
-		/* Skip held objects */
-		if(object_ptr->held_creature_idx) continue;
+		if(!is_valid_object(object_ptr)) continue; /* Skip dead objects */
+		if(object_ptr->held_creature_idx) continue; /* Skip held objects */
 
 		y = object_ptr->fy;
 		x = object_ptr->fx;
@@ -550,8 +527,7 @@ bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 		/* Detect "gold" objects */
 		if(object_ptr->tval == TV_GOLD)
 		{
-			/* Hack -- memorize it */
-			object_ptr->marked |= OM_FOUND;
+			object_ptr->marked |= OM_FOUND; /* Hack -- memorize it */
 			lite_spot(floor_ptr, y, x);
 			detect = TRUE; /* Detect */
 		}
@@ -570,13 +546,12 @@ bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 */
 bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 {
-	int i;
+	OBJECT_ID i;
 	COODINATES y, x;
 	COODINATES range2 = range;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool detect = FALSE;
-
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	/* Scan objects */
@@ -584,11 +559,8 @@ bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 	{
 		object_type *object_ptr = &object_list[i];
 
-		/* Skip dead objects */
-		if(!is_valid_object(object_ptr)) continue;
-
-		/* Skip held objects */
-		if(object_ptr->held_creature_idx) continue;
+		if(!is_valid_object(object_ptr)) continue; /* Skip dead objects */
+		if(object_ptr->held_creature_idx) continue; /* Skip held objects */
 
 		y = object_ptr->fy;
 		x = object_ptr->fx;
@@ -697,20 +669,16 @@ bool detect_objects_magic(creature_type *creature_ptr, COODINATES range)
 */
 bool detect_creatures_normal(creature_type *creature_ptr, COODINATES range)
 {
-	int i;
+	CREATURE_ID i;
 	COODINATES y, x;
-
 	bool flag = FALSE;
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
-	/* Scan creatures */
-	for (i = 1; i < creature_max; i++)
+	for (i = 1; i < creature_max; i++) /* Scan creatures */
 	{
 		creature_type *target_ptr = &creature_list[i];
-
-		/* Skip dead creatures */
-		if(!target_ptr->species_idx) continue;
+		if(!target_ptr->species_idx) continue; /* Skip dead creatures */
 
 		y = target_ptr->fy;
 		x = target_ptr->fx;
@@ -721,17 +689,10 @@ bool detect_creatures_normal(creature_type *creature_ptr, COODINATES range)
 		/* Detect all non-invisible creatures */
 		if(!has_trait(target_ptr, TRAIT_INVISIBLE) || has_trait(creature_ptr, TRAIT_SEE_INVISIBLE))
 		{
-			/* Repair visibility later */
-			repair_creatures = TRUE;
-
-			/* Hack -- Detect creature */
-			target_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
-
-			/* Update the creature */
-			update_creature_view(player_ptr, i, FALSE);
-
-			/* Detect */
-			flag = TRUE;
+			repair_creatures = TRUE; /* Repair visibility later */
+			target_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW); /* Hack -- Detect creature */
+			update_creature_view(player_ptr, i, FALSE); /* Update the creature */
+			flag = TRUE; /* Detect */
 		}
 	}
 
@@ -742,11 +703,11 @@ bool detect_creatures_normal(creature_type *creature_ptr, COODINATES range)
 
 
 /*
-* Detect all "invisible" creatures around the player
-*/
+ * Detect all "invisible" creatures around the player
+ */
 bool detect_creatures_invis(creature_type *creature_ptr, COODINATES range)
 {
-	int i;
+	CREATURE_ID i;
 	COODINATES y, x;
 	bool flag = FALSE;
 
@@ -795,11 +756,11 @@ bool detect_creatures_invis(creature_type *creature_ptr, COODINATES range)
 
 
 /*
-* Detect all "evil" creatures on current panel
-*/
+ * Detect all "evil" creatures on current panel
+ */
 bool detect_creatures_evil(creature_type *creature_ptr, COODINATES range)
 {
-	int i;
+	CREATURE_ID i;
 	COODINATES y, x;
 	bool flag = FALSE;
 
@@ -809,18 +770,12 @@ bool detect_creatures_evil(creature_type *creature_ptr, COODINATES range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-
-		/* Skip dead creatures */
 		if(!is_valid_creature(m_ptr)) continue;
-
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
-		/* Only detect nearby creatures */
-		if(distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
-
-		/* Detect evil creatures */
-		if(is_enemy_of_good_creature(m_ptr))
+		if(distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue; /* Only detect nearby creatures */
+		if(is_enemy_of_good_creature(m_ptr)) /* Detect evil creatures */
 		{
 			if(is_original_ap(m_ptr))
 			{
@@ -839,12 +794,8 @@ bool detect_creatures_evil(creature_type *creature_ptr, COODINATES range)
 
 			/* Hack -- Detect creature */
 			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
-
-			/* Update the creature */
-			update_creature_view(player_ptr, i, FALSE);
-
-			/* Detect */
-			flag = TRUE;
+			update_creature_view(player_ptr, i, FALSE); /* Update the creature */
+			flag = TRUE; /* Detect */
 		}
 	}
 
@@ -852,12 +803,9 @@ bool detect_creatures_evil(creature_type *creature_ptr, COODINATES range)
 	return (flag);
 }
 
-
-
-
 /*
-* Detect all "nonliving", "undead" or "demonic" creatures on current panel
-*/
+ * Detect all "nonliving", "undead" or "demonic" creatures on current panel
+ */
 bool detect_creatures_nonliving(creature_type *creature_ptr, COODINATES range)
 {
 	int i;
@@ -884,10 +832,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, COODINATES range)
 		if(!creature_living(creature_ptr))
 		{
 			/* Update creature recall window */
-			if(species_window_idx == m_ptr->species_idx)
-			{
-				prepare_window(PW_MONSTER);
-			}
+			if(species_window_idx == m_ptr->species_idx) prepare_window(PW_MONSTER);
 
 			/* Repair visibility later */
 			repair_creatures = TRUE;
@@ -947,12 +892,8 @@ bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 
 			/* Hack -- Detect creature */
 			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
-
-			/* Update the creature */
-			update_creature_view(player_ptr, i, FALSE);
-
-			/* Detect */
-			flag = TRUE;
+			update_creature_view(player_ptr, i, FALSE); /* Update the creature */
+			flag = TRUE; /* Detect */
 		}
 	}
 
@@ -962,8 +903,8 @@ bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 
 
 /*
-* Detect all (string) creatures on current panel
-*/
+ * Detect all (string) creatures on current panel
+ */
 bool detect_creatures_string(creature_type *creature_ptr, COODINATES range, cptr Match)
 {
 	int i;
