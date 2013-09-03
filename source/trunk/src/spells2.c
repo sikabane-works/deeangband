@@ -2684,54 +2684,6 @@ bool unlite_area(creature_type *caster_ptr, POWER dam, COODINATES rad)
 	return TRUE;
 }
 
-bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev)
-{
-	COODINATES ly, lx, ty, tx, y, x, ld;
-	int i;
-
-	/* Assume okay */
-	bool result = TRUE;
-
-	/* Use the given direction */
-	if(dir != 5)
-	{
-		ly = ty = caster_ptr->fy + 20 * ddy[dir];
-		lx = tx = caster_ptr->fx + 20 * ddx[dir];
-	}
-
-	/* Use an actual "target" */
-	else /* if(dir == 5) */
-	{
-		tx = target_col;
-		ty = target_row;
-
-		lx = 20 * (tx - caster_ptr->fx) + caster_ptr->fx;
-		ly = 20 * (ty - caster_ptr->fy) + caster_ptr->fy;
-	}
-
-	ld = distance(caster_ptr->fy, caster_ptr->fx, ly, lx);
-
-	/* Blast */
-	for (i = 0; i < num; i++)
-	{
-		while(TRUE)
-		{
-			/* Get targets for some bolts */
-			y = (COODINATES)rand_spread(ly, ld * dev / 20);
-			x = (COODINATES)rand_spread(lx, ld * dev / 20);
-
-			if(distance(ly, lx, y, x) <= ld * dev / 20) break;
-		}
-
-		/* Analyze the "dir" and the "target". */
-		if(!project(0, 0, 0, y, x, diceroll(dd, ds), typ, PROJECT_FAST | PROJECT_THRU | PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID, -1))
-		{
-			result = FALSE;
-		}
-	}
-	return (result);
-}
-
 // Switch position with a creature.
 bool teleport_swap(creature_type *creature_ptr, int dir)
 {

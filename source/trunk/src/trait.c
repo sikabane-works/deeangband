@@ -1485,7 +1485,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_SHOCK_WAVE: shock_wave(caster_ptr); break;
 	case TRAIT_EAT_ROCK: eat_rock(caster_ptr, y, x); break;
 	case TRAIT_DET_CURSE: check_cursed_inventory(caster_ptr); break;
-	case TRAIT_STAR_DUST: fire_blast(caster_ptr, DO_EFFECT_LITE, dir, power, 2, 10, 3); break;
+	case TRAIT_STAR_DUST: cast_splash(caster_ptr, DO_EFFECT_LITE, 18, 10, power, id, 0); break;
 	case TRAIT_SCATTER_EVIL: cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0); break;
 
 	case TRAIT_SPECIAL:
