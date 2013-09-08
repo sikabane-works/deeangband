@@ -577,10 +577,8 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			}
 		}
 
-
-#ifdef JP
 		for (q = 0; tmp[q]; q++) if(is_mbyte(tmp[q])) { do_xtra=FALSE;break;} 
-#endif
+
 		/* Mega-Hack -- handle "capitilization" */
 		if(do_xtra)
 		{

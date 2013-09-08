@@ -3055,18 +3055,11 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 	/* Locate the cursor position */
 	Term_locate(&x, &y);
 
-
 	if(len < 1) len = 1;
-
-
 	if((x < 0) || (x >= 80)) x = 0;
-
-	/* Restrict the length */
-	if(x + len > 80) len = 80 - x;
-
+	if(x + len > 80) len = 80 - x; /* Restrict the length */
 
 	buf[len] = '\0';
-
 
 	/* Process input */
 	while (TRUE)
@@ -3100,10 +3093,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			while (TRUE)
 			{
 				int next_pos = i + 1;
-
-#ifdef JP
 				if(is_mbyte(buf[i])) next_pos++;
-#endif
 
 				/* Is there the cursor at next position? */ 
 				if(next_pos >= pos) break;

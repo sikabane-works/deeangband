@@ -1211,7 +1211,6 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 	byte na;
 	char nc;
 
-#ifdef JP
 	/* ‘SŠp•¶Žš‚Ì‚QƒoƒCƒg–Ú‚©‚Ç‚¤‚© */
 	int kanji = 0;
 
@@ -1226,7 +1225,7 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 			else
 				x++;
 		}
-#endif
+
 	/* Scan "modified" columns */
 	for (x = x1; x <= x2; x++)
 	{
