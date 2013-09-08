@@ -391,6 +391,7 @@
 #define KW_OFFER "’ñ¦‹àŠz"
 #define KW_ASKING_PRICE "’ñ¦‰¿Ši"
 #define KW_FINAL_OFFER_PRICE "ÅI’ñ¦‰¿Ši"
+#define KW_PRE_OFFER_PRICE "‘O‰ñ‚Ì’ñ¦‹àŠz"
 #define KW_FLOOR_NUM(NUM) "%dŠK", (NUM)
 #define KW_FLOOR_NUM2(DUNGEON, NUM) "%dŠK(%s)", (NUM), (DUNGEON)
 #define KW_DEAD "€–S"
@@ -543,6 +544,7 @@
 #define KW_OFFER "Offer"
 #define KW_ASKING_PRICE "Asking Price"
 #define KW_FINAL_OFFER_PRICE "Final Offer"
+#define KW_PRE_OFFER_PRICE "Your last offer"
 #define KW_FLOOR_NUM(NUM) "Floor %d", (NUM)
 #define KW_FLOOR_NUM2(DUNGEON, NUM) "%s L%d:", (DUNGEON), (NUM)
 #define KW_DEAD "dead"

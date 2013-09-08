@@ -2713,11 +2713,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 				last_offer = offer;
 				allow_inc = TRUE;
 				prt("", 1, 0);
-#ifdef JP
-				(void)sprintf(out_val, "‘O‰ñ‚Ì’ñŽ¦‹àŠz: $%ld", (long)last_offer);
-#else
-				(void)sprintf(out_val, "Your last offer: %ld", (long)last_offer);
-#endif
+				(void)sprintf(out_val, "%s: $%ld", KW_PRE_OFFER_PRICE, (long)last_offer);
 				put_str(out_val, 1, 39);
 				say_comment_2(st_ptr, cur_ask, annoyed);
 			}
@@ -2725,11 +2721,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	}
 
 	if(cancel) return TRUE;
-
-	/* Update bargaining info */
-	updatebargain(st_ptr, *price, final_ask, object_ptr->number);
-
-	/* Do not cancel */
+	updatebargain(st_ptr, *price, final_ask, object_ptr->number); /* Update bargaining info */
 	return FALSE;
 }
 
