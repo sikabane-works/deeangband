@@ -2879,9 +2879,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 				if(annoyed > 3)
 				{
 					flag = TRUE;
-#ifdef JP
-					cancel = TRUE; /* ’Ç‰Á $0 ‚Å”ƒ‚¢Žæ‚ç‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ð–hŽ~ By FIRST*/
-#endif
+					cancel = TRUE;
 					(void)(increase_insults(st_ptr));
 				}
 			}

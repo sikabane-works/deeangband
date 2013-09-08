@@ -500,7 +500,6 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 				while (0 != (i % 8)) buf[i++] = ' ';
 			}
 
-#ifdef JP
 			else if(is_mbyte(*s))
 			{
 				if(!s[1]) break;
@@ -514,7 +513,7 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 				buf[i++] = *s;
 				if(i >= n) break;
 			}
-#endif
+
 			/* Handle printables */
 			else if(isprint(*s))
 			{
@@ -2309,27 +2308,22 @@ void message_add(cptr str)
 
 	/* extra step -- split the message if n>80.   (added by Mogami) */
 	if(n > 80) {
-#ifdef JP
-	  cptr t = str;
+		cptr t = str;
 
-	  for (n = 0; n < 80; n++, t++)
-	    if(is_mbyte(*t)) {
-	      t++;
-	      n++;
-	    }
-	  if(n == 81) n = 79; /* ÅŒã‚Ì•¶š‚ªŠ¿š”¼•ª */
-#else
-	  for (n = 80; n > 60; n--)
-		  if(str[n] == ' ') break;
-	  if(n == 60)
-		  n = 80;
-#endif
-	  splitted2 = str + n;
-	  strncpy(splitted1, str ,n);
-	  splitted1[n] = '\0';
-	  str = splitted1;
+		for (n = 0; n < 80; n++, t++)
+			if(is_mbyte(*t)) {
+				t++;
+				n++;
+			}
+			if(n == 81) n = 79; /* ÅŒã‚Ì•¶š‚ªŠ¿š”¼•ª */
+			for (n = 80; n > 60; n--) if(str[n] == ' ') break;
+			if(n == 60) n = 80;
+			splitted2 = str + n;
+			strncpy(splitted1, str ,n);
+			splitted1[n] = '\0';
+			str = splitted1;
 	} else {
-	  splitted2 = NULL;
+		splitted2 = NULL;
 	}
 
 	/*** Step 2 -- Attempt to optimize ***/
