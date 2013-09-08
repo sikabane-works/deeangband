@@ -2889,10 +2889,7 @@ void c_roff(byte a, cptr str)
 	for (s = str; *s; s++)
 	{
 		char ch;
-
-#ifdef JP
 		int k_flag = is_mbyte(*s);
-#endif
 		/* Force wrap */
 		if(*s == '\n')
 		{
@@ -2911,13 +2908,8 @@ void c_roff(byte a, cptr str)
 
 		/* Clean up the char / Wrap words as needed */
 
-#ifdef JP
 		ch = ((k_flag || isprint(*s) ) ? *s : ' ');
 		if(( x >= ( (k_flag) ? w - 2 : w - 1 ) ) && (ch != ' '))
-#else
-		ch = (isprint(*s) ? *s : ' ');
-		if((x >= w - 1) && (ch != ' '))
-#endif
 		{
 			int i, n = 0;
 
@@ -2926,11 +2918,9 @@ void c_roff(byte a, cptr str)
 
 			/* Wrap word */
 			if(x < w)
-#ifdef JP
 			{
 			/* åªç›Ç™îºäpï∂éöÇÃèÍçá */
 			if( !k_flag )
-#endif
 			{
 				/* Scan existing text */
 				for (i = w - 2; i >= 0; i--)
@@ -2943,13 +2933,9 @@ void c_roff(byte a, cptr str)
 
 					/* Track current word */
 					n = i;
-#ifdef JP
 					if(cv[i] == '(') break;
-#endif
 				}
 			}
-
-#ifdef JP
 			else
 			{
 				/* åªç›Ç™ëSäpï∂éöÇÃÇ∆Ç´ */
@@ -2964,7 +2950,7 @@ void c_roff(byte a, cptr str)
 				}
 			}
 			}
-#endif
+
 			/* Special case */
 			if(n == 0) n = w;
 
@@ -2984,9 +2970,7 @@ void c_roff(byte a, cptr str)
 			/* Wrap the word (if any) */
 			for (i = n; i < w - 1; i++)
 			{
-#ifdef JP
 				if( cv[i] == '\0' ) break;
-#endif
 				/* Dump */
 				Term_addch(av[i], cv[i]);
 
@@ -2996,14 +2980,8 @@ void c_roff(byte a, cptr str)
 		}
 
 		/* Dump */
-#ifdef JP
 		Term_addch((byte)(a|0x10), ch);
-#else
-		Term_addch(a, ch);
-#endif
 
-
-#ifdef JP
 		if(k_flag)
 		{
 			s++;
@@ -3011,7 +2989,7 @@ void c_roff(byte a, cptr str)
 			ch = *s;
 			Term_addch((byte)(a|0x20), ch);
 		}
-#endif
+
 		/* Advance */
 		if(++x > w) x = w;
 	}
