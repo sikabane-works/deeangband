@@ -449,6 +449,7 @@
 #define KW_SUICIDE "自殺"
 #define KW_CHARGES "使用回数"
 #define KW_COMMAND "コマンド"
+#define KW_CURRENT_LIFERATE "現在の体力ランク"
 #else
 #define KW_CURSOR ">>"
 #define KW_MORE "-more-"
@@ -600,6 +601,7 @@
 #define KW_SUICIDE "Suicide"
 #define KW_CHARGES "Charges"
 #define KW_COMMAND "Command"
+#define KW_CURRENT_LIFERATE "Current Life Rating"
 #endif
 
 #ifdef JP

@@ -5930,7 +5930,6 @@ static void do_cmd_knowledge_bounty(void)
 			if(kubi_species_idx[i] <= 10000)
 			{
 				fprintf(fff,"%s\n", species_name + species_info[kubi_species_idx[i]].name);
-
 				listed = TRUE;
 			}
 		}
@@ -6027,14 +6026,8 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	if(fff)
 	{
 		percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
-
-#ifdef JP
-		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100\n\n", percent);
-		else fprintf(fff, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : ???\n\n");
-#else
-		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Your current Life Rating is %d/100.\n\n", percent);
-		else fprintf(fff, "Your current Life Rating is ???.\n\n");
-#endif
+		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "%s : %d/100\n\n", KW_CURRENT_LIFERATE, percent);
+		else fprintf(fff, "%s : ???\n\n", KW_CURRENT_LIFERATE);
 		fprintf(fff, MES_INFO_STATUS_LIMIT);
 		fprintf(fff, "\n\n");
 
