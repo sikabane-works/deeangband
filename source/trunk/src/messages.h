@@ -447,6 +447,7 @@
 #define KW_POWER "能力"
 #define KW_SUICIDE "自殺"
 #define KW_CHARGES "使用回数"
+#define KW_COMMAND "コマンド"
 #else
 #define KW_CURSOR ">>"
 #define KW_MORE "-more-"
@@ -596,6 +597,7 @@
 #define KW_POWER "Power"
 #define KW_SUICIDE "Suicide"
 #define KW_CHARGES "Charges"
+#define KW_COMMAND "Command"
 #endif
 
 #ifdef JP
@@ -4632,12 +4634,14 @@ static cptr desc_stat_neg[] =
 #define MES_COLOR_DUMP_START "\n# カラーの設定\n\n"
 #define MES_COLOR_LIST(NAME) "# カラー '%s'\n", (NAME)
 #define MES_COLOR_DUMP_DONE "カラーの設定をファイルに書き出しました。"
+#define MES_COLOR_MODIFY_COLOR "カラーの設定を変更します"
 #else
 #define MES_COLOR_LORD_PREFFILE "Command: Load a user pref file"
 #define MES_COLOR_DUMP_PREFFILE "Command: Dump colors"
 #define MES_COLOR_DUMP_START "\n# Color redefinitions\n\n"
 #define MES_COLOR_LIST(NAME) "# Color '%s'\n", (NAME)
 #define MES_COLOR_DUMP_DONE "Dumped color redefinitions."
+#define MES_COLOR_MODIFY_COLOR "Modify colors"
 #endif
 
 #ifdef JP

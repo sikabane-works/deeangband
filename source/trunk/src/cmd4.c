@@ -2450,13 +2450,7 @@ void do_cmd_colors(void)
 		else if(i == '3')
 		{
 			static byte a = 0;
-
-#ifdef JP
-			prt("コマンド: カラーの設定を変更します", 8, 0);
-#else
-			prt("Command: Modify colors", 8, 0);
-#endif
-
+			prt(format("%s: %s", KW_COMMAND, MES_COLOR_MODIFY_COLOR), 8, 0);
 
 			/* Hack -- query until done */
 			while(TRUE)
