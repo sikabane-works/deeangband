@@ -2463,11 +2463,8 @@ void do_cmd_colors(void)
 				/* Exhibit the normal colors */
 				for (j = 0; j < 16; j++)
 				{
-					/* Exhibit this color */
-					Term_putstr(j*4, 20, -1, a, "###");
-
-					/* Exhibit all colors */
-					Term_putstr(j*4, 22, -1, j, format("%3d", j));
+					Term_putstr(j*4, 20, -1, a, "###"); /* Exhibit this color */
+					Term_putstr(j*4, 22, -1, j, format("%3d", j)); /* Exhibit all colors */
 				}
 
 				/* Describe the color */
@@ -3491,9 +3488,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 
 		while (object_name[i] && (i < 26))
 		{
-#ifdef JP
 			if(is_mbyte(object_name[i])) i++;
-#endif
 			i++;
 		}
 
@@ -5924,13 +5919,8 @@ static void do_cmd_knowledge_bounty(void)
 	{
 		bool listed = FALSE;
 
-#ifdef JP
-		fprintf(fff, "今日のターゲット : %s\n", (today_mon ? species_name + species_info[today_mon].name : KW_UNKNOWN));
+		fprintf(fff, "%s : %s\n", KW_TODAY_TARGET, (today_mon ? species_name + species_info[today_mon].name : KW_UNKNOWN));
 		fprintf(fff, "\n");
-#else
-		fprintf(fff, "Today target : %s\n", (today_mon ? species_name + species_info[today_mon].name : KW_UNKNOWN));
-		fprintf(fff, "\n");
-#endif
 		fprintf(fff, MES_INFO_BOUNTY);
 		fprintf(fff, "\n");
 		fprintf(fff, "----------------------------------------------\n");
