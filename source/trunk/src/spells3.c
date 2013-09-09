@@ -2101,9 +2101,9 @@ static bool item_tester_hook_nameless_weapon_armour(creature_type *creature_ptr,
 bool artifact_scroll(creature_type *caster_ptr)
 {
 	OBJECT_ID item;
-	bool            okay = FALSE;
-	object_type     *object_ptr;
-	char            object_name[MAX_NLEN];
+	bool okay = FALSE;
+	object_type *object_ptr;
+	char object_name[MAX_NLEN];
 
 	if(!get_item(caster_ptr, &item, MES_ENCHANT_WHICH_ITEM, MES_ENCHANT_NO_ITEM, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return FALSE;
 	object_ptr = GET_ITEM(caster_ptr, item);
@@ -2113,14 +2113,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 
 	if(object_is_artifact(object_ptr))
 	{
-#ifdef JP
-		msg_format("%sは既に伝説のアイテムです！", object_name);
-#else
-		msg_format("The %s %s already %s!",
-		    object_name, ((object_ptr->number > 1) ? "are" : "is"),
-		    ((object_ptr->number > 1) ? "artifacts" : "an artifact"));
-#endif
-
+		msg_format(MES_TRAIT_GENE_ALREADY(object_ptr));
 		okay = FALSE;
 	}
 
@@ -2129,11 +2122,8 @@ bool artifact_scroll(creature_type *caster_ptr)
 #ifdef JP
 		msg_format("%sは既に名のあるアイテムです！", object_name);
 #else
-		msg_format("The %s %s already %s!",
-		    object_name, ((object_ptr->number > 1) ? "are" : "is"),
-		    ((object_ptr->number > 1) ? "ego items" : "an ego item"));
+		msg_format("The %s %s already %s!", object_name, ((object_ptr->number > 1) ? "are" : "is"), ((object_ptr->number > 1) ? "ego items" : "an ego item"));
 #endif
-
 		okay = FALSE;
 	}
 
@@ -2142,9 +2132,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 #ifdef JP
 		msg_format("%sは既に強化されています！", object_name);
 #else
-		msg_format("The %s %s already %s!",
-		    object_name, ((object_ptr->number > 1) ? "are" : "is"),
-		    ((object_ptr->number > 1) ? "customized items" : "a customized item"));
+		msg_format("The %s %s already %s!", object_name, ((object_ptr->number > 1) ? "are" : "is"), ((object_ptr->number > 1) ? "customized items" : "a customized item"));
 #endif
 	}
 
