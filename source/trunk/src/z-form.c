@@ -491,17 +491,13 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				if(do_long)
 				{
 					unsigned long arg;
-
 					arg = va_arg(vp, unsigned long);
-
 					sprintf(tmp, aux, arg);
 				}
 				else
 				{
 					unsigned int arg;
-
 					arg = va_arg(vp, unsigned int);
-
 					sprintf(tmp, aux, arg);
 				}
 
@@ -539,12 +535,8 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				char arg2[1024];
 
 				arg = va_arg(vp, cptr);
-
-				/* Hack -- convert NULL to EMPTY */
-				if(!arg) arg = "";
-
-				/* Prevent buffer overflows */
-				strncpy(arg2, arg, 1024);
+				if(!arg) arg = ""; /* Hack -- convert NULL to EMPTY */
+				strncpy(arg2, arg, 1024); /* Prevent buffer overflows */
 				arg2[1023] = '\0';
 
 				sprintf(tmp, aux, arg2);
@@ -569,11 +561,8 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 
 			default:
 			{
-				/* Error -- illegal format char */
-				buf[0] = '\0';
-
-				/* Return "error" */
-				return SUCCESS;
+				buf[0] = '\0'; /* Error -- illegal format char */
+				return SUCCESS; /* Return "error" */
 			}
 		}
 
@@ -598,19 +587,13 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 		/* Now append "tmp" to "buf" */
 		for (q = 0; tmp[q]; q++)
 		{
-			/* Check total length */
-			if(n == max-1) break;
-
-			/* Save the character */
-			buf[n++] = tmp[q];
+			if(n == max-1) break; /* Check total length */
+			buf[n++] = tmp[q]; /* Save the character */
 		}
 	}
 
-	/* Terminate buffer */
-	buf[n] = '\0';
-
-	/* Return length */
-	return (n);
+	buf[n] = '\0'; /* Terminate buffer */
+	return (n); /* Return length */
 }
 
 

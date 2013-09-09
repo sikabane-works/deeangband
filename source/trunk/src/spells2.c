@@ -1176,14 +1176,7 @@ void try_livingtrump(creature_type *caster_ptr)
 	else mutation = 77; /* Random teleportation (uncontrolled) */
 
 	/* Gain the mutation */
-	if(get_mutative_trait(caster_ptr, mutation, TRUE))
-	{
-#ifdef JP
-		msg_print("あなたは生きているカードに変わった。");
-#else
-		msg_print("You have turned into a Living Trump.");
-#endif
-	}
+	if(get_mutative_trait(caster_ptr, mutation, TRUE)) msg_print(MES_TRAIT_BECAME_LIVING_TRUMP(caster_ptr));
 }
 
 void fetch_servants(creature_type *caster_ptr)
