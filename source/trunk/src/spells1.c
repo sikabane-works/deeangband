@@ -2665,6 +2665,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_INC_CON: do_inc_stat(caster_ptr, STAT_CON); break;
 	case DO_EFFECT_INC_CHA: do_inc_stat(caster_ptr, STAT_CHA); break;
 
+	case DO_EFFECT_TY_CURSE:
+		{
+			int count = 2;
+			activate_ty_curse(caster_ptr, FALSE, &count); break;
+		}
+
 	default:
 		dam = 0;
 		break;
