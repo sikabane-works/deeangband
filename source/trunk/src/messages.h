@@ -4137,6 +4137,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EAT_LIGHT_DONE1 "影につつまれた。"
 #define MES_TRAIT_EAT_LIGHT_DONE2 "光源からエネルギーを吸収した！"
 #define MES_TRAIT_CALL_ANIMAL(CREATURE) "%sに動物が寄って来た。", (CREATURE)->name
+#define MES_TRAIT_CALL_DEMON(CREATURE) "%sに動物が寄って来た。", (CREATURE)->name
 #define MES_TRAIT_PASSIVE_TELEPORT_PREV(OBJECT) "%sがテレポートの能力を発動させようとしている。", (OBJECT)->name
 #define MES_TRAIT_PASSIVE_TELEPORT_CHECK "テレポートしますか？"
 #define MES_TRAIT_PASSIVE_TELEPORT_ADVICE(OBJECT) "%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", (OBJECT)->name
@@ -4261,6 +4262,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_DIMENSION_DOOR_DONE "You open a dimensional gate. Choose a destination."
 #define MES_TRAIT_BANISH_ALL_DONE "You suddenly feel almost lonely."
 #define MES_TRAIT_CALL_ANIMAL(CREATURE) "%s have attracted an animal.", (CREATURE)->name
+#define MES_TRAIT_CALL_ANIMAL(CREATURE) "%s have attracted an demon.", (CREATURE)->name
 #define MES_TRAIT_EAT_LIGHT_DONE1 "A shadow passes over you."
 #define MES_TRAIT_EAT_LIGHT_DONE2 "You absorb energy from your light!"
 #define MES_TRAIT_PASSIVE_TELEPORT_PREV(OBJECT) "Your %s is activating teleportation.", (OBJECT)->name

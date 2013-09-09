@@ -1776,11 +1776,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-			msg_format("%s‚ªˆ«–‚‚ğˆø‚«Šñ‚¹‚½I", object_name);
-#else
-			msg_format("Your %s have attracted a demon!", object_name);
-#endif
+			msg_format(MES_TRAIT_CALL_DEMON(creature_ptr));
 			disturb(player_ptr, 0, 0);
 		}
 	}
