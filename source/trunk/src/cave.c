@@ -1810,7 +1810,6 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 	/* ”¼Šp 12 •¶š•ª‚ÅØ‚é */
 	while(*c)
 	{
-#ifdef JP
 		if(is_mbyte(*c))
 		{
 			if(len + 2 > 12) break;
@@ -1818,7 +1817,6 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 			len+=2;
 		}
 		else
-#endif
 		{
 			if(len + 1 > 12) break;
 			c++;

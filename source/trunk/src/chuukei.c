@@ -500,17 +500,11 @@ static bool string_is_repeat(char *str, int len)
 	int i;
 
 	if(len < 2) return FALSE;
-#ifdef JP
 	if(is_mbyte(c)) return FALSE;
-#endif
 
 	for (i = 1; i < len; i++)
 	{
-#ifdef JP
 		if(c != str[i] || is_mbyte(str[i])) return FALSE;
-#else
-		if(c != str[i]) return FALSE;
-#endif
 	}
 
 	return TRUE;
@@ -853,13 +847,11 @@ static void win2unix(int col, char *buf)
 
 	while (*buf)
 	{
-#ifdef JP
 		if(is_mbyte(*buf))
 		{
 			buf += 2;
 			continue;
 		}
-#endif
 		if(*buf == 127) *buf = kabe;
 		else if(*buf == 31) *buf = '.';
 		buf++;

@@ -966,21 +966,14 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 
 			for (xx=0; temp[xx] && xx<80; xx++)
 			{
-#ifdef JP
 				if(is_mbyte(temp[xx])) { xx++; continue; }
-#endif
 				if(isupper(temp[xx])) temp[xx]=(char)tolower(temp[xx]);
 			}
 
 			strcpy(temp2, GET_SPECIES_E_NAME(species_ptr));
 			for (xx=0; temp2[xx] && xx<80; xx++) if(isupper(temp2[xx])) temp2[xx]=(char)tolower(temp2[xx]);
 
-#ifdef JP
-			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp))
-#else
-			if(my_strstr(temp2, temp))
-#endif
-				who[n++]=i;
+			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp)) who[n++]=i;
 		}
 
 		/* Collect "appropriate" creatures */
