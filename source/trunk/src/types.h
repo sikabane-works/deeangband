@@ -2207,17 +2207,17 @@ typedef struct starting_type {
 	char E_name[80];
 #endif
 	byte enable;
-	s16b dungeon;
-	s16b floor;
-	s16b wy;
-	s16b wx;
-	s16b py;
-	s16b px;
+	DUNGEON_ID dungeon;
+	FLOOR_ID floor;
+	COODINATES wy;
+	COODINATES wx;
+	COODINATES py;
+	COODINATES px;
 } starting_type;
 
 typedef struct half_race_description {
-	int race1;
-	int race2;
+	RACE_ID race1;
+	RACE_ID race2;
 	char title[80];
 } half_race_description;
 
