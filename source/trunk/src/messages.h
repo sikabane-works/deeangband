@@ -4777,6 +4777,14 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_CREATE_AMMO_NO_ROCK "‚»‚±‚É‚ÍŠâÎ‚ª‚È‚¢B"
+#define MES_CREATE_AMMO_TOO_HARD "d‚·‚¬‚ÄŒ@‚ê‚È‚©‚Á‚½B"
+#else
+#define MES_CREATE_AMMO_NO_ROCK "You need pile of rubble."
+#define MES_CREATE_AMMO_TOO_HARD "You failed to make ammo."
+#endif
+
+#ifdef JP
 #define MES_COMBATOP_WEAPON_ONE_HANDED "•Ší‚ğ•Ğè‚Å‚Â"
 #define MES_COMBATOP_WEAPON_TWO_HANDED "•Ší‚ğ—¼è‚Å‚Â"
 #define MES_COMBATOP_BAREHAND_ONE_HANDED "•Ğè‚ÅŠi“¬‚·‚é"

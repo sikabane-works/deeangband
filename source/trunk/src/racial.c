@@ -92,20 +92,12 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 		if(!have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_CAN_DIG))
 		{
-#ifdef JP
-			msg_print("ÇªÇ±Ç…ÇÕä‚êŒÇ™Ç»Ç¢ÅB");
-#else
-			msg_print("You need pile of rubble.");
-#endif
+			msg_print(MES_CREATE_AMMO_NO_ROCK);
 			return FALSE;
 		}
 		else if(!CAVE_HAVE_FLAG_GRID(c_ptr, FF_CAN_DIG) || !CAVE_HAVE_FLAG_GRID(c_ptr, FF_HURT_ROCK))
 		{
-#ifdef JP
-			msg_print("çdÇ∑Ç¨ÇƒïˆÇπÇ»Ç©Ç¡ÇΩÅB");
-#else
-			msg_print("You failed to make ammo.");
-#endif
+			msg_print(MES_CREATE_AMMO_TOO_HARD);
 		}
 		else
 		{

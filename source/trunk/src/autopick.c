@@ -347,11 +347,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 
 			if(k > 0 && k <= 2)
 			{
-#ifdef JP
 				(void)MATCH_KEY(KEY_MORE_BONUS2);
-#else
-				if(' ' == *ptr) ptr++;
-#endif
 				ADD_FLG(FLG_MORE_BONUS);
 			}
 			else
