@@ -139,6 +139,8 @@
 #define MES_SYS_ABORTED "実行中止"
 #define MES_SYS_STOP_RECORDING "録画を終了しました。"
 #define MES_SYS_WRITE_OPTION_BIT_FILE(FILENAME) "オプションbit使用状況をファイル %s に書き出しました。", (FILENAME)
+#define MES_SYS_SOFTWARE_BUG "ソフトウェアのバグ"
+
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -247,6 +249,9 @@
 #define MES_SYS_ABORTED "Aborted."
 #define MES_SYS_STOP_RECORDING "Stopped recording."
 #define MES_SYS_WRITE_OPTION_BIT_FILE(FILENAME) "Option bits usage dump saved to file %s.", (FILENAME)
+
+#define MES_SYS_SOFTWARE_BUG "Software Bug"
+
 #endif
 
 #if JP

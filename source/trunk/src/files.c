@@ -4389,12 +4389,8 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 	for (i = 0; creature_ptr->name[i]; i++)
 	{
 		/* No control characters */
-#ifdef JP
 		if(is_mbyte(creature_ptr->name[i])){i++;continue;}
 		if(iscntrl( (unsigned char)creature_ptr->name[i]))
-#else
-		if(iscntrl(creature_ptr->name[i]))
-#endif
 		{
 			quit_fmt(MES_SYS_CONTROL_CODE(creature_ptr->name)); /* Illegal characters */
 		}
@@ -4426,7 +4422,6 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 		char c = creature_ptr->name[i];
 
 		/* Accept some letters */
-#ifdef JP
 		if(is_mbyte(c)){
 		  if(k + 2 >= sizeof(player_base) || !creature_ptr->name[i+1]) break;
 		  player_base[k++] = c;
@@ -4437,7 +4432,6 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 		else if(iskana(c)) player_base[k++] = c;
 #endif
 		else
-#endif
 		/* Convert path separator to underscore */
 		if(!strncmp(PATH_SEP, creature_ptr->name+i, strlen(PATH_SEP))){
 			player_base[k++] = '_';
