@@ -1307,9 +1307,7 @@ void monster_ball(creature_type *caster_ptr)
 					t = quark_str(object_ptr->inscription);
 					for (t = quark_str(object_ptr->inscription);*t && (*t != '#'); t++)
 					{
-#ifdef JP
 						if(is_mbyte(*t)) t++;
-#endif
 					}
 					if(*t)
 					{
@@ -1333,8 +1331,7 @@ void monster_ball(creature_type *caster_ptr)
 #ifdef JP
 						/* nothing */
 #else
-						if(quote && *(s-1) =='\'')
-							s--;
+						if(quote && *(s-1) =='\'') s--;
 #endif
 						*s = '\0';
 						creature_list[hack_creature_idx_ii].nickname = quark_add(buf);

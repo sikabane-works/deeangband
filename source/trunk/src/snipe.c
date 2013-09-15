@@ -132,11 +132,7 @@ void display_snipe_list(creature_type *creature_ptr)
 	/* Display a list of spells */
 	prt("", y, x);
 	put_str(KW_NAME, y, x + 5);
-#ifdef JP
-	put_str("Lv   MP", y, x + 35);
-#else
-	put_str("Lv Mana", y, x + 35);
-#endif
+	put_str(format("%6s %6s", KW_LEVEL, KW_MP), y, x + 35);
 
 	/* Dump the spells */
 	for (i = 0; i < MAX_SNIPE_POWERS; i++)

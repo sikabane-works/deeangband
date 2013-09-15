@@ -752,11 +752,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 
 		if(follow)
 		{
-#ifdef JP
-			if(get_check_strict("Ç¬Ç¢ÇƒÇ¢Ç´Ç‹Ç∑Ç©ÅH", CHECK_OKAY_CANCEL))
-#else
-			if(get_check_strict("Do you follow it? ", CHECK_OKAY_CANCEL))
-#endif
+			if(get_check_strict(MES_TELEPORT_ASK_FOLLOW, CHECK_OKAY_CANCEL))
 			{
 				if(one_in_(3))
 				{
