@@ -4867,12 +4867,8 @@ char *my_strstr(const char *haystack, const char *needle)
 	{
 		for(i = 0; i <= l1 - l2; i++)
 		{
-			if(!strncmp(haystack + i, needle, l2))
-				return (char *)haystack + i;
-
-#ifdef JP
+			if(!strncmp(haystack + i, needle, l2)) return (char *)haystack + i;
 			if(is_mbyte(*(haystack + i))) i++;
-#endif
 		}
 	}
 

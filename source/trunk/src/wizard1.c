@@ -1143,19 +1143,14 @@ static void spoil_out(cptr str)
 	/* Scan the given string, character at a time */
 	for (; *str; str++)
 	{
-#ifdef JP
 		char cbak;
 		bool k_flag = is_mbyte((unsigned char)(*str));
-#endif
 		char ch = *str;
 		bool wrap = (ch == '\n');
 
-#ifdef JP
 		if(!isprint(ch) && !k_flag && !is_mbyte_flag) ch = ' ';
 		is_mbyte_flag = k_flag && !is_mbyte_flag;
-#else
 		if(!isprint(ch)) ch = ' ';
-#endif
 
 		if(waiting_output)
 		{
@@ -1166,35 +1161,21 @@ static void spoil_out(cptr str)
 
 		if(!wrap)
 		{
-#ifdef JP
 			if(roff_p >= roff_buf + (k_flag ? 74 : 75)) wrap = TRUE;
 			else if((ch == ' ') && (roff_p >= roff_buf + (k_flag ? 72 : 73))) wrap = TRUE;
-#else
-			if(roff_p >= roff_buf + 75) wrap = TRUE;
-			else if((ch == ' ') && (roff_p >= roff_buf + 73)) wrap = TRUE;
-#endif
 
 			if(wrap)
 			{
-#ifdef JP
 				bool k_flag_local;
 				bool is_mbyte_flag_local = FALSE;
 				cptr tail = str + (k_flag ? 2 : 1);
-#else
-				cptr tail = str + 1;
-#endif
 
 				for (; *tail; tail++)
 				{
 					if(*tail == ' ') continue;
-
-#ifdef JP
 					k_flag_local = is_mbyte((unsigned char)(*tail));
 					if(isprint(*tail) || k_flag_local || is_mbyte_flag_local) break;
 					is_mbyte_flag_local = k_flag_local && !is_mbyte_flag_local;
-#else
-					if(isprint(*tail)) break;
-#endif
 				}
 
 				if(!*tail) waiting_output = TRUE;
@@ -1206,14 +1187,10 @@ static void spoil_out(cptr str)
 		{
 			*roff_p = '\0';
 			r = roff_p;
-#ifdef JP
 			cbak = ' ';
-#endif
 			if(roff_s && (ch != ' '))
 			{
-#ifdef JP
 				cbak = *roff_s;
-#endif
 				*roff_s = '\0';
 				r = roff_s + 1;
 			}
@@ -1221,16 +1198,13 @@ static void spoil_out(cptr str)
 			else strcpy(roff_waiting_buf, roff_buf);
 			roff_s = NULL;
 			roff_p = roff_buf;
-#ifdef JP
 			if(cbak != ' ') *roff_p++ = cbak;
-#endif
 			while (*r) *roff_p++ = *r++;
 		}
 
 		/* Save the char */
 		if((roff_p > roff_buf) || (ch != ' '))
 		{
-#ifdef JP
 			if(!k_flag)
 			{
 				if((ch == ' ') || (ch == '(')) roff_s = roff_p;
@@ -1243,9 +1217,6 @@ static void spoil_out(cptr str)
 				    strncmp(str, "ÉB", 2) != 0 &&
 				    strncmp(str, "Å[", 2) != 0) roff_s = roff_p;
 			}
-#else
-			if(ch == ' ') roff_s = roff_p;
-#endif
 
 			*roff_p++ = ch;
 		}
