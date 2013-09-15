@@ -1157,11 +1157,7 @@ int load_player(void)
 	/* Verify the existance of the savefile */
 	if(access(savefile, 0) < 0)
 	{
-#ifdef JP
-		msg_print("セーブファイルがありません。");
-#else
-		msg_print("Savefile does not exist.");
-#endif
+		msg_print();
 		msg_print(NULL);
 
 		/* Allow this */
