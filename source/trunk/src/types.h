@@ -1805,21 +1805,6 @@ struct mind_power
 	mind_type info[MAX_MIND_POWERS];
 };
 
-/* Imitator */
-
-typedef struct racial_power racial_power;
-struct racial_power
-{
-	FLOOR_LEV level;
-	int     smana;
-	int     fail;
-	int     manedam;
-	int     manefail;
-	int     use_stat;
-	cptr    name;
-};
-
-
 /*
  * A structure to describe a building.
  * From Kamband
@@ -1869,13 +1854,13 @@ struct border_type
 typedef struct wilderness_type wilderness_type;
 struct wilderness_type
 {
-	int         terrain;
+	int terrain;
 	TOWN_ID town;
-	int         road;
-	u32b        seed;
+	int road;
+	u32b seed;
 	FLOOR_LEV level;
-	byte        entrance;
-	byte        known;
+	byte entrance;
+	byte known;
 };
 
 
