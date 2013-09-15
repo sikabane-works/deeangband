@@ -2225,3 +2225,13 @@ typedef struct object_id {
 	TVAL tval;
 	SVAL sval;
 } object_id;
+
+/* A number with a name */
+typedef struct named_num named_num;
+
+struct named_num
+{
+	cptr name;		/* The name of this thing */
+	int num;			/* A number associated with it */
+};
+

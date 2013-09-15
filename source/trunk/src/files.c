@@ -138,18 +138,8 @@ int tokenize(char *buf, s16b num, char **tokens, int mode)
 }
 
 
-/* A number with a name */
-typedef struct named_num named_num;
-
-struct named_num
-{
-	cptr name;		/* The name of this thing */
-	int num;			/* A number associated with it */
-};
-
-
 /* Index of spell type names */
-static named_num gf_desc[] =
+named_num effect_desc[] =
 {
 	{"ELEC", DO_EFFECT_ELEC},
 	{"POIS", DO_EFFECT_POIS},
@@ -605,13 +595,13 @@ errr process_pref_file_command(char *buf)
 			/* Nuke the colon */
 			*(t++) = '\0';
 
-			for (i = 0; gf_desc[i].name; i++)
+			for (i = 0; effect_desc[i].name; i++)
 			{
 				/* Match this type */
-				if(streq(gf_desc[i].name, buf + 2))
+				if(streq(effect_desc[i].name, buf + 2))
 				{
 					/* Remember this color set */
-					gf_color[gf_desc[i].num] = (s16b)quark_add(t);
+					gf_color[effect_desc[i].num] = (s16b)quark_add(t);
 
 					return SUCCESS;
 				}

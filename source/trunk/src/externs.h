@@ -92,6 +92,8 @@ extern s32b realm_choices2[];
 extern cptr realm_names[];
 extern cptr equip_slot_flags[MAX_SLOT_IDS];
 
+extern named_num effect_desc[];
+
 #ifdef JP
 extern cptr E_realm_names[];
 #endif
