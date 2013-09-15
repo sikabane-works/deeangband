@@ -2227,9 +2227,9 @@ typedef struct object_id {
 } object_id;
 
 /* A number with a name */
-typedef struct named_num named_num;
+typedef struct effect_type effect_type;
 
-struct named_num
+struct effect_type
 {
 	cptr name;		/* The name of this thing */
 	int num;			/* A number associated with it */

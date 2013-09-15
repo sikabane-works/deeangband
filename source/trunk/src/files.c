@@ -139,7 +139,7 @@ int tokenize(char *buf, s16b num, char **tokens, int mode)
 
 
 /* Index of spell type names */
-named_num effect_desc[] =
+effect_type effect_desc[] =
 {
 	{"ELEC", DO_EFFECT_ELEC},
 	{"POIS", DO_EFFECT_POIS},

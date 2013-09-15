@@ -143,10 +143,10 @@ ID,ID2,SPELL,PRE_ID,ANTI_ID,DISP_PRIORITY,NAME,E_NAME,EFFECT,STR,INT,WIS,DEX,CON
 141,CAUSE_2,TARGET,-1,-1,10,重症,Cause Heavy Wounds,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sはあなたを指さして恐ろしげに呪った。,%^s points at you and curses horribly.,%^sは何かをつぶやいた。,%^s mumbles.
 142,CAUSE_3,TARGET,-1,-1,10,致命傷,Cause Critical Wounds,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,"%^sはあなたを指さして恐ろしげに呪文を唱えた！,%^s points at you, incanting terribly!",%^sが何かをつぶやいた。,%^s mumbles.,
 143,CAUSE_4,TARGET,-1,-1,10,秘孔を突く,Cause Mortal Wounds,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,"%^sはあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。,%^s points at you, screaming the word DIE!",%^sが「お前は既に死んでいる」と叫んだ。,%^s screams the word 'DIE!',
-144,BO_ACID,TARGET,-1,-1,10,アシッド・ボルト,Acid Bolt,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはアシッド・ボルトの呪文を唱えた。,%^s casts a acid bolt.,%^sは何かをつぶやいた。,%^s mumbles.
-145,BO_ELEC,TARGET,-1,-1,10,サンダー・ボルト,Lightning Bolt,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはサンダー・ボルトの呪文を唱えた。,%^s casts a lightning bolt.,%^sは何かをつぶやいた。,%^s mumbles.
-146,BO_FIRE,TARGET,-1,-1,10,ファイア・ボルト,Fire Bolt,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはファイア・ボルトの呪文を唱えた。,%^s casts a fire bolt.,%^sは何かをつぶやいた。,%^s mumbles.
-147,BO_COLD,TARGET,-1,-1,10,アイス・ボルト,Frost Bolt,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはアイス・ボルトの呪文を唱えた。,%^s casts a frost bolt.,%^sは何かをつぶやいた。,%^s mumbles.
+144,BO_ACID,TARGET,-1,-1,10,アシッド・ボルト,Acid Bolt,ACID,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはアシッド・ボルトの呪文を唱えた。,%^s casts a acid bolt.,%^sは何かをつぶやいた。,%^s mumbles.
+145,BO_ELEC,TARGET,-1,-1,10,サンダー・ボルト,Lightning Bolt,ELEC,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはサンダー・ボルトの呪文を唱えた。,%^s casts a lightning bolt.,%^sは何かをつぶやいた。,%^s mumbles.
+146,BO_FIRE,TARGET,-1,-1,10,ファイア・ボルト,Fire Bolt,FIRE,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはファイア・ボルトの呪文を唱えた。,%^s casts a fire bolt.,%^sは何かをつぶやいた。,%^s mumbles.
+147,BO_COLD,TARGET,-1,-1,10,アイス・ボルト,Frost Bolt,COLD,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,,,,,,,%^sはアイス・ボルトの呪文を唱えた。,%^s casts a frost bolt.,%^sは何かをつぶやいた。,%^s mumbles.
 148,BA_LITE,TARGET,-1,-1,10,スター・バースト,Star Burst,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sはスターバーストの呪文を念じた。,%^s invokes a starburst.,%^sは何かをつぶやいた。,%^s mumbles.
 149,BO_NETH,TARGET,-1,-1,10,地獄の矢,Nether Bolt,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sは地獄の矢の呪文を唱えた。,%^s casts a nether bolt.,%^sは何かをつぶやいた。,%^s mumbles.
 150,BO_WATE,TARGET,-1,-1,10,ウォーター・ボルト,Water Bolt,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sはウォーター・ボルトの呪文を唱えた。,%^s casts a water bolt.,%^sは何かをつぶやいた。,%^s mumbles.
