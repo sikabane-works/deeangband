@@ -4074,7 +4074,19 @@ static void play_loop(void)
 
 }
 
+int load_global_status(void)
+{
+	lua_State* L = luaL_newstate();
 
+	luaL_openlibs(L);
+	if(luaL_loadfile(L, "lib\\edit\\global.lua") || lua_pcall(L, 0, 0, 0))
+	{
+		return 1;
+	}
+
+	lua_close(L);
+	return 0;
+}	
 
 /*
 * Actually play a game
@@ -4127,6 +4139,8 @@ void play_game(bool new_game)
 
 	/* Hack -- turn off the cursor */
 	(void)Term_set_cursor(0);
+
+	load_global_status();
 
 	// Attempt to load
 	err = load_player();
