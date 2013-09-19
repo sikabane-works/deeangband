@@ -4076,13 +4076,23 @@ static void play_loop(void)
 
 int load_global_status(void)
 {
+	int version_major, version_minor, version_patch, version_extra;
+
 	lua_State* L = luaL_newstate();
 
 	luaL_openlibs(L);
 	if(luaL_loadfile(L, "lib\\edit\\global.lua") || lua_pcall(L, 0, 0, 0))
 	{
+		lua_getglobal(L, "VER_MAJOR");
+		lua_getglobal(L, "VER_MINOR");
+		lua_getglobal(L, "VER_PATCH");
+		lua_getglobal(L, "VER_EXTRA");
 		return 1;
 	}
+	version_major =  lua_tointeger(L, -4);
+	version_major =  lua_tointeger(L, -3);
+	version_major =  lua_tointeger(L, -2);
+	version_major =  lua_tointeger(L, -1);
 
 	lua_close(L);
 	return 0;
