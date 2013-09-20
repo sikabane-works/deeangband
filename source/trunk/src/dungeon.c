@@ -4077,23 +4077,29 @@ static void play_loop(void)
 int load_global_status(void)
 {
 	int version_major, version_minor, version_patch, version_extra;
+	char buf[100];
 
-	lua_State* L = luaL_newstate();
-
+	lua_State * L = luaL_newstate();
+	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, "global.lua");
 	luaL_openlibs(L);
-	if(luaL_loadfile(L, "lib\\edit\\global.lua") || lua_pcall(L, 0, 0, 0))
+	if(luaL_loadfile(L, buf) || lua_pcall(L, 0, 0, 0))
 	{
 		lua_getglobal(L, "VER_MAJOR");
 		lua_getglobal(L, "VER_MINOR");
 		lua_getglobal(L, "VER_PATCH");
 		lua_getglobal(L, "VER_EXTRA");
-		return 1;
+		if( !lua_isnumber(L, -4) || !lua_isnumber(L, -3) || !lua_isnumber(L, -2) || !lua_isnumber(L, -1) )
+		{
+			printf("ê≥ÇµÇ≠ílÇ™éÊìæÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩ\n");
+		}
+		else
+		{
+			version_major =  lua_tointeger(L, -4);
+			version_minor =  lua_tointeger(L, -3);
+			version_patch =  lua_tointeger(L, -2);
+			version_extra =  lua_tointeger(L, -1);
+		}
 	}
-	version_major =  lua_tointeger(L, -4);
-	version_major =  lua_tointeger(L, -3);
-	version_major =  lua_tointeger(L, -2);
-	version_major =  lua_tointeger(L, -1);
-
 	lua_close(L);
 	return 0;
 }	
