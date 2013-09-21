@@ -4094,19 +4094,19 @@ int load_keyword(void)
 	else
 	{
 		lua_getglobal(L, "GAME_KEYWORDS");
-		if(!lua_istable(L, -1))
+		if(!lua_istable(L, 1))
 		{
 			printf("³‚µ‚­’l‚ªæ“¾‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½\n");
 		}
 		else
 		{
 			//lua_gettable(L, -1);
-			lua_getfield(L, -1, "KW_CURSOR");
-			lua_getfield(L, -1, "KW_CREATURE");
-			for(i = 0; i < 100; i++)
+			lua_getfield(L, 1, "KW_CURSOR");
+			lua_getfield(L, 1, "KW_NAME");
+			for(i = 1; i < 100; i++)
 			{
-				test[i] = lua_tostring(L, -1);
-				code[i] = lua_type(L, -1);
+				test[i] = lua_tostring(L, -i);
+				code[i] = lua_type(L, -i);
 			}
 			
 			//lua_getfield (lua_State *L, int index, const char *k)

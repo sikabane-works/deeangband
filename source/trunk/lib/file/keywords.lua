@@ -309,5 +309,5 @@ KW_SUICIDE = "Suicide",
 KW_CHARGES = "Charges",
 KW_COMMAND = "Command",
 KW_CURRENT_LIFERATE = "Current Life Rating",
-KW_CURSED = "Cursed",
+KW_CURSED = "CursedAAA",
 }
