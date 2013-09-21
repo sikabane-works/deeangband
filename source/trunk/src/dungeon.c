@@ -4074,6 +4074,39 @@ static void play_loop(void)
 
 }
 
+int load_keyword(void)
+{
+	int version_major, version_minor, version_patch, version_extra;
+	char buf[100];
+	int err;
+
+	lua_State * L = luaL_newstate();
+	luaL_openlibs(L);
+	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "keywords.lua");
+	err = luaL_loadfile(L, buf);
+
+	if(err || lua_pcall(L, 0, 0, 0))
+	{
+		msg_warning("File not found: %s", buf);
+	}
+	else
+	{
+		lua_getglobal(L, "GAME_KEYWORDS");
+		if(!lua_isnumber(L, -1))
+		{
+			printf("ê≥ÇµÇ≠ílÇ™éÊìæÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩ\n");
+		}
+		else
+		{
+			//lua_getfield (lua_State *L, int index, const char *k)
+			//version_extra =  lua_to(L, -1);
+		}
+	}
+	lua_close(L);
+	return 0;
+
+}
+
 int load_global_status(void)
 {
 	int version_major, version_minor, version_patch, version_extra;
@@ -4165,6 +4198,7 @@ void play_game(bool new_game)
 	(void)Term_set_cursor(0);
 
 	load_global_status();
+	load_keyword();
 
 	// Attempt to load
 	err = load_player();
