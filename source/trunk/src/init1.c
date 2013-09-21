@@ -7187,3 +7187,46 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 	my_fclose(fp);
 	return (err);
 }
+
+errr load_keyword(void)
+{
+	char *test[100];
+	char buf[100];
+	int code[100];
+	int err, i;
+
+	lua_State * L = luaL_newstate();
+	luaL_openlibs(L);
+	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "keywords.lua");
+	err = luaL_loadfile(L, buf);
+
+	if(err || lua_pcall(L, 0, 0, 0))
+	{
+		msg_warning("File not found: %s", buf);
+	}
+	else
+	{
+		lua_getglobal(L, "GAME_KEYWORDS");
+		if(!lua_istable(L, 1))
+		{
+			printf("ê≥ÇµÇ≠ílÇ™éÊìæÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩ\n");
+		}
+		else
+		{
+			//lua_gettable(L, -1);
+			lua_getfield(L, 1, "KW_CURSOR");
+			lua_getfield(L, 1, "KW_NAME");
+			for(i = 1; i < 100; i++)
+			{
+				test[i] = lua_tostring(L, -i);
+				code[i] = lua_type(L, -i);
+			}
+			
+			//lua_getfield (lua_State *L, int index, const char *k)
+			//version_extra =  lua_to(L, -1);
+		}
+	}
+	lua_close(L);
+	return 0;
+
+}
