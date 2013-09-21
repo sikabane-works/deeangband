@@ -4076,11 +4076,12 @@ static void play_loop(void)
 
 int load_keyword(void)
 {
-	int version_major, version_minor, version_patch, version_extra;
+	char *test;
 	char buf[100];
 	int err;
 
 	lua_State * L = luaL_newstate();
+	lua_State * L2 = luaL_newstate();
 	luaL_openlibs(L);
 	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "keywords.lua");
 	err = luaL_loadfile(L, buf);
@@ -4092,12 +4093,24 @@ int load_keyword(void)
 	else
 	{
 		lua_getglobal(L, "GAME_KEYWORDS");
-		if(!lua_isnumber(L, -1))
+		if(!lua_istable(L, -1))
 		{
 			printf("ê≥ÇµÇ≠ílÇ™éÊìæÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩ\n");
 		}
 		else
 		{
+			lua_getfield(L, -1, "KW_PURE_BLOOD");
+			lua_getfield(L, -1, "KW_CREATURE");
+			test = lua_tostring(L, 0);
+			test = lua_tostring(L, 1);
+			test = lua_tostring(L, 2);
+			test = lua_tostring(L, 3);
+			test = lua_tostring(L, 4);
+			test = lua_tostring(L, 5);
+			test = lua_tostring(L, 6);
+			test = lua_tostring(L, 7);
+			test = lua_tostring(L, 8);
+			
 			//lua_getfield (lua_State *L, int index, const char *k)
 			//version_extra =  lua_to(L, -1);
 		}
