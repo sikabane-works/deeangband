@@ -4078,11 +4078,19 @@ int load_global_status(void)
 {
 	int version_major, version_minor, version_patch, version_extra;
 	char buf[100];
+	int err;
 
 	lua_State * L = luaL_newstate();
-	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, "global.lua");
 	luaL_openlibs(L);
-	if(luaL_loadfile(L, buf) || lua_pcall(L, 0, 0, 0))
+	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, "global.lua");
+	err = luaL_loadfile(L, buf);
+	//err = LUA_ERRSYNTAX;
+
+	if(err || lua_pcall(L, 0, 0, 0))
+	{
+		msg_warning("File not found: %s", buf);
+	}
+	else
 	{
 		lua_getglobal(L, "VER_MAJOR");
 		lua_getglobal(L, "VER_MINOR");
