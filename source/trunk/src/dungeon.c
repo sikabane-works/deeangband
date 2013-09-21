@@ -4076,9 +4076,10 @@ static void play_loop(void)
 
 int load_keyword(void)
 {
-	char *test;
+	char *test[100];
 	char buf[100];
-	int err;
+	int code[100];
+	int err, i;
 
 	lua_State * L = luaL_newstate();
 	lua_State * L2 = luaL_newstate();
@@ -4099,17 +4100,14 @@ int load_keyword(void)
 		}
 		else
 		{
-			lua_getfield(L, -1, "KW_PURE_BLOOD");
+			//lua_gettable(L, -1);
+			lua_getfield(L, -1, "KW_CURSOR");
 			lua_getfield(L, -1, "KW_CREATURE");
-			test = lua_tostring(L, 0);
-			test = lua_tostring(L, 1);
-			test = lua_tostring(L, 2);
-			test = lua_tostring(L, 3);
-			test = lua_tostring(L, 4);
-			test = lua_tostring(L, 5);
-			test = lua_tostring(L, 6);
-			test = lua_tostring(L, 7);
-			test = lua_tostring(L, 8);
+			for(i = 0; i < 100; i++)
+			{
+				test[i] = lua_tostring(L, -1);
+				code[i] = lua_type(L, -1);
+			}
 			
 			//lua_getfield (lua_State *L, int index, const char *k)
 			//version_extra =  lua_to(L, -1);
