@@ -1,4 +1,4 @@
-# globallua
+-- global.lua
 
 VERSION_NAME = "D'angband"
 VERSION = 0

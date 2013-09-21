@@ -2181,7 +2181,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 	/* Use the game-generated "feeling" otherwise, if available */
 	if(object_ptr->feeling) strcpy(fake_insc_buf, game_inscriptions[object_ptr->feeling]);
-	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE))) strcpy(fake_insc_buf, KEYWORD_CURSED);
+	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE))) strcpy(fake_insc_buf, KW_CURSED);
 	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
 		   || (object_ptr->tval == TV_LITE) || (object_ptr->tval == TV_FIGURINE))
 		 && aware && !known && !(object_ptr->ident & IDENT_SENSE))

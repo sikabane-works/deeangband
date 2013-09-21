@@ -153,6 +153,7 @@ KW_SUICIDE = "自殺",
 KW_CHARGES = "使用回数",
 KW_COMMAND = "コマンド",
 KW_CURRENT_LIFERATE = "現在の体力ランク",
+KW_CURSED = "呪われている",
 }
 
 GAME_KEYWORDS_EN = {
@@ -301,11 +302,12 @@ KW_VARIABLE_SIZE = "VariableSize",
 KW_ENEMY = "the enemy",
 KW_LAST_WORD = "Last word",
 KW_LAST_POET = "Last poet",
-KW_UNDEFINED = "undefined",
+KW_UNDEFINED = "Undefined",
 KW_HELPFILE = "Help file",
 KW_POWER = "Power",
 KW_SUICIDE = "Suicide",
 KW_CHARGES = "Charges",
 KW_COMMAND = "Command",
 KW_CURRENT_LIFERATE = "Current Life Rating",
+KW_CURSED = "Cursed",
 }

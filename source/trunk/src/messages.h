@@ -17,13 +17,6 @@
 #define KET_D_ANGLE ">>"
 #endif
 
-// Keywords
-
-#ifdef JP
-#define KEYWORD_CURSED "呪われている"
-#else
-#define KEYWORD_CURSED "cursed"
-#endif
 
 #ifdef JP
 #define MES_INITIALIZE_USER "[ユーザー設定ファイルを初期化しています]"
@@ -458,6 +451,7 @@
 #define KW_CHARGES "使用回数"
 #define KW_COMMAND "コマンド"
 #define KW_CURRENT_LIFERATE "現在の体力ランク"
+#define KW_CURSED "呪われている"
 #else
 #define KW_CURSOR ">>"
 #define KW_MORE "-more-"
@@ -611,6 +605,7 @@
 #define KW_CHARGES "Charges"
 #define KW_COMMAND "Command"
 #define KW_CURRENT_LIFERATE "Current Life Rating"
+#define KW_CURSED "cursed"
 #endif
 
 #ifdef JP

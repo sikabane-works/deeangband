@@ -186,7 +186,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	{
 		char dummy[MAX_NLEN+80];
 		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
-		sprintf(dummy, MES_EQUIP_ASK_CURSED_WIELD(KEYWORD_CURSED, object_name));
+		sprintf(dummy, MES_EQUIP_ASK_CURSED_WIELD(KW_CURSED, object_name));
 		if(!get_check(dummy)) return;
 	}
 
