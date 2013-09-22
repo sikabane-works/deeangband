@@ -7207,6 +7207,13 @@ errr load_lua(lua_State *L, cptr directory, cptr filename)
 	return SUCCESS;
 }
 
+
+cptr get_keyword(cptr keywords)
+{
+	lua_getglobal(KEYWORDS, keywords);
+	return lua_tostring(KEYWORDS, -1);
+}
+
 errr load_keyword(void)
 {
 	char *test[100];
