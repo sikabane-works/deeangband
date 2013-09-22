@@ -4511,7 +4511,7 @@ void get_name(creature_type *creature_ptr)
 	strcpy(tmp, creature_ptr->name);
 
 	/* Prompt for a new name */
-	if(get_string(KW_NAME, tmp, 70)) strcpy(creature_ptr->name, tmp);
+	if(get_string(get_keyword("KW_NAME"), tmp, 70)) strcpy(creature_ptr->name, tmp);
 	if(0 == strlen(creature_ptr->name)) strcpy(creature_ptr->name, species_name + species_info[creature_ptr->species_idx].name);
 
 	strcpy(tmp,chara_info[creature_ptr->chara_idx].title);
@@ -4959,7 +4959,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-		prt(format("%s %s", KW_EQUIPMENT, KW_MORE), 0, 0);
+		prt(format("%s %s", KW_EQUIPMENT, get_keyword("KW_MORE")), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 
@@ -4967,7 +4967,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-		prt(format("%s %s", KW_INVENTORY, KW_MORE), 0, 0);
+		prt(format("%s %s", KW_INVENTORY, get_keyword("KW_MORE")), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 
@@ -5754,7 +5754,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	}
 	roff_to_buf(class_text + class_info[creature_ptr->class_idx].text, 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
-	fprintf(fff, "%s: %s\n", KW_CLASS, class_info[creature_ptr->class_idx].title);
+	fprintf(fff, "%s: %s\n", get_keyword("KW_CLASS"), class_info[creature_ptr->class_idx].title);
 	t = temp;
 	for (i = 0; i < 10; i++)
 	{

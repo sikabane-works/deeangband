@@ -3991,7 +3991,7 @@ static int do_command_menu(int level, int start)
 				/* Ignore lower level sub menus */
 				if(menu_data[i].level > level) continue;
 
-				if(menu_data[i].com_id == -1) strcpy(com_key_str, KW_CURSOR);
+				if(menu_data[i].com_id == -1) strcpy(com_key_str, get_keyword("KW_CURSOR"));
 				else if(menu_data[i].key != -1)
 				{
 					com_key_str[0] = '^';

@@ -7240,8 +7240,6 @@ errr load_keyword(void)
 		}
 		else
 		{
-			lua_getfield(L, 1, "KW_CURSOR");
-			lua_getfield(L, 1, "KW_NAME");
 			for(i = 1; i < 100; i++)
 			{
 				test[i] = lua_tostring(L, -i);

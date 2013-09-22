@@ -131,7 +131,7 @@ void display_snipe_list(creature_type *creature_ptr)
 
 	/* Display a list of spells */
 	prt("", y, x);
-	put_str(KW_NAME, y, x + 5);
+	put_str(get_keyword("KW_NAME"), y, x + 5);
 	put_str(format("%6s %6s", KW_LEVEL, KW_MP), y, x + 35);
 
 	/* Dump the spells */
@@ -218,7 +218,7 @@ static int get_snipe_power(creature_type *creature_ptr, KEY *sn, bool only_brows
 
 				/* Display a list of spells */
 				prt("", y, x);
-				put_str(KW_NAME, y, x + 5);
+				put_str(get_keyword("KW_NAME"), y, x + 5);
 				if(only_browse) put_str(MES_INTERFACE_SNIPE_LIST, y, x + 35);
 
 				/* Dump the spells */

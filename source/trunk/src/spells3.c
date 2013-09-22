@@ -2946,7 +2946,7 @@ void display_spell_list(creature_type *creature_ptr)
 
 		/* Display a list of spells */
 		prt("", y, x);
-		put_str(KW_NAME, y, x + 5);
+		put_str(get_keyword("KW_NAME"), y, x + 5);
 		put_str(MES_INTERFACE_SKILL_LIST, y, x + 35);
 
 		switch(creature_ptr->class_idx)
@@ -3366,7 +3366,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, in
 	else
 		strcpy(buf, MES_INTERFACE_SKILL_LIST3);
 
-	put_str(KW_NAME, y, x + 5);
+	put_str(get_keyword("KW_NAME"), y, x + 5);
 	put_str(buf, y, x + 29);
 
 	if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE)) increment = 0;

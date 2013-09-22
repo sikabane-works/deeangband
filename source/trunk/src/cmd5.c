@@ -1122,7 +1122,7 @@ static void do_name_pet(creature_type *master_ptr)
 		}
 
 		/* Get a new inscription (possibly empty) */
-		if(get_string(KW_NAME, out_val, 15))
+		if(get_string(get_keyword("KW_NAME"), out_val, 15))
 		{
 			if(out_val[0])
 			{

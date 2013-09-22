@@ -86,7 +86,7 @@ static void put_initial_status(creature_type *creature_ptr)
 	put_str("      :                                                                         ", 2, 1);
 	put_str("      :                                                                         ", 3, 1);
 	put_str(get_keyword("KW_RACE"), 1, 1);
-	put_str(KW_CLASS, 2, 1);
+	put_str(get_keyword("KW_CLASS"), 2, 1);
 	put_str(KW_PATRON, 3, 1);
 
 	if(creature_ptr->race_idx1 != INDEX_NONE)
@@ -1151,7 +1151,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		return 0;
 	}
 
-	se[se_info.num].cap = KW_PURE_BLOOD;
+	se[se_info.num].cap = get_keyword("KW_PURE_BLOOD");
 	se[se_info.num].code = creature_ptr->race_idx1;
 	se[se_info.num].key = '\0';
 	se[se_info.num].d_color = TERM_UMBER;

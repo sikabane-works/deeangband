@@ -276,7 +276,7 @@ static int get_learned_power(creature_type *creature_ptr, KEY *sn)
 
 				/* Display a list of spells */
 				prt("", y, x);
-				put_str(KW_NAME, y, x + 5);
+				put_str(get_keyword("KW_NAME"), y, x + 5);
 
 #ifdef JP
 				put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);

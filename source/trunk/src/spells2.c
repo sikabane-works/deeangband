@@ -965,7 +965,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b ma
 	int  i;
 	COODINATES y, x;
 	bool flag = FALSE;
-	cptr desc_creatures = KW_WEIRD_CREATURE;
+	cptr desc_creatures = get_keyword("KW_WEIRD_CREATURE");
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
