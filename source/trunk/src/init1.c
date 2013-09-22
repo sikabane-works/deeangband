@@ -7188,6 +7188,25 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 	return (err);
 }
 
+errr load_lua(lua_State *L, cptr directory, cptr filename)
+{
+	char buf[100];
+	int err;
+
+	L = luaL_newstate();
+	luaL_openlibs(L);
+	path_build(buf, sizeof(buf), directory, filename);
+	err = luaL_loadfile(L, buf);
+
+	if(err || lua_pcall(L, 0, 0, 0))
+	{
+		msg_warning("File not found: CODE[%d]", err);
+		return FAILURE;
+	}
+
+	return SUCCESS;
+}
+
 errr load_keyword(void)
 {
 	char *test[100];
@@ -7203,6 +7222,7 @@ errr load_keyword(void)
 	if(err || lua_pcall(L, 0, 0, 0))
 	{
 		msg_warning("File not found: %s", buf);
+		return FAILURE;
 	}
 	else
 	{
@@ -7213,7 +7233,6 @@ errr load_keyword(void)
 		}
 		else
 		{
-			//lua_gettable(L, -1);
 			lua_getfield(L, 1, "KW_CURSOR");
 			lua_getfield(L, 1, "KW_NAME");
 			for(i = 1; i < 100; i++)
@@ -7221,12 +7240,8 @@ errr load_keyword(void)
 				test[i] = lua_tostring(L, -i);
 				code[i] = lua_type(L, -i);
 			}
-			
-			//lua_getfield (lua_State *L, int index, const char *k)
-			//version_extra =  lua_to(L, -1);
 		}
 	}
 	lua_close(L);
-	return 0;
-
+	return SUCCESS;
 }

@@ -788,6 +788,7 @@ extern void generate_floor_creature_arena(floor_type *floor_ptr);
 extern byte color_char_to_acttr(char c);
 extern s16b feature_tag_to_index(cptr str);
 extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COODINATES xmin, COODINATES ymax, COODINATES xmax, FLAGS_32 flags, int quest_id);
+extern errr load_lua(lua_State *L, cptr directory, cptr filename);
 extern errr load_keyword(void);
 
 // init2.c
