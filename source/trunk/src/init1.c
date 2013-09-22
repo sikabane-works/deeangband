@@ -7188,17 +7188,17 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 	return (err);
 }
 
-errr load_lua(lua_State *L, cptr directory, cptr filename)
+errr load_lua(lua_State **L, cptr directory, cptr filename)
 {
 	char buf[100];
 	int err;
 
-	L = luaL_newstate();
-	luaL_openlibs(L);
+	*L = luaL_newstate();
+	luaL_openlibs(*L);
 	path_build(buf, sizeof(buf), directory, filename);
-	err = luaL_loadfile(L, buf);
+	err = luaL_loadfile(*L, buf);
 
-	if(err || lua_pcall(L, 0, 0, 0))
+	if(err || lua_pcall(*L, 0, 0, 0))
 	{
 		msg_warning("File not found: CODE[%d]", err);
 		return FAILURE;

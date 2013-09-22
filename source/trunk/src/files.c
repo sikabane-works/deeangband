@@ -5742,7 +5742,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 
 	if(!fff) return;
 	roff_to_buf(race_text + race_info[creature_ptr->race_idx1].text, 78, temp, sizeof(temp));
-	fprintf(fff, "\n\n%s: %s\n", KW_RACE, race_info[creature_ptr->race_idx1].title);
+	fprintf(fff, "\n\n%s: %s\n", get_keyword("KW_RACE"), race_info[creature_ptr->race_idx1].title);
 
 	t = temp;
 	for (i = 0; i < 10; i++)

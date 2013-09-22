@@ -85,7 +85,7 @@ static void put_initial_status(creature_type *creature_ptr)
 	put_str("      :                                                                         ", 1, 1);
 	put_str("      :                                                                         ", 2, 1);
 	put_str("      :                                                                         ", 3, 1);
-	put_str(KW_RACE, 1, 1);
+	put_str(get_keyword("KW_RACE"), 1, 1);
 	put_str(KW_CLASS, 2, 1);
 	put_str(KW_PATRON, 3, 1);
 
