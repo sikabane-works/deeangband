@@ -298,9 +298,6 @@
 #endif
 
 #if JP
-#define KW_REALM "魔法"
-#define KW_CHARA "性格"
-#define KW_PATRON "主神"
 #define KW_LEVEL "レベル"
 #define KW_LEVEL_DEC "レベルx"
 #define KW_HP "HP"
@@ -453,9 +450,9 @@
 #define get_keyword("KW_RACE") "Race"
 #define get_keyword("KW_PURE_BLOOD") "Pure Blood"
 #define get_keyword("KW_CLASS") "Class"
-#define KW_REALM "Realm"
-#define KW_CHARA "Chara"
-#define KW_PATRON "Patron"
+#define get_keyword("KW_REALM") "Realm"
+#define get_keyword("KW_CHARA") "Chara"
+#define get_keyword("KW_PATRON") "Patron"
 #define KW_LEVEL "LEVEL"
 #define KW_LEVEL_DEC "Level"
 #define KW_HP "HP"
@@ -575,8 +572,8 @@
 #define KW_CHARGING "(charging)""
 #define KW_FLOORITEM "On a floor"
 #define KW_WITH_THOHANDED "(wielding with two-hands)"
-#define KW_CHARA_INVENTORY "Character inventory"
-#define KW_CHARA_EQUIPMENT "Character Equipment"
+#define get_keyword("KW_CHARA")_INVENTORY "Character inventory"
+#define get_keyword("KW_CHARA")_EQUIPMENT "Character Equipment"
 #define KW_MUSIUM_LIST "Museum"
 #define KW_JUST_LIFTING "Just lifting"
 #define KW_SHOOTING "Shooting"
