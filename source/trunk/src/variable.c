@@ -1060,3 +1060,4 @@ CAMPAIGN_ID campaign_mode;
 byte start_hour;
 byte start_min;
 
+lua_State *KEYWORDS;

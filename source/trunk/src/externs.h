@@ -583,6 +583,8 @@ extern FEATURE_ID feat_floor_rand_table[100], fill_type[100];
 extern int now_message;
 extern bool use_menu;
 
+extern lua_State *KEYWORDS;
+
 
 // cave.c
 extern COODINATES distance(COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
@@ -1569,3 +1571,4 @@ extern void set_species_list_bias_terrain(PROB **prob_list_ptr, TERRAIN_ID terra
 extern void set_species_list_bias_feature(PROB **prob_list_ptr, feature_type *feature_ptr);
 extern void set_species_list_bias_surface(PROB **prob_list_ptr);
 extern void set_species_list_bias_level_limitation(PROB **prob_list_ptr, FLOOR_LEV min, FLOOR_LEV max);
+
