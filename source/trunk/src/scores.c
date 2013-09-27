@@ -598,9 +598,9 @@ void show_highclass(creature_type *current_creature_ptr)
 		clev = strtol(the_score.cur_lev, NULL, 10);
 
 #ifdef JP
-		sprintf(out_val, "   %3d) %s‚Ì%s (%s %2d)", (m + 1), race_info[pr].title,the_score.who, KW_LEVEL, clev);
+		sprintf(out_val, "   %3d) %s‚Ì%s (%s %2d)", (m + 1), race_info[pr].title,the_score.who, get_keyword("KW_LEVEL"), clev);
 #else
-		sprintf(out_val, "%3d) %s the %s (%s %2d)", (m + 1), the_score.who, race_info[pr].title, KW_LEVEL, clev);
+		sprintf(out_val, "%3d) %s the %s (%s %2d)", (m + 1), the_score.who, race_info[pr].title, get_keyword("KW_LEVEL"), clev);
 #endif
 
 		prt(out_val, (m + 7), 0);
@@ -608,7 +608,7 @@ void show_highclass(creature_type *current_creature_ptr)
 		j++;
 	}
 
-	sprintf(out_val, "%s) %s (%s %2d)", KW_YOU, current_creature_ptr->name, KW_LEVEL, current_creature_ptr->lev);
+	sprintf(out_val, "%s) %s (%s %2d)", KW_YOU, current_creature_ptr->name, get_keyword("KW_LEVEL"), current_creature_ptr->lev);
 	prt(out_val, (m + 8), 0);
 
 	(void)fd_close(highscore_fd);
@@ -686,7 +686,7 @@ void race_score(creature_type *player_ptr, int race_num)
 	/* add player if qualified */
 	if((player_ptr->race_idx1 == race_num) && (player_ptr->lev >= lastlev))
 	{
-		sprintf(out_val, "%s) %s (%s %2d)", KW_YOU, player_ptr->name, KW_LEVEL, player_ptr->lev);
+		sprintf(out_val, "%s) %s (%s %2d)", KW_YOU, player_ptr->name, get_keyword("KW_LEVEL"), player_ptr->lev);
 		prt(out_val, (m + 8), 0);
 	}
 

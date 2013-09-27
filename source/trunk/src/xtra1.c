@@ -530,12 +530,12 @@ static void prt_level(creature_type *creature_ptr)
 
 	if(creature_ptr->lev >= creature_ptr->max_plv)
 	{
-		put_str(KW_LEVEL, ROW_LEVEL, 0);				
+		put_str(get_keyword("KW_LEVEL"), ROW_LEVEL, 0);				
 		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 6);
 	}
 	else
 	{
-		put_str(KW_LEVEL_DEC, ROW_LEVEL, 0);
+		put_str(get_keyword("KW_LEVEL_DEC"), ROW_LEVEL, 0);
 		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 6);
 	}
 }
@@ -598,7 +598,7 @@ static void prt_hp(creature_type *creature_ptr)
 	char tmp[32]; 
 	byte color;
 
-	put_str(KW_HP, ROW_CURHP, COL_CURHP);
+	put_str(get_keyword("KW_HP"), ROW_CURHP, COL_CURHP);
 	sprintf(tmp, "%5d", creature_ptr->chp);
 
 	if(creature_ptr->chp >= creature_ptr->mhp) color = TERM_L_GREEN;
@@ -623,7 +623,7 @@ static void prt_sp(creature_type *creature_ptr)
 	char tmp[32];
 	byte color;
 
-	put_str(KW_MP, ROW_CURSP, COL_CURSP);
+	put_str(get_keyword("KW_MP"), ROW_CURSP, COL_CURSP);
 	sprintf(tmp, "%5ld", creature_ptr->csp);
 
 	if(creature_ptr->csp >= creature_ptr->msp) color = TERM_L_GREEN;

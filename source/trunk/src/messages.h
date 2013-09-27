@@ -298,10 +298,6 @@
 #endif
 
 #if JP
-#define KW_LEVEL "ƒŒƒxƒ‹"
-#define KW_LEVEL_DEC "ƒŒƒxƒ‹x"
-#define KW_HP "HP"
-#define KW_MP "MP"
 #define KW_AC "AC"
 #define KW_EV "EV"
 #define KW_VO "VO"
@@ -453,10 +449,10 @@
 #define get_keyword("KW_REALM") "Realm"
 #define get_keyword("KW_CHARA") "Chara"
 #define get_keyword("KW_PATRON") "Patron"
-#define KW_LEVEL "LEVEL"
-#define KW_LEVEL_DEC "Level"
-#define KW_HP "HP"
-#define KW_MP "MP"
+#define get_keyword("KW_LEVEL") "LEVEL"
+#define get_keyword("get_keyword("KW_LEVEL")_DEC") "Level"
+#define get_keyword("KW_HP") "HP"
+#define get_keyword("KW_MP") "MP"
 #define KW_AC "AC"
 #define KW_EV "EV"
 #define KW_VO "VO"

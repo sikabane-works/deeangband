@@ -531,7 +531,7 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 				/* Display a list of spells */
 				prt("", y, x);
 				put_str(get_keyword("KW_NAME"), y, x + 5);
-				put_str(format(MES_INTERFACE_SKILL_LIST4(((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? KW_HP : KW_MP)), y, x + 35);
+				put_str(format(MES_INTERFACE_SKILL_LIST4(((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? get_keyword("KW_HP") : get_keyword("KW_MP"))), y, x + 35);
 				has_weapon[0] = get_equipped_slot_num(caster_ptr, SLOT_ID_HAND) > 0;
 				has_weapon[1] = get_equipped_slot_num(caster_ptr, SLOT_ID_HAND) > 1;
 

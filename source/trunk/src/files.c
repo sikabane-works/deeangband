@@ -1339,8 +1339,8 @@ static struct
 	{33, 12, 21, 0, 0, 0, "ŽŸƒŒƒxƒ‹"},
 	{33, 13, 21, 0, 0, 0, "ŠŽ‹à"},
 	{57, 10, 21, 0, 0, 0, "“ú•t"},
-	{1, 7, 17, 0, 0, 0, KW_HP},
-	{19, 7, 13, 0, 0, 0, KW_MP},
+	{1, 7, 17, 0, 0, 0, ""}, //HP
+	{19, 7, 13, 0, 0, 0, ""}, //MP
 	{57, 11, 21, 0, 0, 0, "ƒvƒŒƒCŽžŠÔ"},
 	{33, 15, -1, 0, 0, 0, "‘ÅŒ‚UŒ‚  :"},
 	{33, 16, -1, 0, 0, 0, "ŽËŒ‚UŒ‚  :"},
@@ -3620,7 +3620,7 @@ static void dump_aux_creatures(FILE *fff)
 		for (k = uniq_total - 1; k >= 0 && k >= uniq_total - 10; k--)
 		{
 			species_type *species_ptr = &species_info[who[k]]; /* Print top 10 */
-			fprintf(fff, "  %-40s (%s%3d)\n", (species_name + species_ptr->name), KW_LEVEL, species_ptr->level); 
+			fprintf(fff, "  %-40s (%s%3d)\n", (species_name + species_ptr->name), get_keyword("KW_LEVEL"), species_ptr->level); 
 		}
 
 	}
@@ -4771,7 +4771,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, class_info[creature_ptr->class_idx].title);
 		put_str(buf, 10, 11);
 
-		(void)sprintf(tmp, "%s: %d", KW_LEVEL, (int)creature_ptr->lev);
+		(void)sprintf(tmp, "%s: %d", get_keyword("KW_LEVEL"), (int)creature_ptr->lev);
 		center_string(buf, tmp);
 		put_str(buf, 11, 11);
 
