@@ -162,7 +162,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	sprintf(tmp_val, "%d", 0); // Default
 
-	if(!get_string(KW_PROFICIENCY, tmp_val, 9)) return;
+	if(!get_string(get_keyword("KW_PROFICIENCY"), tmp_val, 9)) return;
 	tmp_s16b = (s16b)strtol(tmp_val, NULL, 10); // Extract
 
 	if(tmp_s16b < SKILL_P_MIN) tmp_s16b = SKILL_P_MIN;

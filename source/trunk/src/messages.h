@@ -298,11 +298,6 @@
 #endif
 
 #if JP
-#define KW_PROFICIENCY "‹Z”\’l"
-#define KW_DURING "ŠúŠÔ"
-#define KW_RANGE "”ÍˆÍ"
-#define KW_HEAL "‰ñ•œ"
-#define KW_DELAY "’x‰„"
 #define KW_FAIL "Ž¸—¦"
 #define KW_EFFECT "Œø‰Ê"
 #define KW_STRANGE "–¢’m"
@@ -452,11 +447,11 @@
 #define get_keyword("KW_MONEY") "Money"
 #define get_keyword("KW_KARMA") "Karma"
 #define get_keyword("KW_ALIGNMENT") "Alignment"
-#define KW_PROFICIENCY "Proficiency"
-#define KW_DURING "Dur"
-#define KW_RANGE "Range"
-#define KW_HEAL "Heal"
-#define KW_DELAY "Delay"
+#define get_keyword("KW_PROFICIENCY") "Proficiency"
+#define get_keyword("KW_DURING") "Dur"
+#define get_keyword("KW_RANGE") "Range"
+#define get_keyword("KW_HEAL") "Heal"
+#define get_keyword("KW_DELAY") "Delay"
 #define KW_FAIL "Fail"
 #define KW_EFFECT "Effect"
 #define KW_STRANGE "Strange"

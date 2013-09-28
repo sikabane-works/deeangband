@@ -35,7 +35,7 @@ static cptr info_damage(int dice, int sides, int base)
  */
 static cptr info_duration(int base, int sides)
 {
-	return format("%s:%d+1d%d", KW_DURING, base, sides);
+	return format("%s:%d+1d%d", get_keyword("KW_DURING"), base, sides);
 }
 
 
@@ -44,7 +44,7 @@ static cptr info_duration(int base, int sides)
  */
 static cptr info_range(COODINATES range)
 {
-	return format("%s:%d", KW_RANGE, range);
+	return format("%s:%d", get_keyword("KW_RANGE"), range);
 }
 
 
@@ -53,7 +53,7 @@ static cptr info_range(COODINATES range)
  */
 static cptr info_heal(int dice, int sides, int base)
 {
-	return info_string_dice(KW_HEAL, dice, sides, base);
+	return info_string_dice(get_keyword("KW_HEAL"), dice, sides, base);
 }
 
 
@@ -62,7 +62,7 @@ static cptr info_heal(int dice, int sides, int base)
  */
 static cptr info_delay(int base, int sides)
 {
-	return format("%s:%d+1d%d", KW_DELAY, base, sides);
+	return format("%s:%d+1d%d", get_keyword("KW_DELAY"), base, sides);
 }
 
 
