@@ -7207,7 +7207,6 @@ errr load_lua(lua_State **L, cptr directory, cptr filename)
 	return SUCCESS;
 }
 
-
 cptr get_keyword(cptr keywords)
 {
 	lua_getglobal(KEYWORDS, keywords);
