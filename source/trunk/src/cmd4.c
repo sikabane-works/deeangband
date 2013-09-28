@@ -5962,7 +5962,7 @@ static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 	
 	if(fff)
 	{
-		fprintf(fff, "%s: %s\n\n", KW_ALIGNMENT, buf);
+		fprintf(fff, "%s: %s\n\n", get_keyword("KW_ALIGNMENT"), buf);
 		dump_karmas(creature_ptr, fff);
 	}
 	

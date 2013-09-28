@@ -571,7 +571,7 @@ static void prt_exp(creature_type *creature_ptr)
 static void prt_gold(creature_type *creature_ptr)
 {
 	char tmp[32];
-	put_str(KW_MONEY, ROW_GOLD, COL_GOLD);
+	put_str(get_keyword("KW_MONEY"), ROW_GOLD, COL_GOLD);
 	sprintf(tmp, "%9ld", (long)creature_ptr->au);
 	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 10);
 }

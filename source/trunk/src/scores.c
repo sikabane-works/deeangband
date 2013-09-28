@@ -316,7 +316,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 			c_put_str(attr, out_val, n*4 + 4, 0);
 
 			/* And still another line of info */
-			sprintf(out_val, "               (User %s, Date %s, %s %s, Turn %s).", user, when, KW_MONEY, gold, aged);
+			sprintf(out_val, "               (User %s, Date %s, %s %s, Turn %s).", user, when, get_keyword("KW_MONEY"), gold, aged);
 
 			c_put_str(attr, out_val, n*4 + 5, 0);
 		}

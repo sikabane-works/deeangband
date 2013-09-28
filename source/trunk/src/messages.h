@@ -298,9 +298,6 @@
 #endif
 
 #if JP
-#define KW_MONEY "Š‹à"
-#define KW_KARMA "‹Æ"
-#define KW_ALIGNMENT "‘®«"
 #define KW_PROFICIENCY "‹Z”\’l"
 #define KW_DURING "ŠúŠÔ"
 #define KW_RANGE "”ÍˆÍ"
@@ -452,9 +449,9 @@
 #define get_keyword("KW_EXP") "SOUL"
 #define get_keyword("get_keyword("KW_EXP")_DEC") "Soul"
 #define get_keyword("get_keyword("KW_EXP")_NEXT") "NEXT"
-#define KW_MONEY "Money"
-#define KW_KARMA "Karma"
-#define KW_ALIGNMENT "Alignment"
+#define get_keyword("KW_MONEY") "Money"
+#define get_keyword("KW_KARMA") "Karma"
+#define get_keyword("KW_ALIGNMENT") "Alignment"
 #define KW_PROFICIENCY "Proficiency"
 #define KW_DURING "Dur"
 #define KW_RANGE "Range"

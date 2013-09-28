@@ -276,7 +276,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	info[i++] = "";
 
 	show_alignment(buf2, creature_ptr);
-	sprintf(Dummy, "%s: %s", KW_ALIGNMENT, buf2);
+	sprintf(Dummy, "%s: %s", get_keyword("KW_ALIGNMENT"), buf2);
 	strcpy(buf[1], Dummy);
 	info[i++] = buf[1];
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
