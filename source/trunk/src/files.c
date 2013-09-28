@@ -4617,7 +4617,7 @@ void do_cmd_save_game(int is_autosave)
 
 	prt(MES_SYS_GAME_SAVING, 0, 0);
 	if(save_player()) prt(KW_DONE, 0, 40);
-	else prt(KW_FAILED, 0, 40);
+	else prt(get_keyword("KW_FAILED"), 0, 40);
 
 	/* Allow suspend again */
 	signals_handle_tstp();

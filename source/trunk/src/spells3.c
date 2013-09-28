@@ -3045,7 +3045,7 @@ void display_spell_list(creature_type *creature_ptr)
 			/* Illegible */
 			if(s_ptr->slevel >= 99)
 			{
-				strcpy(name, KW_ILLEGIBLE);
+				strcpy(name, get_keyword("KW_ILLEGIBLE"));
 				a = TERM_L_DARK;
 			}
 
@@ -3408,7 +3408,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, in
 		/* Skip illegible spells */
 		if(s_ptr->slevel >= 99)
 		{
-			strcat(out_val, format("%-30s", KW_ILLEGIBLE));
+			strcat(out_val, format("%-30s", get_keyword("KW_ILLEGIBLE")));
 			c_prt(TERM_L_DARK, out_val, y + i + 1, x);
 			continue;
 		}
@@ -3434,7 +3434,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, in
 			}
 			else if(s_ptr->slevel > creature_ptr->lev)
 			{
-				comment = KW_FORGOTTEN;
+				comment = get_keyword("KW_FORGOTTEN");
 				line_attr = TERM_YELLOW;
 			}
 		}
@@ -3447,7 +3447,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, in
 		    ((creature_ptr->spell_forgotten1 & (1L << spell))) :
 		    ((creature_ptr->spell_forgotten2 & (1L << spell))))
 		{
-			comment = KW_FORGOTTEN;
+			comment = get_keyword("KW_FORGOTTEN");
 			line_attr = TERM_YELLOW;
 		}
 		else if(!((use_realm == creature_ptr->realm1) ?
