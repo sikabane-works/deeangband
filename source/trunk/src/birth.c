@@ -798,7 +798,7 @@ void race_detail(int code)
 	put_str(MES_BIRTH_BASE_LEVEL_DR, base, 53);
 	put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%-8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
-		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
+		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], get_keyword("KW_EXP")), base+1, 24);
 
 	sprintf(buf, "%+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d  %+4d%% ",
 		race_info[code].r_adj[0] - calc_unreached_race_level_penalty(race_info[code].lev - 1, STAT_STR), race_info[code].r_adj[0],
@@ -861,7 +861,7 @@ void subrace_detail(int code)
 		put_str(MES_BIRTH_SUB_RACE_MODIFY, base, 24+strlen(race_info[code].title));
 		put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%8s",
 			stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
-			stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
+			stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], get_keyword("KW_EXP")), base+1, 24);
 
 		sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d      %+4d%% ",
 			race_info[code].r_s_adj[STAT_STR],
@@ -918,7 +918,7 @@ void class_detail(int code)
 	put_str(MES_BIRTH_MAIN_RACE_MODIFY, base, 24+strlen(class_info[code].title));
 	put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
-		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
+		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], get_keyword("KW_EXP")), base+1, 24);
 
 	sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d     %+4d%% ",
 		class_info[code].c_adj[STAT_STR],
@@ -960,7 +960,7 @@ void chara_detail(int code)
 	put_str(MES_BIRTH_MAIN_RACE_MODIFY, base, 24+strlen(chara_info[code].title));
 	put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
-		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
+		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], get_keyword("KW_EXP")), base+1, 24);
 
 	sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d     %+4d%% ",
 		chara_info[code].a_adj[STAT_STR], chara_info[code].a_adj[STAT_INT],

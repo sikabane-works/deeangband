@@ -552,16 +552,16 @@ static void prt_exp(creature_type *creature_ptr)
 	else
 		(void)sprintf(next, "%9ld", (long)(creature_exp[creature_ptr->lev - 1] * creature_ptr->expfact / 100L) - creature_ptr->exp);
 
-	put_str(KW_EXP_NEXT, ROW_EXP_NEXT, COL_EXP_NEXT);
+	put_str(get_keyword("KW_EXP_NEXT"), ROW_EXP_NEXT, COL_EXP_NEXT);
 	if(creature_ptr->exp >= creature_ptr->max_exp)
 	{
-		put_str(KW_EXP, ROW_EXP, COL_EXP);
+		put_str(get_keyword("KW_EXP"), ROW_EXP, COL_EXP);
 		c_put_str(TERM_L_GREEN, now, ROW_EXP, COL_EXP + 10);
 		c_put_str(TERM_L_GREEN, next, ROW_EXP_NEXT, COL_EXP_NEXT + 10);
 	}
 	else
 	{
-		put_str(KW_EXP_DEC, ROW_EXP, COL_EXP);
+		put_str(get_keyword("KW_EXP_DEC"), ROW_EXP, COL_EXP);
 		c_put_str(TERM_YELLOW, now, ROW_EXP, COL_EXP + 10);
 		c_put_str(TERM_YELLOW, next, ROW_EXP_NEXT, COL_EXP_NEXT + 10);
 	}
@@ -581,7 +581,7 @@ static void prt_gold(creature_type *creature_ptr)
 static void prt_ac_ev_vo(creature_type *creature_ptr)
 {
 	char tmp[32];
-	put_str(format("%2s:    %2s:    %2s:    ", KW_AC, KW_EV, KW_VO), ROW_AC, COL_AC);
+	put_str(format("%2s:    %2s:    %2s:    ", get_keyword("KW_AC"), get_keyword("KW_EV"), get_keyword("KW_VO")), ROW_AC, COL_AC);
 	sprintf(tmp, "%3d", creature_ptr->dis_ac + creature_ptr->dis_to_ac);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 3);
 	sprintf(tmp, "%3d", creature_ptr->dis_ev + creature_ptr->dis_to_ev);

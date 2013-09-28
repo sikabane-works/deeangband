@@ -4775,7 +4775,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 11, 11);
 
-		(void)sprintf(tmp, "%s: %ld", KW_EXP, (long)creature_ptr->exp);
+		(void)sprintf(tmp, "%s: %ld", get_keyword("KW_EXP"), (long)creature_ptr->exp);
 		center_string(buf, tmp);
 		put_str(buf, 12, 11);
 
