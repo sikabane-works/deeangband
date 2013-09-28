@@ -1620,7 +1620,7 @@ bool probing(floor_type *floor_ptr)
 			if(m_ptr->sex == SEX_MALE) sex = KW_MALE;
 			else if(m_ptr->sex == SEX_FEMALE) sex = KW_FEMALE;
 			else if(m_ptr->sex == SEX_INTERSEX) sex = KW_INTERSEX;
-			else if(m_ptr->sex == SEX_NONE) sex = KW_NOSEX;
+			else if(m_ptr->sex == SEX_NONE) sex = get_keyword("KW_NOSEX");
 
 			sprintf(buf, MES_PROBING_FORMAT,
 				m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,

@@ -1178,7 +1178,7 @@ void do_cmd_pet(creature_type *master_ptr)
 	power_desc[num] = MES_PETCOM_DISMISS_PET;
 	powers[num++] = PET_DISMISS;
 
-	sprintf(target_buf, MES_PETCOM_TARGETING((pet_t_creature_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? KW_SOMETHING_STRANGE : (species_name + species_info[creature_list[pet_t_creature_idx].ap_species_idx].name)) : KW_NOTHING_TARGET)));
+	sprintf(target_buf, MES_PETCOM_TARGETING((pet_t_creature_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? KW_SOMETHING_STRANGE : (species_name + species_info[creature_list[pet_t_creature_idx].ap_species_idx].name)) : get_keyword("KW_NOTHING_TARGET"))));
 	power_desc[num] = target_buf;
 
 	powers[num++] = PET_TARGET;

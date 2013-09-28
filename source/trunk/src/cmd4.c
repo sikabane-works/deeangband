@@ -800,7 +800,7 @@ static void do_cmd_options_autosave(cptr info)
 			if(i == k) a = TERM_L_BLUE;
 
 			/* Display the option text */
-			sprintf(buf, "%-48s:%6s (%s)", autosave_info[i].o_desc, (*autosave_info[i].o_var ? KW_YES : KW_NO), autosave_info[i].o_text);
+			sprintf(buf, "%-48s:%6s (%s)", autosave_info[i].o_desc, (*autosave_info[i].o_var ? get_keyword("KW_YES") : get_keyword("KW_NO")), autosave_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
 		prt(format(MES_OPTION_CMD_AUTOSAVE_FREQ(autosave_freq)), 5, 0);
@@ -891,7 +891,7 @@ void do_cmd_options_aux(int page, cptr info)
 	{
 		for (se_info.num = 0; se_info.num < n; se_info.num++)
 		{
-			sprintf(option_caption[se_info.num], "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? KW_YES : KW_NO), option_info[opt[se_info.num]].o_text);
+			sprintf(option_caption[se_info.num], "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? get_keyword("KW_YES") : get_keyword("KW_NO")), option_info[opt[se_info.num]].o_text);
 			se[se_info.num].cap = option_caption[se_info.num];
 			se[se_info.num].d_color = TERM_L_DARK;
 			se[se_info.num].l_color = TERM_WHITE;
@@ -6161,7 +6161,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	}
 
 	if(rand_tmp_str[0]) fprintf(fff, rand_tmp_str); /* Print the current random quest  */
-	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
+	if(!total) fprintf(fff, "  %s\n", get_keyword("KW_NOTHING"));
 }
 
 
@@ -6204,7 +6204,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 			fprintf(fff, tmp_str);
 		}
 	}
-	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
+	if(!total) fprintf(fff, "  %s\n", get_keyword("KW_NOTHING"));
 }
 
 
@@ -6246,7 +6246,7 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 			fprintf(fff, tmp_str);
 		}
 	}
-	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
+	if(!total) fprintf(fff, "  %s\n", get_keyword("KW_NOTHING"));
 }
 
 // Print all random quests
@@ -6271,7 +6271,7 @@ static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 			fprintf(fff, tmp_str);
 		}
 	}
-	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
+	if(!total) fprintf(fff, "  %s\n", get_keyword("KW_NOTHING"));
 }
 
 

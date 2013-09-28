@@ -2071,7 +2071,7 @@ s32b creature_exp_a[CREATURE_MAX_LEVEL] =
  */
 sex_type sex_info[MAX_SEXES] =
 {
-	{ KW_NOSEX, KW_LORD, },
+	{ "ñ≥ê´", KW_LORD, },
 	{ KW_FEMALE, KW_QUEEN, },
 	{ KW_MALE, KW_KING, },
 	{ KW_INTERSEX, KW_LORD, },
