@@ -4755,7 +4755,7 @@ static void print_tomb(creature_type *creature_ptr)
 			my_fclose(fp);
 		}
 
-		if(creature_ptr->total_winner || (creature_ptr->lev > CREATURE_MAX_LEVEL)) p = KW_WINNER;
+		if(creature_ptr->total_winner || (creature_ptr->lev > CREATURE_MAX_LEVEL)) p = get_keyword("KW_WINNER");
 		else p = class_info[creature_ptr->class_idx].title;
 
 		center_string(buf, creature_ptr->name);

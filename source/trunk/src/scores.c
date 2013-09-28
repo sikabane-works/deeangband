@@ -174,7 +174,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 	for (k = from, place = k+1; k < i; k += per_screen)
 	{
 		Term_clear();
-		put_str(format("                %s %s", VERSION_NAME, KW_SCORE_RANKING), 0, 0);
+		put_str(format("                %s %s", VERSION_NAME, get_keyword("KW_SCORE_RANKING")), 0, 0);
 
 		/* Indicate non-top scores */
 		if(k > 0)
