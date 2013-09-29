@@ -2909,7 +2909,7 @@ cptr game_inscriptions[] =
 	"壊れている", /* FEEL_BROKEN */
 	"恐ろしい", /* FEEL_TERRIBLE */
 	"無価値", /* FEEL_WORTHLESS */
-	get_keyword("KW_CURSED, /* FEEL_CURSED */
+	"KW_CURSED", /* FEEL_CURSED */
 	"上質以上", /* FEEL_UNCURSED */
 	"並", /* FEEL_AVERAGE */
 	"上質", /* FEEL_GOOD */
@@ -3974,7 +3974,7 @@ cptr knowledge_list[] =
 	"既知の生きているユニーク・クリーチャー",
 	"既知のクリーチャー",
 	"殺した敵の数",
-	get_keyword("KW_WANTED,
+	"KW_WANTED",
 	"現在のペット",
 	MES_INFO_HOME,
 	"*鑑定*済み装備の耐性",

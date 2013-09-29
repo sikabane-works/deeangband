@@ -1438,8 +1438,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char * s_dam[] = "KW_DAM";
-	static const char * s_rng[] = "KW_RAN";
+	static const char * s_dam = "KW_DAM";
+	static const char * s_rng = "KW_RAN";
 
 	switch (spell)
 	{

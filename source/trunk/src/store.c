@@ -2873,7 +2873,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 			{
 				cur_ask = final_ask;
 				final = TRUE;
-				pmt = get_keyword("KW_FINAL_OFFER_PRICE;
+				pmt = get_keyword("KW_FINAL_OFFER_PRICE");
 
 				annoyed++;
 				if(annoyed > 3)
