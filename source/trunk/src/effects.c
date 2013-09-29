@@ -1167,7 +1167,7 @@ static void you_died(cptr hit_from)
 			if(winning_seppuku) get_rnd_line(TEXT_FILES_SEPPUKU, 0, death_message);
 			else get_rnd_line(TEXT_FILES_DEATH, 0, death_message);
 
-			do while (!get_string(winning_seppuku ? get_keyword("KW_LAST_POET : get_keyword("KW_LAST_WORD, death_message, 1024));
+			do while (!get_string(winning_seppuku ? get_keyword("KW_LAST_POET") : get_keyword("KW_LAST_WORD"), death_message, 1024));
 			while (winning_seppuku && !get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
 			if(death_message[0] == '\0') strcpy(death_message, format(MES_SYS_YOU_DIED(player_ptr)));
 			else player_ptr->last_message = string_make(death_message);
@@ -1382,7 +1382,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			sound(SOUND_WARN);
 			if(record_danger && (old_chp > warning))
 			{
-				if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK) hit_from = get_keyword("KW_SOMETHING;
+				if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK) hit_from = get_keyword("KW_SOMETHING");
 				sprintf(tmp, DIARY_PINCH, hit_from);
 				write_diary(DIARY_BUNSHOU, 0, tmp);
 			}
@@ -1461,7 +1461,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if(has_trait(target_ptr, TRAIT_UNIQUE) && record_destroy_uniq)
 		{
 			char note_buf[160];
-			sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? format("(%s)", get_keyword("KW_CLONE) : "");
+			sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? format("(%s)", get_keyword("KW_CLONE")) : "");
 			write_diary(DIARY_UNIQUE, 0, note_buf);
 		}
 

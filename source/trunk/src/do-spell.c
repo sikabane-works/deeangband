@@ -1438,8 +1438,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static char * s_dam[] = get_keyword("KW_DAM");
-	static char * s_rng[] = get_keyword("KW_RAN");
+	static const char * s_dam[] = "KW_DAM";
+	static const char * s_rng[] = "KW_RAN";
 
 	switch (spell)
 	{
@@ -1809,8 +1809,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = get_keyword("KW_DAM;
-	static const char s_random[] = get_keyword("KW_RANDOM;
+	static const char s_dam[] = "KW_DAM";
+	static const char s_random[] = "KW_RANDOM";
 
 	COODINATES lev_bonus = caster_ptr->lev;
 
@@ -2179,8 +2179,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = get_keyword("KW_DAM;
-	static const char s_random[] = get_keyword("KW_RANDOM;
+	static const char s_dam[] = "KW_DAM";
+	static const char s_random[] = "KW_RANDOM";
 
 	switch (spell)
 	{
@@ -2547,7 +2547,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	bool fail = (mode == SPELL_FAIL) ? TRUE : FALSE;
 
-	static const char s_random[] = get_keyword("KW_RANDOM;
+	static const char s_random[] = "KW_RANDOM";
 
 	switch (spell)
 	{
@@ -3654,7 +3654,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = get_keyword("KW_DAM;
+	static const char s_dam[] = "KW_DAM";
 
 	switch (spell)
 	{
@@ -4393,7 +4393,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cont = (mode == SPELL_CONT) ? TRUE : FALSE;
 	bool stop = (mode == SPELL_STOP) ? TRUE : FALSE;
 
-	static const char s_dam[] = get_keyword("KW_DAM;
+	static const char s_dam[] = "KW_DAM";
 
 	DIRECTION dir;
 	COODINATES lev_bonus = caster_ptr->lev;

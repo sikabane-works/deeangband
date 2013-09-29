@@ -166,7 +166,7 @@ errr write_diary(int type, int num, cptr note)
 		{
 			cptr to;
 			if(!floor_ptr->depth) to = get_keyword("KW_SURFACE");
-			else to = format(get_keyword("KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
+			else to = format(get_keyword("KW_FLOOR_NUM2")); //TODO
 			fprintf(fff, MES_DIARY_WIZ_TELE(to));
 			break;
 		}
@@ -174,7 +174,7 @@ errr write_diary(int type, int num, cptr note)
 		{
 			cptr to;
 			if(!floor_ptr->depth) to = get_keyword("KW_SURFACE");
-			else to = format(get_keyword("KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
+			else to = format(get_keyword("KW_FLOOR_NUM2")); //TODO
 			fprintf(fff, MES_DIARY_PAT_TELE(to));
 			break;
 		}
