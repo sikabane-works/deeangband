@@ -388,7 +388,7 @@ cptr mention_use_idx(creature_type *creature_ptr, SLOT_ID slot, int num)
 		case SLOT_ID_HAND:
 			if(creature_ptr->heavy_wield[num])
 			{
-				p = get_keyword("KW_JUST_LIFTING;
+				p = get_keyword("KW_JUST_LIFTING");
 				break;
 			}
 			else
@@ -427,7 +427,7 @@ cptr mention_use_idx(creature_type *creature_ptr, SLOT_ID slot, int num)
 #endif
 
 		case SLOT_ID_BOW:
-			p = get_keyword("KW_SHOOTING;
+			p = get_keyword("KW_SHOOTING");
 #ifdef JP
 //			p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
 #else
@@ -1083,7 +1083,7 @@ static bool get_item_allow(creature_type *creature_ptr, OBJECT_ID item)
 	while (s)
 	{
 		/* Check the "restriction" */
-		if((s[1] == command_cmd) || (s[1] == '*')) if(!verify(creature_ptr, get_keyword("KW_TRY, item)) return FALSE;
+		if((s[1] == command_cmd) || (s[1] == '*')) if(!verify(creature_ptr, get_keyword("KW_TRY"), item)) return FALSE;
 
 		/* Find another '!' */
 		s = my_strchr(s + 1, '!');
@@ -1176,7 +1176,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 
 		}
 
-		se[i].cap = get_keyword("KW_CANCEL;
+		se[i].cap = get_keyword("KW_CANCEL");
 		se[i].code = 0;
 		se[i].key = ESCAPE;
 		se[i].d_color = TERM_L_DARK;
@@ -1834,13 +1834,13 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 				else if(allow_inven)
 				{
 					strcat(out_val, " '4' ");
-					strcat(out_val, get_keyword("KW_FLOORITEM);
+					strcat(out_val, get_keyword("KW_FLOORITEM"));
 					strcat(out_val, ",");
 				}
 				else
 				{
 					strcat(out_val, " '4'or'6' ");
-					strcat(out_val, get_keyword("KW_FLOORITEM);
+					strcat(out_val, get_keyword("KW_FLOORITEM"));
 					strcat(out_val, ",");
 				}
 			}
@@ -1850,7 +1850,7 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 		else if(command_wrk == (USE_FLOOR))
 		{
 			/* Begin the prompt */
-			sprintf(out_val, "%s: ", get_keyword("KW_FLOORITEM);
+			sprintf(out_val, "%s: ", get_keyword("KW_FLOORITEM"));
 			if(!use_menu)
 			{
 				sprintf(tmp_val, PROMPT_LABEL(n1, n2));
@@ -2462,7 +2462,7 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 					break;
 				}
 
-				if(ver && !verify(creature_ptr, get_keyword("KW_TRY, k))
+				if(ver && !verify(creature_ptr, get_keyword("KW_TRY"), k))
 				{
 					done = TRUE;
 					break;

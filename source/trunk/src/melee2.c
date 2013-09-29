@@ -1179,7 +1179,7 @@ static void creature_speaking(creature_type *creature_ptr)
 
 	// Acquire the creature name/poss
 	if(creature_ptr->see_others) creature_desc(creature_name, creature_ptr, 0);
-	else strcpy(creature_name, get_keyword("KW_SOMEONE");
+	else strcpy(creature_name, get_keyword("KW_SOMEONE"));
 
 	// Select the file for creature quotes
 	if(has_trait(creature_ptr, TRAIT_AFRAID)) filename = TEXT_FILES_CREATURE_FEAR;

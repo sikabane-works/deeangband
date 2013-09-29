@@ -4783,7 +4783,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 13, 11);
 
-		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, get_keyword("KW_SUICIDE);
+		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, get_keyword("KW_SUICIDE"));
 #ifdef JP
 		else if(streq(gameover_from, COD_RETIRE)) strcpy(tmp, "à¯ëﬁå„Ç…ìVéıÇëSÇ§");
 		else if(streq(gameover_from, COD_SEPPUKU)) strcpy(tmp, "èüóòÇÃå„ÅAêÿï†");
@@ -4959,7 +4959,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-		prt(format("%s %s", get_keyword("KW_EQUIPMENT, get_keyword("KW_MORE")), 0, 0);
+		prt(format("%s %s", get_keyword("KW_EQUIPMENT"), get_keyword("KW_MORE")), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 
@@ -4967,7 +4967,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-		prt(format("%s %s", get_keyword("KW_INVENTORY, get_keyword("KW_MORE")), 0, 0);
+		prt(format("%s %s", get_keyword("KW_INVENTORY"), get_keyword("KW_MORE")), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 
