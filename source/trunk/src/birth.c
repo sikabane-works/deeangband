@@ -2290,21 +2290,14 @@ static void edit_history(creature_type *creature_ptr)
 			}
 
 			creature_ptr->history[y][x] = ' ';
-#ifdef JP
 			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x - 1)))
 			{
 				x--;
 				creature_ptr->history[y][x] = ' ';
 			}
-#endif
 		}
-#ifdef JP
 		else if(is_mbyte(c) || isprint(c))
-#else
-		else if(isprint(c)) /* BUGFIX */
-#endif
 		{
-#ifdef JP
 			if(is_mbyte2(creature_ptr->history[y], x)) creature_ptr->history[y][x+1] = ' ';
 			if(is_mbyte(c))
 			{
@@ -2316,12 +2309,9 @@ static void edit_history(creature_type *creature_ptr)
 				}
 
 				if(is_mbyte2(creature_ptr->history[y], x+1)) creature_ptr->history[y][x+2] = ' ';
-
 				creature_ptr->history[y][x++] = c;
-
 				c = inkey();
 			}
-#endif
 			creature_ptr->history[y][x++] = c;
 			if(x > HISTORY_COL - 2)
 			{
