@@ -3697,7 +3697,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 	}
 
 	/* Dump the inventory */
-	fprintf(fff, "  [%s]\n\n", get_keyword("KW_CHARA_INVENTORY);
+	fprintf(fff, "  [%s]\n\n", get_keyword("KW_CHARA_INVENTORY"));
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -4026,7 +4026,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 	if(!fff) /* Look in "help" */
 	{
-		sprintf(caption, "%s '%s'", get_keyword("KW_HELPFILE, name);
+		sprintf(caption, "%s '%s'", get_keyword("KW_HELPFILE"), name);
 		path_build(path, sizeof(path), ANGBAND_DIR_HELP, name);
 		fff = my_fopen(path, "r");
 	}
@@ -4563,7 +4563,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 
 		do
 		{
-			while (!get_string(get_keyword("KW_WINNING_MESSAGE, buf, sizeof buf));
+			while (!get_string(get_keyword("KW_WINNING_MESSAGE"), buf, sizeof buf));
 		}
 		while (!get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
 

@@ -2619,7 +2619,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 		}
 
 		cur_ask = final_ask; /* Final price */
-		pmt = get_keyword("KW_FINAL_OFFER_PRICE; /* Go to final offer */
+		pmt = get_keyword("KW_FINAL_OFFER_PRICE"); /* Go to final offer */
 		final = TRUE;
 	}
 
@@ -2692,7 +2692,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 			{
 				final = TRUE;
 				cur_ask = final_ask;
-				pmt = get_keyword("KW_FINAL_OFFER_PRICE;
+				pmt = get_keyword("KW_FINAL_OFFER_PRICE");
 
 				annoyed++;
 				if(annoyed > 3)
@@ -2713,7 +2713,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 				last_offer = offer;
 				allow_inc = TRUE;
 				prt("", 1, 0);
-				(void)sprintf(out_val, "%s: $%ld", get_keyword("KW_PRE_OFFER_PRICE, (long)last_offer);
+				(void)sprintf(out_val, "%s: $%ld", get_keyword("KW_PRE_OFFER_PRICE"), (long)last_offer);
 				put_str(out_val, 1, 39);
 				say_comment_2(st_ptr, cur_ask, annoyed);
 			}
@@ -2746,7 +2746,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	int     flag, loop_flag, noneed;
 	int     annoyed = 0, final = FALSE;
 	bool    cancel = FALSE;
-	cptr pmt = get_keyword("KW_OFFER;
+	cptr pmt = get_keyword("KW_OFFER");
 	char    out_val[160];
 	*price = 0;
 
@@ -2795,7 +2795,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 
 		cur_ask = final_ask;
 		final = TRUE;
-		pmt = get_keyword("KW_FINAL_OFFER_PRICE;
+		pmt = get_keyword("KW_FINAL_OFFER_PRICE");
 	}
 
 	/* Haggle for the whole pile */
