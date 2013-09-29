@@ -3429,7 +3429,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, in
 		{
 			if(s_ptr->slevel > creature_ptr->max_plv)
 			{
-				comment = get_keyword("KW_UNKNOWN;
+				comment = get_keyword("KW_UNKNOWN");
 				line_attr = TERM_L_BLUE;
 			}
 			else if(s_ptr->slevel > creature_ptr->lev)
@@ -3454,7 +3454,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, in
 		    (creature_ptr->spell_learned1 & (1L << spell)) :
 		    (creature_ptr->spell_learned2 & (1L << spell))))
 		{
-			comment = get_keyword("KW_UNKNOWN;
+			comment = get_keyword("KW_UNKNOWN");
 			line_attr = TERM_L_BLUE;
 		}
 		else if(!((use_realm == creature_ptr->realm1) ?

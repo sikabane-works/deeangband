@@ -2729,7 +2729,7 @@ static cptr creature_group_text[] =
 	"壁/植物/気体",
 	"おばけキノコ",
 	"球体",
-	get_keyword("KW_VALIABLE_RACE,
+	"KW_VALIABLE_RACE",
 	"戦士",
 	"メイジ",
 	"プリースト",
@@ -2758,7 +2758,7 @@ static cptr creature_group_text[] =
 	"鏡使い",
 	"忍者",
 	"スナイパー",
-	get_keyword("KW_VALIABLE_CLASS,
+	"KW_VALIABLE_CLASS",
 #else
 	"Uniques",
 	"Ridable creature",

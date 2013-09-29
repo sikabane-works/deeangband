@@ -3381,11 +3381,11 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 void show_alignment(char* buf, creature_type *creature_ptr)
 {
 	sprintf(buf, "%s[%d]/%s[%d]/%s[%d]/%s[%d]/%s[%d]",
-		get_keyword("KW_GOOD, creature_ptr->good_rank,
-		get_keyword("KW_EVIL, creature_ptr->evil_rank,
-		get_keyword("KW_LAW, creature_ptr->order_rank,
-		get_keyword("KW_CHAOS, creature_ptr->chaos_rank,
-		get_keyword("KW_BALANCE, creature_ptr->balance_rank);
+		get_keyword("KW_GOOD"), creature_ptr->good_rank,
+		get_keyword("KW_EVIL"), creature_ptr->evil_rank,
+		get_keyword("KW_LAW"), creature_ptr->order_rank,
+		get_keyword("KW_CHAOS"), creature_ptr->chaos_rank,
+		get_keyword("KW_BALANCE"), creature_ptr->balance_rank);
 }
 
 

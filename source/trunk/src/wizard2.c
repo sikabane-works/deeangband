@@ -845,7 +845,7 @@ static void wiz_quantity_item(object_type *object_ptr)
 	tmp_qnt = object_ptr->number; /* Store old quantity. -LM- */
 	sprintf(tmp_val, "%d", object_ptr->number);
 
-	if(get_string(get_keyword("KW_QUANTITY, tmp_val, 2))
+	if(get_string(get_keyword("KW_QUANTITY"), tmp_val, 2))
 	{
 		tmp_int = strtol(tmp_val, NULL, 10);
 		if(tmp_int < 1) tmp_int = 1;
@@ -1051,7 +1051,7 @@ static void do_cmd_wiz_creature_list(void)
 			se_info.num++;
 		}
 
-		ce[se_info.num].cap = get_keyword("KW_CANCEL;
+		ce[se_info.num].cap = get_keyword("KW_CANCEL");
 		ce[se_info.num].d_color = TERM_RED;
 		ce[se_info.num].l_color = TERM_L_RED;
 		ce[se_info.num].key = ESCAPE;
@@ -1138,7 +1138,7 @@ static void do_cmd_wiz_floor_teleport(void)
 			se_info.num++;
 		}
 
-		ce[se_info.num].cap = get_keyword("KW_CANCEL;
+		ce[se_info.num].cap = get_keyword("KW_CANCEL");
 		ce[se_info.num].d_color = TERM_RED;
 		ce[se_info.num].l_color = TERM_L_RED;
 		ce[se_info.num].key = ESCAPE;
@@ -1214,7 +1214,7 @@ static void do_cmd_wiz_floor_object_list(void)
 			se_info.num++;
 		}
 
-		ce[se_info.num].cap = get_keyword("KW_CANCEL;
+		ce[se_info.num].cap = get_keyword("KW_CANCEL");
 		ce[se_info.num].d_color = TERM_RED;
 		ce[se_info.num].l_color = TERM_L_RED;
 		ce[se_info.num].key = ESCAPE;
@@ -1358,7 +1358,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	}
 
 	se[se_info.num].code = -1;
-	se[se_info.num].cap = get_keyword("KW_CANCEL;
+	se[se_info.num].cap = get_keyword("KW_CANCEL");
 	se[se_info.num].key = '\0';
 	se[se_info.num].d_color = TERM_L_DARK;
 	se[se_info.num].l_color = TERM_WHITE;
@@ -1476,13 +1476,13 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 
 	c_ptr = &floor_ptr->cave[y][x];
 	sprintf(tmp_val, "%d", prev_feat);
-	if(!get_string(get_keyword("KW_FEATURE, tmp_val, 3)) return;
+	if(!get_string(get_keyword("KW_FEATURE"), tmp_val, 3)) return;
 	tmp_feat = (FEATURE_ID)strtol(tmp_val, NULL, 10);
 	if(tmp_feat < 0) tmp_feat = 0;
 	else if(tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
 
 	sprintf(tmp_val, "%d", prev_mimic);
-	if(!get_string(get_keyword("KW_CAMOUFLAGE, tmp_val, 3)) return;
+	if(!get_string(get_keyword("KW_CAMOUFLAGE"), tmp_val, 3)) return;
 
 	tmp_mimic = (FEATURE_ID)strtol(tmp_val, NULL, 10);
 	if(tmp_mimic < 0) tmp_mimic = 0;

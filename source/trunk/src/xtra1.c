@@ -860,7 +860,7 @@ static void prt_speed(creature_type *creature_ptr)
 	else if(creature_ptr->riding)
 	{
 		attr = TERM_GREEN;
-		strcpy(buf, get_keyword("KW_RIDING);
+		strcpy(buf, get_keyword("KW_RIDING"));
 	}
 
 	/* Display the speed */

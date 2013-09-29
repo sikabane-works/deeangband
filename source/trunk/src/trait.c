@@ -33,7 +33,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	feature_type *feature_ptr = &feature_info[cave_ptr->feat];
 	bool effected = FALSE;
 
-	char caster_name[100] = get_keyword("KW_IT"), target_name[100] = get_keyword("KW_IT");
+	char caster_name[100] = "KW_IT", target_name[100] = "KW_IT";
 	int i, k;
 	int rad = 3;
 	DIRECTION dir = 0;
