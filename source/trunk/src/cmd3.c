@@ -34,7 +34,7 @@ void do_cmd_inven(creature_type *creature_ptr)
 	format_weight(buf1, creature_ptr->carrying_weight);
 	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
 
-	sprintf(out_val, "%s: %s/%s (%ld%%) %s ", KW_CARRYING_WEIGHT, buf1, buf2, (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr), PROMPT_COMMAND);
+	sprintf(out_val, "%s: %s/%s (%ld%%) %s ", get_keyword("KW_CARRYING_WEIGHT"), buf1, buf2, (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr), PROMPT_COMMAND);
 	prt(out_val, 0, 0);
 
 	/* Get a new command */
@@ -79,7 +79,7 @@ void do_cmd_equip(creature_type *creature_ptr)
 	format_weight(buf1, creature_ptr->equipping_weight);
 	format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
 
-	sprintf(out_val, "%s: %s/%s (%ld%%). %s", KW_EQUIPMENT_WEIGHT, buf1, buf2, (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr), PROMPT_COMMAND);
+	sprintf(out_val, "%s: %s/%s (%ld%%). %s", get_keyword("KW_EQUIPMENT_WEIGHT"), buf1, buf2, (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr), PROMPT_COMMAND);
 	prt(out_val, 0, 0);
 
 	/* Get a new command */

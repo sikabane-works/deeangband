@@ -3461,7 +3461,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, in
 		    (creature_ptr->spell_worked1 & (1L << spell)) :
 		    (creature_ptr->spell_worked2 & (1L << spell))))
 		{
-			comment = KW_UNTRIED;
+			comment = get_keyword("KW_UNTRIED");
 			line_attr = TERM_L_GREEN;
 		}
 
