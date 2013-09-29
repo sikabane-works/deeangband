@@ -3065,7 +3065,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	{
 		char statmsg[10000];
 
-		put_str(format("(%s)", KW_CREATURE_PROFILE), 2, 25);
+		put_str(format("(%s)", get_keyword("KW_CREATURE_PROFILE")), 2, 25);
 
 		for (i = 0; i < HISTORY_ROW; i++) put_str(creature_ptr->history[i], i + 4, 3);
 

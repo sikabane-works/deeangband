@@ -2192,7 +2192,7 @@ static void edit_history(creature_type *creature_ptr)
 		creature_ptr->history[i][HISTORY_COL - 1] = '\0';
 	}
 	display_creature_status(1, creature_ptr);
-	c_put_str(TERM_L_GREEN, KW_CREATURE_PROFILE_EDITING, 2, 20);
+	c_put_str(TERM_L_GREEN, get_keyword("KW_CREATURE_PROFILE_EDITING"), 2, 20);
 	put_str(MES_INTERFACE_EDIT_HISTORY, 23, 10);
 
 	while (TRUE)
@@ -2252,13 +2252,13 @@ static void edit_history(creature_type *creature_ptr)
 		{
 			Term_erase(0, 11, 255);
 			Term_erase(0, 17, 255);
-			put_str(KW_CREATURE_PROFILE_EDITED, 2, 20);
+			put_str(get_keyword("KW_CREATURE_PROFILE_EDITED"), 2, 20);
 			break;
 		}
 		else if(c == ESCAPE)
 		{
 			clear_from(2);
-			put_str(format("(%s)", KW_CREATURE_PROFILE), 2, 25);
+			put_str(format("(%s)", get_keyword("KW_CREATURE_PROFILE")), 2, 25);
 
 			for (i = 0; i < HISTORY_ROW; i++)
 			{
