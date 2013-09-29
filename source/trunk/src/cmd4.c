@@ -6023,8 +6023,8 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	if(fff)
 	{
 		percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
-		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "%s : %d/100\n\n", get_keyword("KW_CURRENT_LIFERATE, percent);
-		else fprintf(fff, "%s : ???\n\n", get_keyword("KW_CURRENT_LIFERATE);
+		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "%s : %d/100\n\n", get_keyword("KW_CURRENT_LIFERATE"), percent);
+		else fprintf(fff, "%s : ???\n\n", get_keyword("KW_CURRENT_LIFERATE"));
 		fprintf(fff, MES_INFO_STATUS_LIMIT);
 		fprintf(fff, "\n\n");
 
@@ -6450,10 +6450,10 @@ static void do_cmd_knowledge_autopick(void)
 	{
 		cptr tmp;
 		byte act = autopick_list[k].action;
-		if(act & DONT_AUTOPICK) tmp = get_keyword("KW_LEAVE;
-		else if(act & DO_AUTODESTROY) tmp = get_keyword("KW_DESTROY;
-		else if(act & DO_AUTOPICK) tmp = get_keyword("KW_PICKUP;
-		else tmp = get_keyword("KW_QUERY;
+		if(act & DONT_AUTOPICK) tmp = get_keyword("KW_LEAVE");
+		else if(act & DO_AUTODESTROY) tmp = get_keyword("KW_DESTROY");
+		else if(act & DO_AUTOPICK) tmp = get_keyword("KW_PICKUP");
+		else tmp = get_keyword("KW_QUERY");
 
 		if(act & DO_DISPLAY) fprintf(fff, "%11s", format("[%s]", tmp));
 		else fprintf(fff, "%11s", format("(%s)", tmp));
@@ -6499,7 +6499,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 		se[se_info.num].key = '\0';
 	}
 
-	se[se_info.num].cap = get_keyword("KW_CANCEL;
+	se[se_info.num].cap = get_keyword("KW_CANCEL");
 	se[se_info.num].d_color = TERM_L_DARK;
 	se[se_info.num].l_color = TERM_L_WHITE;
 	se[se_info.num].code = se_info.num;

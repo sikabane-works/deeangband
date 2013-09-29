@@ -194,7 +194,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, OBJECT_ID item)
 			return;
 		}
 
-		staff = (object1_ptr->tval == TV_STAFF) ? get_keyword("KW_STAFF : get_keyword("KW_WAND;
+		staff = (object1_ptr->tval == TV_STAFF) ? get_keyword("KW_STAFF") : get_keyword("KW_WAND");
 		if(object1_ptr->pval == 0) /* "Eat" charges */
 		{
 			msg_print(MES_OBJECT_NO_CHARGE_LEFT);
@@ -1297,9 +1297,9 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 
 		while(!tval)
 		{
-			prt(format(" %s %s", (menu_line == 1) ? KET_D_ANGLE : "  ", get_keyword("KW_STAFF), 2, 14);
-			prt(format(" %s %s", (menu_line == 2) ? KET_D_ANGLE : "  ", get_keyword("KW_WAND), 3, 14);
-			prt(format(" %s %s", (menu_line == 3) ? KET_D_ANGLE : "  ", get_keyword("KW_ROD), 4, 14);
+			prt(format(" %s %s", (menu_line == 1) ? KET_D_ANGLE : "  ", get_keyword("KW_STAFF")), 2, 14);
+			prt(format(" %s %s", (menu_line == 2) ? KET_D_ANGLE : "  ", get_keyword("KW_WAND")), 3, 14);
+			prt(format(" %s %s", (menu_line == 3) ? KET_D_ANGLE : "  ", get_keyword("KW_ROD")), 4, 14);
 			prt(MES_GAINMAGIC_WHICH2, 0, 0);
 
 			choice = inkey();
@@ -1400,9 +1400,9 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 
 			/* Print header(s) */
 #ifdef JP
-			prt(format("                           %s é∏ó¶                           %s é∏ó¶", (tval == TV_ROD ? "  èÛë‘  " : get_keyword("KW_CHARGES), (tval == TV_ROD ? "  èÛë‘  " : get_keyword("KW_CHARGES)), y++, x);
+			prt(format("                           %s é∏ó¶                           %s é∏ó¶", (tval == TV_ROD ? "  èÛë‘  " : get_keyword("KW_CHARGES")), (tval == TV_ROD ? "  èÛë‘  " : get_keyword("KW_CHARGES"))), y++, x);
 #else
-			prt(format("                           %s Fail                           %s Fail", (tval == TV_ROD ? "  Stat  " : get_keyword("KW_CHARGES), (tval == TV_ROD ? "  Stat  " : get_keyword("KW_CHARGES)), y++, x);
+			prt(format("                           %s Fail                           %s Fail", (tval == TV_ROD ? "  Stat  " : get_keyword("KW_CHARGES")), (tval == TV_ROD ? "  Stat  " : get_keyword("KW_CHARGES"))), y++, x);
 #endif
 
 			/* Print list */

@@ -1983,7 +1983,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	if(!creature_ptr) return;
 	if(is_player(creature_ptr))
 	{
-		(void)strcpy(desc, get_keyword("KW_YOU);
+		(void)strcpy(desc, get_keyword("KW_YOU"));
 		return;
 	}
 
