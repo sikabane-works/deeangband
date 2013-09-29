@@ -401,9 +401,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 
 	/* Last 'keyword' must be at the correct location */
 	if(*ptr == ':') ptr++;
-#ifdef JP
 	else if(ptr[0] == kanji_colon[0] && ptr[1] == kanji_colon[1]) ptr += 2;
-#endif
 	else if(*ptr == '\0')
 	{
 		/* There was no noun */

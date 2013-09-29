@@ -4022,10 +4022,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 	char cmd;
 	int mode;
 	cptr act;
-
-#ifdef JP
 	int caretcmd = 0;
-#endif
 
 	if(rogue_like_commands) mode = KEYMAP_MODE_ROGUE;
 	else mode = KEYMAP_MODE_ORIG;
@@ -4212,7 +4209,6 @@ void request_command(creature_type *guest_ptr, int shopping)
 		}
 	}
 
-#ifdef JP
 	for (i = 0; i < 256; i++)
 	{
 		cptr s;
@@ -4226,7 +4222,6 @@ void request_command(creature_type *guest_ptr, int shopping)
 		}
 	}
 	if(!caretcmd) caretcmd = command_cmd;
-#endif
 
 	/* Hack -- Scan equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -4252,11 +4247,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 		while (s)
 		{
 			/* Check the "restriction" character */
-#ifdef JP
 			if((s[1] == caretcmd) || (s[1] == '*'))
-#else
-			if((s[1] == command_cmd) || (s[1] == '*'))
-#endif
 				if(!get_check(MES_SYS_ASK_SURE)) command_cmd = ' ';
 
 			/* Find another '^' */
