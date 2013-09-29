@@ -1015,7 +1015,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b ma
 		switch (match_flag)
 		{
 		default:
-			desc_creatures = KW_ENEMY;
+			desc_creatures = get_keyword("KW_ENEMY;
 			break;
 		}
 
@@ -1617,9 +1617,9 @@ bool probing(floor_type *floor_ptr)
 			/* TODO: New Alignment View */
 			align = "----";
 
-			if(m_ptr->sex == SEX_MALE) sex = KW_MALE;
-			else if(m_ptr->sex == SEX_FEMALE) sex = KW_FEMALE;
-			else if(m_ptr->sex == SEX_INTERSEX) sex = KW_INTERSEX;
+			if(m_ptr->sex == SEX_MALE) sex = get_keyword("KW_MALE;
+			else if(m_ptr->sex == SEX_FEMALE) sex = get_keyword("KW_FEMALE;
+			else if(m_ptr->sex == SEX_INTERSEX) sex = get_keyword("KW_INTERSEX;
 			else if(m_ptr->sex == SEX_NONE) sex = get_keyword("KW_NOSEX");
 
 			sprintf(buf, MES_PROBING_FORMAT,

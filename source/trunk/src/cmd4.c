@@ -413,7 +413,7 @@ void do_cmd_diary(void)
 		{MES_DIARY_MENU3, 2, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
 		{MES_DIARY_MENU4, 3, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
 		{MES_DIARY_MENU5, 4, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
-		{KW_CANCEL, 5, 0, 0, ESCAPE, TERM_L_DARK, TERM_WHITE, FALSE},
+		{get_keyword("KW_CANCEL"), 5, 0, 0, ESCAPE, TERM_L_DARK, TERM_WHITE, FALSE},
 	};
 	se_info.header = MES_DIARY_MENU;
 	se_info.caption = NULL;
@@ -459,12 +459,9 @@ void do_cmd_diary(void)
  */
 void do_cmd_change_name(creature_type *creature_ptr)
 {
-	char	c;
-
-	int		mode = 0;
-
-	char	tmp[160];
-
+	char c;
+	int mode = 0;
+	char tmp[160];
 
 	screen_save();
 
@@ -898,7 +895,7 @@ void do_cmd_options_aux(int page, cptr info)
 			se[se_info.num].code = se[se_info.num].left_code = se[se_info.num].right_code = se_info.num;
 			se[se_info.num].key = '\0';			
 		}
-		se[se_info.num].cap = KW_ACCEPT;
+		se[se_info.num].cap = get_keyword("KW_ACCEPT;
 		se[se_info.num].d_color = TERM_BLUE;
 		se[se_info.num].l_color = TERM_L_BLUE;
 		se[se_info.num].code = se_info.num;
@@ -1221,7 +1218,7 @@ void do_cmd_options(void)
 
 			case 'a':
 			case 'A':
-				do_cmd_options_autosave(KW_AUTOSAVE);
+				do_cmd_options_autosave(get_keyword("KW_AUTOSAVE);
 				break;
 
 			/* Window flags */
@@ -2428,7 +2425,7 @@ void do_cmd_colors(void)
 				int gv = angband_color_table[i][2];
 				int bv = angband_color_table[i][3];
 
-				cptr name = KW_UNKNOWN;
+				cptr name = get_keyword("KW_UNKNOWN;
 
 				/* Skip non-entries */
 				if(!kv && !rv && !gv && !bv) continue;
@@ -2450,7 +2447,7 @@ void do_cmd_colors(void)
 		else if(i == '3')
 		{
 			static byte a = 0;
-			prt(format("%s: %s", KW_COMMAND, MES_COLOR_MODIFY_COLOR), 8, 0);
+			prt(format("%s: %s", get_keyword("KW_COMMAND, MES_COLOR_MODIFY_COLOR), 8, 0);
 
 			/* Hack -- query until done */
 			while(TRUE)
@@ -2468,7 +2465,7 @@ void do_cmd_colors(void)
 				}
 
 				/* Describe the color */
-				name = ((a < 16) ? colospecies_names[a] : KW_UNDEFINED);
+				name = ((a < 16) ? colospecies_names[a] : get_keyword("KW_UNDEFINED);
 				Term_putstr(5, 10, -1, TERM_WHITE, format(MES_INTERFACE_COLOR_LIST(a, name)));
 				Term_putstr(0, 14, -1, TERM_WHITE, MES_INTERFACE_COLOR);
 
@@ -2640,7 +2637,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	// No useful feeling in town
 	else if(floor_ptr->town_num && !floor_ptr->depth)
 	{
-		if(!strcmp(town[floor_ptr->town_num].name, KW_WORLD_MAP))
+		if(!strcmp(town[floor_ptr->town_num].name, get_keyword("KW_WORLD_MAP))
 		{
 			msg_print(MES_FEELING_WILD_POINT);
 			return;
@@ -2675,7 +2672,7 @@ static cptr creature_group_text[] =
 #ifdef JP
 	"ユニーク",	/* "Uniques" */
 	"乗馬可能なクリーチャー",	/* "Riding" */
-	KW_WANTED, /* "Wanted */
+	get_keyword("KW_WANTED, /* "Wanted */
 	"アンバーの王族", /* "Ambertite" */
 	"アリ",
 	"コウモリ",
@@ -2732,7 +2729,7 @@ static cptr creature_group_text[] =
 	"壁/植物/気体",
 	"おばけキノコ",
 	"球体",
-	KW_VALIABLE_RACE,
+	get_keyword("KW_VALIABLE_RACE,
 	"戦士",
 	"メイジ",
 	"プリースト",
@@ -2761,7 +2758,7 @@ static cptr creature_group_text[] =
 	"鏡使い",
 	"忍者",
 	"スナイパー",
-	KW_VALIABLE_CLASS,
+	get_keyword("KW_VALIABLE_CLASS,
 #else
 	"Uniques",
 	"Ridable creature",
@@ -2822,7 +2819,7 @@ static cptr creature_group_text[] =
 	"Wall/Plant/Gas",
 	"Mushroom patch",
 	"Ball",
-	KW_VALIABLE_RACE,
+	get_keyword("KW_VALIABLE_RACE,
 	"Warrior",
 	"Mage",
 	"Priest",
@@ -2851,7 +2848,7 @@ static cptr creature_group_text[] =
 	"Mirror-Master",
 	"Ninja",
 	"Sniper",
-	KW_VALIABLE_CLASS,
+	get_keyword("KW_VALIABLE_CLASS,
 #endif
 	NULL
 };
@@ -3180,7 +3177,7 @@ static cptr object_group_text[] =
 	"Spellbooks",
 	"Treasure",
 #endif
-	KW_SOMETHING,
+	get_keyword("KW_SOMETHING,
 	NULL
 };
 
@@ -3575,7 +3572,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 			fprintf(fff, "%s\n", MES_INTERFACE_RES_LIST);
 		}
 
-		strcpy(where, KW_EQUIPMENT);
+		strcpy(where, get_keyword("KW_EQUIPMENT);
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			// Skip no equip
@@ -3583,7 +3580,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}
 
-		strcpy(where, KW_INVENTORY);
+		strcpy(where, get_keyword("KW_INVENTORY);
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
@@ -3592,7 +3589,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 //TODO
 /*
 		st_ptr = &town[1].store[STORE_HOME];
-		strcpy(where, KW_HOME);
+		strcpy(where, get_keyword("KW_HOME);
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
 			do_cmd_knowledge_inven_aux(fff, &st_ptr->stock[i], &j, tval, where);
@@ -4817,7 +4814,7 @@ static void display_creature_list(int col, int row, int per_page, SPECIES_ID mon
 		{
 			/* Display kills */
 			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) put_str(format("%5d", species_ptr->killed_by_player), row + i, 73);
-			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? KW_DEAD : KW_ALIVE), row + i, 74);
+			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? get_keyword("KW_DEAD : get_keyword("KW_ALIVE), row + i, 74);
 		}
 	}
 
@@ -4920,8 +4917,8 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPEC
 			if(direct_species_idx < 0) prt("Group", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 62);
 
-			prt(KW_SYM, 4, 67);
-			if(!visual_only) prt(KW_KILLS, 4, 72);
+			prt(get_keyword("KW_SYM, 4, 67);
+			if(!visual_only) prt(get_keyword("KW_KILLS, 4, 72);
 			for (i = 0; i < 78; i++) Term_putch(i, 5, TERM_WHITE, '=');
 
 			if(direct_species_idx < 0)
@@ -5349,7 +5346,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			if(direct_k_idx < 0) prt("Group", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 70);
 #endif
-			prt(KW_SYM, 4, 74);
+			prt(get_keyword("KW_SYM, 4, 74);
 			for (i = 0; i < 78; i++) Term_putch(i, 5, TERM_WHITE, '=');
 
 			if(direct_k_idx < 0)
@@ -5919,7 +5916,7 @@ static void do_cmd_knowledge_bounty(void)
 	{
 		bool listed = FALSE;
 
-		fprintf(fff, "%s : %s\n", KW_TODAY_TARGET, (today_mon ? species_name + species_info[today_mon].name : KW_UNKNOWN));
+		fprintf(fff, "%s : %s\n", get_keyword("KW_TODAY_TARGET, (today_mon ? species_name + species_info[today_mon].name : get_keyword("KW_UNKNOWN));
 		fprintf(fff, "\n");
 		fprintf(fff, MES_INFO_BOUNTY);
 		fprintf(fff, "\n");
@@ -6026,8 +6023,8 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	if(fff)
 	{
 		percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
-		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "%s : %d/100\n\n", KW_CURRENT_LIFERATE, percent);
-		else fprintf(fff, "%s : ???\n\n", KW_CURRENT_LIFERATE);
+		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "%s : %d/100\n\n", get_keyword("KW_CURRENT_LIFERATE, percent);
+		else fprintf(fff, "%s : ???\n\n", get_keyword("KW_CURRENT_LIFERATE);
 		fprintf(fff, MES_INFO_STATUS_LIMIT);
 		fprintf(fff, "\n\n");
 
@@ -6453,10 +6450,10 @@ static void do_cmd_knowledge_autopick(void)
 	{
 		cptr tmp;
 		byte act = autopick_list[k].action;
-		if(act & DONT_AUTOPICK) tmp = KW_LEAVE;
-		else if(act & DO_AUTODESTROY) tmp = KW_DESTROY;
-		else if(act & DO_AUTOPICK) tmp = KW_PICKUP;
-		else tmp = KW_QUERY;
+		if(act & DONT_AUTOPICK) tmp = get_keyword("KW_LEAVE;
+		else if(act & DO_AUTODESTROY) tmp = get_keyword("KW_DESTROY;
+		else if(act & DO_AUTOPICK) tmp = get_keyword("KW_PICKUP;
+		else tmp = get_keyword("KW_QUERY;
 
 		if(act & DO_DISPLAY) fprintf(fff, "%11s", format("[%s]", tmp));
 		else fprintf(fff, "%11s", format("(%s)", tmp));
@@ -6502,7 +6499,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 		se[se_info.num].key = '\0';
 	}
 
-	se[se_info.num].cap = KW_CANCEL;
+	se[se_info.num].cap = get_keyword("KW_CANCEL;
 	se[se_info.num].d_color = TERM_L_DARK;
 	se[se_info.num].l_color = TERM_L_WHITE;
 	se[se_info.num].code = se_info.num;

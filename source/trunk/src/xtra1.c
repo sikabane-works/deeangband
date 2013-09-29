@@ -81,11 +81,11 @@ void prt_wiz_pos(creature_type *player_ptr)
 
 cptr get_floor_name(floor_type *floor_ptr)
 {
-	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET)) return KW_QUEST;
-	else if(floor_ptr->global_map) return KW_WORLD_MAP;
-	else if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return KW_ARENA;
+	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET)) return get_keyword("KW_QUEST");
+	else if(floor_ptr->global_map) return get_keyword("KW_WORLD_MAP");
+	else if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return get_keyword("KW_ARENA");
 	else if(!floor_ptr->depth && floor_ptr->town_num) return town[floor_ptr->town_num].name;
-	else if(floor_ptr->depth <= 0) return KW_SURFACE;
+	else if(floor_ptr->depth <= 0) return get_keyword("KW_SURFACE");
 	else return dungeon_name + dungeon_info[floor_ptr->dungeon_id].name;
 }
 
@@ -653,11 +653,11 @@ static void prt_depth(creature_type *creature_ptr)
 	col_depth = wid + COL_DEPTH;
 	row_depth = hgt + ROW_DEPTH;
 
-	if(!floor_ptr->depth) strcpy(depths, KW_SURFACE);
-	else if(floor_ptr->quest && !floor_ptr->dungeon_id) strcpy(depths, KW_QUEST);
+	if(!floor_ptr->depth) strcpy(depths, get_keyword("KW_SURFACE"));
+	else if(floor_ptr->quest && !floor_ptr->dungeon_id) strcpy(depths, get_keyword("KW_QUEST"));
 	else
 	{
-		(void)sprintf(depths, KW_FLOOR_NUM(floor_ptr->depth));
+		(void)sprintf(depths, get_keyword("KW_FLOOR_NUM"), (floor_ptr->depth));
 		/* Get color of level based on feeling  -JSV- */
 		switch (creature_ptr->floor_feeling)
 		{
@@ -838,7 +838,7 @@ static void prt_speed(creature_type *creature_ptr)
 		else if((is_fast && !has_trait(creature_ptr, TRAIT_SLOW)) || has_trait(creature_ptr, TRAIT_LIGHT_SPEED)) attr = TERM_YELLOW;
 		else if(has_trait(creature_ptr, TRAIT_SLOW) && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
-		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? KW_RIDING : KW_FAST), i);
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? get_keyword("KW_RIDING : get_keyword("KW_FAST), i);
 	}
 
 	/* Slow */
@@ -854,13 +854,13 @@ static void prt_speed(creature_type *creature_ptr)
 		else if(is_fast && !creature_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_YELLOW;
 		else if(creature_ptr->timed_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
-		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? KW_RIDING : KW_SLOW), i);
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? get_keyword("KW_RIDING : get_keyword("KW_SLOW), i);
 	}
 
 	else if(creature_ptr->riding)
 	{
 		attr = TERM_GREEN;
-		strcpy(buf, KW_RIDING);
+		strcpy(buf, get_keyword("KW_RIDING);
 	}
 
 	/* Display the speed */

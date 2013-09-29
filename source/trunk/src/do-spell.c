@@ -26,7 +26,7 @@ static cptr info_string_dice(cptr str, int dice, int sides, int base)
  */
 static cptr info_damage(int dice, int sides, int base)
 {
-	return info_string_dice(KW_DAM, dice, sides, base);
+	return info_string_dice(get_keyword("KW_DAM"), dice, sides, base);
 }
 
 
@@ -71,7 +71,7 @@ static cptr info_delay(int base, int sides)
  */
 static cptr info_multi_damage(POWER dam)
 {
-	return format("%s 各%d", KW_DAM, dam);
+	return format("%s 各%d", get_keyword("KW_DAM"), dam);
 }
 
 
@@ -80,7 +80,7 @@ static cptr info_multi_damage(POWER dam)
  */
 static cptr info_multi_damage_dice(int dice, int sides)
 {
-	return format("%s 各%dd%d", KW_DAM, dice, sides);
+	return format("%s 各%dd%d", get_keyword("KW_DAM"), dice, sides);
 }
 
 
@@ -89,7 +89,7 @@ static cptr info_multi_damage_dice(int dice, int sides)
  */
 static cptr info_power(POWER power)
 {
-	return format("%s %d", KW_POW, power);
+	return format("%s %d", get_keyword("KW_POW, power);
 }
 
 
@@ -98,7 +98,7 @@ static cptr info_power(POWER power)
  */
 static cptr info_power_dice(int dice, int sides)
 {
-	return format("%s %dd%d", KW_POW, dice, sides);
+	return format("%s %dd%d", get_keyword("KW_POW, dice, sides);
 }
 
 
@@ -107,7 +107,7 @@ static cptr info_power_dice(int dice, int sides)
  */
 static cptr info_radius(COODINATES rad)
 {
-	return format("%s %d", KW_RAD, rad);
+	return format("%s %d", get_keyword("KW_RAD, rad);
 }
 
 
@@ -1438,8 +1438,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = KW_DAM;
-	static const char s_rng[] = KW_RAN;
+	static const char s_dam[] = get_keyword("KW_DAM;
+	static const char s_rng[] = get_keyword("KW_RAN;
 
 	switch (spell)
 	{
@@ -1809,8 +1809,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = KW_DAM;
-	static const char s_random[] = KW_RANDOM;
+	static const char s_dam[] = get_keyword("KW_DAM;
+	static const char s_random[] = get_keyword("KW_RANDOM;
 
 	COODINATES lev_bonus = caster_ptr->lev;
 
@@ -2179,8 +2179,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = KW_DAM;
-	static const char s_random[] = KW_RANDOM;
+	static const char s_dam[] = get_keyword("KW_DAM;
+	static const char s_random[] = get_keyword("KW_RANDOM;
 
 	switch (spell)
 	{
@@ -2547,7 +2547,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	bool fail = (mode == SPELL_FAIL) ? TRUE : FALSE;
 
-	static const char s_random[] = KW_RANDOM;
+	static const char s_random[] = get_keyword("KW_RANDOM;
 
 	switch (spell)
 	{
@@ -3654,7 +3654,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = KW_DAM;
+	static const char s_dam[] = get_keyword("KW_DAM;
 
 	switch (spell)
 	{
@@ -4393,7 +4393,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cont = (mode == SPELL_CONT) ? TRUE : FALSE;
 	bool stop = (mode == SPELL_STOP) ? TRUE : FALSE;
 
-	static const char s_dam[] = KW_DAM;
+	static const char s_dam[] = get_keyword("KW_DAM;
 
 	DIRECTION dir;
 	COODINATES lev_bonus = caster_ptr->lev;

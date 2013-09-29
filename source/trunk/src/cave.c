@@ -1775,7 +1775,7 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
 		attr = TERM_WHITE;
-		strcpy(buf, KW_SOMETHING_STRANGE);
+		strcpy(buf, get_keyword("KW_SOMETHING_STRANGE"));
 	}
 
 	for (c = buf; *c; c++)

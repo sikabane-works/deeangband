@@ -1321,8 +1321,8 @@ static struct
 } disp_creature_line[]
 #ifdef JP
 = {
-	{ 1, 13, 30, 0, 0, 0, "KW_CARRYING_WEIGHT"},
-	{ 1, 12, 30, 0, 0, 0, "KW_EQUIPMENT_WEIGHT"},
+	{ 1, 13, 30, 0, 0, 0, "get_keyword("KW_CARRYING_WEIGHT"},
+	{ 1, 12, 30, 0, 0, 0, "get_keyword("KW_EQUIPMENT_WEIGHT"},
 	{ 1, 11, 30, 0, 0, 0, ""},
 	{ 1, 12, 30, 0, 0, 0, ""},
 	{ 1, 12, 30, 0, 0, 0, ""},
@@ -1372,11 +1372,11 @@ static struct
 	{34, 7, 23, 0, 0, 0, "‘ÌŠi"},
 	{16, 6, 17, 0, 0, 0, "_Ši "},
 	{57, 19, -1, 0, 0, 0, "Œ@í”\—Í  :"},
-	{1, 8, 9, 0, 0, 0, KW_GOOD},
-	{12, 8, 9, 0, 0, 0, KW_EVIL},
-	{23, 8, 9, 0, 0, 0, KW_LAW},
-	{34, 8, 9, 0, 0, 0, KW_CHAOS},
-	{47, 8, 9, 0, 0, 0, KW_BALANCE},
+	{1, 8, 9, 0, 0, 0, get_keyword("KW_GOOD},
+	{12, 8, 9, 0, 0, 0, get_keyword("KW_EVIL},
+	{23, 8, 9, 0, 0, 0, get_keyword("KW_LAW},
+	{34, 8, 9, 0, 0, 0, get_keyword("KW_CHAOS},
+	{47, 8, 9, 0, 0, 0, get_keyword("KW_BALANCE},
 	{1, 5, -1, 0, 0, 0, "Œ ”\: "},
 };
 #else
@@ -3682,14 +3682,14 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 	/* Dump the equipment */
 	if(creature_ptr->equip_cnt)
 	{
-		fprintf(fff, "  [%s]\n\n", KW_CHARA_EQUIPMENT);
+		fprintf(fff, "  [%s]\n\n", get_keyword("KW_CHARA_EQUIPMENT);
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			if(!IS_EQUIPPED(&creature_ptr->inventory[i])) continue;
 
 			object_desc(object_name, &creature_ptr->inventory[i], 0);
 			if((((i == get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 0)) && creature_ptr->can_melee[0]) || ((i == get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
-				strcpy(object_name, KW_WITH_THOHANDED);
+				strcpy(object_name, get_keyword("KW_WITH_THOHANDED);
 
 			fprintf(fff, "%c) %s\n", index_to_label(i), object_name);
 		}
@@ -3697,7 +3697,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 	}
 
 	/* Dump the inventory */
-	fprintf(fff, "  [%s]\n\n", KW_CHARA_INVENTORY);
+	fprintf(fff, "  [%s]\n\n", get_keyword("KW_CHARA_INVENTORY);
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -3765,7 +3765,7 @@ static void dump_aux_home_museum(FILE *fff)
 	{
 		int i;
 		int x = 1;
-		fprintf(fff, "  [%s]\n", KW_MUSIUM_LIST);
+		fprintf(fff, "  [%s]\n", get_keyword("KW_MUSIUM_LIST);
 
 		// Dump all available items
 		for (i = 0; i < st_ptr->stock_num; i++)
@@ -4026,7 +4026,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 	if(!fff) /* Look in "help" */
 	{
-		sprintf(caption, "%s '%s'", KW_HELPFILE, name);
+		sprintf(caption, "%s '%s'", get_keyword("KW_HELPFILE, name);
 		path_build(path, sizeof(path), ANGBAND_DIR_HELP, name);
 		fff = my_fopen(path, "r");
 	}
@@ -4563,7 +4563,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 
 		do
 		{
-			while (!get_string(KW_WINNING_MESSAGE, buf, sizeof buf));
+			while (!get_string(get_keyword("KW_WINNING_MESSAGE, buf, sizeof buf));
 		}
 		while (!get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
 
@@ -4616,7 +4616,7 @@ void do_cmd_save_game(int is_autosave)
 	signals_ignore_tstp();
 
 	prt(MES_SYS_GAME_SAVING, 0, 0);
-	if(save_player()) prt(KW_DONE, 0, 40);
+	if(save_player()) prt(get_keyword("KW_DONE, 0, 40);
 	else prt(get_keyword("KW_FAILED"), 0, 40);
 
 	/* Allow suspend again */
@@ -4783,7 +4783,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 13, 11);
 
-		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, KW_SUICIDE);
+		if(streq(gameover_from, COD_QUITTING)) strcpy(tmp, get_keyword("KW_SUICIDE);
 #ifdef JP
 		else if(streq(gameover_from, COD_RETIRE)) strcpy(tmp, "ˆø‘ÞŒã‚É“VŽõ‚ð‘S‚¤");
 		else if(streq(gameover_from, COD_SEPPUKU)) strcpy(tmp, "Ÿ—˜‚ÌŒãAØ• ");
@@ -4833,8 +4833,8 @@ static void print_tomb(creature_type *creature_ptr)
 		{
 			if(floor_ptr->depth == 0)
 			{
-				if(streq(gameover_from, COD_QUITTING)) sprintf(tmp, "%s‚ÅŽ€‚ñ‚¾", KW_SURFACE);
-				else sprintf(tmp, "‚É%s‚ÅŽE‚³‚ê‚½", KW_SURFACE);
+				if(streq(gameover_from, COD_QUITTING)) sprintf(tmp, "%s‚ÅŽ€‚ñ‚¾", get_keyword("KW_SURFACE);
+				else sprintf(tmp, "‚É%s‚ÅŽE‚³‚ê‚½", get_keyword("KW_SURFACE);
 			}
 			else
 			{
@@ -4959,7 +4959,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-		prt(format("%s %s", KW_EQUIPMENT, get_keyword("KW_MORE")), 0, 0);
+		prt(format("%s %s", get_keyword("KW_EQUIPMENT, get_keyword("KW_MORE")), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 
@@ -4967,7 +4967,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-		prt(format("%s %s", KW_INVENTORY, get_keyword("KW_MORE")), 0, 0);
+		prt(format("%s %s", get_keyword("KW_INVENTORY, get_keyword("KW_MORE")), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 

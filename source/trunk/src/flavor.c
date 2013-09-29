@@ -2119,7 +2119,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 					if(power > object_ptr->number) power = object_ptr->number;
 					t = object_desc_str(t, format(MES_OBJ_DESC_CHARGING(power))); /* Display prettily. */
 				}
-				else t = object_desc_str(t, KW_CHARGING); /* "one Rod of Perception (1 charging)" would look tacky. */
+				else t = object_desc_str(t, get_keyword("KW_CHARGING); /* "one Rod of Perception (1 charging)" would look tacky. */
 			}
 		}
 
@@ -2134,7 +2134,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		}
 
 		/* Indicate charging objects, but not rods. */
-		if(object_ptr->timeout && (object_ptr->tval != TV_ROD)) t = object_desc_str(t, KW_CHARGING);
+		if(object_ptr->timeout && (object_ptr->tval != TV_ROD)) t = object_desc_str(t, get_keyword("KW_CHARGING);
 	}
 
 
@@ -2181,15 +2181,15 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 	/* Use the game-generated "feeling" otherwise, if available */
 	if(object_ptr->feeling) strcpy(fake_insc_buf, game_inscriptions[object_ptr->feeling]);
-	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE))) strcpy(fake_insc_buf, KW_CURSED);
+	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE))) strcpy(fake_insc_buf, get_keyword("KW_CURSED);
 	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
 		   || (object_ptr->tval == TV_LITE) || (object_ptr->tval == TV_FIGURINE))
 		 && aware && !known && !(object_ptr->ident & IDENT_SENSE))
-		strcpy(fake_insc_buf, KW_UNIDENTIFIED);
+		strcpy(fake_insc_buf, get_keyword("KW_UNIDENTIFIED);
 
 	/* Mega-Hack -- note empty wands/staffs */
-	else if(!known && (object_ptr->ident & IDENT_EMPTY)) strcpy(fake_insc_buf, KW_EMPTY);
-	else if(!aware && object_is_tried(object_ptr)) strcpy(fake_insc_buf, KW_TRIED);
+	else if(!known && (object_ptr->ident & IDENT_EMPTY)) strcpy(fake_insc_buf, get_keyword("KW_EMPTY);
+	else if(!aware && object_is_tried(object_ptr)) strcpy(fake_insc_buf, get_keyword("KW_TRIED);
 
 	if(object_ptr->discount)
 	{
@@ -2202,7 +2202,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			if(fake_insc_buf[0]) strcat(fake_insc_buf, ", ");
 			(void)object_desc_num(discount_num_buf, object_ptr->discount);
 			strcat(fake_insc_buf, discount_num_buf);
-			strcat(fake_insc_buf, KW_PRICE_OFF);
+			strcat(fake_insc_buf, get_keyword("KW_PRICE_OFF);
 		}
 	}
 

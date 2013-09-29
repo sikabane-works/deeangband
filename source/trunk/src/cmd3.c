@@ -186,7 +186,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	{
 		char dummy[MAX_NLEN+80];
 		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
-		sprintf(dummy, MES_EQUIP_ASK_CURSED_WIELD(KW_CURSED, object_name));
+		sprintf(dummy, MES_EQUIP_ASK_CURSED_WIELD(get_keyword("KW_CURSED"), object_name));
 		if(!get_check(dummy)) return;
 	}
 
@@ -570,7 +570,7 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 	strcpy(tmp, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].message);
 
 	// Get a new inscription (possibly empty)
-	if(get_string(KW_MESSAGE, tmp, CAVE_MESSAGE_LENGTH))
+	if(get_string(get_keyword("KW_MESSAGE"), tmp, CAVE_MESSAGE_LENGTH))
 		strcpy(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].message, tmp);
 	else
 	{

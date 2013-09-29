@@ -602,7 +602,7 @@ static void display_kaeruka(int hoge, int kaeruka[])
 	}
 	if(hoge > 4) col = TERM_YELLOW;
 	else col = TERM_WHITE;
-	c_put_str(col, KW_SURE, 16, 38);
+	c_put_str(col, get_keyword("KW_SURE"), 16, 38);
 
 	/* Hilite current option */
 	if(hoge < 5) move_cursor(14, 5+hoge*16);

@@ -2071,10 +2071,10 @@ s32b creature_exp_a[CREATURE_MAX_LEVEL] =
  */
 sex_type sex_info[MAX_SEXES] =
 {
-	{ "無性", KW_LORD, },
-	{ KW_FEMALE, KW_QUEEN, },
-	{ KW_MALE, KW_KING, },
-	{ KW_INTERSEX, KW_LORD, },
+	{ "無性", get_keyword("KW_LORD, },
+	{ get_keyword("KW_FEMALE, get_keyword("KW_QUEEN, },
+	{ get_keyword("KW_MALE, get_keyword("KW_KING, },
+	{ get_keyword("KW_INTERSEX, get_keyword("KW_LORD, },
 };
 
 magic_type technic_info[NUM_TECHNIC][32] =
@@ -2317,11 +2317,11 @@ cptr realm_names[] =
 	"匠",
 	"悪魔",
 	"破邪",
-	KW_UNKNOWN,
-	KW_UNKNOWN,
-	KW_UNKNOWN,
-	KW_UNKNOWN,
-	KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
 	"歌",
 	"武芸",
 	"呪術",
@@ -2346,11 +2346,11 @@ cptr realm_names[]
 	"Craft",
 	"Daemon",
 	"Crusade",
-	KW_UNKNOWN,
-	KW_UNKNOWN,
-	KW_UNKNOWN,
-	KW_UNKNOWN,
-	KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
+	get_keyword("KW_UNKNOWN,
 	"Music",
 	"Kendo",
 	"Hex",
@@ -2909,7 +2909,7 @@ cptr game_inscriptions[] =
 	"壊れている", /* FEEL_BROKEN */
 	"恐ろしい", /* FEEL_TERRIBLE */
 	"無価値", /* FEEL_WORTHLESS */
-	KW_CURSED, /* FEEL_CURSED */
+	get_keyword("KW_CURSED, /* FEEL_CURSED */
 	"上質以上", /* FEEL_UNCURSED */
 	"並", /* FEEL_AVERAGE */
 	"上質", /* FEEL_GOOD */
@@ -2919,7 +2919,7 @@ cptr game_inscriptions[] =
 	"broken", /* FEEL_BROKEN */
 	"terrible", /* FEEL_TERRIBLE */
 	"worthless", /* FEEL_WORTHLESS */
-	KW_CURSED, /* FEEL_CURSED */
+	get_keyword("KW_CURSED, /* FEEL_CURSED */
 	"uncursed", /* FEEL_UNCURSED */
 	"average", /* FEEL_AVERAGE */
 	"good", /* FEEL_GOOD */
@@ -3974,7 +3974,7 @@ cptr knowledge_list[] =
 	"既知の生きているユニーク・クリーチャー",
 	"既知のクリーチャー",
 	"殺した敵の数",
-	KW_WANTED,
+	get_keyword("KW_WANTED,
 	"現在のペット",
 	MES_INFO_HOME,
 	"*鑑定*済み装備の耐性",

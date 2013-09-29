@@ -58,7 +58,7 @@ errr write_diary(int type, int num, cptr note)
 			note_level = DIARY_PLACE_QUEST;
 		else
 		{
-			sprintf(note_level_buf, KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
+			sprintf(note_level_buf, get_keyword("KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 			note_level = note_level_buf;
 		}
 	}
@@ -117,11 +117,11 @@ errr write_diary(int type, int num, cptr note)
 		case DIARY_STAIR:
 		{
 			cptr to;
-			if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) to = KW_SURFACE;
+			if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) to = get_keyword("KW_SURFACE;
 			else
 			{
-				if(!(floor_ptr->depth+num)) to = KW_SURFACE;
-				else to = format(KW_FLOOR_NUM(floor_ptr->depth+num));
+				if(!(floor_ptr->depth+num)) to = get_keyword("KW_SURFACE;
+				else to = format(get_keyword("KW_FLOOR_NUM(floor_ptr->depth+num));
 			}
 			fprintf(fff, MES_DIARY_STAIR(to, note));
 			break;
@@ -165,16 +165,16 @@ errr write_diary(int type, int num, cptr note)
 		case DIARY_WIZ_TELE:
 		{
 			cptr to;
-			if(!floor_ptr->depth) to = KW_SURFACE;
-			else to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
+			if(!floor_ptr->depth) to = get_keyword("KW_SURFACE");
+			else to = format(get_keyword("KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 			fprintf(fff, MES_DIARY_WIZ_TELE(to));
 			break;
 		}
 		case DIARY_PAT_TELE:
 		{
 			cptr to;
-			if(!floor_ptr->depth) to = KW_SURFACE;
-			else to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
+			if(!floor_ptr->depth) to = get_keyword("KW_SURFACE");
+			else to = format(get_keyword("KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 			fprintf(fff, MES_DIARY_PAT_TELE(to));
 			break;
 		}

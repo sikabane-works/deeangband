@@ -1883,7 +1883,7 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 
 static vault_aux_type nest_types[] =
 {
-	{KW_CLONE, vault_aux_clone, vault_prep_clone, 5, 3},
+	{get_keyword("KW_CLONE"), vault_aux_clone, vault_prep_clone, 5, 3},
 #ifdef JP
 	{"ƒ[ƒŠ[", vault_aux_jelly, NULL, 5, 6},
 	{"ƒVƒ“ƒ{ƒ‹(‘P)", vault_aux_symbol_g, vault_prep_symbol, 25, 2},

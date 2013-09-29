@@ -1983,7 +1983,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	if(!creature_ptr) return;
 	if(is_player(creature_ptr))
 	{
-		(void)strcpy(desc, KW_YOU);
+		(void)strcpy(desc, get_keyword("KW_YOU);
 		return;
 	}
 
@@ -2041,7 +2041,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		if(!creature_ptr || !pron) kind = 0x00;
 
 		/* Assume simple result */
-		res = KW_IT;
+		res = get_keyword("KW_IT");
 
 		/* Brute force: split on the possibilities */
 		switch (kind + (mode & (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE)))
