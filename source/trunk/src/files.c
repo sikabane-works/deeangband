@@ -1321,8 +1321,8 @@ static struct
 } disp_creature_line[]
 #ifdef JP
 = {
-	{ 1, 13, 30, 0, 0, 0, "get_keyword("KW_CARRYING_WEIGHT"},
-	{ 1, 12, 30, 0, 0, 0, "get_keyword("KW_EQUIPMENT_WEIGHT"},
+	{ 1, 13, 30, 0, 0, 0, "KW_CARRYING_WEIGHT"},
+	{ 1, 12, 30, 0, 0, 0, "KW_EQUIPMENT_WEIGHT"},
 	{ 1, 11, 30, 0, 0, 0, ""},
 	{ 1, 12, 30, 0, 0, 0, ""},
 	{ 1, 12, 30, 0, 0, 0, ""},
@@ -4616,7 +4616,7 @@ void do_cmd_save_game(int is_autosave)
 	signals_ignore_tstp();
 
 	prt(MES_SYS_GAME_SAVING, 0, 0);
-	if(save_player()) prt(get_keyword("KW_DONE, 0, 40);
+	if(save_player()) prt(get_keyword("KW_DONE"), 0, 40);
 	else prt(get_keyword("KW_FAILED"), 0, 40);
 
 	/* Allow suspend again */
@@ -4833,8 +4833,8 @@ static void print_tomb(creature_type *creature_ptr)
 		{
 			if(floor_ptr->depth == 0)
 			{
-				if(streq(gameover_from, COD_QUITTING)) sprintf(tmp, "%s‚ÅŽ€‚ñ‚¾", get_keyword("KW_SURFACE);
-				else sprintf(tmp, "‚É%s‚ÅŽE‚³‚ê‚½", get_keyword("KW_SURFACE);
+				if(streq(gameover_from, COD_QUITTING)) sprintf(tmp, "%s‚ÅŽ€‚ñ‚¾", get_keyword("KW_SURFACE"));
+				else sprintf(tmp, "‚É%s‚ÅŽE‚³‚ê‚½", get_keyword("KW_SURFACE"));
 			}
 			else
 			{

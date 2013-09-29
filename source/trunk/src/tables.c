@@ -2071,10 +2071,10 @@ s32b creature_exp_a[CREATURE_MAX_LEVEL] =
  */
 sex_type sex_info[MAX_SEXES] =
 {
-	{ "ñ≥ê´", get_keyword("KW_LORD, },
-	{ get_keyword("KW_FEMALE, get_keyword("KW_QUEEN, },
-	{ get_keyword("KW_MALE, get_keyword("KW_KING, },
-	{ get_keyword("KW_INTERSEX, get_keyword("KW_LORD, },
+	{"KW_NO_SEX", "KW_LORD"},
+	{"KW_FEMALE", "KW_QUEEN"},
+	{"KW_MALE", "KW_KING"},
+	{"KW_INTERSEX", "KW_LORD"},
 };
 
 magic_type technic_info[NUM_TECHNIC][32] =

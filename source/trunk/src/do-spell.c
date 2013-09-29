@@ -89,7 +89,7 @@ static cptr info_multi_damage_dice(int dice, int sides)
  */
 static cptr info_power(POWER power)
 {
-	return format("%s %d", get_keyword("KW_POW, power);
+	return format("%s %d", get_keyword("KW_POW"), power);
 }
 
 
@@ -98,7 +98,7 @@ static cptr info_power(POWER power)
  */
 static cptr info_power_dice(int dice, int sides)
 {
-	return format("%s %dd%d", get_keyword("KW_POW, dice, sides);
+	return format("%s %dd%d", get_keyword("KW_POW"), dice, sides);
 }
 
 
@@ -107,7 +107,7 @@ static cptr info_power_dice(int dice, int sides)
  */
 static cptr info_radius(COODINATES rad)
 {
-	return format("%s %d", get_keyword("KW_RAD, rad);
+	return format("%s %d", get_keyword("KW_RAD"), rad);
 }
 
 
@@ -1438,8 +1438,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	static const char s_dam[] = get_keyword("KW_DAM;
-	static const char s_rng[] = get_keyword("KW_RAN;
+	static const char s_dam[] = get_keyword("KW_DAM");
+	static const char s_rng[] = get_keyword("KW_RAN");
 
 	switch (spell)
 	{

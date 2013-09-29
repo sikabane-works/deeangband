@@ -413,7 +413,7 @@ void do_cmd_diary(void)
 		{MES_DIARY_MENU3, 2, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
 		{MES_DIARY_MENU4, 3, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
 		{MES_DIARY_MENU5, 4, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
-		{get_keyword("KW_CANCEL"), 5, 0, 0, ESCAPE, TERM_L_DARK, TERM_WHITE, FALSE},
+		{"KW_CANCEL", 5, 0, 0, ESCAPE, TERM_L_DARK, TERM_WHITE, FALSE},
 	};
 	se_info.header = MES_DIARY_MENU;
 	se_info.caption = NULL;
@@ -895,7 +895,7 @@ void do_cmd_options_aux(int page, cptr info)
 			se[se_info.num].code = se[se_info.num].left_code = se[se_info.num].right_code = se_info.num;
 			se[se_info.num].key = '\0';			
 		}
-		se[se_info.num].cap = get_keyword("KW_ACCEPT;
+		se[se_info.num].cap = get_keyword("KW_ACCEPT");
 		se[se_info.num].d_color = TERM_BLUE;
 		se[se_info.num].l_color = TERM_L_BLUE;
 		se[se_info.num].code = se_info.num;
@@ -1218,7 +1218,7 @@ void do_cmd_options(void)
 
 			case 'a':
 			case 'A':
-				do_cmd_options_autosave(get_keyword("KW_AUTOSAVE);
+				do_cmd_options_autosave(get_keyword("KW_AUTOSAVE"));
 				break;
 
 			/* Window flags */
@@ -2425,7 +2425,7 @@ void do_cmd_colors(void)
 				int gv = angband_color_table[i][2];
 				int bv = angband_color_table[i][3];
 
-				cptr name = get_keyword("KW_UNKNOWN;
+				cptr name = get_keyword("KW_UNKNOWN");
 
 				/* Skip non-entries */
 				if(!kv && !rv && !gv && !bv) continue;
@@ -2447,7 +2447,7 @@ void do_cmd_colors(void)
 		else if(i == '3')
 		{
 			static byte a = 0;
-			prt(format("%s: %s", get_keyword("KW_COMMAND, MES_COLOR_MODIFY_COLOR), 8, 0);
+			prt(format("%s: %s", get_keyword("KW_COMMAND"), MES_COLOR_MODIFY_COLOR), 8, 0);
 
 			/* Hack -- query until done */
 			while(TRUE)
@@ -2465,7 +2465,7 @@ void do_cmd_colors(void)
 				}
 
 				/* Describe the color */
-				name = ((a < 16) ? colospecies_names[a] : get_keyword("KW_UNDEFINED);
+				name = ((a < 16) ? colospecies_names[a] : get_keyword("KW_UNDEFINED"));
 				Term_putstr(5, 10, -1, TERM_WHITE, format(MES_INTERFACE_COLOR_LIST(a, name)));
 				Term_putstr(0, 14, -1, TERM_WHITE, MES_INTERFACE_COLOR);
 
@@ -2637,7 +2637,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	// No useful feeling in town
 	else if(floor_ptr->town_num && !floor_ptr->depth)
 	{
-		if(!strcmp(town[floor_ptr->town_num].name, get_keyword("KW_WORLD_MAP))
+		if(!strcmp(town[floor_ptr->town_num].name, get_keyword("KW_WORLD_MAP")))
 		{
 			msg_print(MES_FEELING_WILD_POINT);
 			return;
@@ -2672,7 +2672,7 @@ static cptr creature_group_text[] =
 #ifdef JP
 	"ユニーク",	/* "Uniques" */
 	"乗馬可能なクリーチャー",	/* "Riding" */
-	get_keyword("KW_WANTED, /* "Wanted */
+	"KW_WANTED", /* "Wanted */
 	"アンバーの王族", /* "Ambertite" */
 	"アリ",
 	"コウモリ",

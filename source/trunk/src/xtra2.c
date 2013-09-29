@@ -1049,11 +1049,11 @@ cptr look_creature_desc(creature_type *m_ptr, FLAGS_32 mode)
 	/* Need attitude information? */
 	if(!(mode & 0x01))
 		attitude = "";
-	else if(is_pet(player_ptr, m_ptr)) attitude = get_keyword("KW_PET;
-	else if(is_friendly(player_ptr, m_ptr)) attitude = get_keyword("KW_FRIEND;
+	else if(is_pet(player_ptr, m_ptr)) attitude = get_keyword("KW_PET");
+	else if(is_friendly(player_ptr, m_ptr)) attitude = get_keyword("KW_FRIEND");
 	else attitude = "";
 
-	if(has_trait(m_ptr, TRAIT_CLONED)) clone = get_keyword("KW_CLONE;
+	if(has_trait(m_ptr, TRAIT_CLONED)) clone = get_keyword("KW_CLONE");
 	else clone = "";
 
 	/* Display creature's level --- idea borrowed from ToME */
@@ -1605,7 +1605,7 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 	/* Hack -- hallucination */
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
-		cptr name = get_keyword("KW_SOMETHING_STRANGE;
+		cptr name = get_keyword("KW_SOMETHING_STRANGE");
 #ifdef JP
 		sprintf(out_val, "%s%s%s%s [%s]", s1, name, s2, s3, info);
 #else
@@ -1872,7 +1872,7 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 		/* Hack -- special handling for quest entrances */
 		if(floor_ptr->global_map && !wilderness[y][x].known)
 		{
-			name = get_keyword("KW_UNEXPLORED_ZONE;
+			name = get_keyword("KW_UNEXPLORED_ZONE");
 #ifdef JP
 			s1 = "";
 			s2 = "";
@@ -1894,7 +1894,7 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 			else if(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode) name = building[f_ptr->subtype].name;
 			else if(have_flag(f_ptr->flags, FF_ENTRANCE)) name = format(MES_DUNGEON_INFO((dungeon_name + dungeon_info[c_ptr->dungeon_id].name), dungeon_info[c_ptr->dungeon_id].mindepth));
 			else if(have_flag(f_ptr->flags, FF_TOWN)) name = town[c_ptr->town_idx].name;
-			else if(floor_ptr->global_map && (feat == feat_floor)) name = get_keyword("KW_ROAD;
+			else if(floor_ptr->global_map && (feat == feat_floor)) name = get_keyword("KW_ROAD");
 			else name = feature_name + f_ptr->name;
 
 			// Pick a prefix

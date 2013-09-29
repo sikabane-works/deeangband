@@ -1016,7 +1016,7 @@ static void spoil_species_desc(cptr fname)
 		if(is_variable_race_species(species_ptr)) 
 		{
 			strcat(trait, "/");
-			strcat(trait, get_keyword("KW_VALIABLE_RACE);
+			strcat(trait, get_keyword("KW_VALIABLE_RACE"));
 		}
 		else if(species_ptr->race_idx1 < MAX_RACES)
 		{
@@ -1026,7 +1026,7 @@ static void spoil_species_desc(cptr fname)
 		if(is_variable_class_species(species_ptr)) 
 		{
 			strcat(trait, "/");
-			strcat(trait, get_keyword("KW_VALIABLE_CLASS);
+			strcat(trait, get_keyword("KW_VALIABLE_CLASS"));
 		}
 		else if(species_ptr->class_idx < MAX_CLASS)
 		{
@@ -1037,7 +1037,7 @@ static void spoil_species_desc(cptr fname)
 		if(is_variable_chara_species(species_ptr)) 
 		{
 			strcat(trait, "/");
-			strcat(trait, get_keyword("KW_VALIABLE_CHARA);
+			strcat(trait, get_keyword("KW_VALIABLE_CHARA"));
 		}
 		else if(species_ptr->chara_idx < MAX_CHARA)
 		{

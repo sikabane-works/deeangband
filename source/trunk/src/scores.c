@@ -263,7 +263,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 				chara_info[pa].title,
 				the_score.who, race_info[pr].title, class_info[pc].title, clev);
 #endif
-			if(mlev > clev) strcat(out_val, format(" (%s %d)", get_keyword("KW_MAX, mlev));
+			if(mlev > clev) strcat(out_val, format(" (%s %d)", get_keyword("KW_MAX"), mlev));
 
 
 			/* Dump the first line */
@@ -608,7 +608,7 @@ void show_highclass(creature_type *current_creature_ptr)
 		j++;
 	}
 
-	sprintf(out_val, "%s) %s (%s %2d)", get_keyword("KW_YOU, current_creature_ptr->name, get_keyword("KW_LEVEL"), current_creature_ptr->lev);
+	sprintf(out_val, "%s) %s (%s %2d)", get_keyword("KW_YOU"), current_creature_ptr->name, get_keyword("KW_LEVEL"), current_creature_ptr->lev);
 	prt(out_val, (m + 8), 0);
 
 	(void)fd_close(highscore_fd);
@@ -686,7 +686,7 @@ void race_score(creature_type *player_ptr, int race_num)
 	/* add player if qualified */
 	if((player_ptr->race_idx1 == race_num) && (player_ptr->lev >= lastlev))
 	{
-		sprintf(out_val, "%s) %s (%s %2d)", get_keyword("KW_YOU, player_ptr->name, get_keyword("KW_LEVEL"), player_ptr->lev);
+		sprintf(out_val, "%s) %s (%s %2d)", get_keyword("KW_YOU"), player_ptr->name, get_keyword("KW_LEVEL"), player_ptr->lev);
 		prt(out_val, (m + 8), 0);
 	}
 

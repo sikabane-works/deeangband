@@ -838,7 +838,7 @@ static void prt_speed(creature_type *creature_ptr)
 		else if((is_fast && !has_trait(creature_ptr, TRAIT_SLOW)) || has_trait(creature_ptr, TRAIT_LIGHT_SPEED)) attr = TERM_YELLOW;
 		else if(has_trait(creature_ptr, TRAIT_SLOW) && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
-		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? get_keyword("KW_RIDING : get_keyword("KW_FAST), i);
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? get_keyword("KW_RIDING") : get_keyword("KW_FAST")), i);
 	}
 
 	/* Slow */
@@ -854,7 +854,7 @@ static void prt_speed(creature_type *creature_ptr)
 		else if(is_fast && !creature_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_YELLOW;
 		else if(creature_ptr->timed_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
-		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? get_keyword("KW_RIDING : get_keyword("KW_SLOW), i);
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? get_keyword("KW_RIDING") : get_keyword("KW_SLOW")), i);
 	}
 
 	else if(creature_ptr->riding)

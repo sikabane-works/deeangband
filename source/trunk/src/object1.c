@@ -1408,7 +1408,7 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 				if(creature_ptr->fy == object_ptr->fy && creature_ptr->fx == object_ptr->fx && hook(creature_ptr, object_ptr))
 				{
 					object_desc(object_ptr->name, object_ptr, 0);
-					sprintf(cap[num], "%s/%s", get_keyword("KW_FLOORITEM, object_ptr->name);
+					sprintf(cap[num], "%s/%s", get_keyword("KW_FLOORITEM"), object_ptr->name);
 					se_table[num].cap = cap[num];
 					se_table[num].code = -i;
 					num++;
@@ -1417,7 +1417,7 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 		}
 	}
 
-	strcpy(cap[num], get_keyword("KW_CANCEL);
+	strcpy(cap[num], get_keyword("KW_CANCEL"));
 	se_table[num].cap = cap[num];
 	se_table[num].l_color = TERM_WHITE;
 	se_table[num].d_color = TERM_L_DARK;
@@ -1789,13 +1789,13 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 				else if(allow_equip)
 				{
 					strcat(out_val, " '4' ");
-					strcat(out_val, get_keyword("KW_FLOORITEM);
+					strcat(out_val, get_keyword("KW_FLOORITEM"));
 					strcat(out_val, ",");
 				}
 				else
 				{
 					strcat(out_val, " '4'or'6' ");
-					strcat(out_val, get_keyword("KW_FLOORITEM);
+					strcat(out_val, get_keyword("KW_FLOORITEM"));
 					strcat(out_val, ",");
 				}
 			}
