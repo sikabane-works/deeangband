@@ -3689,7 +3689,7 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 	{
 		object_type *object_ptr = choose_warning_item(target_ptr);
 		if(object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-		else strcpy(object_name, get_keyword("KW_BODY); /* Warning ability without item */
+		else strcpy(object_name, get_keyword("KW_BODY")); /* Warning ability without item */
 		msg_format(MES_TRAIT_WARNING_DONE2(object_ptr));
 		disturb(target_ptr, 0, 0);
 		return get_check(MES_GET_CHECK_AHEAD);
@@ -4606,7 +4606,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 						prt("", y, x);
 
 					/* Print header(s) */
-					prt(format("   %-43s %6s/%s", get_keyword("KW_SMITH_ABILITY, get_keyword("KW_SMITH_NEEDS, get_keyword("KW_SMITH_POSSESS), 1, x);
+					prt(format("   %-43s %6s/%s", get_keyword("KW_SMITH_ABILITY"), get_keyword("KW_SMITH_NEEDS"), get_keyword("KW_SMITH_POSSESS")), 1, x);
 
 					/* Print list */
 					for (ctr = 0; ctr < max_num; ctr++)
