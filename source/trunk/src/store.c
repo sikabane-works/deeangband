@@ -2591,7 +2591,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	int annoyed = 0, final = FALSE;
 	bool cancel = FALSE;
 
-	cptr pmt = get_keyword("KW_ASKING_PRICE;
+	cptr pmt = get_keyword("KW_ASKING_PRICE");
 	char out_val[MAX_NLEN];
 
 	*price = 0;

@@ -3177,7 +3177,7 @@ static cptr object_group_text[] =
 	"Spellbooks",
 	"Treasure",
 #endif
-	get_keyword("KW_SOMETHING,
+	"KW_SOMETHING",
 	NULL
 };
 
@@ -3572,7 +3572,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 			fprintf(fff, "%s\n", MES_INTERFACE_RES_LIST);
 		}
 
-		strcpy(where, get_keyword("KW_EQUIPMENT);
+		strcpy(where, get_keyword("KW_EQUIPMENT"));
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			// Skip no equip
@@ -3580,7 +3580,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}
 
-		strcpy(where, get_keyword("KW_INVENTORY);
+		strcpy(where, get_keyword("KW_INVENTORY"));
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
@@ -4814,7 +4814,7 @@ static void display_creature_list(int col, int row, int per_page, SPECIES_ID mon
 		{
 			/* Display kills */
 			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) put_str(format("%5d", species_ptr->killed_by_player), row + i, 73);
-			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? get_keyword("KW_DEAD : get_keyword("KW_ALIVE), row + i, 74);
+			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? get_keyword("KW_DEAD") : get_keyword("KW_ALIVE")), row + i, 74);
 		}
 	}
 
@@ -4917,8 +4917,8 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPEC
 			if(direct_species_idx < 0) prt("Group", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 62);
 
-			prt(get_keyword("KW_SYM, 4, 67);
-			if(!visual_only) prt(get_keyword("KW_KILLS, 4, 72);
+			prt(get_keyword("KW_SYM"), 4, 67);
+			if(!visual_only) prt(get_keyword("KW_KILLS"), 4, 72);
 			for (i = 0; i < 78; i++) Term_putch(i, 5, TERM_WHITE, '=');
 
 			if(direct_species_idx < 0)
@@ -5346,7 +5346,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			if(direct_k_idx < 0) prt("Group", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 70);
 #endif
-			prt(get_keyword("KW_SYM, 4, 74);
+			prt(get_keyword("KW_SYM"), 4, 74);
 			for (i = 0; i < 78; i++) Term_putch(i, 5, TERM_WHITE, '=');
 
 			if(direct_k_idx < 0)
@@ -5916,7 +5916,7 @@ static void do_cmd_knowledge_bounty(void)
 	{
 		bool listed = FALSE;
 
-		fprintf(fff, "%s : %s\n", get_keyword("KW_TODAY_TARGET, (today_mon ? species_name + species_info[today_mon].name : get_keyword("KW_UNKNOWN));
+		fprintf(fff, "%s : %s\n", get_keyword("KW_TODAY_TARGET"), (today_mon ? species_name + species_info[today_mon].name : get_keyword("KW_UNKNOWN")));
 		fprintf(fff, "\n");
 		fprintf(fff, MES_INFO_BOUNTY);
 		fprintf(fff, "\n");

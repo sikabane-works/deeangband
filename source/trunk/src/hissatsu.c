@@ -63,7 +63,7 @@ static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 	}
 
 	/* Build a prompt (accept all spells) */
-	(void)strnfmt(out_val, 78, MES_CAST_WHICH_USE(get_keyword("KW_HISSATSU, I2A(0), "abcdefghijklmnopqrstuvwxyz012345"[num-1]));
+	(void)strnfmt(out_val, 78, MES_CAST_WHICH_USE(get_keyword("KW_HISSATSU"), I2A(0), "abcdefghijklmnopqrstuvwxyz012345"[num-1]));
 
 	if(use_menu) screen_save();
 
@@ -351,10 +351,10 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 	if(!(creature_ptr->new_spells))
 	{
-		msg_format(MES_STUDY_NO_SLOT(get_keyword("KW_HISSATSU));
+		msg_format(MES_STUDY_NO_SLOT(get_keyword("KW_HISSATSU")));
 		return;
 	}
-	msg_format(MES_STUDY_SLOT(creature_ptr->new_spells, get_keyword("KW_HISSATSU));
+	msg_format(MES_STUDY_SLOT(creature_ptr->new_spells, get_keyword("KW_HISSATSU")));
 
 	if(!get_item(creature_ptr, &item, MES_STUDY_WHICH_BOOK, MES_STUDY_NO_BOOK, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
