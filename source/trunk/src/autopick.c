@@ -4737,10 +4737,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		if(0 < tb->cx)
 		{
 			int len;
-#ifdef JP
 			int i;
-#endif
-
 			tb->cx--;
 			len = strlen(tb->lines_list[tb->cy]);
 			if(len < tb->cx) tb->cx = len;

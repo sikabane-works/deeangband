@@ -4005,6 +4005,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KAWARIMI_FAILED(CREATURE) "失敗！%sは変わり身で逃げられなかった。", (CREATURE)->name
 #define MES_TRAIT_KAWARIMI_FAILED2(CREATURE) "%sは変わり身に失敗して攻撃を受けた。", (CREATURE)->name
 #define MES_TRAIT_BECAME_LIVING_TRUMP(CREATURE) "%sは生きているカードに変わった。", (CREATURE)->name
+#define MES_TRAIT_ATTRACT_DEMON(CREATURE) "%sはデーモンを引き寄せた。", (CREATURE)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4132,6 +4133,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KAWARIMI_FAILED(CREATURE) "Failed! %s couldn't run away.", (CREATURE)->name
 #define MES_TRAIT_KAWARIMI_FAILED2(CREATURE), "Failed! %s are hit by the attack.", (CREATURE)->name
 #define MES_TRAIT_BECAME_LIVING_TRUMP(CREATURE) "You have turned into a Living Trump.", (CREATURE)->name
+#define MES_TRAIT_ATTRACT_DEMON(CREATURE) "%s had attracted a demon.", (CREATURE)->name
 #endif
 
 #ifdef JP

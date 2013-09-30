@@ -1391,11 +1391,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 		if(summoning((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, mode))
 		{
-#ifdef JP
-			msg_print("‚ ‚È‚½‚Íƒf[ƒ‚ƒ“‚ğˆø‚«Šñ‚¹‚½I");
-#else
-			msg_print("You have attracted a demon!");
-#endif
+			msg_print(MES_TRAIT_ATTRACT_DEMON(creature_ptr));
 			disturb(player_ptr, 0, 0);
 		}
 	}
