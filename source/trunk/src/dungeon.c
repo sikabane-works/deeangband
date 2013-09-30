@@ -1401,21 +1401,13 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		disturb(player_ptr, 0, 0);
 		if(one_in_(2))
 		{
-#ifdef JP
-			msg_print("精力的でなくなった気がする。");
-#else
-			msg_print("You feel less energetic.");
-#endif
+			msg_print(MES_TRAIT_HASTE_FLUX(creature_ptr));
 			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait(creature_ptr, TRAIT_FAST, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
 		}
 		else
 		{
-#ifdef JP
-			msg_print("精力的になった気がする。");
-#else
-			msg_print("You feel more energetic.");
-#endif
+			msg_print(MES_TRAIT_HASTE_FLUX2(creature_ptr));
 			if(has_trait(creature_ptr, TRAIT_SLOW)) set_timed_trait(creature_ptr, TRAIT_SLOW, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 10, FALSE);
 		}
