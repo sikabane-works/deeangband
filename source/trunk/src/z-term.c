@@ -1020,7 +1020,6 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		na = scr_aa[x];
 		nc = scr_cc[x];
 
-#ifdef JP
 		if(kanji)
 		{
 			/* 全角文字２バイト目 */
@@ -1032,9 +1031,8 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		}
 		/* 特殊文字としてMSBが立っている可能性がある */
 		/* その場合attrのMSBも立っているのでこれで識別する */
-/* check */
+		/* check */
 		kanji = (is_mbyte(nc) && !(na & AF_TILE1));
-#endif
 
 		ota = old_taa[x];
 		otc = old_tcc[x];
@@ -1043,15 +1041,11 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		ntc = scr_tcc[x];
 
 		/* Handle unchanged grids */
-#ifdef JP
 		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc)&&
-		    (!kanji || (scr_aa[x + 1] == old_aa[x + 1] &&
-				scr_cc[x + 1] == old_cc[x + 1] &&
-				scr_taa[x + 1] == old_taa[x + 1] &&
-				scr_tcc[x + 1] == old_tcc[x + 1])))
-#else
-		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc))
-#endif
+			(!kanji || (scr_aa[x + 1] == old_aa[x + 1] &&
+			scr_cc[x + 1] == old_cc[x + 1] &&
+			scr_taa[x + 1] == old_taa[x + 1] &&
+			scr_tcc[x + 1] == old_tcc[x + 1])))
 		{
 			if(fn)
 			{
@@ -1071,7 +1065,6 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 				fn = 0;
 			}
 
-#ifdef JP
 			/* 全角文字の時は再開位置は＋１ */
 			if(kanji)
 			{
@@ -1079,9 +1072,7 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 				fx++;
 				kanji = 0;
 			}
-#endif
-			/* Skip */
-			continue;
+			continue; /* Skip */
 		}
 
 		/* Save new contents */

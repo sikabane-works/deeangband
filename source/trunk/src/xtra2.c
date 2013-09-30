@@ -1593,23 +1593,16 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 		s2 = "on ";
 #endif
 	}
-	else
-	{
-#ifdef JP
-		s1 = "ターゲット:";
-#else
-		s1 = "Target:";
-#endif
-	}
+	else s1 = get_keyword("KW_TARGET");
 
 	/* Hack -- hallucination */
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
 		cptr name = get_keyword("KW_SOMETHING_STRANGE");
 #ifdef JP
-		sprintf(out_val, "%s%s%s%s [%s]", s1, name, s2, s3, info);
+		sprintf(out_val, "%s:%s%s%s [%s]", s1, name, s2, s3, info);
 #else
-		sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, name, info);
+		sprintf(out_val, "%s:%s%s%s [%s]", s1, s2, s3, name, info);
 #endif
 
 		prt(out_val, 0, 0);

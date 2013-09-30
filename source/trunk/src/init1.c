@@ -7207,6 +7207,34 @@ errr load_lua(lua_State **L, cptr directory, cptr filename)
 	return SUCCESS;
 }
 
+/*
+cptr dump_status(creature_type *creature_ptr)
+{
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	if( luaL_loadfile(L, "edit\\script\\name.lua") || lua_pcall(L, 0, 0, 0) ) {
+		quit("ERROR.\n");
+		return NULL;
+	}
+	lua_getglobal(L, "dump_status");
+	lua_pushnumber(L, creature_ptr);
+
+	if(lua_pcall(L, 2, 1, 0) != 0) {
+		printf("関数呼び出し失敗\n");
+		printf("error : %s\n", lua_tostring(L, -1) );
+		return 1;
+	}
+
+	if(lua_isnumber(L, -1)) {
+		printf("結果 : %d\n", lua_tointeger(L, -1) );
+		lua_pop(L,1); //戻り値をポップ
+	}
+
+	lua_close(L);
+	return 0;
+}
+*/
+
 cptr get_keyword(cptr keywords)
 {
 	lua_getglobal(KEYWORDS, keywords);
