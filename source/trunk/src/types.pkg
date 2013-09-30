@@ -1,0 +1,333 @@
+
+typedef struct object_id {
+	TVAL tval;
+	SVAL sval;
+} object_id;
+
+typedef struct creature_type creature_type;
+struct creature_type
+{
+	CREATURE_ID creature_idx;
+
+	char name[128];
+	char desc_name[128];
+
+	byte player;	// Player Flag
+
+	COLOR_ID d_attr;			// Default creature attribute
+	SYMBOL d_char;			// Default creature character
+	COLOR_ID x_attr;			// Desired creature attribute
+	SYMBOL x_char;			// Desired creature character
+
+	COODINATES oldpy; /* Previous player location -KMW- */
+	COODINATES oldpx; /* Previous player location -KMW- */
+
+	RACE_ID race_idx1;			    // Race index
+	RACE_ID race_idx2;			    // Race index
+	RACE_ID mimic_race_idx;		// Mimic Race index
+	SPECIES_ID species_idx;			// Species index
+	SPECIES_ID ap_species_idx;		// Species appearance index
+	CREATURE_EGO_ID creature_ego_idx; // Ego index
+	s16b starting_idx;			// Starting indx
+	byte sub_align;		    // Sub-alignment for a neutral creature
+	FLAGS_32 sub_race[8];       // Sub-Race flags
+	FLAGS_32 authority[8];      // Autority flags
+	SEX_ID sex;				// Sex index
+	bool sexual_penalty;	// Sexual penalty flag
+	CLASS_ID class_idx;		    // Class index
+	bool cls_bonus;	        // Class bonus flag
+	CHARA_ID chara_idx;		    // Chara index
+	SPECIES_ID patron_idx;		// Patron index
+	SPECIES_ID father_idx;
+	SPECIES_ID mother_idx;
+	REALM_ID realm1;            // First magic realm
+	REALM_ID realm2;            // Second magic realm
+
+	GAME_TURN action_turn;		// Action turn
+
+	CAMP_ID camp_idx;				// Camp
+	SPECIES_ID master_creature_idx;	// Master
+
+	STAT hitdice;		// Hit dice
+	STAT hitdice_base;  // Hit dice base
+	STAT expfact;       // Experience factor
+
+	AGE age;			// Characters age
+	HEIGHT ht;			// Height
+	WEIGHT wt;			// Weight
+	STAT sc;			// Social Class
+	CREATURE_LEV dr; // Divine Rank
+	BODY_SIZE size;			// Body Size
+	PERCENT regenerate_mod;
+
+	OBJECT_ID inven_cnt; // Number of items in inventory
+	OBJECT_ID equip_cnt; // Number of items in equipment
+	object_type inventory[INVEN_TOTAL];  // Inventory
+	s16b iven_fitting_rate[INVEN_TOTAL]; // Inventory Fitting Rate
+	byte equip_now[INVEN_TOTAL];         // equipment flag
+	QUANTITY item_slot_num[MAX_SLOT_IDS];
+	object_type organ_object[MAX_SLOT_IDS];
+
+	PRICE au;			// Current Gold
+
+	s32b max_max_exp;	// Max max experience (only to calculate score)
+	s32b max_exp;		// Max experience
+	s32b exp;			// Cur experience
+	u32b exp_frac;		// Cur exp frac (times 2^16)
+
+	CREATURE_LEV lev;			// Level
+	CREATURE_LEV max_lev;		// Max Level
+
+	STAT chp;			// Cur hit pts
+	u32b chp_frac;		// Cur hit frac (times 2^16)
+	STAT mhp;			// Max hit pts
+	STAT mmhp;			// Max Max Hit points
+
+	STAT msp;			// Max mana pts
+	STAT csp;			// Cur mana pts
+	u32b csp_frac;		// Cur mana frac (times 2^16)
+
+	CREATURE_LEV max_plv; // Max Player Level
+
+	STAT stat_cur[STAT_MAX];			// Current "natural" stat values
+	STAT stat_max[STAT_MAX];			// Current "maximal" stat values
+	STAT stat_max_max[STAT_MAX];	    // Maximal "maximal" stat values
+	STAT stat_mod_max_max[STAT_MAX];	// Modified Maximal "maximal" stat values by divine rank
+	STAT stat_use[STAT_MAX];			// Current modified stats
+	STAT stat_top[STAT_MAX];			// Maximal modified stats
+	STAT stat_add[STAT_MAX];			// Modifiers to stat values
+	RANK stat_ind[STAT_MAX];			// Indexes into stat tables
+
+	s16b learned_spells;
+	s16b add_spells;
+
+	GAME_TIME timed_trait[MAX_TRAITS];
+	FLAGS_32 mutative_trait[MAX_TRAITS_FLAG];
+	FLAGS_32 individual_trait[MAX_TRAITS_FLAG];
+	FLAGS_32 blue_learned_trait[MAX_TRAITS_FLAG];
+
+	FLAGS_32 current_trait[MAX_TRAITS_FLAG];
+
+	STAT current_charge[MAGIC_EATER_SKILL_MAX];
+	QUANTITY max_charge[MAGIC_EATER_SKILL_MAX];
+
+	TRAIT_ID now_singing;
+	TRAIT_ID pre_singing;
+	GAME_TURN singing_turn;
+
+	s32b spelling_hex;
+	s32b despelling_hex;
+	s32b revenge_damage;
+
+	byte spelling_hex_num;
+	byte revenge_type;
+	GAME_TURN revenge_turn;
+
+	s32b essence_num1[108];     /* Array for non-spellbook type magic */
+	byte essence_num2[108];     /* Flags for non-spellbook type magics */
+
+	s32b charged_force;
+
+	s32b karmas_cur[MAX_KARMA];
+	s32b karmas[MAX_KARMA];
+	s16b karmas_rank[MAX_KARMA];
+
+	DUNGEON_ID recall_dungeon;	// Dungeon set to be recalled
+
+	ENERGY energy_need;	// Energy needed for next move
+
+	STAT food;			// Current nutrition
+
+	POSTURE_ID posture;		// Special block capacity -LM-
+	ACTION_ID action;		// Currently action
+
+	FLAGS_32 spell_learned1;	// bit mask of spells learned
+	FLAGS_32 spell_learned2;	// bit mask of spells learned
+	FLAGS_32 spell_worked1;		// bit mask of spells tried and worked
+	FLAGS_32 spell_worked2;		// bit mask of spells tried and worked
+	FLAGS_32 spell_forgotten1;	// bit mask of spells learned but forgotten
+	FLAGS_32 spell_forgotten2;	// bit mask of spells learned but forgotten
+	KEY spell_order[64];	// order spells learned/remembered/forgotten
+
+	SKILL_EXP skill_exp[MAX_SKILLS];       // Proficiency of misc. skill
+	SKILL_EXP spell_exp[MAX_REALMS];
+
+	TRAIT_ID mane_spell[MAX_MANE];
+	POWER mane_dam[MAX_MANE];
+	QUANTITY mane_num;
+
+	s16b concent;      // Sniper's concentration level
+	u16b total_friends; // number of servent.
+
+	STAT base_hp[CREATURE_MAX_LEVEL];
+	cptr last_message;        // Last message on death or retirement
+	char history[HISTORY_ROW][HISTORY_COL];  	  // Textual "history" for the Player
+
+	CREATURE_ID riding; /* Riding on a creature of this index */
+	CREATURE_ID ridden; /* Ridden on a creature of this index */
+	byte knowledge;           // Knowledge about yourself
+	s32b visit;               // Visited towns
+
+	s16b old_realm;           // Record of realm changes
+
+	COODINATES pet_follow_distance; // Length of the imaginary "leash" for pets
+	s16b pet_extra_flags;     // Various flags for controling pets
+
+	FLOOR_ID floor_idx;            // Current floor location
+
+	bool autopick_autoregister; // auto register is in-use or not
+
+	byte floor_feeling;		// Most recent dungeon feeling
+	GAME_TURN feeling_turn;		// The turn of the last dungeon feeling
+
+	COODINATES alert_range;
+
+	//** Temporary fields **
+	bool teleport_town;
+	bool enter_dungeon;     // Just enter the dungeon
+
+	STAT new_spells;	// Number of spells available
+	STAT old_spells;
+
+	s16b old_food_aux;	// Old value of food
+
+	bool old_cumber_armor;
+	bool old_cumber_glove;
+	bool old_heavy_wield[MAX_WEAPONS];
+	bool old_heavy_shoot;
+	bool old_riding_wield[MAX_WEAPONS];
+	bool old_riding_two_handed;
+	bool old_monlite;
+
+	s16b old_lite;		// Old radius of lite (if any)
+
+	bool cumber_armor;	// Mana draining armor
+	bool cumber_glove;	// Mana draining gloves
+	bool heavy_wield[MAX_WEAPONS];	// Heavy weapon
+	bool heavy_shoot;	// Heavy shooter
+	bool riding_wield[MAX_WEAPONS];	// Riding weapon
+	bool riding_two_handed;	// Riding weapon
+	bool monlite;
+
+	s16b cur_lite;		// Radius of lite (if any)
+
+	bool sutemi;
+	bool counter;
+
+	STAT good_exp;
+	STAT evil_exp;
+	STAT order_exp;
+	STAT chaos_exp;
+	STAT balance_exp;
+	STAT good_rank;
+	STAT evil_rank;
+	STAT order_rank;
+	STAT chaos_rank;
+	STAT balance_rank;
+
+	COODINATES run_py;
+	COODINATES run_px;
+
+	//** Extracted fields **
+
+	WEIGHT equipping_weight;	// Total weight being carried
+	WEIGHT carrying_weight;	// Total weight being carried
+
+	u32b cursed;         // Player is cursed
+
+	STAT to_damaged[MAX_WEAPONS];		// Extra dice/sides
+	STAT to_damages[MAX_WEAPONS];
+	STAT to_hit[MAX_WEAPONS];		// Bonus to hit (wield)
+	STAT to_hit_b;					// Bonus to hit (bow)
+	STAT to_hit_m;					// Bonus to hit (misc)
+	STAT to_damage[MAX_WEAPONS];	// Bonus to dam (wield)
+	STAT to_damage_m;				// Bonus to dam (misc)
+
+	STAT dis_to_hit[MAX_WEAPONS];	// Known bonus to hit (wield)
+	STAT dis_to_hit_b;	// Known bonus to hit (bow)
+	STAT dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield)
+
+	SAVING ac;			// Base AC
+	SAVING ev;			// Base EV
+	SAVING vo;			// Base VO
+	SAVING to_ac;			// Bonus to AC
+	SAVING to_ev;			// Bonus to EV
+	SAVING to_vo;			// Bonus to VO
+	SAVING dis_ac;		// Known base AC
+	SAVING dis_ev;		// Known base EV
+	SAVING dis_vo;		// Known base VO
+	SAVING dis_to_ac;		// Known bonus to AC
+	SAVING dis_to_ev;		// Known bonus to EV
+	SAVING dis_to_vo;		// Known bonus to VO
+
+	s16b to_m_chance;	// Minusses to cast chance
+
+	byte two_handed[INVEN_TOTAL];      // each Two-handed slot
+
+	bool can_melee[MAX_MELEE_TYPE];
+	STAT action_cost[MAX_MELEE_TYPE];		// Action point
+	STAT action_priority[MAX_MELEE_TYPE];	// Action priority
+	bool no_flowed;
+
+	TRYING skill_disarm;		// Skill: Disarming
+	TRYING skill_device;		// Skill: Magic Devices
+	TRYING skill_stealth;		// Skill: Stealth factor
+	TRYING skill_perception;
+	TRYING skill_penetration;
+	TRYING skill_melee;		// Skill: To hit (normal)
+	TRYING skill_shooting;		// Skill: To hit (shooting)
+	TRYING skill_throwing;		// Skill: To hit (throwing)
+	TRYING skill_digging;		// Skill: Digging
+
+	STAT num_fire;		// Number of shots
+
+	TVAL tval_xtra;		// Correct xtra tval
+	TVAL tval_ammo;		// Correct ammo tval
+
+	SPEED speed; // speed
+
+	COODINATES fy; // Y location on floor
+	COODINATES fx; // X location on floor
+	COODINATES wy; // Y Coordinates in the wilderness
+	COODINATES wx; // X Coordinates in the wilderness
+
+	FLOOR_LEV depth;
+	COODINATES cdis; /* Current dis from player */
+
+	byte sc_flag;	// Extra creature flags
+	byte sc_flag2;	// Extra creature flags
+
+	bool see_others;	// Creature is "visible"
+	COODINATES target_y; // Can attack !los player
+	COODINATES target_x; // Can attack !los player
+
+	STRING_OFFSET nickname;		// Creature's Nickname
+
+	CREATURE_ID parent_creature_idx;
+
+	SPECIES_ID underling_id[MAX_UNDERLINGS];	    // Underling ID
+	POPULATION underling_num[MAX_UNDERLINGS];	    // Dice Number of Underlings
+
+	COODINATES start_wx; // Starting Wilderness_X
+	COODINATES start_wy; // Statring Wilderness_Y
+
+	byte snipe_type;
+	bool is_fired;
+	bool reset_concent;   // Concentration reset flag
+
+	bool now_damaged;
+	bool hack_mutation;
+	bool level_up;
+	bool hear_noise;
+	bool new_mane;
+
+	u16b total_winner;	  // Total winner
+	u32b creature_update;
+
+	s16b time_stopper;
+	DIRECTION tsuri_dir;
+
+	GAME_TURN running;	// Current counter for running, if any
+	GAME_TURN resting;	// Current counter for resting, if any
+	bool reinit_wilderness;
+};

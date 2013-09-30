@@ -1105,9 +1105,8 @@ static void spoil_out(cptr str)
 	/* Delay buffer */
 	static char roff_waiting_buf[256];
 
-#ifdef JP
 	bool is_mbyte_flag = FALSE;
-#endif
+
 	/* Current pointer into line roff_buf */
 	static char *roff_p = roff_buf;
 
