@@ -1048,11 +1048,7 @@ static void spoil_species_desc(cptr fname)
 		if(is_variable_patron_species(species_ptr)) 
 		{
 			strcat(trait, "/");
-#ifdef JP
-			strcat(trait, "å_‰Â•Ï");
-#else
-			strcat(trait, "VariableCharacter");
-#endif
+			strcat(trait, get_keyword("KW_VALIABLE_PATRON"));
 		}
 
 /* Dump the info */
