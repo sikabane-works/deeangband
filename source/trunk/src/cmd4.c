@@ -1466,11 +1466,7 @@ static errr keymap_dump(cptr fname)
 	if(!open_auto_dump(buf, mark)) return -1;
 
 	/* Start dumping */
-#ifdef JP
-	auto_dump_printf("\n# 自動キー配置セーブ\n\n");
-#else
-	auto_dump_printf("\n# Automatic keymap dump\n\n");
-#endif
+	auto_dump_printf(MES_SYS_AUTO_KEYSAVE);
 
 	/* Dump them */
 	for (i = 0; i < 256; i++)

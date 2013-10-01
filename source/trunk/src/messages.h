@@ -134,6 +134,7 @@
 #define MES_SYS_WRITE_OPTION_BIT_FILE(FILENAME) "オプションbit使用状況をファイル %s に書き出しました。", (FILENAME)
 #define MES_SYS_SOFTWARE_BUG "ソフトウェアのバグ"
 #define MES_SYS_NO_SAVEFILE "セーブファイルがありません。"
+#define MES_SYS_AUTO_KEYSAVE "\n# 自動キー配置セーブ\n\n"
 
 #else
 
@@ -246,6 +247,7 @@
 
 #define MES_SYS_SOFTWARE_BUG "Software Bug"
 #define MES_SYS_NO_SAVEFILE "Savefile does not exist."
+#define MES_SYS_AUTO_KEYSAVE "\n# Automatic keymap dump\n\n"
 
 #endif
 
