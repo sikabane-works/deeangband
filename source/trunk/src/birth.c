@@ -2244,9 +2244,7 @@ static void edit_history(creature_type *creature_ptr)
 				else x = 0;
 			}
 
-#ifdef JP
 			if((x > 0) && (is_mbyte2(creature_ptr->history[y], x-1))) x--;
-#endif
 		}
 		else if(c == '\r' || c == '\n')
 		{
@@ -2271,9 +2269,7 @@ static void edit_history(creature_type *creature_ptr)
 		{
 			if(do_cmd_histpref(creature_ptr))
 			{
-#ifdef JP
 				if((x > 0) && (is_mbyte2(creature_ptr->history[y], x - 1))) x--;
-#endif
 			}
 		}
 		else if(c == '\010')
