@@ -135,6 +135,7 @@
 #define MES_SYS_SOFTWARE_BUG "ソフトウェアのバグ"
 #define MES_SYS_NO_SAVEFILE "セーブファイルがありません。"
 #define MES_SYS_AUTO_KEYSAVE "\n# 自動キー配置セーブ\n\n"
+#define MES_SYS_LOADED_CONFIG_FILE(FILENAME) "標準の設定ファイル'%s'を読み込みました。", FILENAME
 
 #else
 
@@ -249,6 +250,7 @@
 #define MES_SYS_NO_SAVEFILE "Savefile does not exist."
 #define MES_SYS_AUTO_KEYSAVE "\n# Automatic keymap dump\n\n"
 
+#define MES_SYS_LOADED_CONFIG_FILE(FILENAME) "Loaded default '%s'.", FILENAME
 #endif
 
 #if JP

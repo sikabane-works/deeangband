@@ -1588,11 +1588,7 @@ void do_cmd_macros(void)
 			err = process_pref_file(tmp);
 			if(-2 == err)
 			{
-#ifdef JP
-				msg_format("標準の設定ファイル'%s'を読み込みました。", tmp);
-#else
-				msg_format("Loaded default '%s'.", tmp);
-#endif
+				msg_format(MES_SYS_LOADED_CONFIG_FILE(tmp));
 			}
 			else if(err) msg_format(MES_FILE_LOADED_FAIL(tmp));
 			else msg_format(MES_FILE_LOADED(tmp));
