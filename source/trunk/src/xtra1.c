@@ -1458,12 +1458,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 				which = creature_ptr->realm2;
 			}
 
-#ifdef JP
-			if(message) msg_format("%s‚Ì%s‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½B", do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
-#else
-			if(message) msg_format("You have forgotten the %s of %s.", p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
-#endif
-
+			if(message) msg_format(MES_SPELL_FORGET(p, do_spell(creature_ptr, which, j%32, SPELL_NAME)));
 
 			/* One more can be learned */
 			creature_ptr->new_spells++;

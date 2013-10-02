@@ -5340,4 +5340,8 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_IMITATION "Imitation"
 #endif
 
-
+#ifdef JP
+#define MARK_FIX_PRICE "ŒÅ"
+#else
+#define MARK_FIX_PRICE " F"
+#endif

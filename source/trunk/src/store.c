@@ -2231,11 +2231,7 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 			x = price_item(creature_ptr, object_ptr, 120, FALSE);
 
 			/* Actually draw the price (not fixed) */
-#ifdef JP
-			(void)sprintf(out_val, "%9ldå≈", (long)x);
-#else
-			(void)sprintf(out_val, "%9ld F", (long)x);
-#endif
+			(void)sprintf(out_val, "%9ld%s", (long)x, MARK_FIX_PRICE);
 
 			put_str(out_val, i+6, 68);
 		}
