@@ -707,11 +707,7 @@ static void init_autopick(void)
  */
 static cptr pickpref_filename(int filename_mode)
 {
-#ifdef JP
-	static const char namebase[] = "picktype";
-#else
-	static const char namebase[] = "pickpref";
-#endif
+	static const char namebase[] = TEXT_FILES_AUTOPICK_DEFAULT;
 
 	switch (filename_mode)
 	{

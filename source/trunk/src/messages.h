@@ -1497,6 +1497,7 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_HISTEDIT "histedit.prf"
 
 #define TEXT_FILES_SINDARIN "sname.txt"
+#define TEXT_FILES_AUTOPICK_DEFAULT "picktype"
 #else
 
 #define TEXT_FILES_GAME_NEWS "news.txt"
@@ -1547,6 +1548,7 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_HISTEDIT "histpref.prf"
 
 #define TEXT_FILES_SINDARIN "sname.txt"
+#define TEXT_FILES_AUTOPICK_DEFAULT "pickpref"
 #endif
 
 
