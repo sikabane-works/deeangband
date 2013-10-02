@@ -1873,14 +1873,8 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 	{
 		/* Add the header */
 		fprintf(pref_fff, "%s\n", autoregister_header);
-
-#ifdef JP
-		fprintf(pref_fff, "%s\n", "# *Œx!!* ˆÈ~‚Ìs‚ÍŽ©“®“o˜^‚³‚ê‚½‚à‚Ì‚Å‚·B");
-		fprintf(pref_fff, "%s\n", "# Œã‚ÅŽ©“®“I‚Éíœ‚³‚ê‚Ü‚·‚Ì‚ÅA•K—v‚Ès‚Íã‚Ì•û‚ÖˆÚ“®‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢B");
-#else
-		fprintf(pref_fff, "%s\n", "# *Waring!* The lines below will be deleated later.");
-		fprintf(pref_fff, "%s\n", "# Keep it by cut & paste if you need these lines for future characters.");
-#endif
+		fprintf(pref_fff, "%s\n", MES_AUTOPICK_AUTOSET_LINES1);
+		fprintf(pref_fff, "%s\n", MES_AUTOPICK_AUTOSET_LINES2);
 
 		/* Now auto register is in-use */
 		creature_ptr->autopick_autoregister = TRUE;

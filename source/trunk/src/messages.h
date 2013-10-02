@@ -2901,6 +2901,9 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_DISCARD_REVERT "全ての変更を破棄して元の状態に戻します。よろしいですか？ "
 #define MES_AUTOPICK_EDITOR "(^Q:終了 ^W:セーブして終了, ESC:メニュー, その他:入力)"
 #define MES_AUTOPICK_TRIGGER_KEY "P:<トリガーキー>: "
+#define MES_AUTOPICK_AUTOSET_LINES1 "# *警告!!* 以降の行は自動登録されたものです。"
+#define MES_AUTOPICK_AUTOSET_LINES2 "# 後で自動的に削除されますので、必要な行は上の方へ移動しておいてください。"
+
 #else
 #define MES_AUTOPICK_CUTPASTE "Use cut & paste of auto picker editor (_) to keep old prefs."
 #define MES_AUTOPICK_COMMANDKEY "<Keypress>"
@@ -2927,6 +2930,8 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_DISCARD_REVERT "Discard all changes and revert to original file. Are you sure? "
 #define MES_AUTOPICK_EDITOR "(^Q:Quit, ^W:Save&Quit, ESC:Menu, Other:Input text)"
 #define MES_AUTOPICK_TRIGGER_KEY "P:<Trigger key>: "
+#define MES_AUTOPICK_AUTOSET_LINES1 "# *Warning!* The lines below will be deleated later."
+#define MES_AUTOPICK_AUTOSET_LINES2 "# Keep it by cut & paste if you need these lines for future characters."
 #endif
 
 #ifdef JP
