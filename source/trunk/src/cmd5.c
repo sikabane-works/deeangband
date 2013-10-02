@@ -797,15 +797,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	if(need_mana > creature_ptr->csp)
 	{
 		if(flush_failure) flush();
-
-#ifdef JP
-		msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
-			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
-#else
-		msg_format("You do not have enough mana to %s this %s.",
-			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
-			prayer);
-#endif
+		msg_format(MES_PREVENT_BY_MP);
 		if(!over_exert) return;
 		if(!get_check_strict(MES_ATTEMPT_ANYWAY, CHECK_OKAY_CANCEL)) return;
 

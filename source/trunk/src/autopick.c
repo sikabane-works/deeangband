@@ -196,9 +196,7 @@ static char KEY_BOOTS[] = "boots";
 #define ADD_FLG_NOUN(FLG) (ADD_FLG(FLG), prev_flg = FLG)
 #define IS_FLG(FLG) (entry->flag[FLG / 32] & (1L << (FLG % 32)))
 
-#ifdef JP
-	static char kanji_colon[] = "F";
-#endif
+static char kanji_colon[] = "F";
 
 
 /*
