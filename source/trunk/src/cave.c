@@ -359,13 +359,6 @@ bool los(floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COO
 	return TRUE;
 }
 
-
-
-
-
-
-#define COMPLEX_WALL_ILLUMINATION
-
 /*
  * Check for "local" illumination
  */
@@ -377,9 +370,6 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 	int yy = (y < creature_ptr->fy) ? (y + 1) : (y > creature_ptr->fy) ? (y - 1) : y;
 	int xx = (x < creature_ptr->fx) ? (x + 1) : (x > creature_ptr->fx) ? (x - 1) : x;
 
-	// Check for "local" illumination
-
-#ifdef COMPLEX_WALL_ILLUMINATION // COMPLEX_WALL_ILLUMINATION
 	// Check for "complex" illumination
 	if((FEAT_SUPPORTS_LOS(get_feat_mimic(&floor_ptr->cave[yy][xx])) &&
 	     (floor_ptr->cave[yy][xx].info & CAVE_GLOW)) ||
@@ -391,10 +381,6 @@ static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 		return TRUE;
 	}
 	else return FALSE;
-
-#else // COMPLEX_WALL_ILLUMINATION
-	return (floor_ptr->cave[yy][xx].info & CAVE_GLOW) ? TRUE : FALSE; // Check for "simple" illumination
-#endif // COMPLEX_WALL_ILLUMINATION
 }
 
 
@@ -420,8 +406,6 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 	int i, yy, xx;
 
 	if(!IN_BOUNDS(floor_ptr, y, x)) return;
-
-#ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
 	if((y != player_ptr->fy) && (x != player_ptr->fx))
 	{
@@ -466,44 +450,6 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 			update_local_illumination_aux(player_ptr, floor_ptr, yy, xx);
 		}
 	}
-
-#else /* COMPLEX_WALL_ILLUMINATION */
-
-	if((y != player_ptr->fy) && (x != player_ptr->fx))
-	{
-		yy = (y < player_ptr->fy) ? (y - 1) : (y + 1);
-		xx = (x < player_ptr->fx) ? (x - 1) : (x + 1);
-		update_local_illumination_aux(floor_ptr, yy, xx);
-	}
-	else if(x != player_ptr->fx) /* y == player_ptr->fy */
-	{
-		xx = (x < player_ptr->fx) ? (x - 1) : (x + 1);
-		for (i = -1; i <= 1; i++)
-		{
-			yy = y + i;
-			update_local_illumination_aux(floor_ptr, yy, xx);
-		}
-	}
-	else if(y != player_ptr->fy) /* x == player_ptr->fx */
-	{
-		yy = (y < player_ptr->fy) ? (y - 1) : (y + 1);
-		for (i = -1; i <= 1; i++)
-		{
-			xx = x + i;
-			update_local_illumination_aux(floor_ptr, yy, xx);
-		}
-	}
-	else /* Player's grid */
-	{
-		for (i = 0; i < 8; i++)
-		{
-			yy = y + ddy_cdd[i];
-			xx = x + ddx_cdd[i];
-			update_local_illumination_aux(floor_ptr, yy, xx);
-		}
-	}
-
-#endif // COMPLEX_WALL_ILLUMINATION
 }
 
 
@@ -4390,12 +4336,7 @@ void cave_set_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, FEATURE_ID
 	/* Check if los has changed */
 	if(old_los ^ have_flag(f_ptr->flags, FF_LOS))
 	{
-
-#ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
-
 		update_local_illumination(floor_ptr, y, x);
-
-#endif /* COMPLEX_WALL_ILLUMINATION */
 
 		/* Update the visuals */
 		prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
