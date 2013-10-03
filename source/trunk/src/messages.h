@@ -588,6 +588,7 @@
 #define MES_SUCCESS_PICKING "鍵をはずした。"
 #define MES_FAILED_PICKING "鍵をはずせなかった。"
 #define MES_FOUND_SOMETHING "何かを発見した！"
+#define MES_NO_SEE_UNAFFECTED(TARGET, CASTER) "%sは%sが見えないので影響されない。", (TARGET)->name, (CASTER)->name
 
 #define MES_BREAK_P_RUNE "守りのルーンが壊れた！"
 #define MES_BREAK_E_RUNE "ルーンが爆発した！"
@@ -692,6 +693,7 @@
 #define MES_SUCCESS_PICKING "You have picked the lock."
 #define MES_FAILED_PICKING "You failed to pick the lock."
 #define MES_FOUND_SOMETHING "You have found something!"
+#define MES_NO_SEE_UNAFFECTED(TARGET, CASTER) "%^s can't see %s, and isn't affected.", (TARGET)->name, (CASTER)->name
 
 #define MES_BREAK_P_RUNE "The rune of protection is broken!"
 #define MES_BREAK_E_RUNE "The rune explodes!"

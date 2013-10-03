@@ -1894,11 +1894,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_PSI:
 		if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 		{
-#ifdef JP
-			if(seen_msg) msg_format("%s‚Í‚ ‚È‚½‚ªŒ©‚¦‚È‚¢‚Ì‚Å‰e‹¿‚³‚ê‚È‚¢I", target_name);
-#else
-			if(seen_msg) msg_format("%^s can't see you, and isn't affected!", target_name);
-#endif
+			if(seen_msg) msg_format("%s‚Í%s‚ªŒ©‚¦‚È‚¢‚Ì‚Å‰e‹¿‚³‚ê‚È‚¢I", target_ptr, caster_ptr);
 			skipped = TRUE;
 			break;
 		}

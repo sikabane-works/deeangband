@@ -711,14 +711,9 @@ static cptr pickpref_filename(int filename_mode)
 
 	switch (filename_mode)
 	{
-	case PT_DEFAULT:
-		return format("%s.prf", namebase);
-
-	case PT_WITH_PNAME:
-		return format("%s-%s.prf", namebase, player_base);
-
-	default:
-		return NULL;
+	case PT_DEFAULT: return format("%s.prf", namebase);
+	case PT_WITH_PNAME: return format("%s-%s.prf", namebase, player_base);
+	default: return NULL;
 	}
 }
 
