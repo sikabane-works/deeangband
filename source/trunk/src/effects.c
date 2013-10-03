@@ -296,14 +296,8 @@ void set_action(creature_type *creature_ptr, int typ)
 				break;
 			}
 		case ACTION_SING:
-			{
-#ifdef JP
-				msg_print("âÃÇ§ÇÃÇÇ‚ÇﬂÇΩÅB");
-#else
-				msg_print("You stop singing.");
-#endif
-				break;
-			}
+			msg_print(MES_TASK_SINGING_STOP);
+			break;
 		case ACTION_HAYAGAKE:
 			msg_print(MES_TASK_HAYAGAKE_STOP);
 			break;
