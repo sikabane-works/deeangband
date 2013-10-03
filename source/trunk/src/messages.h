@@ -5333,6 +5333,7 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_HAYAGAKE_START "‘«‚ª‰H‚Ì‚æ‚¤‚ÉŒy‚­‚È‚Á‚½B"
 #define MES_TASK_HAYAGAKE_STOP "‘«‚ªd‚­‚È‚Á‚½B"
 #define MES_TASK_SPELL "”O¥"
+#define MES_TASK_SPELL_STOP "ô•¶‚Ì”O¥‚ğ’†’f‚µ‚½B"
 #define MES_TASK_IMITATION "‚Ü‚Ë"
 #else
 #define MES_TASK_SEARCH "Search"
@@ -5348,6 +5349,7 @@ static cptr desc_stat_neg[] =
 #define MES_TASK_HAYAGAKE_START "You begin to walk extremely fast."
 #define MES_TASK_HAYAGAKE_STOP "You are no longer walking extremely fast."
 #define MES_TASK_SPELL "Spell"
+#define MES_TASK_SPELL_STOP "You stopped spelling all spells."
 #define MES_TASK_IMITATION "Imitation"
 #endif
 

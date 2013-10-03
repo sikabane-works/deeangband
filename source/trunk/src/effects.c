@@ -308,14 +308,8 @@ void set_action(creature_type *creature_ptr, int typ)
 			msg_print(MES_TASK_HAYAGAKE_STOP);
 			break;
 		case ACTION_SPELL:
-			{
-#ifdef JP
-				msg_print("ô•¶‚Ì‰r¥‚ğ’†’f‚µ‚½B");
-#else
-				msg_print("You stopped spelling all spells.");
-#endif
-				break;
-			}
+			msg_print(MES_TASK_SPELL_STOP);
+			break;
 		}
 	}
 
