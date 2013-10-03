@@ -288,11 +288,7 @@ void set_action(creature_type *creature_ptr, int typ)
 		case ACTION_KAMAE:
 		case ACTION_KATA:
 			{
-#ifdef JP
-				msg_print("\‚¦‚ð‚Æ‚¢‚½B");
-#else
-				msg_print("You stop assuming the posture.");
-#endif
+				msg_print(MES_POSTURE_STOP_ASSUMED);
 				creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				prepare_update(creature_ptr, PU_CREATURES);
