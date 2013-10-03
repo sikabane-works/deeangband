@@ -1894,7 +1894,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_PSI:
 		if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 		{
-			if(seen_msg) msg_format("%s‚Í%s‚ªŒ©‚¦‚È‚¢‚Ì‚Å‰e‹¿‚³‚ê‚È‚¢I", target_ptr, caster_ptr);
+			if(seen_msg) msg_format(MES_NO_SEE_UNAFFECTED(target_ptr, caster_ptr));
 			skipped = TRUE;
 			break;
 		}
