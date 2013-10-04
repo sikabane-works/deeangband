@@ -39,9 +39,7 @@ void strip_name(char *buf, int k_idx)
 	/* Copy useful chars */
 	for (t = buf; *str; str++)
 	{
-#ifdef JP
 		if(is_mbyte(*str)) {*t++ = *str++; *t++ = *str; continue;}
-#endif
 		if(*str != '~') *t++ = *str;
 	}
 
