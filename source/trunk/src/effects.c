@@ -193,11 +193,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 	{
 	if(is_seen(player_ptr, creature_ptr))
 	{
-	#ifdef JP
-	msg_format("ŠwK‚ª‘±‚¯‚ç‚ê‚È‚¢I");
-	#else
-	msg_format("You cannot continue Learning!");
-	#endif
+	msg_format(MES_TASK_LEARNING_LOST);
 	}
 	creature_ptr->new_mane = FALSE;
 
