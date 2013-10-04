@@ -2358,12 +2358,8 @@ void message_add(cptr str)
 		strcpy(buf, old);
 
 		/* Find multiple */
-#ifdef JP
- for (t = buf; *t && (*t != '<' || (*(t+1) != 'x' )); t++) 
-     if( is_mbyte(*t))t++;
-#else
-		for (t = buf; *t && (*t != '<'); t++);
-#endif
+		for (t = buf; *t && (*t != '<' || (*(t+1) != 'x' )); t++) 
+		if( is_mbyte(*t))t++;
 
 		if(*t)
 		{
