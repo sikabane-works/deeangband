@@ -209,11 +209,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 	{
 	if(is_seen(player_ptr, creature_ptr))
 	{
-	#ifdef JP
-	msg_format("\‚¦‚ª‚Æ‚¯‚½B");
-	#else
-	msg_foamat("Your posture gets loose.");
-	#endif
+	msg_format(MES_POSTURE_LOST_ASSUMED);
 	}
 	creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 	prepare_update(creature_ptr, CRU_BONUS);
@@ -328,9 +324,7 @@ void set_action(creature_type *creature_ptr, int typ)
 			msg_print(MES_TASK_HAYAGAKE_START);
 			break;
 	default:
-		{
 			break;
-		}
 	}
 
 	prepare_update(creature_ptr, CRU_BONUS);
