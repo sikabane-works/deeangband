@@ -169,11 +169,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 	{
 	if(is_seen(player_ptr, creature_ptr))
 	{
-	#ifdef JP
-	msg_format("%s‚ÌŒ^‚ª•ö‚ê‚½B", creature_ptr->name);
-	#else
-	msg_format("%s%s posture gets loose.", creature_ptr->name, is_player(creature_ptr) ? "r": "'s");
-	#endif
+	msg_format(MES_POSTURE_LOST_ASSUMED);
 	}
 	creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 	prepare_update(creature_ptr, CRU_BONUS);
