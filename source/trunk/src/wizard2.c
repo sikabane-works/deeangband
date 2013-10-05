@@ -288,80 +288,6 @@ static void do_cmd_wiz_change(creature_type *creature_ptr)
  */
 
 /*
- * Just display an item's properties (debug-info)
- * Originally by David Reeve Sward <sward+@CMU.EDU>
- * Verbose item flags by -Bernd-
- */
-static void wiz_display_item(object_type *object_ptr)
-{
-	int i, j = 13;
-	u32b flgs[MAX_TRAITS_FLAG];
-	char buf[256];
-
-	/* Extract the flags */
-	object_flags(object_ptr, flgs);
-
-	/* Clear the screen */
-	for (i = 1; i <= 23; i++) prt("", i, j - 2);
-
-	/* Describe fully */
-	object_desc(buf, object_ptr, OD_STORE);
-
-	prt(buf, 2, j);
-
-	prt(format("kind = %-5d  level = %-4d  tval = %-5d  sval = %-5d",
-		   object_ptr->k_idx, object_kind_info[object_ptr->k_idx].level,
-		   object_ptr->tval, object_ptr->sval), 4, j);
-
-	prt(format("number = %-3d  wgt = %-6d  ac = %-5d    damage = %dd%d",
-		   object_ptr->number, object_ptr->weight,
-		   object_ptr->ac, object_ptr->dd, object_ptr->ds), 5, j);
-
-	prt(format("toac = %-5d  tohit = %-4d  todam = %-4d",
-		   object_ptr->to_ac, object_ptr->to_hit, object_ptr->to_damage), 6, j);
-
-	prt(format("art_id = %-4d  ego_id = %-4d  cost = %ld",
-		   object_ptr->art_id, object_ptr->ego_id, (long)object_value_real(object_ptr)), 7, j);
-
-	prt(format("ident = %04x  timeout = %-d",
-		   object_ptr->ident, object_ptr->timeout), 8, j);
-
-
-	prt("+------------FLAGS1------------+", 10, j);
-	prt("AFFECT........SLAY........BRAND.", 11, j);
-	prt("      mf      cvae      xsqpaefc", 12, j);
-	prt("siwdccsossidsahanvudotgddhuoclio", 13, j);
-	prt("tnieohtctrnipttmiinmrrnrrraiierl", 14, j);
-	prt("rtsxnarelcfgdkcpmldncltggpksdced", 15, j);
-	prt_binary(flgs[0], 16, j);
-
-	prt("+------------FLAGS2------------+", 17, j);
-	prt("SUST....IMMUN.RESIST............", 18, j);
-	prt("      reaefctrpsaefcpfldbc sn   ", 19, j);
-	prt("siwdcciaclioheatcliooeialoshtncd", 20, j);
-	prt("tnieohdsierlrfraierliatrnnnrhehi", 21, j);
-	prt("rtsxnaeydcedwlatdcedsrekdfddrxss", 22, j);
-	prt_binary(flgs[1], 23, j);
-
-	prt("+------------FLAGS3------------+", 10, j+32);
-	prt("fe cnn t      stdrmsiiii d ab   ", 11, j+32);
-	prt("aa aoomywhs lleeieihgggg rtgl   ", 12, j+32);
-	prt("uu utmacaih eielgggonnnnaaere   ", 13, j+32);
-	prt("rr reanurdo vtieeehtrrrrcilas   ", 14, j+32);
-	prt("aa algarnew ienpsntsaefctnevs   ", 15, j+32);
-	prt_binary(flgs[2], 16, j+32);
-
-	prt("+------------FLAGS4------------+", 17, j+32);
-	prt("KILL....ESP.........            ", 18, j+32);
-	prt("aeud tghaud tgdhegnu            ", 19, j+32);
-	prt("nvneoriunneoriruvoon            ", 20, j+32);
-	prt("iidmroamidmroagmionq            ", 21, j+32);
-	prt("mlenclnmmenclnnnldlu            ", 22, j+32);
-	prt_binary(flgs[3], 23, j+32);
-}
-
-
-/*
  * A structure to hold a tval and its description
  */
 typedef struct tval_desc
@@ -530,67 +456,60 @@ static void wiz_tweak_item(object_type *object_ptr)
 	sprintf(tmp_val, "%d", object_ptr->to_ac);
 	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_ac = (SAVING)strtol(tmp_val, NULL, 10);
-	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_ev' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_ev);
 	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_ev = (SAVING)strtol(tmp_val, NULL, 10);
-	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_vo' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_vo);
 	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_vo = (SAVING)strtol(tmp_val, NULL, 10);
-	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_hit' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_hit);
 	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_hit = strtol(tmp_val, NULL, 10);
-	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_damage' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_damage);
 	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_damage = strtol(tmp_val, NULL, 10);
-	wiz_display_item(object_ptr);
 }
 
 
 
 // Apply magic to an item or turn it into an artifact. -Bernd-
-static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
+static void wiz_reroll_item(creature_type *caster_ptr, object_type *object1_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	object_type forge;
-	object_type *quest_ptr;
+	object_type *object2_ptr;
 	char ch;
 	bool changed = FALSE;
 
 
 	/* Hack -- leave artifacts alone */
-	if(object_is_artifact(object_ptr)) return;
-	quest_ptr = &forge;
+	if(object_is_artifact(object1_ptr)) return;
+	object2_ptr = &forge;
 
 	/* Copy the object */
-	object_copy(quest_ptr, object_ptr);
+	object_copy(object2_ptr, object1_ptr);
 
 
 	/* Main loop. Ask for magification and artifactification */
 	while (TRUE)
 	{
-		/* Display full item debug information */
-		wiz_display_item(quest_ptr);
 
 		/* Ask wizard what to do. */
 		if(!get_com("[a]ccept, [w]orthless, [c]ursed, [n]ormal, [g]ood, [e]xcellent, [s]pecial? ", &ch, FALSE))
 		{
 			/* Preserve wizard-generated artifacts */
-			if(object_is_fixed_artifact(quest_ptr))
+			if(object_is_fixed_artifact(object2_ptr))
 			{
-				artifact_info[quest_ptr->art_id].cur_num = 0;
-				quest_ptr->art_id = 0;
+				artifact_info[object2_ptr->art_id].cur_num = 0;
+				object2_ptr->art_id = 0;
 			}
 
 			changed = FALSE;
@@ -605,10 +524,10 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		}
 
 		/* Preserve wizard-generated artifacts */
-		if(object_is_fixed_artifact(quest_ptr))
+		if(object_is_fixed_artifact(object2_ptr))
 		{
-			artifact_info[quest_ptr->art_id].cur_num = 0;
-			quest_ptr->art_id = 0;
+			artifact_info[object2_ptr->art_id].cur_num = 0;
+			object2_ptr->art_id = 0;
 		}
 
 		switch(ch)
@@ -616,60 +535,60 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 			/* Apply bad magic, but first clear object */
 			case 'w': case 'W':
 			{
-				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED);
+				generate_object(object2_ptr, object1_ptr->k_idx);
+				apply_magic(caster_ptr, object2_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED);
 				break;
 			}
 			/* Apply bad magic, but first clear object */
 			case 'c': case 'C':
 			{
-				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED);
+				generate_object(object2_ptr, object1_ptr->k_idx);
+				apply_magic(caster_ptr, object2_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED);
 				break;
 			}
 			/* Apply normal magic, but first clear object */
 			case 'n': case 'N':
 			{
-				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART);
+				generate_object(object2_ptr, object1_ptr->k_idx);
+				apply_magic(caster_ptr, object2_ptr, floor_ptr->depth, AM_NO_FIXED_ART);
 				break;
 			}
 			/* Apply good magic, but first clear object */
 			case 'g': case 'G':
 			{
-				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD);
+				generate_object(object2_ptr, object1_ptr->k_idx);
+				apply_magic(caster_ptr, object2_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD);
 				break;
 			}
 			/* Apply great magic, but first clear object */
 			case 'e': case 'E':
 			{
-				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT);
+				generate_object(object2_ptr, object1_ptr->k_idx);
+				apply_magic(caster_ptr, object2_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT);
 				break;
 			}
 			/* Apply special magic, but first clear object */
 			case 's': case 'S':
 			{
-				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_GOOD | AM_GREAT | AM_SPECIAL);
+				generate_object(object2_ptr, object1_ptr->k_idx);
+				apply_magic(caster_ptr, object2_ptr, floor_ptr->depth, AM_GOOD | AM_GREAT | AM_SPECIAL);
 
 				/* Failed to create artifact; make a random one */
-				if(!object_is_artifact(quest_ptr)) create_artifact(caster_ptr, quest_ptr, FALSE);
+				if(!object_is_artifact(object2_ptr)) create_artifact(caster_ptr, object2_ptr, FALSE);
 				break;
 			}
 		}
-		quest_ptr->fy = object_ptr->fy;
-		quest_ptr->fx = object_ptr->fx;
-		quest_ptr->next_object_idx = object_ptr->next_object_idx;
-		quest_ptr->marked = object_ptr->marked;
+		object2_ptr->fy = object1_ptr->fy;
+		object2_ptr->fx = object1_ptr->fx;
+		object2_ptr->next_object_idx = object1_ptr->next_object_idx;
+		object2_ptr->marked = object1_ptr->marked;
 	}
 
 
 	/* Notice change */
 	if(changed)
 	{
-		object_copy(object_ptr, quest_ptr); /* Apply changes */
+		object_copy(object1_ptr, object2_ptr); /* Apply changes */
 		prepare_update(caster_ptr, CRU_BONUS);
 		prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER); /* Combine / Reorder the pack (later) */
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
@@ -712,9 +631,6 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object2_ptr
 	while (TRUE)
 	{
 		cptr pmt = "Roll for [n]ormal, [g]ood, or [e]xcellent treasure? ";
-
-		/* Display item */
-		wiz_display_item(object2_ptr);
 
 		/* Get choices */
 		if(!get_com(pmt, &ch, FALSE)) break;
@@ -895,8 +811,6 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 
 	while (TRUE)
 	{
-		wiz_display_item(object2_ptr); // Display the item
-
 		if(!get_com("[a]ccept [s]tatistics [r]eroll [t]weak [q]uantity? ", &ch, FALSE)) // Get choice
 		{
 			changed = FALSE;
