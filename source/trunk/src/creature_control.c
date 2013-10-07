@@ -2270,8 +2270,7 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 	if(species_ptr->chara_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, chara_info[creature_ptr->chara_idx].title);
-		if(chara_info[creature_ptr->chara_idx].no)
-			(void)strcat(desc, "‚È");
+		if(chara_info[creature_ptr->chara_idx].no) (void)strcat(desc, "‚È");
 #else
 		(void)strcat(desc, chara_info[creature_ptr->chara_idx].title);
 #endif

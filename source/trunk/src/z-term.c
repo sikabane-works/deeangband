@@ -1552,11 +1552,8 @@ errr Term_fresh(void)
 			byte ota = old_taa[tx];
 			char otc = old_tcc[tx];
 
-#ifdef JP
-			if(tx + 1 < Term->wid && !(old_aa[tx] & AF_TILE1)
-			    && is_mbyte(old_cc[tx]))
-				csize = 2;
-#endif
+			if(tx + 1 < Term->wid && !(old_aa[tx] & AF_TILE1) && is_mbyte(old_cc[tx])) csize = 2;
+
 			/* Hack -- use "Term_pict()" always */
 			if(Term->always_pict)
 			{
@@ -1665,14 +1662,9 @@ errr Term_fresh(void)
 		/* Draw the cursor */
 		if(!scr->cu && scr->cv)
 		{
-#ifdef JP
-			if((scr->cx + 1 < w) &&
-			    ((old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2 ||
+			if((scr->cx + 1 < w) && ((old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2 ||
 			     (!(old->a[scr->cy][scr->cx] & AF_TILE1) &&
 			      is_mbyte(old->c[scr->cy][scr->cx]))))
-#else
-			if((scr->cx + 1 < w) && (old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2)
-#endif
 			{
 				/* Double width cursor for the Bigtile mode */
 				(void)((*Term->bigcurs_hook)(scr->cx, scr->cy));

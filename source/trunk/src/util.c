@@ -2671,7 +2671,6 @@ void msg_print(cptr msg)
 		char oops;
 		int check, split = 72;
 
-#ifdef JP
 		bool k_flag = FALSE;
 		int wordlen = 0;
 
@@ -2702,14 +2701,6 @@ void msg_print(cptr msg)
 					split = check;
 			}
 		}
-#else
-		/* Find the "best" split point */
-		for (check = 40; check < 72; check++)
-		{
-			/* Found a valid split point */
-			if(t[check] == ' ') split = check;
-		}
-#endif
 
 		/* Save the split character */
 		oops = t[split];
@@ -2748,11 +2739,7 @@ void msg_print(cptr msg)
 	msg_flag = TRUE;
 
 	/* Remember the position */
-#ifdef JP
 	p += n;
-#else
-	p += n + 1;
-#endif
 
 	/* Optional refresh */
 	if(fresh_message) Term_fresh();
@@ -2867,9 +2854,7 @@ void prt(cptr str, int row, int col)
 void c_roff(byte a, cptr str)
 {
 	int x, y;
-
 	int w, h;
-
 	cptr s;
 
 	/* Obtain the size */
