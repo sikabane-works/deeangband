@@ -2002,16 +2002,7 @@ errr Term_erase(int x, int y, int n)
 	scr_taa = Term->scr->ta[y];
 	scr_tcc = Term->scr->tc[y];
 
-#ifdef JP
-	/*
-	 * 全角文字の右半分から文字を表示する場合、
-	 * 重なった文字の左部分を消去。
-	 */
-	if(n > 0 && (((scr_aa[x] & AF_KANJI2) && !(scr_aa[x] & AF_TILE1))
-		      || (scr_aa[x] & AF_BIGTILE2) == AF_BIGTILE2))
-#else
-	if(n > 0 && (scr_aa[x] & AF_BIGTILE2) == AF_BIGTILE2)
-#endif
+	if(n > 0 && (((scr_aa[x] & AF_KANJI2) && !(scr_aa[x] & AF_TILE1)) || (scr_aa[x] & AF_BIGTILE2) == AF_BIGTILE2))
 	{
 		x--;
 		n++;
@@ -2026,7 +2017,6 @@ errr Term_erase(int x, int y, int n)
 		/* Hack -- Ignore "non-changes" */
 		if((oa == na) && (oc == nc)) continue;
 
-#ifdef JP
 		/*
 		 * 全角文字の左半分で表示を終了する場合、
 		 * 重なった文字の右部分を消去。
@@ -2034,9 +2024,8 @@ errr Term_erase(int x, int y, int n)
 		 * 2001/04/29 -- Habu
 		 * 行の右端の場合はこの処理をしないように修正。
 		 */
-		if((oa & AF_KANJI1) && (i + 1) == n && x != w - 1)
-			n++;
-#endif
+		if((oa & AF_KANJI1) && (i + 1) == n && x != w - 1) n++;
+
 		/* Save the "literal" information */
 		scr_aa[x] = (byte)na;
 		scr_cc[x] = (char)nc;

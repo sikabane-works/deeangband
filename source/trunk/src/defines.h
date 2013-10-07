@@ -2242,19 +2242,14 @@ enum GRAPHICS_MODE
 #define GC_AUTO    0x02
 #define GC_AVERAGE 0x04
 
-
-
-#ifdef JP
 #define JVERB_AND 1
 #define JVERB_TO  2
 #define JVERB_OR  3
-#endif
 
 /*
  * Modes for the tokenizer
  */
 #define TOKENIZE_CHECKQUOTE 0x01  /* Special handling of single quotes */
-
 
 #define NO_TOWN 255
 
