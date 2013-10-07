@@ -433,6 +433,34 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\tolua++.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua_event.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua_event.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua_is.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua_map.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua_push.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua_to.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\trait.c"
 				>
 			</File>
@@ -476,38 +504,6 @@
 				RelativePath="..\..\src\z-term.c"
 				>
 			</File>
-			<File
-				RelativePath="..\..\src\z-util.c"
-				>
-			</File>
-			<Filter
-				Name="tolua_lib"
-				>
-				<File
-					RelativePath="..\..\..\..\..\..\..\..\Downloads\tolua++-1.0.93\include\tolua++.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\..\..\..\Downloads\tolua++-1.0.93\src\lib\tolua_event.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\..\..\..\Downloads\tolua++-1.0.93\src\lib\tolua_is.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\..\..\..\Downloads\tolua++-1.0.93\src\lib\tolua_map.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\..\..\..\Downloads\tolua++-1.0.93\src\lib\tolua_push.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\..\..\..\Downloads\tolua++-1.0.93\src\lib\tolua_to.c"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
@@ -716,6 +712,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\z-term.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\z-util.c"
 				>
 			</File>
 			<File
