@@ -28,7 +28,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="LuaƒR[ƒh‚ð¶¬‚µ‚Ä‚¢‚Ü‚·..."
-				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(InputDir)$(InputName)_glue.cpp&quot; -H &quot;$(InputDir)$(InputName)_glue.h&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;"
+				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(SolutionDir)\..\src\\$(InputName)_glue.c&quot; -H &quot;$(SolutionDir)\..\src\\$(InputName)_glue.h&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;"
 				AdditionalDependencies="$(InputName).h"
 				Outputs="$(InputDir)$(InputName)_glue.cpp;$(InputDir)$(InputName)_glue.h"
 			/>
