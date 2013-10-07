@@ -27,6 +27,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description="LuaƒR[ƒh‚ð¶¬‚µ‚Ä‚¢‚Ü‚·..."
+				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(InputDir)$(InputName)_glue.cpp&quot; -H &quot;$(InputDir)$(InputName)_glue.h&quot; &quot;$(InputName).pkg&quot;"
+				AdditionalDependencies="$(InputName).h"
+				Outputs="$(InputDir)$(InputName)_glue.cpp;$(InputDir)$(InputName)_glue.h"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
