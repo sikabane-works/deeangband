@@ -995,6 +995,7 @@
 #define MES_BOUNTY_EARN_POINT(NUM) "これで合計 %d ポイント獲得しました。", (NUM)
 #define MES_BOUNTY_GET_REWARD(OBJECT, SYM) "%s(%c)を貰った。", (OBJECT), (SYM)
 #define MES_BOUNTY_NOTHING "賞金を得られそうなものは持っていなかった。"
+#define MES_EQUALIZATION_DONE "平衡化の儀式を行なった。"
 
 #else
 #define MES_BLDG_CLOSED "(closed)"
@@ -1014,6 +1015,7 @@
 #define MES_BOUNTY_EARN_POINT(NUM) "You earned %d point%s total.", (NUM), ((NUM) > 1 ? "s" : "")
 #define MES_BOUNTY_GET_REWARD(OBJECT, SYM) "You get %s (%c). ", (OBJECT), (SYM)
 #define MES_BOUNTY_NOTHING "You have nothing."
+#define MES_EQUALIZATION_DONE "You received an equalization ritual."
 
 #endif
 

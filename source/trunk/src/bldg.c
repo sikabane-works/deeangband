@@ -2843,11 +2843,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		break;
 
 	case BUILDING_FUNCTION_HEIKOUKA:
-#ifdef JP
-		msg_print("•½t‰»‚Ì‹V®‚ğs‚È‚Á‚½B");
-#else
-		msg_print("You received an equalization ritual.");
-#endif
+		msg_print(MES_EQUALIZATION_DONE);
 		/*TODO:: Delete feature? */
 		paid = TRUE;
 		break;
