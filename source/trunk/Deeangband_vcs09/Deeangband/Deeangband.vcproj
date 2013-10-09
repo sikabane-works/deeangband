@@ -767,6 +767,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="スクリプト ファイル"
+			>
+			<File
+				RelativePath="..\..\src\keyword.lua"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
