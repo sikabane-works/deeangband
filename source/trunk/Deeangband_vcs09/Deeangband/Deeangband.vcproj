@@ -24,13 +24,15 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Luaコードを生成しています..."
+				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(SolutionDir)\..\src\\$(InputName)_glue.c&quot; -H &quot;$(SolutionDir)\..\src\\$(InputName)_glue.h&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Luaコードを生成しています..."
-				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(SolutionDir)\..\src\\$(InputName)_glue.c&quot; -H &quot;$(SolutionDir)\..\src\\$(InputName)_glue.h&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;&#x0D;&#x0A;"
-				AdditionalDependencies="$(InputName).h"
-				Outputs="$(InputDir)$(InputName)_glue.cpp;$(InputDir)$(InputName)_glue.h"
+				Description=""
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -265,10 +267,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Deeangband_glue.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\diary.c"
 				>
 			</File>
@@ -445,15 +443,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\tolua++.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\tolua_event.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\tolua_event.h"
 				>
 			</File>
 			<File
@@ -556,6 +546,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\creature_throwing.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Deeangband_glue.h"
 				>
 			</File>
 			<File
@@ -704,6 +698,14 @@
 			</File>
 			<File
 				RelativePath="..\..\src\streams.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua++.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\tolua_event.h"
 				>
 			</File>
 			<File
