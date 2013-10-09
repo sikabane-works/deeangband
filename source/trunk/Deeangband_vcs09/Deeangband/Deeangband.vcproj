@@ -25,7 +25,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="LuaƒR[ƒh‚ð¶¬‚µ‚Ä‚¢‚Ü‚·..."
-				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(SolutionDir)\..\src\\$(InputName)_glue.c&quot; -H &quot;$(SolutionDir)\..\src\\$(InputName)_glue.h&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;"
+				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(SolutionDir)\..\src\\$(InputName)_glue.c&quot; -H &quot;$(SolutionDir)\..\src\\$(InputName)_glue.h&quot; -L &quot;$(SolutionDir)\..\src\\keyword.lua&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
