@@ -29,6 +29,8 @@
 #include "lauxlib.h"
 #include "tolua++.h"
 
+#include "Deeangband_glue.h"
+
 #pragma comment(lib, "lua5.1.lib")
 
 

@@ -28,7 +28,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="LuaƒR[ƒh‚ð¶¬‚µ‚Ä‚¢‚Ü‚·..."
-				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(SolutionDir)\..\src\\$(InputName)_glue.c&quot; -H &quot;$(SolutionDir)\..\src\\$(InputName)_glue.h&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;"
+				CommandLine="&quot;tolua++&quot; -n $(InputName) -o &quot;$(SolutionDir)\..\src\\$(InputName)_glue.c&quot; -H &quot;$(SolutionDir)\..\src\\$(InputName)_glue.h&quot; &quot;$(SolutionDir)\..\src\\$(InputName).pkg&quot;&#x0D;&#x0A;"
 				AdditionalDependencies="$(InputName).h"
 				Outputs="$(InputDir)$(InputName)_glue.cpp;$(InputDir)$(InputName)_glue.h"
 			/>
@@ -258,6 +258,14 @@
 			</File>
 			<File
 				RelativePath="..\..\src\creature_throwing.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Deeangband_glue.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Deeangband_glue.h"
 				>
 			</File>
 			<File
