@@ -1,3 +1,4 @@
+$#include "angband.h"
 
 typedef struct object_id {
 	TVAL tval;
