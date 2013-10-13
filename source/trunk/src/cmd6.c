@@ -13,8 +13,9 @@
 #include "angband.h"
 #include "artifact.h"
 #include "birth.h"
-#include "command.h"
 #include "creature_inventory.h"
+#include "command.h"
+#include "cave.h"
 #include "files.h"
 #include "mutation.h"
 

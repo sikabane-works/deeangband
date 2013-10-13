@@ -11,6 +11,7 @@
 /* Purpose: Movement commands (part 2) */
 
 #include "angband.h"
+#include "cave.h"
 #include "command.h"
 #include "creature_melee.h"
 #include "creature_throwing.h"
