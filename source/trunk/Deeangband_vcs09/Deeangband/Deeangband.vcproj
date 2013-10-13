@@ -529,6 +529,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cave.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\command.h"
 				>
 			</File>
@@ -614,10 +618,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\init.h"
-				>
-			</File>
-			<File
-				RelativePath=".\init.h"
 				>
 			</File>
 			<File
