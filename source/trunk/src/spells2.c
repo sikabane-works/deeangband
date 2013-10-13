@@ -11,6 +11,7 @@
 /* Purpose: Spell code (part 2) */
 
 #include "angband.h"
+#include "cave.h"
 #include "command.h"
 #include "grid.h"
 #include "diary.h"

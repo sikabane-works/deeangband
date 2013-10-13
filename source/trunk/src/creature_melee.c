@@ -1,4 +1,5 @@
 #include "angband.h"
+#include "cave.h"
 
 /*
  * Determine if the player "hits" a creature (normal combat).

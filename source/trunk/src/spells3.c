@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "artifact.h"
 #include "autopick.h"
+#include "cave.h"
 #include "diary.h"
 #include "files.h"
 #include "quest.h"

@@ -99,6 +99,7 @@
  */
 
 #include "angband.h"
+#include "cave.h"
 #include "generate.h"
 #include "grid.h"
 #include "rooms.h"

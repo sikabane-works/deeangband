@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "cave.h"
 #include "files.h"
 #include "mutation.h"
 #include "riding.h"
