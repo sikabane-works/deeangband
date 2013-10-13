@@ -7235,6 +7235,11 @@ cptr dump_status(creature_type *creature_ptr)
 }
 */
 
+cptr get_keyword_new(cptr keywords)
+{
+
+}
+
 cptr get_keyword(cptr keywords)
 {
 	lua_getglobal(KEYWORDS, keywords);
