@@ -134,3 +134,21 @@ extern header b_head;
 extern header g_head;
 
 #endif /* INCLUDED_INIT_H */
+
+// init1.c
+extern byte color_char_to_acttr(char c);
+extern s16b feature_tag_to_index(cptr str);
+extern cptr get_keyword_new(cptr keywords);
+extern cptr get_keyword(cptr keywords);
+extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COODINATES xmin, COODINATES ymax, COODINATES xmax, FLAGS_32 flags, int quest_id);
+extern errr load_lua(lua_State **L, cptr directory, cptr filename);
+extern errr load_keyword(void);
+
+// init2.c
+extern void init_file_paths(char *path);
+extern errr init_vault_info(void);
+extern errr init_buildings(void);
+extern s16b feature_tag_to_index_in_init(cptr str);
+extern void init_angband(void);
+extern cptr get_check_sum(void);
+
