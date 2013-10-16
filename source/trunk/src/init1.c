@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "files.h"
+#include "object.h"
 #include "init.h"
 
 

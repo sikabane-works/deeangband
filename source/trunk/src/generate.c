@@ -102,6 +102,7 @@
 #include "cave.h"
 #include "generate.h"
 #include "grid.h"
+#include "object.h"
 #include "rooms.h"
 #include "streams.h"
 #include "diary.h"

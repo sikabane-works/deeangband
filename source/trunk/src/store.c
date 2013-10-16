@@ -17,6 +17,7 @@
 #include "creature_inventory.h"
 #include "diary.h"
 #include "files.h"
+#include "object.h"
 #include "store.h"
 
 static int store_top = 0;
