@@ -19,7 +19,9 @@
 #include "dungeon.h"
 #include "files.h"
 #include "floors.h"
+#include "init.h"
 #include "mutation.h"
+#include "object.h"
 #include "scores.h"
 #include "store.h"
 #include "quest.h"
@@ -1392,7 +1394,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 		if(summoning((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, mode))
 		{
-			msg_print(MES_TRAIT_ATTRACT_DEMON(creature_ptr));
+			msg_format(MES_TRAIT_ATTRACT_DEMON(creature_ptr));
 			disturb(player_ptr, 0, 0);
 		}
 	}
@@ -1402,13 +1404,13 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		disturb(player_ptr, 0, 0);
 		if(one_in_(2))
 		{
-			msg_print(MES_TRAIT_HASTE_FLUX(creature_ptr));
+			msg_format(MES_TRAIT_HASTE_FLUX(creature_ptr));
 			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait(creature_ptr, TRAIT_FAST, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
 		}
 		else
 		{
-			msg_print(MES_TRAIT_HASTE_FLUX2(creature_ptr));
+			msg_format(MES_TRAIT_HASTE_FLUX2(creature_ptr));
 			if(has_trait(creature_ptr, TRAIT_SLOW)) set_timed_trait(creature_ptr, TRAIT_SLOW, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 10, FALSE);
 		}
