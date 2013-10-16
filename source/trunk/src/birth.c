@@ -17,6 +17,7 @@
 #include "creature_inventory.h"
 #include "diary.h"
 #include "files.h"
+#include "object.h"
 
 /*
  * How often the autoroller will update the display and pause

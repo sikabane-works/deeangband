@@ -14,6 +14,7 @@
 #include "command.h"
 #include "creature_inventory.h"
 #include "files.h"
+#include "object.h"
 
 
 #define MAX_LINELEN 1024

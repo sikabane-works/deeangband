@@ -10,6 +10,7 @@
 
 #include "angband.h"
 #include "files.h"
+#include "object.h"
 
 
 /* Chance of using syllables to form the name instead of the "template" files */
