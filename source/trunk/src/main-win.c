@@ -71,6 +71,7 @@
  */
 
 #include "angband.h"
+#include "cave.h"
 #include "command.h"
 #include "diary.h"
 #include "dungeon.h"
