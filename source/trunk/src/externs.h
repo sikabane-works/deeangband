@@ -1408,3 +1408,5 @@ extern void set_species_list_bias_feature(PROB **prob_list_ptr, feature_type *fe
 extern void set_species_list_bias_surface(PROB **prob_list_ptr);
 extern void set_species_list_bias_level_limitation(PROB **prob_list_ptr, FLOOR_LEV min, FLOOR_LEV max);
 
+
+extern cptr get_keyword(cptr keywords);

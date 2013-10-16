@@ -12,11 +12,13 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "cave.h"
 #include "command.h"
 #include "creature_inventory.h"
 #include "diary.h"
 #include "dungeon.h"
 #include "files.h"
+#include "object.h"
 #include "scores.h"
 #include "store.h"
 #include "quest.h"

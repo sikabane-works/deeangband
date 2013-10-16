@@ -12,10 +12,12 @@
 /* Purpose: Object code, part 2 */
 
 #include "angband.h"
+#include "cave.h"
 #include "creature_inventory.h"
 #include "kajitips.h"
 #include "artifact.h"
 #include "diary.h"
+#include "init.h"
 #include "object.h"
 #include "quest.h"
 

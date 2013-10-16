@@ -16,6 +16,7 @@
 #include "creature_equipments.h"
 #include "diary.h"
 #include "files.h"
+#include "object.h"
 
 /*
 * Display inventory

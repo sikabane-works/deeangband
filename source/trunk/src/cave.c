@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "cave.h"
+#include "object.h"
 
 
 /*
