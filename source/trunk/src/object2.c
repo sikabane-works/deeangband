@@ -16,6 +16,7 @@
 #include "kajitips.h"
 #include "artifact.h"
 #include "diary.h"
+#include "object.h"
 #include "quest.h"
 
 

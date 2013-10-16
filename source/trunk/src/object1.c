@@ -15,6 +15,7 @@
 #include "creature_inventory.h"
 #include "diary.h"
 #include "files.h"
+#include "object.h"
 
 #if defined(MACINTOSH) || defined(MACH_O_CARBON)
 #ifdef verify
