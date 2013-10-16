@@ -15,8 +15,10 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "cave.h"
 #include "files.h"
 #include "karma.h"
+#include "object.h"
 
 // Converts stat num into a six-char (right justified) string
 void cnv_stat(int val, char *out_val)

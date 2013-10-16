@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "command.h"
 #include "diary.h"
+#include "object.h"
 #include "riding.h"
 
 /*

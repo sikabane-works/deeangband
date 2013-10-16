@@ -18,6 +18,7 @@
 #include "cave.h"
 #include "files.h"
 #include "mutation.h"
+#include "object.h"
 
 /*
  * This file includes code for eating food, drinking potions,

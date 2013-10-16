@@ -12,11 +12,13 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "cave.h"
 #include "command.h"
 #include "diary.h"
 #include "files.h"
 #include "karma.h"
 #include "mutation.h"
+#include "object.h"
 #include "quest.h"
 
 /*
