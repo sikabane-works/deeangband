@@ -11,8 +11,10 @@
 */
 
 #include "angband.h"
+#include "cave.h"
 #include "creature_melee.h"
 #include "files.h"
+#include "object.h"
 #include "riding.h"
 
 static void counter_eye_eye(creature_type *attacker_ptr, creature_type *target_ptr, POWER get_damage)
