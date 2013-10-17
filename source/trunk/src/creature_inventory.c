@@ -1,5 +1,6 @@
 #include "angband.h"
 #include "creature_inventory.h"
+#include "object.h"
 
 /*
 * Add an item to the players inventory, and return the slot used.

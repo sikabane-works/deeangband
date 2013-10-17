@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "command.h"
+#include "object.h"
 
 #ifdef ALLOW_SPOILERS
 

@@ -18,6 +18,7 @@
 #include "diary.h"
 #include "files.h"
 #include "floors.h"
+#include "object.h"
 #include "quest.h"
 
 

@@ -14,9 +14,11 @@
  */
 
 #include "angband.h"
+#include "cave.h"
 #include "generate.h"
 #include "streams.h"
 #include "grid.h"
+#include "object.h"
 
 
 
