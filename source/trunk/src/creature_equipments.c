@@ -1,5 +1,7 @@
+
 #include "angband.h"
 #include "creature_equipments.h"
+#include "object.h"
 
 void kamaenaoshi(creature_type *creature_ptr, OBJECT_ID item)
 {
