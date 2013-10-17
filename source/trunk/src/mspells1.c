@@ -11,6 +11,7 @@
 /* Purpose: Creature spells (attack player) */
 
 #include "angband.h"
+#include "cave.h"
 #include "quest.h"
 
 

@@ -18,6 +18,7 @@
 #include "diary.h"
 #include "files.h"
 #include "object.h"
+#include "init.h"
 
 /*
  * How often the autoroller will update the display and pause
