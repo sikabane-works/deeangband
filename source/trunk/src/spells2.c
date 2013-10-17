@@ -13,11 +13,14 @@
 #include "angband.h"
 #include "cave.h"
 #include "command.h"
-#include "grid.h"
-#include "diary.h"
-#include "karma.h"
-#include "quest.h"
 #include "creature_melee.h"
+#include "diary.h"
+#include "floor.h"
+#include "grid.h"
+#include "karma.h"
+#include "object.h"
+#include "riding.h"
+#include "quest.h"
 
 bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
 {
