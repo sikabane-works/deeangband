@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "cave.h"
 #include "command.h"
 #include "creature_equipments.h"
 #include "diary.h"

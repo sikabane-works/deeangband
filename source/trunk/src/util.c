@@ -11,6 +11,8 @@
 /* Purpose: Angband utilities -BEN- */
 
 #include "angband.h"
+#include "cave.h"
+#include "object.h"
 
 static int num_more = 0;
 static char inkey_macro_trigger_string[1024];	// Save macro trigger string for use in inkey_special()

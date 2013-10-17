@@ -16,6 +16,7 @@
 #include "command.h"
 #include "diary.h"
 #include "files.h"
+#include "init.h"
 #include "karma.h"
 #include "mutation.h"
 #include "object.h"
