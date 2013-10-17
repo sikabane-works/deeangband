@@ -3,11 +3,13 @@
 /* Purpose: Do everything for each spell */
 
 #include "angband.h"
+#include "cave.h"
 #include "command.h"
 #include "creature_melee.h"
 #include "creature_throwing.h"
 #include "floors.h"
 #include "mutation.h"
+#include "object.h"
 
 
 /*

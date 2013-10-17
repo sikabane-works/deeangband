@@ -1,6 +1,7 @@
 /* File: obj_kind.c */
 
 #include "angband.h"
+#include "object.h"
 
 
 bool object_is_potion(creature_type *creature_ptr, object_type *object_ptr)
