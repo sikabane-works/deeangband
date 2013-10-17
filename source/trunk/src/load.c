@@ -15,6 +15,7 @@
 #include "files.h"
 #include "floors.h"
 #include "mutation.h"
+#include "object.h"
 
 
 /*

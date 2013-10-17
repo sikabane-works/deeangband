@@ -15,6 +15,7 @@
 #include "files.h"
 #include "generate.h"
 #include "grid.h"
+#include "object.h"
 #include "rooms.h"
 
 

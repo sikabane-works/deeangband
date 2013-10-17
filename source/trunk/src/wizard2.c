@@ -14,11 +14,13 @@
 
 #include "angband.h"
 #include "artifact.h"
+#include "cave.h"
 #include "command.h"
 #include "diary.h"
 #include "files.h"
 #include "floors.h"
 #include "mutation.h"
+#include "object.h"
 #include "quest.h"
 
 /*
