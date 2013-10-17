@@ -15,6 +15,7 @@
 #include "cave.h"
 #include "files.h"
 #include "mutation.h"
+#include "object.h"
 #include "riding.h"
 
 /* ToDo: Make this global */

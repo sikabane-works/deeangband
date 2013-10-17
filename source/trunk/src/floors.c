@@ -11,9 +11,11 @@
  */
 
 #include "angband.h"
+#include "cave.h"
 #include "files.h"
 #include "floors.h"
 #include "grid.h"
+#include "object.h"
 #include "quest.h"
 
 
