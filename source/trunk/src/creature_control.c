@@ -20,6 +20,7 @@
 #include "files.h"
 #include "floors.h"
 #include "mutation.h"
+#include "object.h"
 #include "quest.h"
 #include "riding.h"
 
