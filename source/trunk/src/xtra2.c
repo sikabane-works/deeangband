@@ -16,6 +16,7 @@
 #include "cave.h"
 #include "diary.h"
 #include "files.h"
+#include "init.h"
 #include "mutation.h"
 #include "object.h"
 

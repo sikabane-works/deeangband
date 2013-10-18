@@ -1,4 +1,6 @@
+
 #include "angband.h"
+#include "init.h"
 #include "quest.h"
 
 /* Take note to the diary.*/

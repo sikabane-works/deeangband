@@ -10,6 +10,7 @@
 
 #include "angband.h"
 #include "files.h"
+#include "object.h"
 
 /*
  * Certain items, if aware, are known instantly
