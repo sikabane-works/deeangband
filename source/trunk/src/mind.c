@@ -16,6 +16,7 @@
 #include "creature_melee.h"
 #include "creature_throwing.h"
 #include "mindtips.h"
+#include "object.h"
 
 
 

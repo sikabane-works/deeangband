@@ -1,4 +1,6 @@
+
 #include "angband.h"
+#include "cave.h"
 #include "diary.h"
 #include "quest.h"
 
