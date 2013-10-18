@@ -11,6 +11,7 @@
 /* Purpose: Initialization (part 2) -BEN- */
 
 #include "angband.h"
+#include "cave.h"
 #include "init.h"
 #include "files.h"
 
