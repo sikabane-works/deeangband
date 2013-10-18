@@ -11,6 +11,7 @@
  */
 
 #include "angband.h"
+#include "cave.h"
 
 #define TECHNIC_HISSATSU (REALM_HISSATSU - MIN_TECHNIC)
 
