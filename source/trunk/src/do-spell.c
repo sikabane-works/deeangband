@@ -5,6 +5,7 @@
 #include "angband.h"
 #include "cave.h"
 #include "command.h"
+#include "creature_const.h"
 #include "creature_melee.h"
 #include "creature_throwing.h"
 #include "floors.h"

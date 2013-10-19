@@ -4,6 +4,7 @@
 //
 
 #include "angband.h"
+#include "creature_const.h"
 #include "object.h"
 
 

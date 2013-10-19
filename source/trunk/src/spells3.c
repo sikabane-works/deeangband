@@ -18,6 +18,7 @@
 #include "files.h"
 #include "object.h"
 #include "quest.h"
+#include "creature_const.h"
 #include "creature_inventory.h"
 #include "creature_melee.h"
 #include "creature_throwing.h"

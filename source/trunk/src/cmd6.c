@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "artifact.h"
 #include "birth.h"
+#include "creature_const.h"
 #include "creature_inventory.h"
 #include "command.h"
 #include "cave.h"

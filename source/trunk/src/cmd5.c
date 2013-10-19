@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "cave.h"
 #include "command.h"
+#include "creature_const.h"
 #include "diary.h"
 #include "object.h"
 #include "riding.h"
