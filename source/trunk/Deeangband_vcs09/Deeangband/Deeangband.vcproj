@@ -235,6 +235,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\creature_const.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\creature_control.c"
 				>
 			</File>
@@ -534,6 +538,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\command.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\creature_const.h"
 				>
 			</File>
 			<File

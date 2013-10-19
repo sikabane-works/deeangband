@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "birth.h"
 #include "command.h"
+#include "creature_const.h"
 #include "creature_inventory.h"
 #include "diary.h"
 #include "files.h"
