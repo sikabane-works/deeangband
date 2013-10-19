@@ -1,5 +1,6 @@
 #include "angband.h"
 #include "cave.h"
+#include "creature_const.h"
 #include "object.h"
 
 /*
@@ -483,6 +484,228 @@ void pack_overflow(creature_type *creature_ptr)
 
 		notice_stuff(creature_ptr);
 		handle_stuff(creature_ptr);
+	}
+}
+
+
+
+static bool ambush_check(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	return has_trait(target_ptr, TRAIT_SLEPT) && is_seen(attacker_ptr, target_ptr);
+}
+
+static bool fatal_spot_check(creature_type *attacker_ptr, creature_type *target_ptr, FLAGS_32 mode)
+{
+	int tmp;
+	tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stealth + 10) * 4;
+	if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
+	if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
+	if(target_ptr->lev > (attacker_ptr->lev * attacker_ptr->lev / 10 + 5)) tmp /= 3;
+
+	if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (target_ptr->lev * 2 + 20)) && is_seen(attacker_ptr, target_ptr) && !has_trait(target_ptr, TRAIT_RES_ALL))
+	{
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static bool back_stab_check(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	return has_trait(target_ptr, TRAIT_AFRAID) && is_seen(attacker_ptr, target_ptr);
+}
+
+static void counter_eye_eye(creature_type *attacker_ptr, creature_type *target_ptr, POWER get_damage)
+{
+	if((has_trait(target_ptr, TRAIT_EYE_EYE) || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && get_damage > 0 && !IS_DEAD(target_ptr))
+	{
+		msg_format(MES_MELEE_EYE_EYE(attacker_ptr));
+		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
+		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+	}
+}
+
+static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	char attacker_name[MAX_NLEN];
+	int aura_damage = 0;
+
+	if(has_trait(target_ptr, TRAIT_AURA_FIRE))
+	{
+		if(!has_trait(attacker_ptr, TRAIT_IM_FIRE))
+		{
+			char aura_dam[80];
+
+			aura_damage = diceroll(1 + (target_ptr->lev / 13), 1 + (target_ptr->lev / 7));
+
+			/* Hack -- Get the "died from" name */
+			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+			msg_print(MES_MELEE_FIRE_AURA);
+			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE, FALSE);
+			take_damage_to_creature(target_ptr, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+
+			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
+			handle_stuff(attacker_ptr);
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_AURA_COLD))
+	{
+		if(!has_trait(attacker_ptr, TRAIT_IM_COLD))
+		{
+			char aura_dam[80];
+			aura_damage = diceroll(1 + (target_ptr->lev / 13), 1 + (target_ptr->lev / 7));
+
+			/* Hack -- Get the "died from" name */
+			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+
+			msg_print(MES_MELEE_COLD_AURA);
+			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_COLD, TRUE, FALSE);
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_COLD);
+			handle_stuff(attacker_ptr);
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_AURA_ELEC))
+	{
+		if(!has_trait(attacker_ptr, TRAIT_IM_ELEC))
+		{
+			char aura_dam[80];
+
+			aura_damage = diceroll(1 + (target_ptr->lev / 13), 1 + (target_ptr->lev / 7));
+
+			/* Hack -- Get the "died from" name */
+			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+			msg_print(MES_MELEE_ELEC_AURA);
+
+			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_ELEC, TRUE, FALSE);
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_ELEC);
+			handle_stuff(attacker_ptr);
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_DUST_ROBE) && !IS_DEAD(target_ptr))
+	{
+		floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
+		if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
+		{
+			POWER dam = diceroll(2, 6);
+			creature_desc(attacker_name, attacker_ptr, 0);
+			msg_format(MES_MELEE_SHARD_AURA(attacker_ptr));
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, MES_MELEE_SHARD_AURA_DIED, -1);
+		}
+		else
+		{
+			//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
+			//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
+		}
+
+		if(is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
+		{
+			teleport_creature(target_ptr, 10, 0L);
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_HOLY_AURA) && !IS_DEAD(target_ptr))
+	{
+		if(is_enemy_of_good_creature(target_ptr))
+		{
+			if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
+			{
+				POWER dam = diceroll(2, 6);
+				creature_desc(attacker_name, attacker_ptr, 0);
+				msg_format(MES_MELEE_HOLY_AURA(attacker_ptr));
+				take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, NULL, -1);
+				if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+			}
+			else if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_AURA_MANA) && !IS_DEAD(target_ptr))
+	{
+		if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
+		{
+			POWER dam = diceroll(2, 6);
+			creature_desc(attacker_name, attacker_ptr, 0);
+			msg_format(MES_MELEE_FORCE_AURA(attacker_ptr));
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, NULL, -1);
+		}
+		else if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+	}
+
+	if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
+	{
+		POWER dam = 1;
+		object_type *object_ptr = get_equipped_slot_ptr(target_ptr, SLOT_ID_HAND, 0);
+
+		if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
+		{
+			if(is_valid_object(object_ptr))
+			{
+				int basedam = ((object_ptr->dd + target_ptr->to_damaged[0]) * (object_ptr->ds + target_ptr->to_damages[0] + 1));
+				dam = basedam / 2 + object_ptr->to_damage + target_ptr->to_damage[0];
+			}
+
+			/* Cursed armor makes damages doubled */
+			object_ptr = get_equipped_slot_ptr(target_ptr, SLOT_ID_BODY, 0);
+			if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
+			creature_desc(attacker_name, attacker_ptr, 0);
+			msg_format(MES_MELEE_SHADOW_AURA(attacker_ptr));
+			/* TODO
+			else // creature does not dead
+			{
+			int j;
+			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
+			int typ[4][2] = {
+			{ SLOT_ID_HEAD, DO_EFFECT_CONF },
+			{ SLOT_ID_HAND, DO_EFFECT_SLEEP },
+			{ SLOT_ID_ARM, DO_EFFECT_TURN_ALL },
+			{ SLOT_ID_FEET, DO_EFFECT_SLOW }
+			};
+
+			// Some cursed armours gives an extra effect
+			for (j = 0; j < 4; j++)
+			{
+			object_ptr = &target_ptr->inventory[typ[j][0]];
+			if((object_ptr->k_idx) && object_is_cursed(object_ptr) && object_is_armour(object_ptr))
+			project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
+			}
+			}
+			*/
+		}
+		else
+		{
+			if(is_original_ap_and_seen(player_ptr, target_ptr))
+			{
+				reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				reveal_creature_info(target_ptr, TRAIT_RES_DARK);
+			}
+		}
+	}
+}
+
+static void weapon_blood_sucking(creature_type *attacker_ptr, object_type *weapon_ptr)
+{
+	STAT to_hit = weapon_ptr->to_hit;
+	STAT to_damage = weapon_ptr->to_damage;
+	int i, flag;
+	char weapon_name[MAX_NLEN];
+
+	flag = 1;
+	for (i = 0; i < to_hit + 3; i++) if(one_in_(4)) flag = 0;
+	if(flag) to_hit++;
+
+	flag = 1;
+	for (i = 0; i < to_damage + 3; i++) if(one_in_(4)) flag = 0;
+	if(flag) to_damage++;
+
+	if(weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
+	{
+		if(is_seen(player_ptr, attacker_ptr)) msg_print(MES_MELEE_SUCK_BLOOD(weapon_name));
+		weapon_ptr->to_hit = to_hit;
+		weapon_ptr->to_damage = to_damage;
 	}
 }
 
@@ -1139,8 +1362,4 @@ void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, objec
 	if(weak && !IS_DEAD(target_ptr)) msg_format(MES_MELEE_WEAKNESS(target_ptr));
 	if(do_quake) earthquake(target_ptr, attacker_ptr->fy, attacker_ptr->fx, 10);
 }
-
-
-
-
 
