@@ -654,6 +654,8 @@ extern bool cost_tactical_energy(creature_type *creature_ptr, int cost);
 extern bool cancel_tactical_action(creature_type *creature_ptr);
 extern bool gain_skill(creature_type *creature_ptr, SKILL_ID type, POWER power);
 extern int get_skill_level(creature_type *creature_ptr, int type);
+extern void set_experience(creature_type *creature_ptr);
+extern void check_experience(creature_type *creature_ptr);
 extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode);
 extern void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, bool break_trap);
 extern void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, bool inc);
@@ -1072,8 +1074,6 @@ extern bool choose_ele_immune(creature_type *creature_ptr, int turn);
 extern bool set_superstealth(creature_type *creature_ptr, bool set);
 
 // xtra2.c
-extern void set_experience(creature_type *creature_ptr);
-extern void check_experience(creature_type *creature_ptr);
 extern void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr);
 extern int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, TVAL tv, SVAL sv);
 extern void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item);

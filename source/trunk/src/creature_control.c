@@ -16,6 +16,7 @@
 #include "cave.h"
 #include "command.h"
 #include "creature_melee.h"
+#include "creature_const.h"
 #include "diary.h"
 #include "files.h"
 #include "floors.h"
@@ -4874,3 +4875,179 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 	}
 }
 
+// Advance experience levels for initial creature
+void set_experience(creature_type *creature_ptr)
+{
+	bool android = (has_trait(creature_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
+
+	creature_ptr->lev = 1;
+
+	// Hack -- lower limit
+	if(creature_ptr->exp < 0) creature_ptr->exp = 0;
+	if(creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
+	if(creature_ptr->max_max_exp < 0) creature_ptr->max_max_exp = 0;
+
+	// Hack -- upper limit
+	if(creature_ptr->exp > CREATURE_MAX_EXP) creature_ptr->exp = CREATURE_MAX_EXP;
+	if(creature_ptr->max_exp > CREATURE_MAX_EXP) creature_ptr->max_exp = CREATURE_MAX_EXP;
+	if(creature_ptr->max_max_exp > CREATURE_MAX_EXP) creature_ptr->max_max_exp = CREATURE_MAX_EXP;
+
+	// Hack -- maintain "max" experience
+	if(creature_ptr->exp > creature_ptr->max_exp) creature_ptr->max_exp = creature_ptr->exp;
+
+	// Hack -- maintain "max max" experience
+	if(creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
+
+	if(creature_ptr->dr >= 0)
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
+	else
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL;
+
+	// Gain levels while possible
+	while ((creature_ptr->lev < creature_ptr->max_lev) &&
+		(creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
+		creature_ptr->lev++; // Gain a level
+}
+
+/*
+* Advance experience levels and print experience
+*/
+void check_experience(creature_type *creature_ptr)
+{
+	bool level_reward = FALSE;
+	bool level_mutation = FALSE;
+	bool level_inc_stat = FALSE;
+	bool android = (has_trait(creature_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
+	int  old_lev = creature_ptr->lev;
+
+	if(creature_ptr->max_lev > CREATURE_MAX_LEVEL) creature_ptr->max_lev = CREATURE_MAX_LEVEL;
+
+	if(creature_ptr->exp < 0) creature_ptr->exp = 0;
+	if(creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
+	if(creature_ptr->max_max_exp < 0) creature_ptr->max_max_exp = 0;
+
+	if(creature_ptr->exp > CREATURE_MAX_EXP) creature_ptr->exp = CREATURE_MAX_EXP;
+	if(creature_ptr->max_exp > CREATURE_MAX_EXP) creature_ptr->max_exp = CREATURE_MAX_EXP;
+	if(creature_ptr->max_max_exp > CREATURE_MAX_EXP) creature_ptr->max_max_exp = CREATURE_MAX_EXP;
+
+	if(creature_ptr->exp > creature_ptr->max_exp) creature_ptr->max_exp = creature_ptr->exp;
+	if(creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
+
+	if(is_player(creature_ptr))
+		prepare_redraw(PR_EXP);
+
+	handle_stuff(creature_ptr);
+
+	if(creature_ptr->dr >= 0)
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
+	else
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL;
+
+	/* Lose levels while possible */
+	while ((creature_ptr->lev > 1) &&
+		(creature_ptr->exp < ((android ? creature_exp_a : creature_exp)[creature_ptr->lev - 2] * creature_ptr->expfact / 100L)) || creature_ptr->lev > creature_ptr->max_lev)
+	{
+		creature_ptr->lev--;
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		prepare_redraw(PR_LEV | PR_TITLE);
+		prepare_window(PW_PLAYER);
+		handle_stuff(creature_ptr);
+	}
+
+
+	/* Gain levels while possible */
+	while ((creature_ptr->lev < creature_ptr->max_lev) &&
+		(creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
+	{
+		creature_ptr->lev++;
+
+		/* Save the highest level */
+		if(creature_ptr->lev > creature_ptr->max_plv)
+		{
+			creature_ptr->max_plv = creature_ptr->lev;
+
+			if(IS_RACE(creature_ptr, RACE_BEASTMAN))
+			{
+				if(one_in_(IS_PURE_RACE(creature_ptr, RACE_BEASTMAN) ? 4 : 7)) level_mutation = TRUE;
+			}
+			level_inc_stat = TRUE;
+
+			write_diary(DIARY_LEVELUP, creature_ptr->lev, NULL);
+		}
+
+		sound(SOUND_LEVEL);
+
+		if(is_player(creature_ptr)) msg_format(MES_CREATURE_LEVELUP(creature_ptr->lev));
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		prepare_redraw(PR_LEV | PR_TITLE | PR_EXP);
+		prepare_window(PW_PLAYER | PW_SPELL | PW_INVEN);
+
+		creature_ptr->level_up = TRUE;
+		handle_stuff(creature_ptr);
+		creature_ptr->level_up = FALSE;
+
+		if(level_inc_stat)
+		{
+			if(!(creature_ptr->max_plv % 10))
+			{
+				if(is_player(creature_ptr))
+				{
+					int choice;
+					screen_save();
+					while(TRUE)
+					{
+						int n;
+						char tmp[32];
+
+						for(n = 0; n < STAT_MAX; n++)
+						{
+							cnv_stat(creature_ptr->stat_max[n], tmp);
+							prt(format("        %c) %10s (%s)", 'a'+n, stat_names[n], tmp), 2, 14);
+						}
+						prt("", 8, 14);
+						prt(MES_CREATURE_WHICH_GAIN, 1, 14);
+
+						while(TRUE)
+						{
+							choice = inkey();
+							if((choice >= 'a') && (choice <= 'f')) break;
+						}
+						for(n = 0; n < STAT_MAX; n++)
+							if(n != choice - 'a')
+								prt("", n + 2,14);
+						if(get_check(MES_SYS_ASK_SURE)) break;
+					}
+					do_inc_stat(creature_ptr, choice - 'a');
+					screen_load();
+				}
+				else do_inc_stat(creature_ptr, randint0(STAT_MAX));
+			}
+			else if(!(creature_ptr->max_plv % 2)) do_inc_stat(creature_ptr, randint0(STAT_MAX));
+		}
+
+		if(level_mutation)
+		{
+			if(is_player(creature_ptr)) msg_print(MES_POLYSELF_FEELING);
+			(void)get_mutative_trait(creature_ptr, 0, is_player(creature_ptr));
+			level_mutation = FALSE;
+		}
+
+		/*
+		* 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
+		*/
+		//TODO: reward argument
+		if(level_reward)
+		{
+			gain_level_reward(creature_ptr, 0);
+			level_reward = FALSE;
+		}
+
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		prepare_redraw(PR_LEV | PR_TITLE);
+		prepare_window(PW_PLAYER | PW_SPELL);
+		handle_stuff(creature_ptr);
+	}
+
+	/* Load an autopick preference file */
+	if(old_lev != creature_ptr->lev) autopick_load_pref(FALSE);
+}
