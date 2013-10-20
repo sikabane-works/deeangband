@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "cave.h"
+#include "creature_const.h"
 #include "files.h"
 #include "mutation.h"
 #include "object.h"

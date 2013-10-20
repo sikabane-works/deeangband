@@ -11,6 +11,7 @@
 /* Purpose: Highscores handling */
 
 #include "angband.h"
+#include "creature_const.h"
 #include "diary.h"
 #include "dungeon.h"
 #include "files.h"

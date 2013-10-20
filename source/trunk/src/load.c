@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "birth.h"
+#include "creature_const.h"
 #include "files.h"
 #include "floors.h"
 #include "mutation.h"
