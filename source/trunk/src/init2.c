@@ -14,6 +14,7 @@
 #include "cave.h"
 #include "init.h"
 #include "files.h"
+#include "object.h"
 
 #ifndef MACINTOSH
 #ifdef CHECK_MODIFICATION_TIME
