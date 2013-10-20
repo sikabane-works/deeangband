@@ -1153,7 +1153,6 @@ void getaway(creature_type *caster_ptr)
 	default:
 		if(get_check(MES_TELEPORT_LEVEL_ASK))
 		{
-			if(autosave_l) do_cmd_save_game(TRUE);
 			subject_change_floor = TRUE;
 		}
 	}
