@@ -5081,3 +5081,158 @@ void regenmagic(creature_type *creature_ptr, int percent)
 		if(creature_ptr->current_charge[i] < 0) creature_ptr->current_charge[i] = 0;
 	}
 }
+
+// Player died.
+void you_died(cptr hit_from)
+{
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+	char tmp[100];
+	char death_message[1024];
+
+#ifdef JP // 死んだ時に強制終了して死を回避できなくしてみた by Habu
+	if(!cheat_save)
+		//TODO if(!save_player()) msg_print("Save error.");
+#endif
+
+		sound(SOUND_DEATH); // Sound
+	subject_change_floor = TRUE; // Leaving	
+	gameover = TRUE; // Note death	
+
+	if(floor_ptr->fight_arena_mode)
+	{
+		cptr target_name = species_name + species_info[arena_info[arena_number].species_idx].name;
+		msg_format(MES_ARENA_LOST(player_ptr));
+		msg_print(NULL);
+		if(record_arena) write_diary(DIARY_ARENA, -1 - arena_number, target_name);
+	}
+	else
+	{
+		int q_idx = quest_number(floor_ptr);
+		bool seppuku = hit_from ? streq(hit_from, COD_SEPPUKU) : FALSE ;
+		bool winning_seppuku = player_ptr->total_winner && seppuku;
+
+#ifdef WORLD_SCORE
+		// Make screen dump
+		screen_dump = make_screen_dump();
+#endif
+
+		// Note cause of death
+		if(seppuku)
+		{
+			strcpy(gameover_from, hit_from);
+#ifdef JP
+			if(!winning_seppuku) strcpy(gameover_from, COD_SEPPUKU);
+#endif
+		}
+		else
+		{
+			char dummy[1024];
+#ifdef JP
+			sprintf(dummy, "%s%s%s", !has_trait(player_ptr, TRAIT_PARALYZED) ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "彫像状態で" : "麻痺状態で", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "幻覚に歪んだ" : "", hit_from);
+#else
+			sprintf(dummy, "%s%s", hit_from, !has_trait(player_ptr, TRAIT_PARALYZED) ? "" : " while helpless");
+#endif
+			my_strcpy(gameover_from, dummy, sizeof gameover_from);
+		}
+
+		if(winning_seppuku) write_diary(DIARY_BUNSHOU, 0, DIARY_WINNING_SEPPUKU);
+		else
+		{
+			char buf[24];	
+#ifdef JP
+			if(floor_ptr->fight_arena_mode) strcpy(buf,"アリーナ");
+			else if(!floor_ptr->depth) strcpy(buf,"地上");
+			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) strcpy(buf, "クエスト");
+			else sprintf(buf,"%d階", floor_ptr->depth);
+			sprintf(tmp, "%sで%sに殺された。", buf, gameover_from);
+#else
+			if(floor_ptr->fight_arena_mode) strcpy(buf,"in the Arena");
+			else if(!floor_ptr->depth) strcpy(buf,"on the surface");
+			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) strcpy(buf, "in a quest");
+			else sprintf(buf,"level %d", floor_ptr->depth);
+			sprintf(tmp, "killed by %s %s.", gameover_from, buf);
+#endif
+			write_diary(DIARY_BUNSHOU, 0, tmp);
+		}
+
+		write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
+		write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
+
+		flush();
+		if(get_check_strict(MES_SYS_DUMP_SCREEN, CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
+		flush();
+
+		/* Initialize "last message" buffer */
+		if(player_ptr->last_message) string_free(player_ptr->last_message);
+		player_ptr->last_message = NULL;
+
+		/* Hack -- Note death */
+		if(!last_words)
+		{
+			msg_print(MES_SYS_YOU_DIED(player_ptr));
+			msg_print(NULL);
+		}
+		else
+		{
+			if(winning_seppuku) get_rnd_line(TEXT_FILES_SEPPUKU, 0, death_message);
+			else get_rnd_line(TEXT_FILES_DEATH, 0, death_message);
+
+			do while (!get_string(winning_seppuku ? get_keyword("KW_LAST_POET") : get_keyword("KW_LAST_WORD"), death_message, 1024));
+			while (winning_seppuku && !get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
+			if(death_message[0] == '\0') strcpy(death_message, format(MES_SYS_YOU_DIED(player_ptr)));
+			else player_ptr->last_message = string_make(death_message);
+#ifdef JP
+			if(winning_seppuku)
+			{
+				int i, len;
+				int w = Term->wid;
+				int h = Term->hgt;
+				int msg_pos_x[9] = {  5, 7, 9, 12, 14, 17, 19, 21, 23};
+				int msg_pos_y[9] = {  3, 4, 5, 4, 5, 4, 5, 6, 4};
+				cptr str;
+				char* str2;
+
+				Term_clear();
+
+				/* 桜散る */
+				for (i = 0; i < 40; i++) Term_putstr(randint0(w / 2) * 2, randint0(h), 2, TERM_VIOLET, "υ");
+
+				str = death_message;
+				if(strncmp(str, "「", 2) == 0) str += 2;
+
+				str2 = my_strstr(str, "」");
+				if(str2 != NULL) *str2 = '\0';
+
+				i = 0;
+				while (i < 9)
+				{
+					str2 = my_strstr(str, " ");
+					if(str2 == NULL) len = strlen(str);
+					else len = str2 - str;
+
+					if(len != 0)
+					{
+						Term_putstr_v(w * 3 / 4 - 2 - msg_pos_x[i] * 2, msg_pos_y[i], len, TERM_WHITE, str);
+						if(str2 == NULL) break;
+						i++;
+					}
+					str = str2 + 1;
+					if(*str == 0) break;
+				}
+
+				/* Hide cursor */
+				Term_putstr(w-1, h-1, 1, TERM_WHITE, " ");
+
+				flush();
+#ifdef WORLD_SCORE
+				/* Make screen dump */
+				screen_dump = make_screen_dump();
+#endif
+				(void)inkey();
+			}
+			else
+#endif
+				msg_print(death_message);
+		}
+	}
+}
