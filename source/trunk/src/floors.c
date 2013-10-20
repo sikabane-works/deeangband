@@ -409,8 +409,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	stair_ptr = &prev_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_ptr = &feature_info[stair_ptr->feat];
 
-	if(autosave_l) do_cmd_save_game(TRUE);
-
 	// Search the quest creature index
 	for (i = 0; i < max_quests; i++)
 	{

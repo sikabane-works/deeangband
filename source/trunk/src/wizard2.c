@@ -1185,8 +1185,6 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	// Accept request
 	msg_format("You jump to dungeon level %d.", command_arg);
 
-	if(autosave_l) do_cmd_save_game(TRUE);
-
 	// Change level
 	depth = command_arg;
 	wx = dungeon_info[floor_ptr->dungeon_id].dx;

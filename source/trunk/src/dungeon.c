@@ -575,8 +575,6 @@ static void pattern_teleport(creature_type *creature_ptr)
 	if(depth > max_level) depth = max_level;
 	msg_format(MES_PATTERN_TELEPORT_DONE(depth)); /* Accept request */
 
-	if(autosave_l) do_cmd_save_game(TRUE);
-
 	// Change level
 	floor_ptr->depth = depth;
 
@@ -1887,7 +1885,6 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 		* The player is yanked up/down as soon as
 		* he loads the autosaved game.
 		*/
-		if(autosave_l && (creature_ptr->timed_trait[TRAIT_WORD_RECALL] == 1) && !floor_ptr->gamble_arena_mode) do_cmd_save_game(TRUE);
 		creature_ptr->timed_trait[TRAIT_WORD_RECALL]--; /* Count down towards recall */
 		prepare_redraw(PR_STATUS);
 
@@ -1974,9 +1971,6 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 	/* Delayed Alter reality */
 	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
-		if(autosave_l && (creature_ptr->timed_trait[TRAIT_ALTER_REALITY] == 1) && !floor_ptr->gamble_arena_mode)
-			do_cmd_save_game(TRUE);
-
 		/* Count down towards alter */
 		creature_ptr->timed_trait[TRAIT_ALTER_REALITY]--;
 		prepare_redraw(PR_STATUS);

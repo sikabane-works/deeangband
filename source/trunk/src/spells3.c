@@ -823,8 +823,6 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 
 			if(record_stair) write_diary(DIARY_TELE_LEV, 1, NULL);
 
-			if(autosave_l) do_cmd_save_game(TRUE);
-
 			if(!floor_ptr->depth)
 			{
 				floor_ptr->depth = dungeon_info[floor_ptr->dungeon_id].mindepth;
@@ -848,8 +846,6 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 		{
 			if(record_stair) write_diary(DIARY_TELE_LEV, -1, NULL);
 
-			if(autosave_l) do_cmd_save_game(TRUE);
-
 			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_SEED | CFM_RAND_CONNECT);
 
 			leave_quest_check(creature_ptr);
@@ -866,8 +862,6 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 		{
 			if(record_stair) write_diary(DIARY_TELE_LEV, -1, NULL);
 
-			if(autosave_l) do_cmd_save_game(TRUE);
-
 			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_SEED | CFM_RAND_CONNECT);
 
 			/* Leaving */
@@ -883,8 +877,6 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 			/* if(!floor_ptr->depth) floor_ptr->dungeon_id = creature_ptr->recall_dungeon; */
 
 			if(record_stair) write_diary(DIARY_TELE_LEV, 1, NULL);
-
-			if(autosave_l) do_cmd_save_game(TRUE);
 
 			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_SEED | CFM_RAND_CONNECT);
 

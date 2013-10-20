@@ -82,8 +82,6 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 	cost_tactical_energy(creature_ptr, 100);
 
-	if(autosave_l) do_cmd_save_game(TRUE);
-
 	/* For a random quest */
 	if(floor_ptr->quest && quest[floor_ptr->quest].type == QUEST_TYPE_RANDOM)
 	{
@@ -189,7 +187,6 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		}
 
 		cost_tactical_energy(creature_ptr, 100);
-		if(autosave_l) do_cmd_save_game(TRUE);
 
 		/* Go down */
 		if(have_flag(f_ptr->flags, FF_SHAFT)) down_num += 2;

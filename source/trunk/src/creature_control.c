@@ -724,7 +724,6 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, COD_TRAP_DOOR, NULL, -1);
 
 				/* Still alive and autosave enabled */
-				if(autosave_l && (creature_ptr->chp >= 0)) do_cmd_save_game(TRUE);
 				write_diary(DIARY_BUNSHOU, 0, DIARY_TRAP_DOOR);
 				move_floor(creature_ptr, floor_ptr->dungeon_id, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_SEED | CFM_RAND_CONNECT);
 
