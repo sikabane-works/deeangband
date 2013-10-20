@@ -676,16 +676,6 @@ extern void cast_invoke_spirits(creature_type *caster_ptr, TRAIT_ID trait_id);
 extern void cast_shuffle(creature_type *caster_ptr);
 extern bool cast_summon_greater_demon(creature_type *creature_ptr);
 
-// flavor.c
-extern void get_table_name_aux(char *out_string);
-extern void get_table_name(char *out_string);
-extern void get_table_sindarin_aux(char *out_string);
-extern void get_table_sindarin(char *out_string);
-extern void flavor_init(void);
-extern char *object_desc_kosuu(char *t, object_type *object_ptr);
-extern void object_desc_new(object_type *object_ptr, FLAGS_32 mode);
-extern void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode);
-
 // generate.c
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
 extern void clear_cave(floor_type *floor_ptr);
