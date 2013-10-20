@@ -11,6 +11,7 @@
 /* Purpose: Imitation code */
 
 #include "angband.h"
+#include "creature_const.h"
 
 /*
  * Allow user to choose a imitation.

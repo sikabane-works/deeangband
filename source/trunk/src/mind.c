@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "cave.h"
+#include "creature_const.h"
 #include "creature_melee.h"
 #include "creature_throwing.h"
 #include "mindtips.h"

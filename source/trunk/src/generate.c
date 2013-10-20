@@ -100,6 +100,7 @@
 
 #include "angband.h"
 #include "cave.h"
+#include "creature_const.h"
 #include "generate.h"
 #include "grid.h"
 #include "init.h"

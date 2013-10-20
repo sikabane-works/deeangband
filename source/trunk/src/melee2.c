@@ -17,6 +17,7 @@
 
 #include "angband.h"
 #include "cave.h"
+#include "creature_const.h"
 #include "creature_melee.h"
 #include "diary.h"
 #include "files.h"
