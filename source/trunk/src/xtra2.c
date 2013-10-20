@@ -14,6 +14,7 @@
 #include "artifact.h"
 #include "autopick.h"
 #include "cave.h"
+#include "creature_const.h"
 #include "diary.h"
 #include "files.h"
 #include "init.h"
