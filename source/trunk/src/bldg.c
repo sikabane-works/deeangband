@@ -22,6 +22,7 @@
 #include "init.h"
 #include "object.h"
 #include "scores.h"
+#include "spell.h"
 #include "store.h"
 #include "quest.h"
 

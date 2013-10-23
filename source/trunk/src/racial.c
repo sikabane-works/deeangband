@@ -15,6 +15,7 @@
 #include "cave.h"
 #include "creature_inventory.h"
 #include "object.h"
+#include "spell.h"
 
 /*
  * Hook to determine if an object is contertible in an arrow/bolt
