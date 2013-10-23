@@ -709,6 +709,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\spell.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\store.h"
 				>
 			</File>
