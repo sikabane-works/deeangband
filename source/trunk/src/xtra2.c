@@ -20,6 +20,7 @@
 #include "init.h"
 #include "mutation.h"
 #include "object.h"
+#include "spell.h"
 
 
 
@@ -352,7 +353,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	{
 		POWER damage = diceroll(dead_ptr->lev, dead_ptr->size);
 		int typ = 0; //TODO
-		project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+		// TODO project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 
 	// Curse of Amberites

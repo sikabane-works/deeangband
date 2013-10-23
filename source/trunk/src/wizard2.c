@@ -22,6 +22,7 @@
 #include "mutation.h"
 #include "object.h"
 #include "quest.h"
+#include "spell.h"
 
 /*
  * Strip an "object name" into a buffer
