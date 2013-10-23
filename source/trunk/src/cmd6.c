@@ -20,6 +20,7 @@
 #include "files.h"
 #include "mutation.h"
 #include "object.h"
+#include "spell.h"
 
 /*
  * This file includes code for eating food, drinking potions,

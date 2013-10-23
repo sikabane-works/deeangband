@@ -24,6 +24,7 @@
 #include "object.h"
 #include "quest.h"
 #include "riding.h"
+#include "spell.h"
 
 #define HORDE_NOGOOD 0x01
 #define HORDE_NOEVIL 0x02

@@ -25,6 +25,7 @@
 #include "object.h"
 #include "scores.h"
 #include "store.h"
+#include "spell.h"
 #include "quest.h"
 
 static void game_mode_detail(int code)
