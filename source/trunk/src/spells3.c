@@ -22,6 +22,7 @@
 #include "creature_inventory.h"
 #include "creature_melee.h"
 #include "creature_throwing.h"
+#include "spell.h"
 
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)

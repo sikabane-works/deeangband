@@ -22,6 +22,7 @@
 #include "object.h"
 #include "riding.h"
 #include "quest.h"
+#include "spell.h"
 
 bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
 {

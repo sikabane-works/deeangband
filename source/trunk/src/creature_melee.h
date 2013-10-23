@@ -11,3 +11,4 @@ extern bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x
 
 extern void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, POWER *initiative, FLAGS_32 mode);
 
+extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, POWER damage_type, POWER damage, cptr hit_from, cptr note, TRAIT_ID trait_id);

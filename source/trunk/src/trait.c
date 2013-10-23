@@ -20,6 +20,7 @@
 #include "riding.h"
 #include "mutation.h"
 #include "object.h"
+#include "spell.h"
 
 bool do_active_trait_tmp(creature_type *caster_ptr, TRAIT_ID id, bool message)
 {

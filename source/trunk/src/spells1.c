@@ -18,6 +18,7 @@
 #include "mutation.h"
 #include "object.h"
 #include "riding.h"
+#include "spell.h"
 
 /* ToDo: Make this global */
 
