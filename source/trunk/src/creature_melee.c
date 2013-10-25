@@ -1,7 +1,9 @@
 #include "angband.h"
 #include "cave.h"
 #include "creature_const.h"
+#include "creature_melee.h"
 #include "object.h"
+#include "spell.h"
 
 /*
  * Determine if the player "hits" a creature (normal combat).

@@ -21,6 +21,7 @@
 #include "mutation.h"
 #include "object.h"
 #include "quest.h"
+#include "spell.h"
 
 /*
  * A set of functions to maintain automatic dumps of various kinds.

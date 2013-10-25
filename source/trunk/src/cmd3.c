@@ -18,6 +18,7 @@
 #include "diary.h"
 #include "files.h"
 #include "object.h"
+#include "spell.h"
 
 /*
 * Display inventory

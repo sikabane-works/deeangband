@@ -21,6 +21,7 @@
 #include "floors.h"
 #include "object.h"
 #include "quest.h"
+#include "spell.h"
 
 
 // Go up one level

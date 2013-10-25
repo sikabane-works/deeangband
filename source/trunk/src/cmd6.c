@@ -15,6 +15,7 @@
 #include "birth.h"
 #include "creature_const.h"
 #include "creature_inventory.h"
+#include "creature_melee.h"
 #include "command.h"
 #include "cave.h"
 #include "files.h"
