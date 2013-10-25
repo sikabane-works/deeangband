@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "cave.h"
 #include "creature_const.h"
+#include "creature_melee.h"
 #include "files.h"
 #include "mutation.h"
 #include "object.h"

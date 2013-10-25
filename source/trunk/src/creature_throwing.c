@@ -3,8 +3,10 @@
 #include "creature_const.h"
 #include "creature_equipments.h"
 #include "creature_inventory.h"
+#include "creature_melee.h"
 #include "creature_throwing.h"
 #include "object.h"
+#include "spell.h"
 
 
 static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *object_ptr)

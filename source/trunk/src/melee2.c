@@ -23,6 +23,7 @@
 #include "files.h"
 #include "object.h"
 #include "riding.h"
+#include "spell.h"
 
 /*
  * Calculate the direction to the next enemy

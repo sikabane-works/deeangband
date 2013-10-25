@@ -18,6 +18,7 @@
 #include "creature_throwing.h"
 #include "mindtips.h"
 #include "object.h"
+#include "spell.h"
 
 
 
