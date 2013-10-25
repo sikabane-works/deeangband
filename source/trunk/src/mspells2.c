@@ -11,6 +11,7 @@
 /* Purpose: Creature spells (attack creature) */
 
 #include "angband.h"
+#include "spell.h"
 
 // Get the actual center point of ball spells (rad > 1) (originally from TOband)
 void get_project_point(creature_type *caster_ptr, COODINATES sy, COODINATES sx, COODINATES *ty, COODINATES *tx, FLAGS_32 flg)

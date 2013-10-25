@@ -11,6 +11,7 @@
 #include "floors.h"
 #include "mutation.h"
 #include "object.h"
+#include "spell.h"
 
 
 /*

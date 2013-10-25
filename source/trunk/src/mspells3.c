@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "creature_const.h"
+#include "spell.h"
 
 /*
  * Allow user to choose a imitation.

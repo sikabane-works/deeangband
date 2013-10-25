@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "cave.h"
 #include "quest.h"
+#include "spell.h"
 
 
 /*
