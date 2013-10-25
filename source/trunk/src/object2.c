@@ -21,6 +21,7 @@
 #include "init.h"
 #include "object.h"
 #include "quest.h"
+#include "spell.h"
 
 
 /*
