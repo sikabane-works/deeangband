@@ -15,9 +15,11 @@
 #include "cave.h"
 #include "command.h"
 #include "creature_const.h"
+#include "creature_melee.h"
 #include "diary.h"
 #include "object.h"
 #include "riding.h"
+#include "spell.h"
 
 /*
 * Allow user to choose a spell/prayer from the given book.
@@ -223,10 +225,8 @@ static int get_spell(creature_type *creature_ptr, KEY *sn, cptr prompt, SVAL sva
 				s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
 
 			/* Extract mana consumption rate */
-			if(use_realm == REALM_HISSATSU)
-				need_mana = s_ptr->smana;
-			else
-				need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
+			if(use_realm == REALM_HISSATSU) need_mana = s_ptr->smana;
+			else need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
 
 #ifdef JP
 			jverb1( prompt, jverb_buf );
