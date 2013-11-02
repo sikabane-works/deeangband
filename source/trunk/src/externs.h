@@ -676,14 +676,6 @@ extern void cast_invoke_spirits(creature_type *caster_ptr, TRAIT_ID trait_id);
 extern void cast_shuffle(creature_type *caster_ptr);
 extern bool cast_summon_greater_demon(creature_type *creature_ptr);
 
-// generate.c
-extern void wipe_generate_floor_flags(floor_type *floor_ptr);
-extern void clear_cave(floor_type *floor_ptr);
-extern bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR_LEV depth);
-extern void generate_floor_quest(floor_type *floor_ptr, QUEST_ID quest_id);
-extern void generate_floor_arena(floor_type *floor_ptr, COODINATES height, COODINATES width);
-extern void generate_floor_creature_arena(floor_type *floor_ptr);
-
 
 // load.c
 extern errr rd_savefile_new(void);
