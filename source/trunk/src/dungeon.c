@@ -16,6 +16,7 @@
 #include "cave.h"
 #include "command.h"
 #include "creature_const.h"
+#include "creature_melee.h"
 #include "diary.h"
 #include "dungeon.h"
 #include "files.h"

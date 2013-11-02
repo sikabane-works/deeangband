@@ -16,6 +16,7 @@
 #include "birth.h"
 #include "cave.h"
 #include "command.h"
+#include "creature_melee.h"
 #include "diary.h"
 #include "files.h"
 #include "mutation.h"

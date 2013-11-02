@@ -11,6 +11,7 @@
 /* Purpose: Imitation code */
 
 #include "angband.h"
+#include "spell.h"
 
 static POWER damage;
 

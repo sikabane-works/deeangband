@@ -15,6 +15,7 @@
 #include "autopick.h"
 #include "cave.h"
 #include "creature_const.h"
+#include "creature_melee.h"
 #include "diary.h"
 #include "files.h"
 #include "init.h"
@@ -351,8 +352,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
 	{
-		POWER damage = diceroll(dead_ptr->lev, dead_ptr->size);
-		int typ = 0; //TODO
+		//POWER damage = diceroll(dead_ptr->lev, dead_ptr->size);
+		//int typ = 0; //TODO
 		// TODO project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 

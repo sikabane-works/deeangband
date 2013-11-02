@@ -1,6 +1,7 @@
 
 #include "angband.h"
 #include "creature_const.h"
+#include "spell.h"
 
 /* Flag list */
 /*
