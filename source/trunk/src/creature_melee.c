@@ -2,7 +2,9 @@
 #include "cave.h"
 #include "creature_const.h"
 #include "creature_melee.h"
+#include "files.h"
 #include "object.h"
+#include "riding.h"
 #include "spell.h"
 
 /*

@@ -7241,7 +7241,7 @@ cptr dump_status(creature_type *creature_ptr)
 
 cptr get_keyword_new(cptr keywords)
 {
-
+	return NULL;
 }
 
 cptr get_keyword(cptr keywords)
