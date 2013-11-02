@@ -17,6 +17,7 @@
 #include "cave.h"
 #include "generate.h"
 #include "streams.h"
+#include "spell.h"
 #include "grid.h"
 #include "object.h"
 

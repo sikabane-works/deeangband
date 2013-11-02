@@ -19,6 +19,7 @@
 #include "diary.h"
 #include "files.h"
 #include "object.h"
+#include "spell.h"
 #include "store.h"
 
 static int store_top = 0;

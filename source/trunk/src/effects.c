@@ -22,6 +22,7 @@
 #include "mutation.h"
 #include "object.h"
 #include "quest.h"
+#include "spell.h"
 
 bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 {
