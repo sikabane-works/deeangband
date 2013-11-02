@@ -4306,3 +4306,42 @@ void ring_of_power(creature_type *creature_ptr)
 	if(!is_valid_creature(creature_ptr)) return;
 	//TODO Reimplementing
 }
+
+void have_nightmare(creature_type *watcher_ptr, SPECIES_ID eldritch_idx)
+{
+	species_type *eldritch_ptr = &species_info[eldritch_idx];
+	POWER power = eldritch_ptr->level + 10;
+	char m_name[MAX_NLEN];
+	cptr desc = species_name + eldritch_ptr->name;
+
+	strcpy(m_name, desc);
+	add_indefinite_article(m_name);
+
+	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE) && has_trait_species(eldritch_ptr, TRAIT_FRIENDLY)) power /= 2;
+	else power *= 2;
+
+	if(saving_throw(watcher_ptr, SAVING_VO, power, 0))
+	{
+		msg_format(MES_INSANITY_NIGHTMARE(m_name));
+		return;
+	}
+
+	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
+	{
+		// Something silly happens...
+		msg_format(MES_INSANITY_FACED(funny_desc[randint0(MAX_SAN_FUNNY)], m_name));
+
+		if(one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
+		{
+			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
+			add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(eldritch_ptr->level), TRUE);
+		}
+		
+		return;	// Never mind; we can't see it clearly enough
+	}
+
+	// Something frightening happens...
+	msg_format(MES_INSANITY_FACED(horror_desc[randint0(MAX_SAN_HORROR)], desc));
+	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
+	sanity_blast_aux(watcher_ptr, power);
+}

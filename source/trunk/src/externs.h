@@ -773,7 +773,6 @@ extern void remove_loc(void);
 
 
 // bldg.c
-extern void have_nightmare(creature_type *watcher_ptr, SPECIES_ID species_idx);
 extern void battle_creatures(void);
 extern void do_cmd_bldg(creature_type *creature_ptr);
 extern void do_cmd_quest(creature_type *creature_ptr);

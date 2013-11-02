@@ -151,3 +151,5 @@ extern bool dimension_door(creature_type *creature_ptr);
 extern bool mirror_tunnel(creature_type *creature_ptr);
 extern cptr spell_category_name(TVAL tval);
 extern void ring_of_power(creature_type *creature_ptr);
+extern void have_nightmare(creature_type *watcher_ptr, SPECIES_ID species_idx);
+
