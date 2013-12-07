@@ -4,7 +4,22 @@
 #include "stdafx.h"
 #include "Deeangband.h"
 
+#include <SDL.h>
+
+#include <iostream>
+#include <string>
+
 #define MAX_LOADSTRING 100
+
+SDL_Window* window;
+static const std::string SCREEN_CAPTION = "SDL window test";
+static const int SCREEN_WIDTH = 640;
+static const int SCREEN_HEIGHT = 640;
+static const int SCREEN_BPP = 32;
+
+bool init();
+void finalize();
+bool pollingEvent();
 
 // グローバル変数:
 HINSTANCE hInst;								// 現在のインターフェイス
@@ -22,6 +37,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPTSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+	/*
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -51,11 +67,71 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 			DispatchMessage(&msg);
 		}
 	}
-
 	return (int) msg.wParam;
+	*/
+
+	// initialize
+	if (!init()) {
+		std::cerr << "ERROR: failed to initialize SDL" << std::endl;
+		exit(1);
+	}
+
+	// main loop
+	while (true) {
+		if (!pollingEvent()) break;
+	}
+
+	// finalize
+	finalize();
+
+	return 0;
+}
+
+bool init() {
+  // initialize SDL
+  if( SDL_Init(SDL_INIT_VIDEO) < 0 ) return false;
+
+  // create indow
+  window = SDL_CreateWindow(SCREEN_CAPTION.c_str(),
+                            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                            640, 480, 0);
+  if (!window) return false;
+
+  return true;
+}
+
+void finalize() {
+  // finalize SDL
+  SDL_Quit();
 }
 
 
+// polling event and execute actions
+bool pollingEvent()
+{
+  SDL_Event ev;
+  SDL_Keycode key;
+  while ( SDL_PollEvent(&ev) )
+    {
+      switch(ev.type){
+      case SDL_QUIT:
+        // raise when exit event is occur
+        return false;
+        break;
+      case SDL_KEYDOWN:
+        // raise when key down
+        {
+          key=ev.key.keysym.sym;
+          // ESC
+          if(key==27){
+            return false;
+          }
+        }
+        break;
+      }
+    }
+  return true;
+}
 
 //
 //  関数: MyRegisterClass()
