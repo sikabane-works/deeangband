@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Creature.h"
 
 class Creature
 {
