@@ -21,7 +21,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	if(!SDL_system_init()) exit(1);
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-	SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 
@@ -37,7 +37,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 static bool SDL_system_init()
 {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) return false;
-	window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+	window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
 	if(!window) return false;
 
 	return true;
