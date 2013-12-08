@@ -1,3 +1,6 @@
+
+typedef int Status;
+
 enum CREATURE_STATUS
 {
 	CS_STR,
@@ -12,7 +15,7 @@ enum CREATURE_STATUS
 
 struct status_table
 {
-	int current[CS_MAX];
-	int max[CS_MAX];
-	int max_max[CS_MAX];
+	Status current[CS_MAX];
+	Status max[CS_MAX];
+	Status max_max[CS_MAX];
 };
