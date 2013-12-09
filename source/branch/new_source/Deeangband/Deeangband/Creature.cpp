@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Creature.h"
+#include "GameElement.h"
 
-class Creature
+class Creature : public GameElement
 {
 private:
 public:

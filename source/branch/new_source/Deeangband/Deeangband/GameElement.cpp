@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
-class GameElement
+ID GameElement::getid(void)
 {
-private:
-	ID id;
-public:
-};
+	return id;
+}
+

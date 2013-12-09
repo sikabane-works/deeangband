@@ -1,4 +1,16 @@
-
+/*
+!> @brief a test module
+!! This module test the behaviour of doxygen
+!! with a fortran module
+!! @author Edmondo Giovannozzi
+!! @version 1.0
+!!
+!! @todo add more variable (and a cappuccino)
+!! @warning it doesn't do any useful thing
+!! @file necmas.css
+!! @brief Sytle Seat for Deeangband Official Web
+!! Details.
+*/
 
 a:link 		{ color: #BBAA99;}
 a:visited	{ color: #BBAA99;}
@@ -14,9 +26,6 @@ img {
 }
 
 
-/* --------------------------------------------------------------
-	LayOut
- -------------------------------------------------------------- */
 #wrapper{
 	max-width: 800px;
 	position: relative;
@@ -103,7 +112,7 @@ body {
 	padding: 0px;
 	border: 0px;
 	margin: 0px;
-	font-family:"ƒƒCƒŠƒI","Meiryo",Osaka, "ƒqƒ‰ƒMƒmŠpƒS Pro W3", Arial, Helvetica, sans-serif;
+	font-family:"ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½I","Meiryo",Osaka, "ï¿½qï¿½ï¿½ï¿½Mï¿½mï¿½pï¿½S Pro W3", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	line-height: 160%;
 }
