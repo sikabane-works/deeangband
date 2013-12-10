@@ -46,7 +46,7 @@ class Creature : public GameElement
 {
 private:
 
-	string name;
+	string name; /*!< クリーチャーの名前*/
 	HP current_hp; /*!< 現在のHP*/
 	HP max_hp; /*!< 現在の最大HP*/
 	HP max_max_hp; /*!< 本来の最大HP*/
