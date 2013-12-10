@@ -21,10 +21,15 @@ struct status_table
 	Status max_max[CS_MAX];
 };
 
+/*! @class Creature
+    @brief クリーチャーのクラス
+*/
 class Creature : public GameElement
 {
 private:
 public:
+
+	/*! クリーチャーが生存している状態かを返す */
 	bool is_alive(void);
 };
 
