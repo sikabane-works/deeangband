@@ -1,3 +1,4 @@
+#include "GameElement.h"
 
 typedef int Status;
 
@@ -19,3 +20,11 @@ struct status_table
 	Status max[CS_MAX];
 	Status max_max[CS_MAX];
 };
+
+class Creature : public GameElement
+{
+private:
+public:
+	bool is_alive(void);
+};
+

@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "Creature.h"
+#include "CreatureTemplete.h"
 
-class CreatureTemplete
-{
-private:
-	Status status_adj;
-public:
-};
+
 

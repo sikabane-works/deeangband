@@ -1,14 +1,7 @@
 #include "stdafx.h"
 #include "Creature.h"
-#include "GameElement.h"
 
-class Creature : public GameElement
+bool Creature::is_alive(void)
 {
-private:
-public:
-	bool is_alive(void)
-	{
-		return true;
-	}
-};
-
+	return true;
+}

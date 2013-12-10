@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Creature.h" />
+    <ClInclude Include="CreatureTemplete.h" />
     <ClInclude Include="Deeangband.h" />
     <ClInclude Include="GameElement.h" />
     <ClInclude Include="Resource.h" />
