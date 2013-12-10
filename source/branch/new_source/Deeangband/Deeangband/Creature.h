@@ -2,18 +2,24 @@
 
 typedef int Status;
 
+/*! @enum CREATURE_STATUS
+    @brief クリーチャーの基礎能力値6種の列挙体
+*/
 enum CREATURE_STATUS
 {
-	CS_STR,
-	CS_INT,
-	CS_WIS,
-	CS_DEX,
-	CS_CON,
-	CS_CHR,
-	CS_MAX
+	CS_STR, /*!<腕力*/
+	CS_INT, /*!<知力*/
+	CS_WIS, /*!<賢さ*/
+	CS_DEX, /*!<器用*/
+	CS_CON, /*!<耐久*/
+	CS_CHR, /*!<魅力*/
+	CS_MAX  /*!<総数:6*/
 };
 
 
+/*! @struct status_table
+    @brief ステータス値の構造体
+*/
 struct status_table
 {
 	Status current[CS_MAX];
