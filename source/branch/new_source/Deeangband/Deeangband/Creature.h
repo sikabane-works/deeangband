@@ -1,3 +1,12 @@
+/*!
+    @file Creature.h
+    @brief ゲーム中のクリーチャーを定義する
+    @date 2013/12/10
+    @author Deskull
+    2013 Sikabane Works.
+*/
+
+#include "stdafx.h"
 #include "GameElement.h"
 
 typedef int Status;
@@ -33,9 +42,18 @@ struct status_table
 class Creature : public GameElement
 {
 private:
+	string name;
+	int current_hp; /*!< 現在のHP*/
+	int max_hp; /*!< 現在の最大HP*/
+	int max_max_hp; /*!< 本来の最大HP*/
+	int current_mp; /*!< 現在のHP*/
+	int max_mp; /*!< 現在の最大HP*/
+	int max_max_mp; /*!< 本来の最大HP*/
+
 public:
 
-	/*! クリーチャーが生存している状態かを返す */
+	/*!< クリーチャーが生存している状態かを返す */
 	bool is_alive(void);
+	
 };
 

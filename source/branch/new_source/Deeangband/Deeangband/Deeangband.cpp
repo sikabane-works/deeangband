@@ -7,6 +7,7 @@
 #include <SDL.h>
 
 #include <iostream>
+#include <string>
 
 static bool SDL_system_init();
 static bool SDL_event();
