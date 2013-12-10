@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Creature.h" />
-    <ClInclude Include="CreatureTemplete.h" />
+    <ClInclude Include="CreatureTemplate.h" />
     <ClInclude Include="Deeangband.h" />
     <ClInclude Include="GameElement.h" />
     <ClInclude Include="Resource.h" />
@@ -92,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Creature.cpp" />
-    <ClCompile Include="CreatureTemplete.cpp" />
+    <ClCompile Include="CreatureTemplate.cpp" />
     <ClCompile Include="Deeangband.cpp" />
     <ClCompile Include="GameElement.cpp" />
     <ClCompile Include="Item.cpp" />
