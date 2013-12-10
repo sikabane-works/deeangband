@@ -1,6 +1,6 @@
 /*!
     @file GameElement.h
-    @brief GameElementクラスとその他付随要素のプロトタイプ
+    @brief GameElementクラスと付随要素のプロトタイプ
     @date 2013/12/11
     @author Deskull
     2013 Sikabane Works.

@@ -1,7 +1,7 @@
 /*!
     @file Creature.h
-    @brief ゲーム中のクリーチャーを定義する
-    @date 2013/12/10
+    @brief ゲーム中のクリーチャーと付随要素のプロトタイプ
+    @date 2013/12/11
     @author Deskull
     2013 Sikabane Works.
 */
