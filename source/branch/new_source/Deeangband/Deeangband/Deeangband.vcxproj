@@ -85,6 +85,7 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="CreatureTemplate.h" />
     <ClInclude Include="Deeangband.h" />
+    <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GameElement.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Resource.h" />
@@ -95,6 +96,7 @@
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="CreatureTemplate.cpp" />
     <ClCompile Include="Deeangband.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="GameElement.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="stdafx.cpp">
