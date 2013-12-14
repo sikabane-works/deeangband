@@ -5,6 +5,7 @@
 #include "Deeangband.h"
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #include <iostream>
 #include <string>
@@ -20,15 +21,31 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 					   _In_ int       nCmdShow)
 {
 	if(!SDL_system_init()) exit(1);
+	if(TTF_Init() == -1) exit(1);
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+	TTF_Font* font = TTF_OpenFont("ipam.ttf",20);
+	SDL_Surface *surface, *surface2;
+	SDL_Color color;
+	SDL_Rect src = {0, 0, 300, 200};
+
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	color.r = 200;
+	color.g = 200;
+	color.b = 200;
+	color.a = 255;
+
+	if(!font) exit(1);
+	surface = TTF_RenderUTF8_Blended(font, "D'angband", color);
+
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 
 	while (true)
 	{
+		SDL_BlitSurface(surface, &src, SDL_GetWindowSurface(window), &src); 
 		if(!SDL_event()) break;
+		SDL_UpdateWindowSurface(window);
 	}
 
 	SDL_Quit();
