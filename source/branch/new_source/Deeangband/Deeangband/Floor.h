@@ -26,4 +26,5 @@ public:
 
 	/*! フロアの縦サイズを得る */
 	int get_height(void);
+
 };
