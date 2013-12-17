@@ -89,6 +89,7 @@
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="GameElement.h" />
+    <ClInclude Include="GameView.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameElement.cpp" />
+    <ClCompile Include="GameView.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

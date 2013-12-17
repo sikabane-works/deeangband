@@ -24,19 +24,19 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	if(TTF_Init() == -1) exit(1);
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-	TTF_Font* font = TTF_OpenFont("ipam.ttf",20);
+	TTF_Font* font = TTF_OpenFont("ipam.ttf", 18);
 	SDL_Surface *surface, *surface2;
 	SDL_Color color;
 	SDL_Rect src = {0, 0, 300, 200};
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	color.r = 200;
-	color.g = 200;
-	color.b = 200;
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
 	color.a = 255;
 
 	if(!font) exit(1);
-	surface = TTF_RenderUTF8_Blended(font, "D'angband", color);
+	surface = TTF_RenderUTF8_Blended(font, "D'angband\nAAAAAAAAAAAAAA\nAAAAAAAAA", color);
 
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
@@ -55,9 +55,10 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 static bool SDL_system_init()
 {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) return false;
-	window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
+	SDL_GetWindowSurface(window);
 	if(!window) return false;
-
 	return true;
 }
 
