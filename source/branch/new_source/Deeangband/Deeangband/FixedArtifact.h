@@ -1,6 +1,6 @@
 /*!
-    @file ItemEgo.h
-    @brief ゲーム中のアイテムエゴのプロトタイプ
+    @file FixedArtifact.h
+    @brief ゲーム中の固定アーティファクトのプロトタイプ
     @date 2013/12/17
     @author Deskull
     2013 Sikabane Works.
@@ -9,10 +9,10 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
-/*! @class ItemEgo
+/*! @class FixedArtifact
     @brief アイテムエゴのクラス
 */
-class ItemEgo : public GameElement
+class FixedArtifact : public GameElement
 {
 
 private:

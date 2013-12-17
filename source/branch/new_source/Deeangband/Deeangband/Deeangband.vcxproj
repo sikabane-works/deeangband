@@ -88,6 +88,7 @@
     <ClInclude Include="Deeangband.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Feature.h" />
+    <ClInclude Include="FixedArtifact.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="GameElement.h" />
     <ClInclude Include="GameView.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="Deeangband.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Feature.cpp" />
+    <ClCompile Include="FixedArtifact.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameElement.cpp" />
     <ClCompile Include="GameView.cpp" />
