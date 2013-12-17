@@ -87,6 +87,7 @@
     <ClInclude Include="CreatureTemplate.h" />
     <ClInclude Include="Deeangband.h" />
     <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="Feature.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="GameElement.h" />
     <ClInclude Include="GameView.h" />
@@ -101,6 +102,7 @@
     <ClCompile Include="CreatureTemplate.cpp" />
     <ClCompile Include="Deeangband.cpp" />
     <ClCompile Include="Dungeon.cpp" />
+    <ClCompile Include="Feature.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameElement.cpp" />
     <ClCompile Include="GameView.cpp" />

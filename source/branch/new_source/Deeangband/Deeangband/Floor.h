@@ -15,5 +15,15 @@
 class Floor : public GameElement
 {
 private:
+
+	int width; /*!< フロアの横サイズ*/
+	int height; /*!< フロアの縦サイズ*/
+
 public:
+
+	/*! フロアの横サイズを得る */
+	int get_width(void);
+
+	/*! フロアの縦サイズを得る */
+	int get_height(void);
 };
