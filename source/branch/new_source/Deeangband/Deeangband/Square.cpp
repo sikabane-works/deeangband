@@ -1,5 +1,5 @@
 /*!
-    @file Cave.cpp
+    @file Square.cpp
     @brief ゲーム中のマスを定義する
     @date 2013/12/11
     @author Deskull
@@ -7,5 +7,5 @@
 */
 
 #include "stdafx.h"
-#include "Cave.h"
+#include "Square.h"
 

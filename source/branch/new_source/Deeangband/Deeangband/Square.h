@@ -1,5 +1,5 @@
 /*!
-    @file Cave.h
+    @file Square.h
     @brief ゲーム中のマスと付随要素のプロトタイプ
     @date 2013/12/11
     @author Deskull
@@ -9,10 +9,10 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
-/*! @class Cave
-    @brief フロアのクラス
+/*! @class Square
+    @brief マスのクラス
 */
-class Cave : public GameElement
+class Square : public GameElement
 {
 private:
 public:

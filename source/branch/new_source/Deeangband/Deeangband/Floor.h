@@ -9,6 +9,8 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
+typedef int MapLength; /*!<マップ距離*/
+
 /*! @class Floor
     @brief フロアのクラス
 */
@@ -16,15 +18,15 @@ class Floor : public GameElement
 {
 private:
 
-	int width; /*!< フロアの横サイズ*/
-	int height; /*!< フロアの縦サイズ*/
+	MapLength width; /*!< フロアの横サイズ*/
+	MapLength height; /*!< フロアの縦サイズ*/
 
 public:
 
 	/*! フロアの横サイズを得る */
-	int get_width(void);
+	MapLength get_width(void);
 
 	/*! フロアの縦サイズを得る */
-	int get_height(void);
+	MapLength get_height(void);
 
 };
