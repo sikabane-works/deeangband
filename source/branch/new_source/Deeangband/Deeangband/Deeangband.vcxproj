@@ -82,6 +82,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camp.h" />
     <ClInclude Include="Cave.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="CreatureTemplate.h" />
@@ -100,6 +101,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camp.cpp" />
     <ClCompile Include="Cave.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="CreatureTemplate.cpp" />
