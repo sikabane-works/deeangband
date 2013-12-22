@@ -25,9 +25,9 @@ private:
 public:
 
 	/*! 所属するフロアのポインタを返す。*/
-	Floor* getFloorPtr();
+	Floor* getFloorPtr(void);
 
 	/*! 対応する地形のポインタを返す。*/
-	Feature* getFeaturePtr();
+	Feature* getFeaturePtr(void);
 
 };

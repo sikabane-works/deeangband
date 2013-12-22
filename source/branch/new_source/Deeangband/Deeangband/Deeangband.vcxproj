@@ -101,6 +101,7 @@
     <ClInclude Include="Skill.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="GameWorld.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camp.cpp" />
@@ -123,6 +124,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="GameWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Deeangband.rc" />
