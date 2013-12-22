@@ -6,6 +6,8 @@
     2013 Sikabane Works.
 */
 
+#pragma once
+
 #include "stdafx.h"
 #include "GameElement.h"
 

@@ -82,6 +82,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Authority.h" />
     <ClInclude Include="Camp.h" />
     <ClInclude Include="CreatureTrait.h" />
     <ClInclude Include="Effect.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="GameWorld.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Authority.cpp" />
     <ClCompile Include="Camp.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="GameCampaign.cpp" />
