@@ -34,9 +34,9 @@ enum CREATURE_STATUS
 */
 struct status_table
 {
-	Status current[CS_MAX];
-	Status max[CS_MAX];
-	Status max_max[CS_MAX];
+	Status current[CS_MAX]; /*!<現在のステータス*/
+	Status max[CS_MAX]; /*!<通常のステータス*/
+	Status max_max[CS_MAX]; /*!<ステータスの基本成長限界*/
 };
 
 /*! @class Creature
@@ -53,6 +53,7 @@ private:
 	MP current_mp; /*!< 現在のHP*/
 	MP max_mp; /*!< 現在の最大HP*/
 	MP max_max_mp; /*!< 本来の最大HP*/
+	status_table status; /*!< クリーチャーのステータス */
 
 	/*! クリーチャー死亡時の処理を行う */
 	void dead(void);
