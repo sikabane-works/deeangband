@@ -11,6 +11,8 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
+typedef int POWER; /*!<Œø—Í*/
+
 /*! @class Effect
     @brief Œø‰Ê‘®«‚ÌƒNƒ‰ƒX
 */

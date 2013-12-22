@@ -9,12 +9,12 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Effect.h"
 #include "GameElement.h"
 
 typedef int Status; /*!<基礎能力値*/
 typedef int HP; /*!<HP*/
 typedef int MP; /*!<MP*/
-typedef int POWER; /*!<効力*/
 
 /*! @enum CREATURE_STATUS
     @brief クリーチャーの基礎能力値6種の列挙体
@@ -77,8 +77,8 @@ public:
 	/*! クリーチャーが生存している状態かを返す */
 	bool is_alive(void);
 
-	/*! クリーチャーに属性効果を与える */
-	bool take_effect(POWER amount);
+	/*! 受けた効果を処理する */
+	bool take_effect(POWER amount, Effect* effectPtr);
 
 };
 

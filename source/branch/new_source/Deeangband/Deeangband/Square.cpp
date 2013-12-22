@@ -9,3 +9,7 @@
 #include "stdafx.h"
 #include "Square.h"
 
+bool Square::take_effect(POWER amount, Effect *effectPtr)
+{
+	return false;
+}

@@ -9,9 +9,11 @@
 #pragma once
 
 #include "stdafx.h"
-#include "GameElement.h"
+
+#include "Effect.h"
 #include "Floor.h"
 #include "Feature.h"
+#include "GameElement.h"
 
 /*! @class Square
     @brief マスのクラス
@@ -29,5 +31,8 @@ public:
 
 	/*! 対応する地形のポインタを返す。*/
 	Feature* getFeaturePtr(void);
+
+	/*! 受けた効果を処理する */
+	bool Square::take_effect(POWER amount, Effect *effectPtr);
 
 };

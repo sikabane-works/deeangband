@@ -14,7 +14,7 @@ bool Creature::is_alive(void)
 	return true;
 }
 
-bool Creature::take_effect(POWER amount)
+bool Creature::take_effect(POWER amount, Effect *effectPtr)
 {
 	return false;
 }
