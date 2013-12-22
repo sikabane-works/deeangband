@@ -33,6 +33,6 @@ public:
 	Feature* getFeaturePtr(void);
 
 	/*! ó‚¯‚½Œø‰Ê‚ğˆ—‚·‚é */
-	bool Square::take_effect(POWER amount, Effect *effectPtr);
+	bool Square::take_effect(Effect *effectPtr, POWER amount);
 
 };

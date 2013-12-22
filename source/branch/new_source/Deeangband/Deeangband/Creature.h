@@ -78,7 +78,7 @@ public:
 	bool is_alive(void);
 
 	/*! ó‚¯‚½Œø‰Ê‚ğˆ—‚·‚é */
-	bool take_effect(POWER amount, Effect* effectPtr);
+	bool take_effect(Effect* effectPtr, POWER amount);
 
 };
 

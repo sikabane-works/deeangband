@@ -21,6 +21,6 @@ private:
 public:
 	
 	/*! ó‚¯‚½Œø‰Ê‚ğˆ—‚·‚é */
-	bool Item::take_effect(POWER amount, Effect *effectPtr);
+	bool Item::take_effect(Effect *effectPtr, POWER amount);
 
 };

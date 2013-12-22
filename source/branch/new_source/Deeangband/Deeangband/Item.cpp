@@ -9,7 +9,7 @@
 #include "stdafx.h"
 #include "Item.h"
 
-bool Item::take_effect(POWER amount, Effect *effectPtr)
+bool Item::take_effect(Effect *effectPtr, POWER amount)
 {
 	return false;
 }
