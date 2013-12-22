@@ -9,6 +9,7 @@
 #pragma once
 
 typedef int ID; /*!<ƒQ[ƒ€—v‘fID*/
+typedef string StrID; /*!<ƒQ[ƒ€—v‘f•¶Žš—ñID*/
 
 /*! @class GameElement
     @brief ƒQ[ƒ€‚Ì”—v‘f‚ÌŠÇ—‚ðs‚¤ƒX[ƒp[ƒNƒ‰ƒX

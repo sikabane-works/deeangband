@@ -27,5 +27,6 @@
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
 #include <iostream>
 #include <string>
+#include <map>
 using namespace std;
 
