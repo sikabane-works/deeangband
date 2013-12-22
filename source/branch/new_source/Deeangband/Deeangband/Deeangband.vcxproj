@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClInclude Include="Camp.h" />
     <ClInclude Include="CreatureTrait.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="GameCampaign.h" />
     <ClInclude Include="ItemTrait.h" />
     <ClInclude Include="Square.h" />
@@ -106,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camp.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="GameCampaign.cpp" />
     <ClCompile Include="CreatureTrait.cpp" />
     <ClCompile Include="ItemTrait.cpp" />
