@@ -10,6 +10,7 @@
 
 #include "stdafx.h"
 #include "Creature.h"
+#include "Feature.h"
 #include "Floor.h"
 
 /*! @class GameWorld
@@ -18,8 +19,18 @@
 class GameWorld
 {
 private:
-	map<ID, StrID, Creature> CreatureList;
-	map<ID, StrID, Floor> FloorList;
-
+	map<ID, StrID, Creature> creatureList; /*!<ゲーム世界中の全クリーチャーリスト*/
+	map<ID, StrID, Creature> itemList; /*!<ゲーム世界中の全アイテムリスト*/
+	map<ID, StrID, Floor> floorList; /*!<ゲーム世界中の全フロアリスト*/
+	map<ID, StrID, Feature> featureList; /*!<ゲーム世界中の全地形リスト*/
 public:
+
+	GameWorld()
+	{
+	}
+
+	~GameWorld()
+	{
+	}
+
 };
