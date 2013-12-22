@@ -6,6 +6,8 @@
     2013 Sikabane Works.
 */
 
+#pragma once
+
 typedef int ID; /*!<ƒQ[ƒ€—v‘fID*/
 
 /*! @class GameElement

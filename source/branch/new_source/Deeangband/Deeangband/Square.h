@@ -6,8 +6,12 @@
     2013 Sikabane Works.
 */
 
+#pragma once
+
 #include "stdafx.h"
 #include "GameElement.h"
+#include "Floor.h"
+#include "Feature.h"
 
 /*! @class Square
     @brief マスのクラス
@@ -15,5 +19,15 @@
 class Square : public GameElement
 {
 private:
+	ID *floor_id; //!<所属フロアID
+	ID *feature_id; //!<地形ID
+
 public:
+
+	/*! 所属するフロアのポインタを返す。*/
+	Floor* getFloorPtr();
+
+	/*! 対応する地形のポインタを返す。*/
+	Feature* getFeaturePtr();
+
 };

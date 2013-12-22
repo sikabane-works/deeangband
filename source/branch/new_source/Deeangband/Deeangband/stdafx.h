@@ -9,7 +9,6 @@
     2013 Sikabane Works.
 */
 
-
 #pragma once
 
 #include "targetver.h"
