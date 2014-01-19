@@ -23,3 +23,16 @@ bool Square::take_effect(Effect *effectPtr, POWER amount)
 {
 	return false;
 }
+
+ID Square::getFeatureID(void)
+{
+	return this->feature_id;
+}
+
+Feature *Square::getFeaturePtr(void)
+{
+	return NULL;
+}
+
+
+

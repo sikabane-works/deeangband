@@ -10,7 +10,7 @@
 
 #include "stdafx.h"
 
-/*! @class GameCampaignのク
+/*! @class GameCampaignのクラス
     @brief ゲームキャンペーンのクラス
 */
 class GameCampaign
