@@ -8,8 +8,13 @@
 
 #pragma once
 
-typedef int ID; /*!<ƒQ[ƒ€—v‘fID*/
-typedef string StrID; /*!<ƒQ[ƒ€—v‘f•¶Žš—ñID*/
+typedef int ID; //!<ƒQ[ƒ€—v‘fID
+typedef string StrID; //! ƒQ[ƒ€—v‘f•¶Žš—ñID
+typedef int Weight; //!< d—Ê
+typedef int AC; //!< ŠæŒ’«
+typedef int EV; //!< ‰ñ”ð—Í
+typedef int VO; //!< ˆÓŽu—Í
+
 
 /*! @class GameElement
     @brief ƒQ[ƒ€‚Ì”—v‘f‚ÌŠÇ—‚ðs‚¤ƒX[ƒp[ƒNƒ‰ƒX

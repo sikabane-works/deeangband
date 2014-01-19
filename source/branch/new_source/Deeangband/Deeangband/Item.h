@@ -18,9 +18,34 @@
 class Item : public GameElement
 {
 private:
+	Weight weight; //!< ƒAƒCƒeƒ€‚Ìd—Ê
+	AC baseAC; //!< Šî–{‘•bC³
+	EV baseEV; //!< Šî–{‰ñ”ðC³
+	VO baseVO; //!< Šî–{ˆÓŽuC³
+	AC plusAC; //!< ’Ç‰Á‘•bC³
+	EV plusEV; //!< ’Ç‰Á‰ñ”ðC³
+	VO plusVO; //!< ’Ç‰ÁˆÓŽuC³
 public:
 	
 	/*! Žó‚¯‚½Œø‰Ê‚ðˆ—‚·‚é */
 	bool Item::take_effect(Effect *effectPtr, POWER amount);
+
+	/*! Šî–{‘•bC³‚ð•Ô‚· */
+	AC getBaseAC(void);
+
+	/*! ’Ç‰Á‘•bC³‚ð•Ô‚· */
+	AC getPlusAC(void);
+
+	/*! Šî–{‰ñ”ðC³‚ð•Ô‚· */
+	EV getBaseEV(void);
+
+	/*! ’Ç‰Á‰ñ”ðC³‚ð•Ô‚· */
+	EV getPlusEV(void);
+
+	/*! Šî–{ˆÓŽuC³‚ð•Ô‚· */
+	VO getBaseVO(void);
+
+	/*! ’Ç‰ÁˆÓŽuC³‚ð•Ô‚· */
+	VO getPlusVO(void);
 
 };
