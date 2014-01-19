@@ -1,5 +1,5 @@
 /*!
-    @file Creature.h
+    @file Camp.h
     @brief ゲーム中の陣営と付随要素のプロトタイプ
     @date 2013/12/11
     @author Deskull

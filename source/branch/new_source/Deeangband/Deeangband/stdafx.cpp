@@ -1,6 +1,7 @@
-// stdafx.cpp : 標準インクルード Deeangband.pch のみを
-// 含むソース ファイルは、プリコンパイル済みヘッダーになります。
-// stdafx.obj にはプリコンパイル済み型情報が含まれます。
+/*!
+ @file stdafx.cpp
+ @brief プリコンパイル用
+*/
 
 #include "stdafx.h"
 

@@ -1,5 +1,5 @@
 /*!
-    @file Cave.h
+    @file Feature.h
     @brief ゲーム中の地形情報のプロトタイプ
     @date 2013/12/17
     @author Deskull

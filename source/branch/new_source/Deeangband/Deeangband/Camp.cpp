@@ -1,6 +1,6 @@
 /*!
-    @file Creature.cpp
-    @brief ゲーム中の陣営を定義する
+    @file Camp.cpp
+    @brief Campクラスの定義
     @date 2013/12/19
     @author Deskull
     2013 Sikabane Works.
