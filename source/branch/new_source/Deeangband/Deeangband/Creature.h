@@ -9,7 +9,9 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Coordinates.h"
 #include "Effect.h"
+#include "Item.h"
 #include "GameElement.h"
 
 typedef int Status; /*!<基礎能力値*/
@@ -30,10 +32,9 @@ enum CREATURE_STATUS
 	CS_MAX  /*!<総数:6*/
 };
 
-
 /*! @struct status_table
-    @brief ステータス値の構造体
-*/
+ *  @brief ステータス値の構造体
+ */
 struct status_table
 {
 	Status current[CS_MAX]; /*!<現在のステータス*/
@@ -55,8 +56,10 @@ private:
 	MP current_mp; /*!< 現在のHP*/
 	MP max_mp; /*!< 現在の最大HP*/
 	MP max_max_mp; /*!< 本来の最大HP*/
-	status_table status; /*!< クリーチャーのステータス */
+	status_table status; /*!< ステータス */
 	ID floorID; /*!< 現在いるフロアID */
+	Coordinates position; /*!< 現座標 */
+	map<ID, StrID, Item> itemList; /*!< 所持アイテムリスト */
 
 	/*! クリーチャー死亡時の処理を行う */
 	void dead(void);
@@ -141,6 +144,18 @@ public:
 	 * @return クリーチャーの現VO
 	 */
 	VO getVO(void);
+
+	/*!
+	 * @brief クリーチャーの現在位置を返す
+	 * @return クリーチャー現在位置を示すCoordinates
+	 */
+	Coordinates *getCorrdinates(void);
+
+	/*!
+	 * @brief クリーチャーの所持品リストを返す
+	 * @return クリーチャー所持品リストマップ
+	 */
+	map<ID, StrID, Item> *getItemList(void);
 
 };
 
