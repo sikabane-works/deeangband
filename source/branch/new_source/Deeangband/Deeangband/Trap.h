@@ -7,13 +7,14 @@
  */
 
 #include "stdafx.h"
+#include "Coordinates.h"
 #include "GameElement.h"
 
 class Trap : public GameElement
 {
-
 private:
-
+	ID floorID; //!<ŠÝƒtƒƒAID
+	Coordinates position; //!<ŠÝÀ•W
 public:
 
 };

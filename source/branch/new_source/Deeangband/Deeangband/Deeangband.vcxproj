@@ -104,6 +104,7 @@
     <ClInclude Include="ItemEgo.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="Stair.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="GameWorld.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemEgo.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Stair.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
