@@ -80,5 +80,23 @@ public:
 	/*! 受けた効果を処理する */
 	bool take_effect(Effect* effectPtr, POWER amount);
 
+	/*!
+	 * @brief クリーチャーの現ACを返す
+	 * @return クリーチャーの現AC
+	 */
+	AC getAC(void);
+
+	/*!
+	 * @brief クリーチャーの現EVを返す
+	 * @return クリーチャーの現EV
+	 */
+	EV getEV(void);
+
+	/*!
+	 * @brief クリーチャーの現VOを返す
+	 * @return クリーチャーの現VO
+	 */
+	VO getVO(void);
+
 };
 

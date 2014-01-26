@@ -1,6 +1,6 @@
 /*!
     @file GameCampaign.cpp
-    @brief ƒQ[ƒ€¢ŠE‚ğ’è‹`‚·‚é
+    @brief ƒQ[ƒ€¢ŠE‚ÌÀ‘•
     @date 2013/12/22
     @author Deskull
     2013 Sikabane Works.
