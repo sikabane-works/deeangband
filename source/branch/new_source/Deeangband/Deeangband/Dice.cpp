@@ -33,11 +33,15 @@ int Dice::cast(int num, int side)
 	return n;
 };
 
-
-int Dice::maxThrow(void)
+int Dice::maxCast(void)
 {
 	return this->num * this->side;
 }
+
+int Dice::maxCast(int num, int side)
+{
+	return num * side;
+};
 
 int Dice::rand0(int max)
 {
