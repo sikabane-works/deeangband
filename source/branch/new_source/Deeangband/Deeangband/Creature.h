@@ -11,6 +11,7 @@
 #include "stdafx.h"
 #include "Coordinates.h"
 #include "Effect.h"
+#include "Floor.h"
 #include "Item.h"
 #include "GameElement.h"
 
@@ -61,20 +62,47 @@ private:
 	Coordinates position; /*!< 現座標 */
 	map<ID, StrID, Item> itemList; /*!< 所持アイテムリスト */
 
-	/*! クリーチャー死亡時の処理を行う */
+	/*!
+	 * @brief クリーチャー死亡時の処理を行う
+	 */
 	void dead(void);
 
-	/*! クリーチャーの現HPを増減させる */
+	/*!
+	 * @brief クリーチャーの現HPを増減させる
+	 */
 	void calc_hp(HP amount);
 
-	/*! クリーチャーの現MPを増減させる */
+	/*!
+	 * @brief クリーチャーの現MPを増減させる
+	 */
 	void calc_mp(MP amount);
 
-	/*! クリーチャーの現HPを設定する */
+	/*!
+	 * @brief クリーチャーの現HPを設定する
+	 */
 	void set_hp(HP amount);
 
-	/*! クリーチャーの現MPを設定する */
+	/*!
+	 * @brief クリーチャーの現MPを設定する
+	 */
 	void set_mp(MP amount);
+
+	/*!
+	 * @brief クリーチャーを所定フロアの所定座標に移動する
+	 * @param floorID 移動先フロアID
+	 * @param x 移動先x座標
+	 * @param y 移動先y座標
+	 * @return 移動できなかった場合のエラーID
+	 */
+	int move(ID floor_ID, int x, int y);
+
+	/*!
+	 * @brief クリーチャーを所定フロアの所定座標に移動する
+	 * @param floorID 移動先フロアID
+	 * @param coord 移動先座標
+	 * @return 移動できなかった場合のエラーID
+	 */
+	int move(ID floor_ID, Coordinates coord);
 
 public:
 

@@ -23,6 +23,19 @@ void Creature::dead(void)
 {
 }
 
+int Creature::move(ID floor_ID, int x, int y)
+{
+	this->floorID = floor_ID;
+	return 0;
+}
+
+int Creature::move(ID floor_ID, Coordinates coord)
+{
+	this->move(floor_ID, coord.getFloorX(), coord.getFloorY());
+	return 0;
+}
+
+
 void Creature::calc_hp(HP amount)
 {
 	this->current_hp += amount;
