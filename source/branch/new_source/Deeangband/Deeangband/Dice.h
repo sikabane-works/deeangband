@@ -37,6 +37,20 @@ public:
 	int maxThrow(void);
 
 	/*!
+	 * @brief ダイスを振る
+	 * @return ダイスの総計値
+	 */
+	int cast(void);
+
+	/*!
+	 * @brief ダイスを振る
+	 * @param num ダイスの数
+	 * @param sides ダイスの面数
+	 * @return ダイスの総計値
+	 */
+	static int cast(int num, int side);
+
+	/*!
 	 * @brief 0を最小値とした乱数を返す
      * @param max 乱数の範囲(0～max-1)
 	 * @return 乱数の値

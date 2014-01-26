@@ -19,6 +19,21 @@ int Dice::getSide(void)
 	return this->side;
 }
 
+int Dice::cast(void)
+{
+	int i, n = 0;
+	for(i = 0; i < this->num; i++) n += rand1(this->side);
+	return n;
+}
+
+int Dice::cast(int num, int side)
+{
+	int i, n = 0;
+	for(i = 0; i < num; i++) n += rand1(side);
+	return n;
+};
+
+
 int Dice::maxThrow(void)
 {
 	return this->num * this->side;
