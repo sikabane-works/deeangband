@@ -18,12 +18,35 @@ private:
 	int side; //!< ダイスの面数
 public:
 
-	/*! ダイスの数を返す */
+	/*!
+	 * @brief ダイスの数を返す
+	 * @return ダイスの数
+	 */
 	int getNum(void);
 
-	/*! ダイスの面数を返す */
+	/*!
+	 * @brief ダイスの面数を返す
+	 * @return ダイスの面数
+	 */
 	int getSide(void);
 
-	/*! ダイスの取り得る最大値を返す */
+	/*!
+	 * @brief ダイスの取り得る最大値を返す
+	 * @return ダイスの最大値
+	 */
 	int maxThrow(void);
+
+	/*!
+	 * @brief 0を最小値とした乱数を返す
+     * @param max 乱数の範囲(0～max-1)
+	 * @return 乱数の値
+	 */
+	static int rand0(int max);
+
+	/*!
+	 * @brief 1を最小値とした乱数を返す
+     * @param max 乱数の最大値(1～max)
+	 * @return 乱数の値
+	 */
+	static int rand1(int max);
 };
