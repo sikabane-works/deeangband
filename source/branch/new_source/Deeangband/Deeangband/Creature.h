@@ -56,6 +56,7 @@ private:
 	MP max_mp; /*!< 現在の最大HP*/
 	MP max_max_mp; /*!< 本来の最大HP*/
 	status_table status; /*!< クリーチャーのステータス */
+	ID floorID /*!< 現在いるフロアID */
 
 	/*! クリーチャー死亡時の処理を行う */
 	void dead(void);
@@ -74,11 +75,54 @@ private:
 
 public:
 
-	/*! クリーチャーが生存している状態かを返す */
+	/*!
+	 * @brief クリーチャーが生存している状態かを返す
+	 * @return 生存しているならばtrueを返す
+	 */
 	bool is_alive(void);
 
-	/*! 受けた効果を処理する */
+	/*!
+	 * @brief 受けた属性効果を処理する
+	 * @param effectPtr
+	 * @param amount
+	 */
 	bool take_effect(Effect* effectPtr, POWER amount);
+
+	/*!
+	 * @brief クリーチャーの現HPを返す
+	 * @return クリーチャーの現HP
+	 */
+	HP getCurHP(void);
+
+	/*!
+	 * @brief クリーチャーの現最大HPを返す
+	 * @return クリーチャーの現最大HP
+	 */
+	HP getMaxHP(void);
+
+	/*!
+	 * @brief クリーチャーの通常最大HPを返す
+	 * @return クリーチャーの通常最大HP
+	 */
+	HP getNorMaxHP(void);
+
+	/*!
+	 * @brief クリーチャーの現MPを返す
+	 * @return クリーチャーの現MP
+	 */
+	MP getCurMP(void);
+
+	/*!
+	 * @brief クリーチャーの現最大MPを返す
+	 * @return クリーチャーの現最大MP
+	 */
+	MP getMaxMP(void);
+
+	/*!
+	 * @brief クリーチャーの通常最大MPを返す
+	 * @return クリーチャーの通常最大MP
+	 */
+	MP getNorMaxMP(void);
 
 	/*!
 	 * @brief クリーチャーの現ACを返す
