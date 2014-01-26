@@ -56,7 +56,7 @@ private:
 	MP max_mp; /*!< 現在の最大HP*/
 	MP max_max_mp; /*!< 本来の最大HP*/
 	status_table status; /*!< クリーチャーのステータス */
-	ID floorID /*!< 現在いるフロアID */
+	ID floorID; /*!< 現在いるフロアID */
 
 	/*! クリーチャー死亡時の処理を行う */
 	void dead(void);
