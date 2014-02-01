@@ -112,6 +112,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Trap.h" />
+    <ClInclude Include="TrapBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Authority.cpp" />
@@ -145,6 +146,7 @@
     </ClCompile>
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Trap.cpp" />
+    <ClCompile Include="TrapBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Deeangband.rc" />
