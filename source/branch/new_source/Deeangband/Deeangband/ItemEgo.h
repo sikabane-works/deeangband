@@ -1,5 +1,5 @@
 /*!
- * @file ItemBase.h
+ * @file ItemEgo.h
  * @brief ゲーム中のアイテムエゴのプロトタイプ
  * @date 2014/02/01
  * @author Deskull
@@ -10,9 +10,9 @@
 #include "GameElement.h"
 
 /*! @class ItemBase
- *  @brief アイテムベースのクラス
+ *  @brief アイテムエゴのクラス
  */
-class ItemBase : public GameElement
+class ItemEgo : public GameElement
 {
 
 private:
