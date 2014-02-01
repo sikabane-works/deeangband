@@ -1,18 +1,18 @@
 /*!
-    @file ItemEgo.h
-    @brief ゲーム中のアイテムエゴのプロトタイプ
-    @date 2013/12/17
-    @author Deskull
-    2013 Sikabane Works.
-*/
+ * @file ItemBase.h
+ * @brief ゲーム中のアイテムエゴのプロトタイプ
+ * @date 2014/02/01
+ * @author Deskull
+ * 2014 Sikabane Works.
+ */
 
 #include "stdafx.h"
 #include "GameElement.h"
 
-/*! @class ItemEgo
-    @brief アイテムエゴのクラス
-*/
-class ItemEgo : public GameElement
+/*! @class ItemBase
+ *  @brief アイテムベースのクラス
+ */
+class ItemBase : public GameElement
 {
 
 private:

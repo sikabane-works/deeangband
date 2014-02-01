@@ -89,6 +89,7 @@
     <ClInclude Include="Dice.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameCampaign.h" />
+    <ClInclude Include="ItemBase.h" />
     <ClInclude Include="ItemTrait.h" />
     <ClInclude Include="Karma.h" />
     <ClInclude Include="Square.h" />
@@ -119,6 +120,7 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="GameCampaign.cpp" />
     <ClCompile Include="CreatureTrait.cpp" />
+    <ClCompile Include="ItemBase.cpp" />
     <ClCompile Include="ItemTrait.cpp" />
     <ClCompile Include="Karma.cpp" />
     <ClCompile Include="Square.cpp" />

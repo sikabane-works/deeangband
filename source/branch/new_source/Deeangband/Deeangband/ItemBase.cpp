@@ -1,10 +1,10 @@
 /*!
- * @file ItemEgo.cpp
+ * @file ItemBase.cpp
  * @brief ゲーム中のアイテムエゴを定義する
- * @date 2013/12/11
+ * @date 2014/02/01
  * @author Deskull
- * 2013 Sikabane Works.
+ * 2014 Sikabane Works.
  */
 
 #include "stdafx.h"
-#include "ItemEgo.h"
+#include "ItemBase.h"
