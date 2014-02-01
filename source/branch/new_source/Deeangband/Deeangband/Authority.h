@@ -1,10 +1,10 @@
 /*!
-    @file Authority.h
-    @brief 権能のプロトタイプ宣言
-    @date 2013/12/22
-    @author Deskull
-    2013 Sikabane Works.
-*/
+ * @file Authority.h
+ * @brief 権能のプロトタイプ宣言
+ * @date 2013/12/22
+ * @author Deskull
+ * 2013 Sikabane Works.
+ */
 
 #pragma once
 

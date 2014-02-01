@@ -1,9 +1,9 @@
 /*!
-    @file Authority.cpp
-    @brief ゲーム中の権能を定義する
-    @date 2013/12/22
-    @author Deskull
-    2013 Sikabane Works.
+ * @file Authority.cpp
+ * @brief ゲーム中の権能を定義する
+ * @date 2013/12/22
+ * @author Deskull
+ * 2013 Sikabane Works.
 */
 
 #include "stdafx.h"
