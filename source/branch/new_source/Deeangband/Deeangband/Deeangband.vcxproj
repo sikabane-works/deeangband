@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Authority.h" />
+    <ClInclude Include="Building.h" />
     <ClInclude Include="Camp.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="CreatureTrait.h" />
@@ -116,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Authority.cpp" />
+    <ClCompile Include="Building.cpp" />
     <ClCompile Include="Camp.cpp" />
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="Dice.cpp" />
