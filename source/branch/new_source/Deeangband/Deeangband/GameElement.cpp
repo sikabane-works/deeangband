@@ -18,3 +18,13 @@ void GameElement::setID(ID newID)
 {
 	this->id = newID;
 }
+
+Tag GameElement::getTag(void)
+{
+	return this->tag;
+}
+
+void GameElement::setTag(Tag newTag)
+{
+	this->tag = newTag;
+}
