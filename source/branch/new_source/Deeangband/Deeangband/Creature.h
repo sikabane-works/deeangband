@@ -60,7 +60,7 @@ private:
 	status_table status; /*!< ステータス */
 	ID floorID; /*!< 現在いるフロアID */
 	Coordinates position; /*!< 現座標 */
-	map<ID, StrID, Item> itemList; /*!< 所持アイテムリスト */
+	map<ID, Tag, Item> itemList; /*!< 所持アイテムリスト */
 
 	/*!
 	 * @brief クリーチャー死亡時の処理を行う
@@ -183,7 +183,7 @@ public:
 	 * @brief クリーチャーの所持品リストを返す
 	 * @return クリーチャー所持品リストマップ
 	 */
-	map<ID, StrID, Item> *getItemList(void);
+	map<ID, Tag, Item> *getItemList(void);
 
 };
 

@@ -9,8 +9,12 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
-ID GameElement::get_id(void)
+ID GameElement::getID(void)
 {
-	return id;
+	return this->id;
 }
 
+void GameElement::setID(ID newID)
+{
+	this->id = newID;
+}
