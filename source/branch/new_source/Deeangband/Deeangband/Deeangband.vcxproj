@@ -90,6 +90,7 @@
     <ClInclude Include="Dice.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="FixedFloor.h" />
     <ClInclude Include="GameCampaign.h" />
     <ClInclude Include="ItemBase.h" />
     <ClInclude Include="ItemTrait.h" />
@@ -124,6 +125,7 @@
     <ClCompile Include="Dice.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="FixedFloor.cpp" />
     <ClCompile Include="GameCampaign.cpp" />
     <ClCompile Include="CreatureTrait.cpp" />
     <ClCompile Include="ItemBase.cpp" />
