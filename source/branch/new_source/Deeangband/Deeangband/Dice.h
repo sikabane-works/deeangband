@@ -1,10 +1,10 @@
 /*!
-    @file Dice.h
-    @brief Diceクラスとその他付随要素の定義
-    @date 2014/01/19
-    @author Deskull
-    2014 Sikabane Works.
-*/
+ *  @file Dice.h
+ *  @brief Diceクラスとその他付随要素の定義
+ *  @date 2014/01/19
+ *  @author Deskull
+ *  2014 Sikabane Works.
+ */
 
 #pragma once
 

@@ -38,6 +38,7 @@ struct FixedFloorTable
 class Dungeon : public GameElement
 {
 private:
+	list<FixedFloorTable> fixFloorTableList; //!< ŒÅ’èƒtƒƒA‚ÌƒŠƒXƒg
 	DEPTH minDepth;      //!< ŠJŽnŠK‘w
 	DEPTH maxDepth;      //!< Å[ŠK‘w
 	ID outerWallFeature; //!< Šî–{ŠO•Ç’nŒ`ID

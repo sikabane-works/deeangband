@@ -95,6 +95,7 @@
     <ClInclude Include="ItemBase.h" />
     <ClInclude Include="ItemTrait.h" />
     <ClInclude Include="Karma.h" />
+    <ClInclude Include="ProbabilityTable.h" />
     <ClInclude Include="Species.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="Creature.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="ItemBase.cpp" />
     <ClCompile Include="ItemTrait.cpp" />
     <ClCompile Include="Karma.cpp" />
+    <ClCompile Include="ProbabilityTable.cpp" />
     <ClCompile Include="Species.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="Creature.cpp" />
