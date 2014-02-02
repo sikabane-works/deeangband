@@ -88,6 +88,7 @@
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="CreatureTrait.h" />
     <ClInclude Include="Dice.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameCampaign.h" />
     <ClInclude Include="ItemBase.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="Camp.cpp" />
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="Dice.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="GameCampaign.cpp" />
     <ClCompile Include="CreatureTrait.cpp" />
