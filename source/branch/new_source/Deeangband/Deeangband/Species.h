@@ -9,6 +9,8 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
+#pragma once
+
 /*! @class Species
  *  @brief アイテムベースのクラス
  */

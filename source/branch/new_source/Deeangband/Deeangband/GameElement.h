@@ -8,17 +8,19 @@
 
 #pragma once
 
-typedef int ID; //!<ƒQ[ƒ€—v‘fID
-typedef string Tag; //! ƒQ[ƒ€—v‘f•¶Žš—ñID
+typedef int ID;     //!< ƒQ[ƒ€—v‘fID
+typedef string Tag; //!< ƒQ[ƒ€—v‘f•¶Žš—ñID
 typedef int Weight; //!< d—Ê
-typedef int AC; //!< ŠæŒ’«
-typedef int EV; //!< ‰ñ”ð—Í
-typedef int VO; //!< ˆÓŽu—Í
+typedef int AC;     //!< ŠæŒ’«
+typedef int EV;     //!< ‰ñ”ð—Í
+typedef int VO;     //!< ˆÓŽu—Í
+typedef int DEPTH;  //!< ŠK‘w[“x
 
 
-/*! @class GameElement
-    @brief ƒQ[ƒ€‚Ì”—v‘f‚ÌŠÇ—‚ðs‚¤ƒX[ƒp[ƒNƒ‰ƒX
-*/
+/*! 
+ * @class GameElement
+ * @brief ƒQ[ƒ€‚Ì”—v‘f‚ÌŠÇ—‚ðs‚¤ƒX[ƒp[ƒNƒ‰ƒX
+ */
 class GameElement
 {
 private:
