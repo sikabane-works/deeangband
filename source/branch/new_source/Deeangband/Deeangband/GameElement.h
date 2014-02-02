@@ -15,6 +15,8 @@ typedef int AC;     //!< ŠæŒ’«
 typedef int EV;     //!< ‰ñ”ð—Í
 typedef int VO;     //!< ˆÓŽu—Í
 typedef int DEPTH;  //!< ŠK‘w[“x
+typedef int NUMBER; //!< ŒÂ”
+typedef int PPM;    //!< •S–œ•ª—¦
 
 
 /*! 

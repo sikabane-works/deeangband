@@ -14,6 +14,23 @@
 
 #pragma once
 
+/*!
+ * @struct 固定フロア生成テーブル
+ */
+typedef struct FixedFloorTable FixedFloorTable;
+struct FixedFloorTable
+{
+	bool StaticFixed; //!<静的固定
+	ID FixedFloorID;  //!<生成される固定フロアのID
+	DEPTH MinDepth;   //!<生成最低階層
+	DEPTH MaxDepth;   //!<生成最大階層
+	NUMBER MinNum;    //!<最低生成数
+	NUMBER MaxNum;    //!<最大生成数
+	PPM Probability;  //!<生成確率
+};
+
+
+
 /*! 
  * @class Dungeon
  * @brief ダンジョンのクラス
