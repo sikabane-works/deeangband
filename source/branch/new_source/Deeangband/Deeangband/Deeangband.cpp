@@ -21,9 +21,9 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 					   _In_ LPTSTR    lpCmdLine,
 					   _In_ int       nCmdShow)
 {
-	SDL_Rect texr;
 	SDL_Renderer *renderer; 
 	SDL_RWops *rwop;
+	string error;
 
 	if(!SDL_system_init()) exit(1);
 	if(TTF_Init() == -1) exit(1);
@@ -33,6 +33,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	SDL_Surface *surface, *surface2;
 	SDL_Color color;
 	SDL_Rect src = {0, 0, 300, 200};
+	SDL_Rect title = {0, 0, 512, 512};
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
@@ -45,16 +46,18 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	if(!font) exit(1);
 	surface = TTF_RenderUTF8_Blended(font, "D'angbandƒeƒXƒg", color);
 
-	rwop = SDL_RWFromFile("Title.png", "rb");
+	rwop = SDL_RWFromFile(".\\Title.png", "rb");
+	error = IMG_GetError();
 	surface2 = IMG_LoadPNG_RW(rwop);
 
-	while (true)
-	{
 		SDL_BlitSurface(surface, &src, SDL_GetWindowSurface(window), &src); 
-		SDL_BlitSurface(surface2, &src, SDL_GetWindowSurface(window), &src); 
-		//SDL_RenderPresent(renderer);
-		if(!SDL_event()) break;
+		SDL_BlitSurface(surface2, &title, SDL_GetWindowSurface(window), &title); 
+		SDL_RenderPresent(renderer);
 		SDL_UpdateWindowSurface(window);
+
+		while (true)
+	{
+		if(!SDL_event()) break;
 	}
 
 	SDL_Quit();
