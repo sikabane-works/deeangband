@@ -92,6 +92,7 @@
     <ClInclude Include="Effect.h" />
     <ClInclude Include="FixedFloor.h" />
     <ClInclude Include="GameCampaign.h" />
+    <ClInclude Include="GameSurfaceSDL.h" />
     <ClInclude Include="ItemBase.h" />
     <ClInclude Include="ItemTrait.h" />
     <ClInclude Include="Karma.h" />
@@ -129,6 +130,7 @@
     <ClCompile Include="FixedFloor.cpp" />
     <ClCompile Include="GameCampaign.cpp" />
     <ClCompile Include="CreatureTrait.cpp" />
+    <ClCompile Include="GameSurfaceSDL.cpp" />
     <ClCompile Include="ItemBase.cpp" />
     <ClCompile Include="ItemTrait.cpp" />
     <ClCompile Include="Karma.cpp" />
