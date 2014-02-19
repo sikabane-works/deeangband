@@ -11,7 +11,8 @@
 #include <iostream>
 #include <string>
 
-static bool SDL_system_init();
+static bool SDL_system_init(void);
+static void SDL_system_quit(void);
 static bool SDL_event();
 static SDL_Window *window;
 
@@ -59,8 +60,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	string error;
 
 	if(!SDL_system_init()) exit(1);
-	if(TTF_Init() == -1) exit(1);
-	int err = IMG_Init(IMG_INIT_PNG);
 
 	TTF_Font* font = TTF_OpenFont("ipam.ttf", 18);
 	SDL_Surface *surface, *surface2;
@@ -96,20 +95,28 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		if(!SDL_event()) break;
 	}
 
-	IMG_Quit();
-	TTF_Quit();
-	SDL_Quit();
+	SDL_system_quit();
+
 	return 0;
 }
 
-static bool SDL_system_init()
+static bool SDL_system_init(void)
 {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) return false;
-	window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
 	SDL_GetWindowSurface(window);
 	if(!window) return false;
+
+	if(TTF_Init() == -1) return false;
+	if(IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) return false;
 	return true;
+}
+
+static void SDL_system_quit(void)
+{
+	IMG_Quit();
+	TTF_Quit();
+	SDL_Quit();
 }
 
 static bool SDL_event()
