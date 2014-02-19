@@ -21,22 +21,20 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 					   _In_ LPTSTR    lpCmdLine,
 					   _In_ int       nCmdShow)
 {
-
-	int w, h;
 	SDL_Rect texr;
-	SDL_Texture *img;
-
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+	SDL_Renderer *renderer; 
+	SDL_RWops *rwop;
 
 	if(!SDL_system_init()) exit(1);
 	if(TTF_Init() == -1) exit(1);
-	if(SDL_Init(SDL_INIT_VIDEO) < 0) exit(1);
+	int err = IMG_Init(IMG_INIT_PNG);
 
 	TTF_Font* font = TTF_OpenFont("ipam.ttf", 18);
 	SDL_Surface *surface, *surface2;
 	SDL_Color color;
 	SDL_Rect src = {0, 0, 300, 200};
 
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	color.r = 255;
@@ -47,17 +45,14 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	if(!font) exit(1);
 	surface = TTF_RenderUTF8_Blended(font, "D'angbandƒeƒXƒg", color);
 
-	img = IMG_LoadTexture(renderer, "Title.png");
-	SDL_QueryTexture(img, NULL, NULL, &w, &h);
-	texr.x = 460 / 2; texr.y = 250 / 2; texr.w = w*2; texr.h = h*2; 
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	rwop = SDL_RWFromFile("Title.png", "rb");
+	surface2 = IMG_LoadPNG_RW(rwop);
 
 	while (true)
 	{
 		SDL_BlitSurface(surface, &src, SDL_GetWindowSurface(window), &src); 
-		SDL_RenderCopy(renderer, img, NULL, &texr);
-		SDL_RenderPresent(renderer);
+		SDL_BlitSurface(surface2, &src, SDL_GetWindowSurface(window), &src); 
+		//SDL_RenderPresent(renderer);
 		if(!SDL_event()) break;
 		SDL_UpdateWindowSurface(window);
 	}
