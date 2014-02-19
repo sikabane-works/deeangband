@@ -15,6 +15,39 @@ static bool SDL_system_init();
 static bool SDL_event();
 static SDL_Window *window;
 
+LPSTR toUTF8(LPCSTR str)
+{
+	const int cchWideChar = ::MultiByteToWideChar(CP_ACP, 0, str, -1, NULL, 0);
+	LPWSTR lpw = new WCHAR[cchWideChar];
+	if(lpw == NULL) return NULL;
+	*lpw = L'\0';
+
+	const int nUnicodeCount = ::MultiByteToWideChar(CP_ACP, 0, str, -1, lpw, cchWideChar);
+	if(nUnicodeCount <= 0)
+	{
+		delete[] lpw;
+		return NULL;
+	}
+
+	const int cchMultiByte = ::WideCharToMultiByte(CP_UTF8, 0, lpw, -1, NULL, 0, NULL, NULL);
+	LPSTR lpa = new CHAR[cchMultiByte];
+	if(lpa == NULL)
+	{
+		delete[] lpw;
+		return NULL;
+	}
+	*lpa = '\0';
+
+	const int nMultiCount = ::WideCharToMultiByte(CP_UTF8, 0, lpw, -1, lpa, cchMultiByte, NULL, NULL);
+	if(nMultiCount <= 0)
+	{
+		delete[] lpw;
+		delete[] lpa;
+		return NULL;
+	}
+	delete[] lpw;
+	return lpa;
+}
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 					   _In_opt_ HINSTANCE hPrevInstance,
@@ -35,6 +68,9 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	SDL_Rect src = {0, 0, 300, 200};
 	SDL_Rect title = {0, 0, 512, 512};
 
+	::setlocale(LC_CTYPE, "");
+	::std::locale::global(std::locale("japanese"));
+
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -44,7 +80,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	color.a = 255;
 
 	if(!font) exit(1);
-	surface = TTF_RenderUTF8_Blended(font, "D'angband\xe3\x83\x86\xe3\x82\xb9\xe3\x83\x88", color);
+	surface = TTF_RenderUTF8_Blended(font, toUTF8("D'angbandƒeƒXƒg"), color);
 
 	rwop = SDL_RWFromFile(".\\Title.png", "rb");
 	error = IMG_GetError();
@@ -88,7 +124,7 @@ static bool SDL_event()
 		case SDL_KEYDOWN:
 			{
 				key=event.key.keysym.sym;
-				
+
 				if(key == 27)
 				{
 					return false;
