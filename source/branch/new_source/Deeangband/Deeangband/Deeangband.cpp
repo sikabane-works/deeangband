@@ -44,22 +44,24 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	color.a = 255;
 
 	if(!font) exit(1);
-	surface = TTF_RenderUTF8_Blended(font, "D'angbandƒeƒXƒg", color);
+	surface = TTF_RenderUTF8_Blended(font, "D'angband\xe3\x83\x86\xe3\x82\xb9\xe3\x83\x88", color);
 
 	rwop = SDL_RWFromFile(".\\Title.png", "rb");
 	error = IMG_GetError();
 	surface2 = IMG_LoadPNG_RW(rwop);
 
-		SDL_BlitSurface(surface, &src, SDL_GetWindowSurface(window), &src); 
-		SDL_BlitSurface(surface2, &title, SDL_GetWindowSurface(window), &title); 
-		SDL_RenderPresent(renderer);
-		SDL_UpdateWindowSurface(window);
+	SDL_BlitSurface(surface, &src, SDL_GetWindowSurface(window), &src); 
+	SDL_BlitSurface(surface2, &title, SDL_GetWindowSurface(window), &title); 
+	SDL_RenderPresent(renderer);
+	SDL_UpdateWindowSurface(window);
 
-		while (true)
+	while (true)
 	{
 		if(!SDL_event()) break;
 	}
 
+	IMG_Quit();
+	TTF_Quit();
 	SDL_Quit();
 	return 0;
 }
