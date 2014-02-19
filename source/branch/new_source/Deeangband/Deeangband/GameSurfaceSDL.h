@@ -12,6 +12,10 @@
 #include "Floor.h"
 
 #include "GameSurface.h"
+#include "Deeangband.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 
 /*! 
  * @class GameSurfaceSDL
@@ -20,7 +24,13 @@
 class GameSurfaceSDL : GameSurface
 {
 private:
-
+	SDL_Renderer *renderer; 
+	SDL_RWops *rwop;
+	string error;
+	SDL_Window *window;
+	bool SDL_event(void);
 public:
-
+	GameSurfaceSDL(void);
+	~GameSurfaceSDL(void);
+	void test(void);
 };
