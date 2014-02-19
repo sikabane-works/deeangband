@@ -24,6 +24,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	if(TTF_Init() == -1) exit(1);
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+
 	TTF_Font* font = TTF_OpenFont("ipam.ttf", 18);
 	SDL_Surface *surface, *surface2;
 	SDL_Color color;
@@ -31,12 +32,12 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	color.r = 255;
-	color.g = 255;
-	color.b = 255;
+	color.g = 223;
+	color.b = 200;
 	color.a = 255;
 
 	if(!font) exit(1);
-	surface = TTF_RenderUTF8_Blended(font, "D'angband\nAAAAAAAAAAAAAA\nAAAAAAAAA", color);
+	surface = TTF_RenderUTF8_Blended(font, "D'angbandƒeƒXƒg", color);
 
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
