@@ -106,7 +106,7 @@
     <ClInclude Include="FixedArtifact.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="GameElement.h" />
-    <ClInclude Include="GameView.h" />
+    <ClInclude Include="GameSurface.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemEgo.h" />
     <ClInclude Include="Resource.h" />
@@ -143,7 +143,7 @@
     <ClCompile Include="FixedArtifact.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameElement.cpp" />
-    <ClCompile Include="GameView.cpp" />
+    <ClCompile Include="GameSurface.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemEgo.cpp" />
     <ClCompile Include="Skill.cpp" />
