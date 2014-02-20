@@ -18,10 +18,10 @@
 class GameSurface
 {
 private:
-
 	/*! ƒtƒƒA‚Ìó‹µ‚ğ•`‰æ‚·‚é */
 	bool viewFloor(Floor *floor_ptr, int y, int x, int width, int height);
 
 public:
-
+	GameSurface();
+	virtual ~GameSurface();
 };

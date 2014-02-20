@@ -30,7 +30,7 @@ enum SDL_KEYCODE_LIST
  * @class GameSurfaceSDL
  * @brief ゲームのメインインターフェイスクラス(SDL実装)
  */
-class GameSurfaceSDL : GameSurface
+class GameSurfaceSDL : public GameSurface
 {
 private:
 	SDL_Renderer *renderer; 

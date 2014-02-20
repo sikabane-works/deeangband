@@ -8,3 +8,11 @@
 
 #include "stdafx.h"
 #include "GameSurface.h"
+
+GameSurface::GameSurface(void)
+{
+}
+
+GameSurface::~GameSurface(void)
+{
+}

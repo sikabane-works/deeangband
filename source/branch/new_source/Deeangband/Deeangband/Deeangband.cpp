@@ -14,9 +14,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 					   _In_ LPTSTR    lpCmdLine,
 					   _In_ int       nCmdShow)
 {
-	GameSurface gSurf;
 	GameSurfaceSDL gSurface;
-	GameWorld gWorld(&gSurf);
+	GameWorld gWorld(&gSurface);
 	gSurface.test();
 	return 0;
 }
