@@ -64,7 +64,7 @@ GameSurfaceSDL::~GameSurfaceSDL(void)
 
 void GameSurfaceSDL::test(void)
 {
-	TTF_Font* font = TTF_OpenFont("ipam.ttf", 18);
+	TTF_Font* font = TTF_OpenFont("ttf\\ipam.ttf", 18);
 	SDL_Surface *surface, *surface2;
 	SDL_Color color;
 	SDL_Rect src = {0, 0, 300, 200};
@@ -84,7 +84,7 @@ void GameSurfaceSDL::test(void)
 	if(!font) exit(1);
 	surface = TTF_RenderUTF8_Blended(font, toUTF8("D'angbandƒeƒXƒg"), color);
 
-	rwop = SDL_RWFromFile(".\\Title.png", "rb");
+	rwop = SDL_RWFromFile("img\\Title.png", "rb");
 	error = IMG_GetError();
 	surface2 = IMG_LoadPNG_RW(rwop);
 
