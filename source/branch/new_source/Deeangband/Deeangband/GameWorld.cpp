@@ -8,6 +8,7 @@
 
 #include "stdafx.h"
 #include "GameWorld.h"
+#include "Deeangband.h"
 
 GameWorld::GameWorld(GameSurface *gSurface)
 {

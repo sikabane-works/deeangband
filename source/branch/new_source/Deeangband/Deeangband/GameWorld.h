@@ -15,10 +15,12 @@
 #include "Creature.h"
 #include "CreatureTrait.h"
 #include "Dungeon.h"
+#include "Deeangband.h"
 #include "Effect.h"
 #include "Feature.h"
 #include "FixedArtifact.h"
 #include "Floor.h"
+#include "GameSurface.h"
 #include "Item.h"
 #include "ItemBase.h"
 #include "ItemEgo.h"
@@ -27,16 +29,6 @@
 #include "Skill.h"
 #include "Species.h"
 #include "TrapBase.h"
-#include "GameSurface.h"
-
-/*!
- * ゲームコマンド定義
- */
-enum GameCommand
-{
-	GAME_COMMAND_REDRAW,
-	GAME_COMMAND_EXIT
-};
 
 /*! @class GameWorld
  *  @brief ゲーム世界のクラス
