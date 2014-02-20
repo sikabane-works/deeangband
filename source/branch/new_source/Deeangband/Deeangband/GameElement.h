@@ -18,6 +18,17 @@ typedef int DEPTH;  //!< ŠK‘w[“x
 typedef int NUMBER; //!< ŒÂ”
 typedef int PPM;    //!< •S–œ•ª—¦
 
+/*!
+ * @struct color
+ * @brief FŽw’è‚Ì\‘¢‘Ì
+ */
+typedef struct 
+{
+	int r;
+	int g;
+	int b;
+	int a;
+} Color;
 
 /*! 
  * @class GameElement

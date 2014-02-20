@@ -33,8 +33,9 @@ enum CREATURE_STATUS
 	CS_MAX  /*!<総数:6*/
 };
 
-/*! @struct status_table
- *  @brief ステータス値の構造体
+/*!
+ * @struct status_table
+ * @brief ステータス値の構造体
  */
 struct status_table
 {
@@ -43,9 +44,10 @@ struct status_table
 	Status max_max[CS_MAX]; /*!<ステータスの基本成長限界*/
 };
 
-/*! @class Creature
-    @brief クリーチャーのクラス
-*/
+/*!
+ * @class Creature
+ * @brief クリーチャーのクラス
+ */
 class Creature : public GameElement
 {
 private:
@@ -61,6 +63,8 @@ private:
 	ID floorID; /*!< 現在いるフロアID */
 	Coordinates position; /*!< 現座標 */
 	map<ID, Tag, Item> itemList; /*!< 所持アイテムリスト */
+	char symbol;
+	Color symbolColor;
 
 	/*!
 	 * @brief クリーチャー死亡時の処理を行う
