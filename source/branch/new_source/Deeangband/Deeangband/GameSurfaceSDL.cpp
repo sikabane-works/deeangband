@@ -70,8 +70,8 @@ void GameSurfaceSDL::test(void)
 	SDL_Rect src = {0, 0, 300, 200};
 	SDL_Rect title = {0, 0, 512, 512};
 
-	::setlocale(LC_CTYPE, "");
-	::std::locale::global(std::locale("japanese"));
+	//::setlocale(LC_CTYPE, "");
+	//::std::locale::global(std::locale("japanese"));
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
@@ -112,7 +112,7 @@ bool GameSurfaceSDL::SDL_event(void)
 			{
 				key=event.key.keysym.sym;
 
-				if(key == 27)
+				if(key == SDL_KEY_ESC)
 				{
 					return false;
 				}

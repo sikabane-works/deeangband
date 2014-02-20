@@ -28,6 +28,15 @@
 #include "Species.h"
 #include "TrapBase.h"
 
+/*!
+ * ゲームコマンド定義
+ */
+enum GameCommand
+{
+	GAME_COMMAND_REDRAW,
+	GAME_COMMAND_EXIT
+};
+
 /*! @class GameWorld
  *  @brief ゲーム世界のクラス
  */
@@ -67,4 +76,8 @@ public:
 	{
 	}
 
+	/*
+	 * @brief 受け取ったゲームコマンドを処理する
+	 */
+	void DoGameCommand(GameCommand command);
 };

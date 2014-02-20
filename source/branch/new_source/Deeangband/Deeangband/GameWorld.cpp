@@ -8,3 +8,14 @@
 
 #include "stdafx.h"
 #include "GameWorld.h"
+
+void GameWorld::DoGameCommand(GameCommand command)
+{
+	switch(command)
+	{
+	case GAME_COMMAND_REDRAW:
+		break;
+	case GAME_COMMAND_EXIT:
+		break;
+	}
+}

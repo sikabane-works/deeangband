@@ -17,6 +17,15 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
+/*!
+ * @brief SDLのキーコード定義
+ */
+enum SDL_KEYCODE_LIST
+{
+	SDL_KEY_ESC = 27,
+};
+
+
 /*! 
  * @class GameSurfaceSDL
  * @brief ゲームのメインインターフェイスクラス(SDL実装)
