@@ -27,6 +27,7 @@
 #include "Skill.h"
 #include "Species.h"
 #include "TrapBase.h"
+#include "GameSurface.h"
 
 /*!
  * ゲームコマンド定義
@@ -68,13 +69,9 @@ private:
 
 public:
 
-	GameWorld()
-	{
-	}
+	GameWorld(GameSurface *gSurface);
 
-	~GameWorld()
-	{
-	}
+	~GameWorld();
 
 	/*
 	 * @brief 受け取ったゲームコマンドを処理する

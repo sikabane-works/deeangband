@@ -9,6 +9,14 @@
 #include "stdafx.h"
 #include "GameWorld.h"
 
+GameWorld::GameWorld(GameSurface *gSurface)
+{
+}
+
+GameWorld::~GameWorld(void)
+{
+}
+
 void GameWorld::DoGameCommand(GameCommand command)
 {
 	switch(command)
