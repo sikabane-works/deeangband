@@ -63,8 +63,9 @@ private:
 	ID floorID; /*!< 現在いるフロアID */
 	Coordinates position; /*!< 現座標 */
 	map<ID, Tag, Item> itemList; /*!< 所持アイテムリスト */
-	char symbol;
-	Color symbolColor;
+	char symbol; /*!< シンボルキャラ */
+	Color symbolColor; /*!< シンボルカラー */
+	ID tileID ;/*!< タイルID */
 
 	/*!
 	 * @brief クリーチャー死亡時の処理を行う
