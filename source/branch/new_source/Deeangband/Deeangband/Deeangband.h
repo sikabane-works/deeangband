@@ -14,3 +14,12 @@ typedef enum GameCommand
 	GAME_COMMAND_REDRAW,
 	GAME_COMMAND_EXIT
 } GameCommand;
+
+/*!
+ * プレイ終了コード
+ */
+typedef enum PlayExitCode
+{
+	PLAY_EXIT_DEAD,
+	PLAY_EXIT_QUIT
+} PlayExitCode;

@@ -37,6 +37,7 @@
 class GameWorld
 {
 private:
+	GameSurface *gameSurface;
 
 	//静的データリスト
 	map<ID, Tag, Authority> authorityList;          /*!<全権能リスト*/
@@ -63,8 +64,9 @@ private:
 public:
 
 	GameWorld(GameSurface *gSurface);
-
 	~GameWorld();
+
+	PlayExitCode PlayLoop(void);
 
 	/*
 	 * @brief 受け取ったゲームコマンドを処理する

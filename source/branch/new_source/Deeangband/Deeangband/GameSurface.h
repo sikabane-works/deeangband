@@ -25,9 +25,19 @@ private:
 public:
 	GameSurface();
 	virtual ~GameSurface();
+
+	/*!
+	 * @brief ゲームコマンドを受け取る
+	 * @return GameCommandで定義されたコマンド内容
+	 */
 	virtual GameCommand GetCommand()
 	{
 		return GAME_COMMAND_REDRAW;
+	}
+
+	virtual void Redraw()
+	{
+		return;
 	}
 };
 
