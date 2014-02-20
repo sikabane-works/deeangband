@@ -62,17 +62,17 @@ GameSurfaceSDL::~GameSurfaceSDL(void)
 	SDL_Quit();
 }
 
-void GameSurfaceSDL::test(void)
+void GameSurfaceSDL::initInterfaces(void)
 {
-	TTF_Font* font = TTF_OpenFont("ttf\\ipam.ttf", 18);
-	SDL_Surface *surface, *surface2;
-	SDL_Color color;
-	SDL_Rect src = {0, 0, 300, 200};
-	SDL_Rect title = {0, 0, 512, 512};
-
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	font = TTF_OpenFont("ttf\\ipam.ttf", 18);
+	src.x = 0;
+	src.y = 0;
+	src.w = 300;
+	src.h = 200;
+	title.x = 0;
+	title.y = 0;
+	title.w = 512;
+	title.h = 512;
 	color.r = 255;
 	color.g = 223;
 	color.b = 200;
@@ -84,6 +84,12 @@ void GameSurfaceSDL::test(void)
 	rwop = SDL_RWFromFile("img\\Title.png", "rb");
 	error = IMG_GetError();
 	surface2 = IMG_LoadPNG_RW(rwop);
+}
+
+void GameSurfaceSDL::Redraw()
+{
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
 	SDL_BlitSurface(surface, &src, SDL_GetWindowSurface(window), &src); 
 	SDL_BlitSurface(surface2, &title, SDL_GetWindowSurface(window), &title); 
