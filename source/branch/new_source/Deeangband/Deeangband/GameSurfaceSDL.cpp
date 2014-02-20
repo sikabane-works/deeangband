@@ -70,9 +70,6 @@ void GameSurfaceSDL::test(void)
 	SDL_Rect src = {0, 0, 300, 200};
 	SDL_Rect title = {0, 0, 512, 512};
 
-	//::setlocale(LC_CTYPE, "");
-	//::std::locale::global(std::locale("japanese"));
-
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -99,6 +96,36 @@ void GameSurfaceSDL::test(void)
 	}
 }
 
+GameCommand GameSurfaceSDL::GetCommand(void)
+{
+	SDL_Event event;
+	SDL_Keycode key;
+
+	while (SDL_PollEvent(&event))
+	{
+		switch(event.type){
+
+		case SDL_KEYDOWN:
+			{
+				key=event.key.keysym.sym;
+
+				if(key == SDLK_ESCAPE)
+				{
+					return GAME_COMMAND_EXIT;
+				}
+			}
+			break;
+
+		case SDL_QUIT:
+			return GAME_COMMAND_EXIT;
+			break;
+
+		}
+	}
+
+	return GAME_COMMAND_REDRAW;
+}
+
 bool GameSurfaceSDL::SDL_event(void)
 {
 	SDL_Event event;
@@ -112,7 +139,7 @@ bool GameSurfaceSDL::SDL_event(void)
 			{
 				key=event.key.keysym.sym;
 
-				if(key == SDL_KEY_ESC)
+				if(key == SDLK_ESCAPE)
 				{
 					return false;
 				}

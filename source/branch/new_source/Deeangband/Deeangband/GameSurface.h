@@ -9,6 +9,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Deeangband.h"
 #include "Floor.h"
 
 /*! 
@@ -24,4 +25,9 @@ private:
 public:
 	GameSurface();
 	virtual ~GameSurface();
+	virtual GameCommand GetCommand()
+	{
+		return GAME_COMMAND_REDRAW;
+	}
 };
+

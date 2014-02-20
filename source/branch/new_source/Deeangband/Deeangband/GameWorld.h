@@ -30,8 +30,9 @@
 #include "Species.h"
 #include "TrapBase.h"
 
-/*! @class GameWorld
- *  @brief ゲーム世界のクラス
+/*!
+ * @class GameWorld
+ * @brief ゲーム世界のクラス
  */
 class GameWorld
 {
