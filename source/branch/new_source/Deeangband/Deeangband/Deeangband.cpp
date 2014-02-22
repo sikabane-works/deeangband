@@ -16,8 +16,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 {
 	GameSurfaceSDL gSurface;
 	GameWorld gWorld(&gSurface);
-	gSurface.initInterfaces();
-	gSurface.Redraw();
+	gWorld.PlayLoop();
 	return 0;
 }
 

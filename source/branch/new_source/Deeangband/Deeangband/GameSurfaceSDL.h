@@ -34,10 +34,10 @@ private:
 	SDL_Rect src;
 	SDL_Rect title;
 
+	void initInterfaces(void);
 	bool SDL_event(void);
 
 public:
-	void initInterfaces(void);
 	void Redraw(void);
 	GameSurfaceSDL(void);
 	~GameSurfaceSDL(void);

@@ -21,6 +21,8 @@ GameWorld::~GameWorld(void)
 
 PlayExitCode GameWorld::PlayLoop(void)
 {
+	gameSurface->Redraw();
+
 	return PLAY_EXIT_QUIT;
 }
 

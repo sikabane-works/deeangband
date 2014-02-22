@@ -52,6 +52,8 @@ GameSurfaceSDL::GameSurfaceSDL(void)
 
 	if(TTF_Init() == -1) return;
 	if(IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) return;
+
+	initInterfaces();
 	return;
 }
 
@@ -60,6 +62,7 @@ GameSurfaceSDL::~GameSurfaceSDL(void)
 	IMG_Quit();
 	TTF_Quit();
 	SDL_Quit();
+	return;
 }
 
 void GameSurfaceSDL::initInterfaces(void)
