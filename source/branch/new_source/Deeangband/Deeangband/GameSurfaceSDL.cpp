@@ -93,10 +93,14 @@ void GameSurfaceSDL::initInterfaces(void)
 
 void GameSurfaceSDL::Redraw()
 {
+	Creature dammy;
 	SDL_Surface *windowSurface = SDL_GetWindowSurface(window);
 	SDL_Rect rect = {0, 0, 0, 0};
 
 	SDL_GetWindowSize(window, &rect.w, &rect.h);
+
+	//SDL_LockSurface(windowSurface);
+
 	SDL_SetRenderDrawColor(renderer, 100, 100, 0, 255);
 
 	SDL_FillRect(windowSurface, &rect, SDL_MapRGBA(windowSurface->format, 50, 20, 10, 255));
@@ -104,14 +108,26 @@ void GameSurfaceSDL::Redraw()
 	SDL_BlitSurface(surface, &src, windowSurface, &src); 
 	SDL_BlitSurface(surface2, &title, windowSurface, &title); 
 
-	SDL_RenderPresent(renderer);
+	//SDL_UnlockSurface(windowSurface);
+
+	ViewCreatureStatus(&dammy);
+
+	//SDL_RenderPresent(renderer);
+
+	//SDL_UpdateWindowSurface
+
 	SDL_UpdateWindowSurface(window);
+
 	return;
 }
 
 void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 {
 	char nameBuf[100], hpBuf[100], mpBuf[100], acBuf[100], evBuf[100], voBuf[100];
+	SDL_Surface *windowSurface = SDL_GetWindowSurface(window);
+	SDL_Rect rect = {10, 220, 300, 250};
+	SDL_Rect namePos = {20, 230, 0 , 0};
+	SDL_Rect nameRect = {0, 0, 0 , 0};
 
 	sprintf_s(nameBuf, 100, "–¼‘O:%s", creaturePtr->GetName().c_str()); 
 	sprintf_s(hpBuf, 100, "HP:%5d/%5d", creaturePtr->GetCurHP(), creaturePtr->GetMaxHP()); 
@@ -127,6 +143,12 @@ void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 	acSurface = TTF_RenderUTF8_Blended(font, toUTF8(acBuf), color);
 	evSurface = TTF_RenderUTF8_Blended(font, toUTF8(evBuf), color);
 	voSurface = TTF_RenderUTF8_Blended(font, toUTF8(voBuf), color);
+
+	SDL_FillRect(windowSurface, &rect, SDL_MapRGBA(windowSurface->format, 0, 0, 0, 120));
+
+	nameRect.w = nameSurface->w;
+	nameRect.h = nameSurface->h;
+	SDL_BlitSurface(nameSurface, &nameRect, windowSurface, &namePos); 
 
 	return;
 }
