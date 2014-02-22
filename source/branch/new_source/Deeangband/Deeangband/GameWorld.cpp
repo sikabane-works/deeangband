@@ -21,32 +21,33 @@ GameWorld::~GameWorld(void)
 
 PlayExitCode GameWorld::PlayLoop(void)
 {
-	ID commandID;
+	GameCommand commandID;
+	PlayExitCode code = PLAY_EXIT_NONE;
 	gameSurface->Redraw();
 
-	while(1)
+	while(code == PLAY_EXIT_NONE)
 	{
 		commandID = gameSurface->GetCommand();
-		switch(commandID)
-		{
-			case GAME_COMMAND_REDRAW:
-				gameSurface->Redraw();
-				break;
-			case GAME_COMMAND_EXIT:
-				return PLAY_EXIT_QUIT;
-		}
+		code = DoGameCommand(commandID);
 	}
 
 	return PLAY_EXIT_QUIT;
 }
 
-void GameWorld::DoGameCommand(GameCommand command)
+PlayExitCode GameWorld::DoGameCommand(GameCommand command)
 {
+	Creature dammy;
 	switch(command)
 	{
-	case GAME_COMMAND_REDRAW:
-		break;
-	case GAME_COMMAND_EXIT:
-		break;
+		case GAME_COMMAND_VIEW_PLAYER_STATUS:
+			gameSurface->ViewCreatureStatus(&dammy);
+			break;
+		case GAME_COMMAND_REDRAW:
+			gameSurface->Redraw();
+			break;
+		case GAME_COMMAND_EXIT:
+			return PLAY_EXIT_QUIT;
+			break;
 	}
+	return PLAY_EXIT_NONE;
 }

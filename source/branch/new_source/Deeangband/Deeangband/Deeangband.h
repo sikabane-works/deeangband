@@ -11,6 +11,7 @@
  */
 typedef enum GameCommand 
 {
+	GAME_COMMAND_VIEW_PLAYER_STATUS,
 	GAME_COMMAND_REDRAW,
 	GAME_COMMAND_EXIT
 } GameCommand;
@@ -20,6 +21,7 @@ typedef enum GameCommand
  */
 typedef enum PlayExitCode
 {
+	PLAY_EXIT_NONE,
 	PLAY_EXIT_DEAD,
 	PLAY_EXIT_QUIT
 } PlayExitCode;

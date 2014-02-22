@@ -37,6 +37,7 @@ private:
 	SDL_Rect src;
 	SDL_Rect title;
 
+	void pushAnyKey(void);
 	void initInterfaces(void);
 	void drawCreatureStatus(Creature *creaturePtr);
 

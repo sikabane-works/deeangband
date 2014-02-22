@@ -68,6 +68,26 @@ GameSurfaceSDL::~GameSurfaceSDL(void)
 	return;
 }
 
+void GameSurfaceSDL::pushAnyKey(void)
+{
+	SDL_Event event;
+	SDL_Keycode key;
+
+	while (SDL_PollEvent(&event))
+	{
+		key=event.key.keysym.sym;
+		if(event.type == SDL_KEYDOWN)
+		{
+			switch(key)
+			{
+			case SDLK_ESCAPE:
+				return;
+			}
+		}
+	}
+	return;
+}
+
 void GameSurfaceSDL::initInterfaces(void)
 {
 	font = TTF_OpenFont("ttf\\ipam.ttf", 18);
@@ -199,10 +219,14 @@ GameCommand GameSurfaceSDL::GetCommand(void)
 			{
 				key=event.key.keysym.sym;
 
-				if(key == SDLK_ESCAPE)
+				switch(key)
 				{
+				case SDLK_ESCAPE:
 					return GAME_COMMAND_EXIT;
+				case SDLK_c:
+					return GAME_COMMAND_VIEW_PLAYER_STATUS;
 				}
+
 			}
 			break;
 

@@ -71,5 +71,5 @@ public:
 	/*
 	 * @brief 受け取ったゲームコマンドを処理する
 	 */
-	void DoGameCommand(GameCommand command);
+	PlayExitCode DoGameCommand(GameCommand command);
 };
