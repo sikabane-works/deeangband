@@ -112,6 +112,17 @@ private:
 public:
 
 	/*!
+	 * @brief クリーチャーのダミー生成処理コンストラクタ
+	 */
+	Creature(void);
+
+	/*!
+	 * @brief クリーチャーの名前を返す
+	 * @return クリーチャー名
+	 */
+	string GetName(void);
+
+	/*!
 	 * @brief クリーチャーが生存している状態かを返す
 	 * @return 生存しているならばtrueを返す
 	 */
@@ -128,55 +139,55 @@ public:
 	 * @brief クリーチャーの現HPを返す
 	 * @return クリーチャーの現HP
 	 */
-	HP getCurHP(void);
+	HP GetCurHP(void);
 
 	/*!
 	 * @brief クリーチャーの現最大HPを返す
 	 * @return クリーチャーの現最大HP
 	 */
-	HP getMaxHP(void);
+	HP GetMaxHP(void);
 
 	/*!
 	 * @brief クリーチャーの通常最大HPを返す
 	 * @return クリーチャーの通常最大HP
 	 */
-	HP getNorMaxHP(void);
+	HP GetNorMaxHP(void);
 
 	/*!
 	 * @brief クリーチャーの現MPを返す
 	 * @return クリーチャーの現MP
 	 */
-	MP getCurMP(void);
+	MP GetCurMP(void);
 
 	/*!
 	 * @brief クリーチャーの現最大MPを返す
 	 * @return クリーチャーの現最大MP
 	 */
-	MP getMaxMP(void);
+	MP GetMaxMP(void);
 
 	/*!
 	 * @brief クリーチャーの通常最大MPを返す
 	 * @return クリーチャーの通常最大MP
 	 */
-	MP getNorMaxMP(void);
+	MP GetNorMaxMP(void);
 
 	/*!
 	 * @brief クリーチャーの現ACを返す
 	 * @return クリーチャーの現AC
 	 */
-	AC getAC(void);
+	AC GetAC(void);
 
 	/*!
 	 * @brief クリーチャーの現EVを返す
 	 * @return クリーチャーの現EV
 	 */
-	EV getEV(void);
+	EV GetEV(void);
 
 	/*!
 	 * @brief クリーチャーの現VOを返す
 	 * @return クリーチャーの現VO
 	 */
-	VO getVO(void);
+	VO GetVO(void);
 
 	/*!
 	 * @brief クリーチャーの現在位置を返す
