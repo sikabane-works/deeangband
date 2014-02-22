@@ -126,8 +126,19 @@ void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 	char nameBuf[100], hpBuf[100], mpBuf[100], acBuf[100], evBuf[100], voBuf[100];
 	SDL_Surface *windowSurface = SDL_GetWindowSurface(window);
 	SDL_Rect rect = {10, 220, 300, 250};
-	SDL_Rect namePos = {20, 230, 0 , 0};
-	SDL_Rect nameRect = {0, 0, 0 , 0};
+
+	SDL_Rect namePos = {20, 230, 0, 0};
+	SDL_Rect nameRect = {0, 0, 0, 0};
+	SDL_Rect hpPos = {20, 250, 0, 0};
+	SDL_Rect hpRect = {0, 0, 0, 0};
+	SDL_Rect mpPos = {20, 270, 0, 0};
+	SDL_Rect mpRect = {0, 0, 0, 0};
+	SDL_Rect acPos = {20, 290, 0, 0};
+	SDL_Rect acRect = {0, 0, 0, 0};
+	SDL_Rect evPos = {20, 310, 0, 0};
+	SDL_Rect evRect = {0, 0, 0, 0};
+	SDL_Rect voPos = {20, 330, 0, 0};
+	SDL_Rect voRect = {0, 0, 0, 0};
 
 	sprintf_s(nameBuf, 100, "–¼‘O:%s", creaturePtr->GetName().c_str()); 
 	sprintf_s(hpBuf, 100, "HP:%5d/%5d", creaturePtr->GetCurHP(), creaturePtr->GetMaxHP()); 
@@ -149,6 +160,26 @@ void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 	nameRect.w = nameSurface->w;
 	nameRect.h = nameSurface->h;
 	SDL_BlitSurface(nameSurface, &nameRect, windowSurface, &namePos); 
+
+	hpRect.w = hpSurface->w;
+	hpRect.h = hpSurface->h;
+	SDL_BlitSurface(hpSurface, &hpRect, windowSurface, &hpPos); 
+
+	mpRect.w = mpSurface->w;
+	mpRect.h = mpSurface->h;
+	SDL_BlitSurface(mpSurface, &mpRect, windowSurface, &mpPos); 
+
+	acRect.w = acSurface->w;
+	acRect.h = acSurface->h;
+	SDL_BlitSurface(acSurface, &acRect, windowSurface, &acPos); 
+
+	evRect.w = evSurface->w;
+	evRect.h = evSurface->h;
+	SDL_BlitSurface(evSurface, &evRect, windowSurface, &evPos); 
+
+	voRect.w = voSurface->w;
+	voRect.h = voSurface->h;
+	SDL_BlitSurface(voSurface, &voRect, windowSurface, &voPos); 
 
 	return;
 }
