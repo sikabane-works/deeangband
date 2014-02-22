@@ -21,7 +21,21 @@ GameWorld::~GameWorld(void)
 
 PlayExitCode GameWorld::PlayLoop(void)
 {
+	ID commandID;
 	gameSurface->Redraw();
+
+	while(1)
+	{
+		commandID = gameSurface->GetCommand();
+		switch(commandID)
+		{
+			case GAME_COMMAND_REDRAW:
+				gameSurface->Redraw();
+				break;
+			case GAME_COMMAND_EXIT:
+				return PLAY_EXIT_QUIT;
+		}
+	}
 
 	return PLAY_EXIT_QUIT;
 }
