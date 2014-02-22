@@ -54,6 +54,9 @@ GameSurfaceSDL::GameSurfaceSDL(void)
 	if(IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) return;
 
 	initInterfaces();
+
+	viewCreaturePtr = NULL;
+
 	return;
 }
 
@@ -99,8 +102,6 @@ void GameSurfaceSDL::Redraw()
 
 	SDL_GetWindowSize(window, &rect.w, &rect.h);
 
-	//SDL_LockSurface(windowSurface);
-
 	SDL_SetRenderDrawColor(renderer, 100, 100, 0, 255);
 
 	SDL_FillRect(windowSurface, &rect, SDL_MapRGBA(windowSurface->format, 50, 20, 10, 255));
@@ -108,13 +109,7 @@ void GameSurfaceSDL::Redraw()
 	SDL_BlitSurface(surface, &src, windowSurface, &src); 
 	SDL_BlitSurface(surface2, &title, windowSurface, &title); 
 
-	//SDL_UnlockSurface(windowSurface);
-
-	ViewCreatureStatus(&dammy);
-
-	//SDL_RenderPresent(renderer);
-
-	//SDL_UpdateWindowSurface
+	if(viewCreaturePtr) drawCreatureStatus(viewCreaturePtr);
 
 	SDL_UpdateWindowSurface(window);
 
@@ -122,6 +117,12 @@ void GameSurfaceSDL::Redraw()
 }
 
 void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
+{
+	viewCreaturePtr = creaturePtr;
+	Redraw();
+}
+
+void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 {
 	char nameBuf[100], hpBuf[100], mpBuf[100], acBuf[100], evBuf[100], voBuf[100];
 	SDL_Surface *windowSurface = SDL_GetWindowSurface(window);

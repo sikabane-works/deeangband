@@ -25,6 +25,8 @@
 class GameSurfaceSDL : public GameSurface
 {
 private:
+	Creature *viewCreaturePtr;
+
 	SDL_Renderer *renderer; 
 	SDL_RWops *rwop;
 	string error;
@@ -36,7 +38,7 @@ private:
 	SDL_Rect title;
 
 	void initInterfaces(void);
-	bool SDL_event(void);
+	void drawCreatureStatus(Creature *creaturePtr);
 
 public:
 	void Redraw(void);
