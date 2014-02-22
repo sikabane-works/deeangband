@@ -87,6 +87,8 @@ void GameSurfaceSDL::initInterfaces(void)
 	rwop = SDL_RWFromFile("img\\Title.png", "rb");
 	error = IMG_GetError();
 	surface2 = IMG_LoadPNG_RW(rwop);
+
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 }
 
 void GameSurfaceSDL::Redraw()
@@ -95,7 +97,6 @@ void GameSurfaceSDL::Redraw()
 	SDL_Rect rect = {0, 0, 0, 0};
 
 	SDL_GetWindowSize(window, &rect.w, &rect.h);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 	SDL_SetRenderDrawColor(renderer, 100, 100, 0, 255);
 
 	SDL_FillRect(windowSurface, &rect, SDL_MapRGBA(windowSurface->format, 50, 20, 10, 255));
@@ -110,7 +111,23 @@ void GameSurfaceSDL::Redraw()
 
 void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 {
-	//creaturePtr->name;
+	char nameBuf[100], hpBuf[100], mpBuf[100], acBuf[100], evBuf[100], voBuf[100];
+
+	sprintf_s(nameBuf, 100, "–¼‘O:%s", creaturePtr->GetName().c_str()); 
+	sprintf_s(hpBuf, 100, "HP:%5d/%5d", creaturePtr->GetCurHP(), creaturePtr->GetMaxHP()); 
+	sprintf_s(mpBuf, 100, "MP:%5d/%5d", creaturePtr->GetCurMP(), creaturePtr->GetMaxMP()); 
+	sprintf_s(acBuf, 100, "AC:%4d", creaturePtr->GetAC()); 
+	sprintf_s(evBuf, 100, "EV:%4d", creaturePtr->GetEV()); 
+	sprintf_s(voBuf, 100, "VO:%4d", creaturePtr->GetVO()); 
+
+	SDL_Surface *nameSurface, *hpSurface, *mpSurface, *acSurface, *evSurface, *voSurface;
+	nameSurface = TTF_RenderUTF8_Blended(font, toUTF8(nameBuf), color);
+	hpSurface = TTF_RenderUTF8_Blended(font, toUTF8(hpBuf), color);
+	mpSurface = TTF_RenderUTF8_Blended(font, toUTF8(mpBuf), color);
+	acSurface = TTF_RenderUTF8_Blended(font, toUTF8(acBuf), color);
+	evSurface = TTF_RenderUTF8_Blended(font, toUTF8(evBuf), color);
+	voSurface = TTF_RenderUTF8_Blended(font, toUTF8(voBuf), color);
+
 	return;
 }
 
