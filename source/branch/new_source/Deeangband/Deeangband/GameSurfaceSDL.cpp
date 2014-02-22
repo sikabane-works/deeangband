@@ -94,12 +94,16 @@ void GameSurfaceSDL::Redraw()
 	SDL_Rect rect = {0, 0, 0, 0};
 	SDL_Color bgColor = {100, 0, 0, 255};
 	SDL_Surface *windowSurface = SDL_GetWindowSurface(window);
+
 	SDL_GetWindowSize(window, &rect.w, &rect.h);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 	SDL_SetRenderDrawColor(renderer, 100, 100, 0, 255);
-	SDL_FillRect(windowSurface, &rect, 0);
+
+	SDL_FillRect(windowSurface, &rect, SDL_MapRGBA(windowSurface->format, 50, 20, 10, 255));
+
 	SDL_BlitSurface(surface, &src, windowSurface, &src); 
 	SDL_BlitSurface(surface2, &title, windowSurface, &title); 
+
 	SDL_RenderPresent(renderer);
 	SDL_UpdateWindowSurface(window);
 
