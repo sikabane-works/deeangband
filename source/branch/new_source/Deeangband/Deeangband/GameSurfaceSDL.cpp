@@ -91,9 +91,8 @@ void GameSurfaceSDL::initInterfaces(void)
 
 void GameSurfaceSDL::Redraw()
 {
-	SDL_Rect rect = {0, 0, 0, 0};
-	SDL_Color bgColor = {100, 0, 0, 255};
 	SDL_Surface *windowSurface = SDL_GetWindowSurface(window);
+	SDL_Rect rect = {0, 0, 0, 0};
 
 	SDL_GetWindowSize(window, &rect.w, &rect.h);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
@@ -106,7 +105,13 @@ void GameSurfaceSDL::Redraw()
 
 	SDL_RenderPresent(renderer);
 	SDL_UpdateWindowSurface(window);
+	return;
+}
 
+void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
+{
+	//creaturePtr->name;
+	return;
 }
 
 GameCommand GameSurfaceSDL::GetCommand(void)

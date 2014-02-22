@@ -11,8 +11,9 @@
 #include "stdafx.h"
 #include "Floor.h"
 
-#include "GameSurface.h"
+#include "Creature.h"
 #include "Deeangband.h"
+#include "GameSurface.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -39,6 +40,8 @@ private:
 
 public:
 	void Redraw(void);
+	void ViewCreatureStatus(Creature *creaturePtr);
+
 	GameSurfaceSDL(void);
 	~GameSurfaceSDL(void);
 	GameCommand GetCommand(void);
