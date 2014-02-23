@@ -15,13 +15,15 @@
 #include "Item.h"
 #include "GameElement.h"
 
-typedef int Status; /*!<基礎能力値*/
-typedef int HP; /*!<HP*/
-typedef int MP; /*!<MP*/
+typedef int Status; /*!< 基礎能力値の変数型 */
+typedef int HP;     /*!< HPの変数型 */
+typedef int MP;     /*!< MPの変数型 */
+typedef int SOUL;   /*!< ソウルの変数型 */
 
-/*! @enum CREATURE_STATUS
-    @brief クリーチャーの基礎能力値6種の列挙体
-*/
+/*!
+ * @enum CREATURE_STATUS
+ * @brief クリーチャーの基礎能力値6種の列挙体
+ */
 enum CREATURE_STATUS
 {
 	CS_STR, /*!<腕力*/
@@ -52,13 +54,16 @@ class Creature : public GameElement
 {
 private:
 
-	string name; /*!< クリーチャーの名前*/
-	HP current_hp; /*!< 現在のHP*/
-	HP max_hp; /*!< 現在の最大HP*/
-	HP max_max_hp; /*!< 本来の最大HP*/
-	MP current_mp; /*!< 現在のHP*/
-	MP max_mp; /*!< 現在の最大HP*/
-	MP max_max_mp; /*!< 本来の最大HP*/
+	string name;      /*!< クリーチャーの名前 */
+	HP currentHp;     /*!< 現在のHP */
+	HP max_hp;        /*!< 現在の最大HP */
+	HP maxMaxHp;      /*!< 本来の最大HP */
+	MP currentMp;     /*!< 現在のMP */
+	MP maxMp;         /*!< 現在の最大MP */
+	MP maxMaxMp;      /*!< 本来の最大MP */
+	SOUL currentSoul; /*!< 現在のソウル値 */
+	SOUL maxSoul;     /*!< ソウル最大到達値 */
+
 	status_table status; /*!< ステータス */
 	ID floorID; /*!< 現在いるフロアID */
 	Coordinates position; /*!< 現座標 */

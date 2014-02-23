@@ -12,8 +12,9 @@
 Creature::Creature(void)
 {
 	name = "ƒ_ƒ~[";
-	current_hp = max_hp = max_max_hp = 15;
-	current_mp = max_mp = max_max_mp = 10;
+	currentHp = max_hp = maxMaxHp = 15;
+	currentMp = maxMp = maxMaxMp = 10;
+	currentSoul = maxSoul = 0;
 }
 
 bool Creature::is_alive(void)
@@ -44,30 +45,30 @@ int Creature::move(ID floor_ID, Coordinates coord)
 
 void Creature::calc_hp(HP amount)
 {
-	this->current_hp += amount;
-	if(this->current_hp > this->max_hp) this->current_hp = this->max_hp;
-	if(this->current_hp < 1) this->dead();
+	this->currentHp += amount;
+	if(this->currentHp > this->max_hp) this->currentHp = this->max_hp;
+	if(this->currentHp < 1) this->dead();
 }
 
 void Creature::calc_mp(MP amount)
 {
-	this->current_mp += amount;
-	if(this->current_mp > this->max_mp) this->current_mp = this->max_mp;
-	if(this->current_mp < 0) this->current_mp = 0;
+	this->currentMp += amount;
+	if(this->currentMp > this->maxMp) this->currentMp = this->maxMp;
+	if(this->currentMp < 0) this->currentMp = 0;
 }
 
 void Creature::set_hp(HP amount)
 {
-	this->current_hp = amount;
-	if(this->current_hp < this->max_hp) this->current_hp = this->max_hp;
-	if(this->current_hp < 1) this->dead();
+	this->currentHp = amount;
+	if(this->currentHp < this->max_hp) this->currentHp = this->max_hp;
+	if(this->currentHp < 1) this->dead();
 }
 
 void Creature::set_mp(MP amount)
 {
-	this->current_mp += amount;
-	if(this->current_mp > this->max_mp) this->current_mp = this->max_mp;
-	if(this->current_mp < 0) this->current_mp = 0;
+	this->currentMp += amount;
+	if(this->currentMp > this->maxMp) this->currentMp = this->maxMp;
+	if(this->currentMp < 0) this->currentMp = 0;
 }
 
 string Creature::GetName(void)
@@ -77,7 +78,7 @@ string Creature::GetName(void)
 
 HP Creature::GetCurHP(void)
 {
-	return current_hp;
+	return currentHp;
 }
 
 HP Creature::GetMaxHP(void)
@@ -87,22 +88,22 @@ HP Creature::GetMaxHP(void)
 
 HP Creature::GetNorMaxHP(void)
 {
-	return max_max_hp;
+	return maxMaxHp;
 }
 
 MP Creature::GetCurMP(void)
 {
-	return current_mp;
+	return currentMp;
 }
 
 MP Creature::GetMaxMP(void)
 {
-	return max_mp;
+	return maxMp;
 }
 
 MP Creature::GetNorMaxMP(void)
 {
-	return max_max_mp;
+	return maxMaxMp;
 }
 
 AC Creature::GetAC(void)
