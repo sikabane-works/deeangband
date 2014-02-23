@@ -41,8 +41,8 @@ enum CREATURE_STATUS
 struct StatusTable
 {
 	Status current[CS_MAX]; /*!<現在のステータス*/
-	Status max[CS_MAX]; /*!<通常のステータス*/
-	Status maxMax[CS_MAX]; /*!<ステータスの基本成長限界*/
+	Status max[CS_MAX];     /*!<通常のステータス*/
+	Status maxMax[CS_MAX];  /*!<ステータスの基本成長限界*/
 };
 
 /*!

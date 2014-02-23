@@ -73,19 +73,14 @@ void GameSurfaceSDL::pushAnyKey(void)
 	SDL_Event event;
 	SDL_Keycode key;
 
-	while (SDL_PollEvent(&event))
+	while(true)
 	{
-		key=event.key.keysym.sym;
-		if(event.type == SDL_KEYDOWN)
+		while (SDL_PollEvent(&event))
 		{
-			switch(key)
-			{
-			case SDLK_ESCAPE:
-				return;
-			}
+			key=event.key.keysym.sym;
+			if(event.type == SDL_KEYDOWN) return;
 		}
 	}
-	return;
 }
 
 void GameSurfaceSDL::initInterfaces(void)
@@ -140,6 +135,8 @@ void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 {
 	viewCreaturePtr = creaturePtr;
 	Redraw();
+	pushAnyKey();
+	viewCreaturePtr = NULL;
 }
 
 void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)

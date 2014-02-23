@@ -11,10 +11,17 @@
 
 Creature::Creature(void)
 {
+	int statID;
 	name = "É_É~Å[";
 	currentHp = max_hp = maxMaxHp = 15;
 	currentMp = maxMp = maxMaxMp = 10;
 	currentSoul = maxSoul = 0;
+
+	for(statID = 0; statID < CS_MAX; statID++)
+	{
+		status.current[statID] = status.max[statID] = 8;
+		status.maxMax[statID] = 20;
+	}
 }
 
 bool Creature::is_alive(void)
@@ -128,7 +135,7 @@ SOUL Creature::GetCurrentSoul(void)
 
 SOUL Creature::GetMaxSoul(void)
 {
-	return currentSoul;
+	return maxSoul;
 }
 
 Status Creature::GetCurrentStatus(CREATURE_STATUS stat)
