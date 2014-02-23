@@ -139,9 +139,6 @@ void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 	viewCreaturePtr = NULL;
 }
 
-
-
-
 void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 {
 	int id;
@@ -197,6 +194,11 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 	for(id = 0; id < POS_MAX; id++)
 	{
 		SDL_BlitSurface(statusSurface[id], &CreatureStatusViewRect[id], windowSurface, &CreatureStatusViewPosition[id]); 
+	}
+
+	for(id = 0; id < POS_MAX; id++)
+	{
+		SDL_FreeSurface(statusSurface[id]);
 	}
 	return;
 }
