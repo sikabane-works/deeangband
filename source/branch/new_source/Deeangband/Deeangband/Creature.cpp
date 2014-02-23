@@ -130,3 +130,18 @@ SOUL Creature::GetMaxSoul(void)
 {
 	return currentSoul;
 }
+
+Status Creature::GetCurrentStatus(CREATURE_STATUS stat)
+{
+	return status.current[stat];
+}
+
+Status Creature::GetMaxStatus(CREATURE_STATUS stat)
+{
+	return status.max[stat];
+}
+
+Status Creature::GetMaxMAXStatus(CREATURE_STATUS stat)
+{
+	return status.maxMax[stat];
+}

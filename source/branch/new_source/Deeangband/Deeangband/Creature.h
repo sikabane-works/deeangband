@@ -21,7 +21,6 @@ typedef int MP;     /*!< MPの変数型 */
 typedef int SOUL;   /*!< ソウルの変数型 */
 
 /*!
- * @enum CREATURE_STATUS
  * @brief クリーチャーの基礎能力値6種の列挙体
  */
 enum CREATURE_STATUS
@@ -36,14 +35,14 @@ enum CREATURE_STATUS
 };
 
 /*!
- * @struct status_table
+ * @struct StatusTable
  * @brief ステータス値の構造体
  */
-struct status_table
+struct StatusTable
 {
 	Status current[CS_MAX]; /*!<現在のステータス*/
 	Status max[CS_MAX]; /*!<通常のステータス*/
-	Status max_max[CS_MAX]; /*!<ステータスの基本成長限界*/
+	Status maxMax[CS_MAX]; /*!<ステータスの基本成長限界*/
 };
 
 /*!
@@ -64,7 +63,7 @@ private:
 	SOUL currentSoul; /*!< 現在のソウル値 */
 	SOUL maxSoul;     /*!< ソウル最大到達値 */
 
-	status_table status; /*!< ステータス */
+	StatusTable status; /*!< ステータス */
 	ID floorID; /*!< 現在いるフロアID */
 	Coordinates position; /*!< 現座標 */
 	map<ID, Tag, Item> itemList; /*!< 所持アイテムリスト */
@@ -144,7 +143,7 @@ public:
 	 * @brief クリーチャーの現HPを返す
 	 * @return クリーチャーの現HP
 	 */
-	HP GetCurHP(void);
+	HP Creature::GetCurHP(void);
 
 	/*!
 	 * @brief クリーチャーの現最大HPを返す
@@ -217,6 +216,27 @@ public:
 	 * @return クリーチャーのソウル最大到達値
 	 */
 	SOUL Creature::GetMaxSoul(void);
+
+	/*!
+	 * @brief クリーチャーの現基礎能力値を返す
+	 * @param stat 取得したい基礎能力値ID
+	 * @return 基礎能力値の現在値
+	 */
+	Status Creature::GetCurrentStatus(CREATURE_STATUS stat);
+
+	/*!
+	 * @brief クリーチャーの平常基礎能力値を返す
+	 * @param stat 取得したい平常能力値ID
+	 * @return 基礎能力値の平常値
+	 */
+	Status Creature::GetMaxStatus(CREATURE_STATUS stat);
+
+	/*!
+	 * @brief クリーチャーの限界基礎能力値を返す
+	 * @param stat 取得したい限界能力値ID
+	 * @return 基礎能力値の限界値
+	 */
+	Status Creature::GetMaxMAXStatus(CREATURE_STATUS stat);
 
 };
 

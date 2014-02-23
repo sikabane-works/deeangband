@@ -37,11 +37,30 @@ typedef struct
 class GameElement
 {
 private:
-	ID id; /*!<ID*/
-	Tag tag; /*!<タグ*/
+
+	ID id;       /*!< ID */
+	Tag tag;     /*!< タグ */
+
 public:
-	void setID(ID newID); /*!<IDを設定する*/
-	ID getID();   /*!<IDを取得する*/
-	void setTag(Tag newTag); /*!<タグを設定する*/
-	Tag getTag();   /*!<タグを取得する*/
+
+	/*!
+	 * @brief IDを設定する
+	 */
+	void setID(ID newID); 
+
+	/*!
+	 * @brief IDを取得する
+	 */
+	ID getID();
+
+	/*!
+	 * @brief タグを設定する
+	 */
+	void setTag(Tag newTag);
+
+	/*!
+	 * @brief タグを取得する
+	 */
+	Tag getTag();
+
 };
