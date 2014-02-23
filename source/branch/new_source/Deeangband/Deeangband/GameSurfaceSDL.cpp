@@ -158,6 +158,7 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 		POS_DEX,
 		POS_CON,
 		POS_CHA,
+		POS_SOUL,
 		POS_MAX
 	};
 
@@ -175,6 +176,7 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 		{200, 90, 0, 0},
 		{200, 110, 0, 0},
 		{200, 130, 0, 0},
+		{200, 150, 0, 0},
 	};
 
 	SDL_Rect CreatureStatusViewRect[POS_MAX];
@@ -197,6 +199,7 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 	sprintf_s(statusBuf[POS_DEX], STATUS_BUFSIZE, "Ší—p:%4d", creaturePtr->GetCurrentStatus(CS_DEX)); 
 	sprintf_s(statusBuf[POS_CON], STATUS_BUFSIZE, "‘Ï‹v:%4d", creaturePtr->GetCurrentStatus(CS_CON)); 
 	sprintf_s(statusBuf[POS_CHA], STATUS_BUFSIZE, "–£—Í:%4d", creaturePtr->GetCurrentStatus(CS_CHA)); 
+	sprintf_s(statusBuf[POS_SOUL], STATUS_BUFSIZE, "ƒ\ƒEƒ‹:%4d", creaturePtr->GetCurrentSoul()); 
 
 	for(id = 0; id < POS_MAX; id++)
 	{
