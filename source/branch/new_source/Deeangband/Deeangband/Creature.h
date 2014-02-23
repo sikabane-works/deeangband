@@ -119,26 +119,26 @@ public:
 	/*!
 	 * @brief クリーチャーのダミー生成処理コンストラクタ
 	 */
-	Creature(void);
+	Creature::Creature(void);
 
 	/*!
 	 * @brief クリーチャーの名前を返す
 	 * @return クリーチャー名
 	 */
-	string GetName(void);
+	string Creature::GetName(void);
 
 	/*!
 	 * @brief クリーチャーが生存している状態かを返す
 	 * @return 生存しているならばtrueを返す
 	 */
-	bool is_alive(void);
+	bool Creature::is_alive(void);
 
 	/*!
 	 * @brief 受けた属性効果を処理する
 	 * @param effectPtr
 	 * @param amount
 	 */
-	bool take_effect(Effect* effectPtr, POWER amount);
+	bool Creature::take_effect(Effect* effectPtr, POWER amount);
 
 	/*!
 	 * @brief クリーチャーの現HPを返す
@@ -150,61 +150,73 @@ public:
 	 * @brief クリーチャーの現最大HPを返す
 	 * @return クリーチャーの現最大HP
 	 */
-	HP GetMaxHP(void);
+	HP Creature::GetMaxHP(void);
 
 	/*!
 	 * @brief クリーチャーの通常最大HPを返す
 	 * @return クリーチャーの通常最大HP
 	 */
-	HP GetNorMaxHP(void);
+	HP Creature::GetNorMaxHP(void);
 
 	/*!
 	 * @brief クリーチャーの現MPを返す
 	 * @return クリーチャーの現MP
 	 */
-	MP GetCurMP(void);
+	MP Creature::GetCurMP(void);
 
 	/*!
 	 * @brief クリーチャーの現最大MPを返す
 	 * @return クリーチャーの現最大MP
 	 */
-	MP GetMaxMP(void);
+	MP Creature::GetMaxMP(void);
 
 	/*!
 	 * @brief クリーチャーの通常最大MPを返す
 	 * @return クリーチャーの通常最大MP
 	 */
-	MP GetNorMaxMP(void);
+	MP Creature::GetNorMaxMP(void);
 
 	/*!
 	 * @brief クリーチャーの現ACを返す
 	 * @return クリーチャーの現AC
 	 */
-	AC GetAC(void);
+	AC Creature::GetAC(void);
 
 	/*!
 	 * @brief クリーチャーの現EVを返す
 	 * @return クリーチャーの現EV
 	 */
-	EV GetEV(void);
+	EV Creature::GetEV(void);
 
 	/*!
 	 * @brief クリーチャーの現VOを返す
 	 * @return クリーチャーの現VO
 	 */
-	VO GetVO(void);
+	VO Creature::GetVO(void);
 
 	/*!
 	 * @brief クリーチャーの現在位置を返す
 	 * @return クリーチャー現在位置を示すCoordinates
 	 */
-	Coordinates *getCorrdinates(void);
+	Coordinates *Creature::getCorrdinates(void);
 
 	/*!
 	 * @brief クリーチャーの所持品リストを返す
 	 * @return クリーチャー所持品リストマップ
 	 */
-	map<ID, Tag, Item> *getItemList(void);
+	map<ID, Tag, Item> *Creature::getItemList(void);
+
+	/*!
+	 * @brief クリーチャーの現ソウル値を返す
+	 * @return クリーチャーの現ソウル値
+	 */
+	SOUL Creature::GetCurrentSoul(void);
+
+	/*!
+	 * @brief クリーチャーのソウル最大到達値を返す
+	 * @return クリーチャーのソウル最大到達値
+	 */
+	SOUL Creature::GetMaxSoul(void);
 
 };
 

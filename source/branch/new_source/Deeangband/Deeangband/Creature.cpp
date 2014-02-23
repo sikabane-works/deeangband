@@ -120,3 +120,13 @@ VO Creature::GetVO(void)
 {
 	return 10;
 }
+
+SOUL Creature::GetCurrentSoul(void)
+{
+	return currentSoul;
+}
+
+SOUL Creature::GetMaxSoul(void)
+{
+	return currentSoul;
+}
