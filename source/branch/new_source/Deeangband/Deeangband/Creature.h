@@ -30,7 +30,7 @@ enum CREATURE_STATUS
 	CS_WIS, /*!<Œ«‚³*/
 	CS_DEX, /*!<Ší—p*/
 	CS_CON, /*!<‘Ï‹v*/
-	CS_CHR, /*!<–£—Í*/
+	CS_CHA, /*!<–£—Í*/
 	CS_MAX  /*!<‘”:6*/
 };
 

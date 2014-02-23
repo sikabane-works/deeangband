@@ -152,17 +152,29 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 		POS_AC,
 		POS_EV,
 		POS_VO,
+		POS_STR,
+		POS_INT,
+		POS_WIS,
+		POS_DEX,
+		POS_CON,
+		POS_CHA,
 		POS_MAX
 	};
 
 	SDL_Rect CreatureStatusViewPosition[POS_MAX] =
 	{
-		{20, 230, 0, 0},
-		{20, 250, 0, 0},
-		{20, 270, 0, 0},
-		{20, 290, 0, 0},
-		{20, 310, 0, 0},
-		{20, 330, 0, 0},
+		{10, 10, 0, 0},
+		{10, 30, 0, 0},
+		{10, 50, 0, 0},
+		{10, 70, 0, 0},
+		{10, 90, 0, 0},
+		{10, 110, 0, 0},
+		{200, 30, 0, 0},
+		{200, 50, 0, 0},
+		{200, 70, 0, 0},
+		{200, 90, 0, 0},
+		{200, 110, 0, 0},
+		{200, 130, 0, 0},
 	};
 
 	SDL_Rect CreatureStatusViewRect[POS_MAX];
@@ -171,7 +183,7 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 	char statusBuf[POS_MAX][STATUS_BUFSIZE];
 	SDL_Surface *statusSurface[POS_MAX];
 
-	SDL_Rect masterRect = {10, 220, 300, 250};
+	SDL_Rect masterRect = {10, 10, 490, 450};
 
 	sprintf_s(statusBuf[POS_NAME], STATUS_BUFSIZE, "–¼‘O:%s", creaturePtr->GetName().c_str()); 
 	sprintf_s(statusBuf[POS_HP], STATUS_BUFSIZE, "HP:%5d/%5d", creaturePtr->GetCurHP(), creaturePtr->GetMaxHP()); 
@@ -179,6 +191,12 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 	sprintf_s(statusBuf[POS_AC], STATUS_BUFSIZE, "AC:%4d", creaturePtr->GetAC()); 
 	sprintf_s(statusBuf[POS_EV], STATUS_BUFSIZE, "EV:%4d", creaturePtr->GetEV()); 
 	sprintf_s(statusBuf[POS_VO], STATUS_BUFSIZE, "VO:%4d", creaturePtr->GetVO()); 
+	sprintf_s(statusBuf[POS_STR], STATUS_BUFSIZE, "˜r—Í:%4d", creaturePtr->GetCurrentStatus(CS_STR)); 
+	sprintf_s(statusBuf[POS_INT], STATUS_BUFSIZE, "’m—Í:%4d", creaturePtr->GetCurrentStatus(CS_INT)); 
+	sprintf_s(statusBuf[POS_WIS], STATUS_BUFSIZE, "Œ«‚³:%4d", creaturePtr->GetCurrentStatus(CS_WIS)); 
+	sprintf_s(statusBuf[POS_DEX], STATUS_BUFSIZE, "Ší—p:%4d", creaturePtr->GetCurrentStatus(CS_DEX)); 
+	sprintf_s(statusBuf[POS_CON], STATUS_BUFSIZE, "‘Ï‹v:%4d", creaturePtr->GetCurrentStatus(CS_CON)); 
+	sprintf_s(statusBuf[POS_CHA], STATUS_BUFSIZE, "–£—Í:%4d", creaturePtr->GetCurrentStatus(CS_CHA)); 
 
 	for(id = 0; id < POS_MAX; id++)
 	{
@@ -187,6 +205,8 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 		CreatureStatusViewRect[id].y = 0;
 		CreatureStatusViewRect[id].w = statusSurface[id]->w;
 		CreatureStatusViewRect[id].h = statusSurface[id]->h;
+		CreatureStatusViewPosition[id].x += masterRect.x;
+		CreatureStatusViewPosition[id].y += masterRect.y;
 	}
 
 	SDL_FillRect(windowSurface, &masterRect, SDL_MapRGBA(windowSurface->format, 0, 0, 0, 120));
