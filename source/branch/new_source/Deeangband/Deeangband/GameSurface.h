@@ -20,8 +20,6 @@
 class GameSurface
 {
 private:
-	/*! フロアの状況を描画する */
-	bool viewFloor(Floor *floor_ptr, int y, int x, int width, int height);
 
 public:
 	GameSurface(void);
@@ -38,6 +36,7 @@ public:
 
 	/*!
 	 * @brief ゲーム画面表示を更新する
+	 * @return なし
 	 */
 	virtual void Redraw(void)
 	{
@@ -47,8 +46,23 @@ public:
 	/*!
 	 * @brief ゲーム画面にクリーチャー情報を表示する
 	 * @param creaturePtr 表示したいクリーチャーの構造体参照ポインタ
+	 * @return なし
 	 */
 	virtual void ViewCreatureStatus(Creature *creaturePtr)
+	{
+		return;
+	}
+
+	/*!
+	 * @brief フロアの状況を描画する
+	 * @param floorPtr 表示したいフロアの構造体参照ポインタ
+	 * @param x 左上起点のX座標
+	 * @param y 左上起点のY座標
+	 * @param w 表示のマス幅
+	 * @param h 表示のマス高さ
+	 * @return なし
+	 */
+	virtual void ViewFloor(Floor *floorPtr, int x, int y, int w, int h)
 	{
 		return;
 	}
