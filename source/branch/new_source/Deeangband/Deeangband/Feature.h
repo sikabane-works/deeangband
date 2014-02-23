@@ -20,5 +20,13 @@ class Feature : public GameElement
 private:
 	string name; /*!< 地形の名前 */
 	ID tileID; /*!< 地形タイルID */
+	char symbol; /*!< 地形タイルシンボル */
+	Color symColor; /*!< 地形タイルシンボル */
+
 public:
+
+	Feature::Feature(void);
+
+	Feature::~Feature(void);
+
 };
