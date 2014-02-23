@@ -139,66 +139,65 @@ void GameSurfaceSDL::ViewCreatureStatus(Creature *creaturePtr)
 	viewCreaturePtr = NULL;
 }
 
+
+
+
 void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 {
-	char nameBuf[100], hpBuf[100], mpBuf[100], acBuf[100], evBuf[100], voBuf[100];
+	int id;
 	SDL_Surface *windowSurface = SDL_GetWindowSurface(window);
-	SDL_Rect rect = {10, 220, 300, 250};
 
-	SDL_Rect namePos = {20, 230, 0, 0};
-	SDL_Rect nameRect = {0, 0, 0, 0};
-	SDL_Rect hpPos = {20, 250, 0, 0};
-	SDL_Rect hpRect = {0, 0, 0, 0};
-	SDL_Rect mpPos = {20, 270, 0, 0};
-	SDL_Rect mpRect = {0, 0, 0, 0};
-	SDL_Rect acPos = {20, 290, 0, 0};
-	SDL_Rect acRect = {0, 0, 0, 0};
-	SDL_Rect evPos = {20, 310, 0, 0};
-	SDL_Rect evRect = {0, 0, 0, 0};
-	SDL_Rect voPos = {20, 330, 0, 0};
-	SDL_Rect voRect = {0, 0, 0, 0};
+	enum CREATURE_STATUS_VIEW_POSITION
+	{
+		POS_NAME,
+		POS_HP,
+		POS_MP,
+		POS_AC,
+		POS_EV,
+		POS_VO,
+		POS_MAX
+	};
 
-	sprintf_s(nameBuf, 100, "–¼‘O:%s", creaturePtr->GetName().c_str()); 
-	sprintf_s(hpBuf, 100, "HP:%5d/%5d", creaturePtr->GetCurHP(), creaturePtr->GetMaxHP()); 
-	sprintf_s(mpBuf, 100, "MP:%5d/%5d", creaturePtr->GetCurMP(), creaturePtr->GetMaxMP()); 
-	sprintf_s(acBuf, 100, "AC:%4d", creaturePtr->GetAC()); 
-	sprintf_s(evBuf, 100, "EV:%4d", creaturePtr->GetEV()); 
-	sprintf_s(voBuf, 100, "VO:%4d", creaturePtr->GetVO()); 
+	SDL_Rect CreatureStatusViewPosition[POS_MAX] =
+	{
+		{20, 230, 0, 0},
+		{20, 250, 0, 0},
+		{20, 270, 0, 0},
+		{20, 290, 0, 0},
+		{20, 310, 0, 0},
+		{20, 330, 0, 0},
+	};
 
-	SDL_Surface *nameSurface, *hpSurface, *mpSurface, *acSurface, *evSurface, *voSurface;
-	nameSurface = TTF_RenderUTF8_Blended(font, toUTF8(nameBuf), color);
-	hpSurface = TTF_RenderUTF8_Blended(font, toUTF8(hpBuf), color);
-	mpSurface = TTF_RenderUTF8_Blended(font, toUTF8(mpBuf), color);
-	acSurface = TTF_RenderUTF8_Blended(font, toUTF8(acBuf), color);
-	evSurface = TTF_RenderUTF8_Blended(font, toUTF8(evBuf), color);
-	voSurface = TTF_RenderUTF8_Blended(font, toUTF8(voBuf), color);
+	SDL_Rect CreatureStatusViewRect[POS_MAX];
 
-	SDL_FillRect(windowSurface, &rect, SDL_MapRGBA(windowSurface->format, 0, 0, 0, 120));
+	const int STATUS_BUFSIZE = 100;
+	char statusBuf[POS_MAX][STATUS_BUFSIZE];
+	SDL_Surface *statusSurface[POS_MAX];
 
-	nameRect.w = nameSurface->w;
-	nameRect.h = nameSurface->h;
-	SDL_BlitSurface(nameSurface, &nameRect, windowSurface, &namePos); 
+	SDL_Rect masterRect = {10, 220, 300, 250};
 
-	hpRect.w = hpSurface->w;
-	hpRect.h = hpSurface->h;
-	SDL_BlitSurface(hpSurface, &hpRect, windowSurface, &hpPos); 
+	sprintf_s(statusBuf[POS_NAME], STATUS_BUFSIZE, "–¼‘O:%s", creaturePtr->GetName().c_str()); 
+	sprintf_s(statusBuf[POS_HP], STATUS_BUFSIZE, "HP:%5d/%5d", creaturePtr->GetCurHP(), creaturePtr->GetMaxHP()); 
+	sprintf_s(statusBuf[POS_MP], STATUS_BUFSIZE, "MP:%5d/%5d", creaturePtr->GetCurMP(), creaturePtr->GetMaxMP()); 
+	sprintf_s(statusBuf[POS_AC], STATUS_BUFSIZE, "AC:%4d", creaturePtr->GetAC()); 
+	sprintf_s(statusBuf[POS_EV], STATUS_BUFSIZE, "EV:%4d", creaturePtr->GetEV()); 
+	sprintf_s(statusBuf[POS_VO], STATUS_BUFSIZE, "VO:%4d", creaturePtr->GetVO()); 
 
-	mpRect.w = mpSurface->w;
-	mpRect.h = mpSurface->h;
-	SDL_BlitSurface(mpSurface, &mpRect, windowSurface, &mpPos); 
+	for(id = 0; id < POS_MAX; id++)
+	{
+		statusSurface[id] = TTF_RenderUTF8_Blended(font, toUTF8(statusBuf[id]), color);
+		CreatureStatusViewRect[id].x = 0;
+		CreatureStatusViewRect[id].y = 0;
+		CreatureStatusViewRect[id].w = statusSurface[id]->w;
+		CreatureStatusViewRect[id].h = statusSurface[id]->h;
+	}
 
-	acRect.w = acSurface->w;
-	acRect.h = acSurface->h;
-	SDL_BlitSurface(acSurface, &acRect, windowSurface, &acPos); 
+	SDL_FillRect(windowSurface, &masterRect, SDL_MapRGBA(windowSurface->format, 0, 0, 0, 120));
 
-	evRect.w = evSurface->w;
-	evRect.h = evSurface->h;
-	SDL_BlitSurface(evSurface, &evRect, windowSurface, &evPos); 
-
-	voRect.w = voSurface->w;
-	voRect.h = voSurface->h;
-	SDL_BlitSurface(voSurface, &voRect, windowSurface, &voPos); 
-
+	for(id = 0; id < POS_MAX; id++)
+	{
+		SDL_BlitSurface(statusSurface[id], &CreatureStatusViewRect[id], windowSurface, &CreatureStatusViewPosition[id]); 
+	}
 	return;
 }
 
