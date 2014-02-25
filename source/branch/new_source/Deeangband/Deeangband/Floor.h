@@ -20,8 +20,7 @@
 class Floor : public GameElement
 {
 private:
-
-	map<MapLength, MapLength, Square> squares;
+	vector<vector<Square>> *squares;
 	MapLength width; /*!< フロアの横サイズ*/
 	MapLength height; /*!< フロアの縦サイズ*/
 

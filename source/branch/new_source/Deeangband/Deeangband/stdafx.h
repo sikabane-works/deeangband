@@ -28,6 +28,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
 #include <cstdlib> 
 #include <list>
 using namespace std;
