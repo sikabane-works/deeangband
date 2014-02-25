@@ -30,3 +30,9 @@ MapLength Floor::GetHeight(void)
 {
 	return height;
 }
+
+Square *Floor::getSquare(MapLength x, MapLength y)
+{
+	return &(*squares)[x][y];
+}
+
