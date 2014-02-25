@@ -9,9 +9,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Floor.h"
 
-#include "Creature.h"
 #include "Deeangband.h"
 #include "GameSurface.h"
 #include <SDL.h>

@@ -9,6 +9,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Deeangband.h"
 #include "GameElement.h"
 #include "Square.h"
 
@@ -26,21 +27,24 @@ private:
 
 public:
 
+	Floor::Floor();
+	Floor::~Floor();
+
 	/*!
 	 * @brief フロアの横サイズを得る
 	 * @return フロアの横サイズ
 	 */
-	MapLength GetWidth(void);
+	MapLength Floor::GetWidth(void);
 
 	/*!
 	 * @brief フロアの縦サイズを得る
 	 * @return フロアの縦サイズ
 	 */
-	MapLength GetHeight(void);
+	MapLength Floor::GetHeight(void);
 
 	/*!
 	 * @brief フロアの該当座標のマスを返す。
 	 * @return 該当するマスインスタンスの参照ポインタ
 	 */
-	Square *getSquare(MapLength x, MapLength y);
+	Square *Floor::getSquare(MapLength x, MapLength y);
 };
