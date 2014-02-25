@@ -25,3 +25,12 @@ typedef enum PlayExitCode
 	PLAY_EXIT_DEAD,
 	PLAY_EXIT_QUIT
 } PlayExitCode;
+
+class Effect;
+class GameElement;
+class Feature;
+class Floor;
+class Square;
+
+
+

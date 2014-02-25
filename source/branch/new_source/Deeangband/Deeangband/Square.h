@@ -1,23 +1,21 @@
 /*!
-    @file Square.h
-    @brief ゲーム中のマスと付随要素のプロトタイプ
-    @date 2013/12/11
-    @author Deskull
-    2013 Sikabane Works.
-*/
+ * @file Square.h
+ * @brief ゲーム中のマスと付随要素のプロトタイプ
+ * @date 2013/12/11
+ * @author Deskull
+ * 2013 Sikabane Works.
+ */
 
 #pragma once
 
 #include "stdafx.h"
-
-#include "Effect.h"
-#include "Floor.h"
-#include "Feature.h"
+#include "Deeangband.h"
 #include "GameElement.h"
 
-/*! @class Square
-    @brief マスのクラス
-*/
+/*! 
+ * @class Square
+ * @brief マスのクラス
+ */
 class Square : public GameElement
 {
 private:
