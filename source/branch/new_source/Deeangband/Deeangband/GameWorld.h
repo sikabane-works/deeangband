@@ -66,6 +66,26 @@ public:
 	GameWorld(GameSurface *gSurface);
 	~GameWorld();
 
+	Authority *GameWorld::GetAuthority(Tag tag);
+	CreatureTrait *GameWorld::GetCreatureTrait(Tag tag);
+	Effect *GameWorld::GetEffect(Tag tag);
+	FixedArtifact *GameWorld::GetFixedArtifact(Tag tag);
+	Feature *GameWorld::GetFeature(Tag tag);
+	ItemBase *GameWorld::GetItemBase(Tag tag);
+	ItemEgo *GameWorld::GetItemEgo(Tag tag);
+	ItemTrait *GameWorld::GetItemTrait(Tag tag);
+	Karma *GameWorld::GetKarma(Tag tag);
+	Skill *GameWorld::GetSkill(Tag tag);
+	Species *GameWorld::GetSpecies(Tag tag);
+	TrapBase *GameWorld::GetTrapBase(Tag tag);
+
+	Building *GameWorld::GetTrapBase(ID id);
+	Camp *GameWorld::GetCamp(ID id);
+	Creature *GameWorld::GetCreature(ID id);
+	Dungeon *GameWorld::GetDungeon(ID id);
+	Item *GameWorld::GetItem(ID id);
+	Floor *GameWorld::GetFloor(ID id);
+
 	PlayExitCode PlayLoop(void);
 
 	/*
