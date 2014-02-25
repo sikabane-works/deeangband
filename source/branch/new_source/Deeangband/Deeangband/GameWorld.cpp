@@ -22,10 +22,10 @@ GameWorld::GameWorld(GameSurface *gSurface)
 	itemBaseList.insert(map<Tag, ItemBase>::value_type("NONE", ItemBase()));
 	itemEgoList.insert(map<Tag, ItemEgo>::value_type("NONE", ItemEgo()));
 	itemTraitList.insert(map<Tag, ItemTrait>::value_type("NONE", ItemTrait()));
-	karmatList.insert(map<Tag, Karma>::value_type("NONE", Karma()));
+	karmaList.insert(map<Tag, Karma>::value_type("NONE", Karma()));
 	skillList.insert(map<Tag, Skill>::value_type("NONE", Skill()));
 	speciesList.insert(map<Tag, Species>::value_type("NONE", Species()));
-	trapbaseList.insert(map<Tag, TrapBase>::value_type("NONE", TrapBase()));
+	trapBaseList.insert(map<Tag, TrapBase>::value_type("NONE", TrapBase()));
 
 	buildingList.insert(map<ID, Building>::value_type(0, Building()));
 	campList.insert(map<ID, Camp>::value_type(0, Camp()));
@@ -71,4 +71,94 @@ PlayExitCode GameWorld::DoGameCommand(GameCommand command)
 			break;
 	}
 	return PLAY_EXIT_NONE;
+}
+
+Authority *GameWorld::GetAuthority(Tag tag)
+{
+	return &authorityList[tag];
+}
+
+CreatureTrait *GameWorld::GetCreatureTrait(Tag tag)
+{
+	return &creatureTraitList[tag];
+}
+
+Effect *GameWorld::GetEffect(Tag tag)
+{
+	return &effectList[tag];
+}
+
+FixedArtifact *GameWorld::GetFixedArtifact(Tag tag)
+{
+	return &fixedArtifactList[tag];
+}
+
+Feature *GameWorld::GetFeature(Tag tag)
+{
+	return &featureList[tag];
+}
+
+ItemBase *GameWorld::GetItemBase(Tag tag)
+{
+	return &itemBaseList[tag];
+}
+
+ItemEgo *GameWorld::GetItemEgo(Tag tag)
+{
+	return &itemEgoList[tag];
+}
+
+ItemTrait *GameWorld::GetItemTrait(Tag tag)
+{
+	return &itemTraitList[tag];
+}
+
+Karma *GameWorld::GetKarma(Tag tag)
+{
+	return &karmaList[tag];
+}
+
+Skill *GameWorld::GetSkill(Tag tag)
+{
+	return &skillList[tag];
+}
+
+Species *GameWorld::GetSpecies(Tag tag)
+{
+	return &speciesList[tag];
+}
+
+TrapBase *GameWorld::GetTrapBase(Tag tag)
+{
+	return &trapBaseList[tag];
+}
+
+Building *GameWorld::GetBuilding(ID id)
+{
+	return &buildingList[id];
+}
+
+Camp *GameWorld::GetCamp(ID id)
+{
+	return &campList[id];
+}
+
+Creature *GameWorld::GetCreature(ID id)
+{
+	return &creatureList[id];
+}
+
+Dungeon *GameWorld::GetDungeon(ID id)
+{
+	return &dungeonList[id];
+}
+
+Item *GameWorld::GetItem(ID id)
+{
+	return &itemList[id];
+}
+
+Floor *GameWorld::GetFloor(ID id)
+{
+	return &floorList[id];
 }

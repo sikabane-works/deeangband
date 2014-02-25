@@ -18,7 +18,6 @@ Floor::Floor()
 
 Floor::~Floor()
 {
-	delete(squares);
 }
 
 MapLength Floor::GetWidth(void)

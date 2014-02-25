@@ -48,10 +48,10 @@ private:
 	map<Tag, ItemBase> itemBaseList;            /*!<全アイテムベースリスト*/
 	map<Tag, ItemEgo> itemEgoList;              /*!<全アイテムエゴリスト*/
 	map<Tag, ItemTrait> itemTraitList;          /*!<全アイテム特性リスト*/
-	map<Tag, Karma> karmatList;                 /*!<全カルマリスト*/
+	map<Tag, Karma> karmaList;                 /*!<全カルマリスト*/
 	map<Tag, Skill> skillList;                  /*!<全スキルリスト*/
 	map<Tag, Species> speciesList;              /*!<全クリーチャー種別リスト*/
-	map<Tag, TrapBase> trapbaseList;            /*!<全トラップベース種別リスト*/
+	map<Tag, TrapBase> trapBaseList;            /*!<全トラップベース種別リスト*/
 
 	//動的データリスト
 	map<ID, Building> buildingList;            /*!<全施設リスト*/
@@ -79,7 +79,7 @@ public:
 	Species *GameWorld::GetSpecies(Tag tag);
 	TrapBase *GameWorld::GetTrapBase(Tag tag);
 
-	Building *GameWorld::GetTrapBase(ID id);
+	Building *GameWorld::GetBuilding(ID id);
 	Camp *GameWorld::GetCamp(ID id);
 	Creature *GameWorld::GetCreature(ID id);
 	Dungeon *GameWorld::GetDungeon(ID id);
