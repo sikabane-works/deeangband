@@ -14,18 +14,18 @@ GameWorld::GameWorld(GameSurface *gSurface)
 {
 	gameSurface = gSurface;
 
-	authorityList.insert(map<ID, Authority>::value_type(0, Authority()));
-	creatureTraitList.insert(map<ID, CreatureTrait>::value_type(0, CreatureTrait()));
-	effectList.insert(map<ID, Effect>::value_type(0, Effect()));
-	fixedArtifactList.insert(map<ID, FixedArtifact>::value_type(0, FixedArtifact()));
-	featureList.insert(map<ID, Feature>::value_type(0, Feature()));
-	itemBaseList.insert(map<ID, ItemBase>::value_type(0, ItemBase()));
-	itemEgoList.insert(map<ID, ItemEgo>::value_type(0, ItemEgo()));
-	itemTraitList.insert(map<ID, ItemTrait>::value_type(0, ItemTrait()));
-	karmatList.insert(map<ID, Karma>::value_type(0, Karma()));
-	skillList.insert(map<ID, Skill>::value_type(0, Skill()));
-	speciesList.insert(map<ID, Species>::value_type(0, Species()));
-	trapbaseList.insert(map<ID, TrapBase>::value_type(0, TrapBase()));
+	authorityList.insert(map<Tag, Authority>::value_type("NONE", Authority()));
+	creatureTraitList.insert(map<Tag, CreatureTrait>::value_type("NONE", CreatureTrait()));
+	effectList.insert(map<Tag, Effect>::value_type("NONE", Effect()));
+	fixedArtifactList.insert(map<Tag, FixedArtifact>::value_type("NONE", FixedArtifact()));
+	featureList.insert(map<Tag, Feature>::value_type("NONE", Feature()));
+	itemBaseList.insert(map<Tag, ItemBase>::value_type("NONE", ItemBase()));
+	itemEgoList.insert(map<Tag, ItemEgo>::value_type("NONE", ItemEgo()));
+	itemTraitList.insert(map<Tag, ItemTrait>::value_type("NONE", ItemTrait()));
+	karmatList.insert(map<Tag, Karma>::value_type("NONE", Karma()));
+	skillList.insert(map<Tag, Skill>::value_type("NONE", Skill()));
+	speciesList.insert(map<Tag, Species>::value_type("NONE", Species()));
+	trapbaseList.insert(map<Tag, TrapBase>::value_type("NONE", TrapBase()));
 
 	buildingList.insert(map<ID, Building>::value_type(0, Building()));
 	campList.insert(map<ID, Camp>::value_type(0, Camp()));

@@ -40,18 +40,18 @@ private:
 	GameSurface *gameSurface;
 
 	//静的データリスト
-	map<ID, Authority> authorityList;          /*!<全権能リスト*/
-	map<ID, CreatureTrait> creatureTraitList;  /*!<全クリーチャー特性リスト*/
-	map<ID, Effect> effectList;                /*!<全効果属性リスト*/
-	map<ID, FixedArtifact> fixedArtifactList;  /*!<全固定アーティファクトリスト*/
-	map<ID, Feature> featureList;              /*!<全地形リスト*/
-	map<ID, ItemBase> itemBaseList;            /*!<全アイテムベースリスト*/
-	map<ID, ItemEgo> itemEgoList;              /*!<全アイテムエゴリスト*/
-	map<ID, ItemTrait> itemTraitList;          /*!<全アイテム特性リスト*/
-	map<ID, Karma> karmatList;                 /*!<全カルマリスト*/
-	map<ID, Skill> skillList;                  /*!<全スキルリスト*/
-	map<ID, Species> speciesList;              /*!<全クリーチャー種別リスト*/
-	map<ID, TrapBase> trapbaseList;            /*!<全トラップベース種別リスト*/
+	map<Tag, Authority> authorityList;          /*!<全権能リスト*/
+	map<Tag, CreatureTrait> creatureTraitList;  /*!<全クリーチャー特性リスト*/
+	map<Tag, Effect> effectList;                /*!<全効果属性リスト*/
+	map<Tag, FixedArtifact> fixedArtifactList;  /*!<全固定アーティファクトリスト*/
+	map<Tag, Feature> featureList;              /*!<全地形リスト*/
+	map<Tag, ItemBase> itemBaseList;            /*!<全アイテムベースリスト*/
+	map<Tag, ItemEgo> itemEgoList;              /*!<全アイテムエゴリスト*/
+	map<Tag, ItemTrait> itemTraitList;          /*!<全アイテム特性リスト*/
+	map<Tag, Karma> karmatList;                 /*!<全カルマリスト*/
+	map<Tag, Skill> skillList;                  /*!<全スキルリスト*/
+	map<Tag, Species> speciesList;              /*!<全クリーチャー種別リスト*/
+	map<Tag, TrapBase> trapbaseList;            /*!<全トラップベース種別リスト*/
 
 	//動的データリスト
 	map<ID, Building> buildingList;            /*!<全施設リスト*/
