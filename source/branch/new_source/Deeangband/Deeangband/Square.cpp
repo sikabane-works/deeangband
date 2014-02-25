@@ -9,14 +9,13 @@
 #include "stdafx.h"
 #include "Square.h"
 
-MapLength Square::X(void)
+Square::Square(Floor *floor_ptr)
 {
-	return this->x;
+	this->floor_ptr = floor_ptr;
 }
 
-MapLength Square::Y(void)
+Square::~Square()
 {
-	return this->y;
 }
 
 bool Square::take_effect(Effect *effectPtr, POWER amount)

@@ -19,28 +19,32 @@
 class Square : public GameElement
 {
 private:
-	ID floor_id; //!<所属フロアID
+	Floor *floor_ptr; //!<所属フロア参照ポインタ
 	ID feature_id; //!<地形ID
-	MapLength x; //!<フロア上のx座標
-	MapLength y; //!<フロア上のy座標
 public:
 
-	/*!フロア上のx座標を返す*/
-	MapLength X(void);
+	Square::Square(Floor *floor_ptr);
 
-	/*!フロア上のy座標を返す*/
-	MapLength Y(void);
+	Square::~Square();
 
-	/*! 所属するフロアのポインタを返す。*/
+	/*!
+	 * @brief 所属するフロアのポインタを返す。
+	 */
 	Floor* getFloorPtr(void);
 
-	/*! 対応する地形のIDを返す。*/
+	/*!
+	 * @brief 対応する地形のIDを返す。
+	 */
 	ID getFeatureID(void);
 
-	/*! 対応する地形のポインタを返す。*/
+	/*!
+	 * @brief 対応する地形のポインタを返す。
+	 */
 	Feature* getFeaturePtr(void);
 
-	/*! 受けた効果を処理する */
+	/*!
+	 * @brief 受けた効果を処理する
+	 */
 	bool Square::take_effect(Effect *effectPtr, POWER amount);
 
 };

@@ -11,15 +11,14 @@
 
 Floor::Floor()
 {
-	int i, j;
 	width = 50;
 	height = 50;
-
-	squares = new vector<vector<Square>> (height, vector<Square>(width));
+	squares = new vector<vector<Square>> (height, vector<Square>(width, this));
 }
 
 Floor::~Floor()
 {
+	delete(squares);
 }
 
 MapLength Floor::GetWidth(void)
