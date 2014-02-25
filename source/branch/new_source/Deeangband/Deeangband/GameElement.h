@@ -9,7 +9,7 @@
 #pragma once
 
 typedef int ID;     //!< ƒQ[ƒ€—v‘fID
-typedef string Tag; //!< ƒQ[ƒ€—v‘f•¶Žš—ñID
+typedef std::string Tag; //!< ƒQ[ƒ€—v‘f•¶Žš—ñID
 typedef int Weight; //!< d—Ê
 typedef int AC;     //!< ŠæŒ’«
 typedef int EV;     //!< ‰ñ”ð—Í

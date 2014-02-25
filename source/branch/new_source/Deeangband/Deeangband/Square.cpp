@@ -12,6 +12,7 @@
 Square::Square(Floor *floor_ptr)
 {
 	this->floor_ptr = floor_ptr;
+	feature_id = 0;
 }
 
 Square::~Square()

@@ -40,26 +40,26 @@ private:
 	GameSurface *gameSurface;
 
 	//静的データリスト
-	map<ID, Tag, Authority> authorityList;          /*!<全権能リスト*/
-	map<ID, Tag, CreatureTrait> creatureTraitList;  /*!<全クリーチャー特性リスト*/
-	map<ID, Tag, Effect> effectList;                /*!<全効果属性リスト*/
-	map<ID, Tag, FixedArtifact> fixedArtifactList;  /*!<全固定アーティファクトリスト*/
-	map<ID, Tag, Feature> featureList;              /*!<全地形リスト*/
-	map<ID, Tag, ItemBase> itemBaseList;            /*!<全アイテムベースリスト*/
-	map<ID, Tag, ItemEgo> itemEgoList;              /*!<全アイテムエゴリスト*/
-	map<ID, Tag, ItemTrait> itemTraitList;          /*!<全アイテム特性リスト*/
-	map<ID, Tag, Karma> karmatList;                 /*!<全カルマリスト*/
-	map<ID, Tag, Skill> skillList;                  /*!<全スキルリスト*/
-	map<ID, Tag, Species> speciesList;              /*!<全クリーチャー種別リスト*/
-	map<ID, Tag, TrapBase> trapbaseList;            /*!<全トラップベース種別リスト*/
+	map<ID, Authority> authorityList;          /*!<全権能リスト*/
+	map<ID, CreatureTrait> creatureTraitList;  /*!<全クリーチャー特性リスト*/
+	map<ID, Effect> effectList;                /*!<全効果属性リスト*/
+	map<ID, FixedArtifact> fixedArtifactList;  /*!<全固定アーティファクトリスト*/
+	map<ID, Feature> featureList;              /*!<全地形リスト*/
+	map<ID, ItemBase> itemBaseList;            /*!<全アイテムベースリスト*/
+	map<ID, ItemEgo> itemEgoList;              /*!<全アイテムエゴリスト*/
+	map<ID, ItemTrait> itemTraitList;          /*!<全アイテム特性リスト*/
+	map<ID, Karma> karmatList;                 /*!<全カルマリスト*/
+	map<ID, Skill> skillList;                  /*!<全スキルリスト*/
+	map<ID, Species> speciesList;              /*!<全クリーチャー種別リスト*/
+	map<ID, TrapBase> trapbaseList;            /*!<全トラップベース種別リスト*/
 
 	//動的データリスト
-	map<ID, Tag, Building> buildingList;            /*!<全施設リスト*/
-	map<ID, Tag, Camp> campList;                    /*!<全陣営リスト*/
-	map<ID, Tag, Creature> creatureList;            /*!<全クリーチャーリスト*/
-	map<ID, Tag, Dungeon> dungeonList;              /*!<全ダンジョンリスト*/
-	map<ID, Tag, Item> itemList;                    /*!<全アイテムリスト*/
-	map<ID, Tag, Floor> floorList;                  /*!<全フロアリスト*/
+	map<ID, Building> buildingList;            /*!<全施設リスト*/
+	map<ID, Camp> campList;                    /*!<全陣営リスト*/
+	map<ID, Creature> creatureList;            /*!<全クリーチャーリスト*/
+	map<ID, Dungeon> dungeonList;              /*!<全ダンジョンリスト*/
+	map<ID, Item> itemList;                    /*!<全アイテムリスト*/
+	map<ID, Floor> floorList;                  /*!<全フロアリスト*/
 
 public:
 
