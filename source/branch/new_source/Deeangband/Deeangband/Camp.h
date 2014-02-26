@@ -18,4 +18,10 @@ private:
 
 public:
 
+	Camp::Camp(ID id, Tag tag, GameWorld *gameWorld);
+
+	Camp::Camp(void);
+
+	Camp::~Camp(void);
+
 };

@@ -9,3 +9,17 @@
 #include "stdafx.h"
 #include "Camp.h"
 
+Camp::Camp(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
+{
+	return;
+}
+
+Camp::Camp(void)
+{
+	return;
+}
+
+Camp::~Camp(void)
+{
+	return;
+}
