@@ -10,3 +10,17 @@
 #include "Creature.h"
 #include "CreatureTemplate.h"
 
+CreatureTemplate::CreatureTemplate(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
+{
+	return;
+}
+
+CreatureTemplate::CreatureTemplate(void)
+{
+	return;
+}
+
+CreatureTemplate::~CreatureTemplate(void)
+{
+	return;
+}

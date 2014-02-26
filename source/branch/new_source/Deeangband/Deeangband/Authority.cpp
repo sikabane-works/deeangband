@@ -9,7 +9,7 @@
 #include "stdafx.h"
 #include "Authority.h"
 
-Authority::Authority(ID id, Tag tag, GameWorld *gameWorld)
+Authority::Authority(ID id, Tag tag, GameWorld *gameWorld) : CreatureTemplate(id, tag, gameWorld)
 {
 	return;
 }
