@@ -19,4 +19,8 @@ class Building : public GameElement
 {
 private:
 public:
+	Building::Building(ID id, Tag tag, GameWorld *gameWorld);
+	Building::Building(void);
+	Building::~Building(void);
+
 };

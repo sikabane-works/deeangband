@@ -8,3 +8,18 @@
 
 #include "stdafx.h"
 #include "Building.h"
+
+Building::Building(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
+{
+	return;
+}
+
+Building::Building(void)
+{
+	return;
+}
+
+Building::~Building(void)
+{
+	return;
+}
