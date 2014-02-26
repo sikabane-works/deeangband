@@ -9,6 +9,12 @@
 #include "stdafx.h"
 #include "Creature.h"
 
+Creature::Creature(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
+{
+	Creature();
+	return;
+}
+
 Creature::Creature(void)
 {
 	int statID;
@@ -22,6 +28,11 @@ Creature::Creature(void)
 		status.current[statID] = status.max[statID] = 8;
 		status.maxMax[statID] = 20;
 	}
+}
+
+Creature::~Creature(void)
+{
+	return;
 }
 
 bool Creature::is_alive(void)

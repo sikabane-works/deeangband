@@ -118,7 +118,10 @@ public:
 	/*!
 	 * @brief クリーチャーのダミー生成処理コンストラクタ
 	 */
+	Creature::Creature(ID id, Tag tag, GameWorld *gameWorld);
 	Creature::Creature(void);
+
+	Creature::~Creature(void);
 
 	/*!
 	 * @brief クリーチャーの名前を返す
