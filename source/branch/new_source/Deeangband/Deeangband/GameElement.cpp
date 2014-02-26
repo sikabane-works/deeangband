@@ -9,6 +9,24 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
+
+GameElement::GameElement(ID id, Tag tag, GameWorld *gameWorld)
+{
+	this->id = id;
+	this->tag = tag;
+	this->gameWorld = gameWorld;
+}
+
+GameElement::GameElement(void)
+{
+	return;
+}
+
+GameElement::~GameElement(void)
+{
+	return;
+}
+
 ID GameElement::GetID(void)
 {
 	return this->id;

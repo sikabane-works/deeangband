@@ -49,6 +49,7 @@ private:
 public:
 
 	Dungeon::Dungeon(void);
+
 	Dungeon::Dungeon(GameWorld *gameWorld);
 
 	Dungeon::~Dungeon(void);

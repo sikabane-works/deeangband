@@ -48,6 +48,13 @@ private:
 
 public:
 
+	GameElement::GameElement(void); 
+
+	GameElement::GameElement(ID id, Tag tag, GameWorld *gameWorld); 
+
+	GameElement::~GameElement(void); 
+
+
 	/*!
 	 * @brief ID‚ğİ’è‚·‚é
 	 */
