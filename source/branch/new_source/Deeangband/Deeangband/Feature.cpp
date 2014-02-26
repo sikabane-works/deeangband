@@ -9,6 +9,13 @@
 #include "stdafx.h"
 #include "Feature.h"
 
+
+Feature::Feature(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
+{
+	Feature();
+	return;
+}
+
 Feature::Feature(void)
 {
 	name = "–¢’m‚Ì’nŒ`";

@@ -11,9 +11,10 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
-/*! @class Effect
-    @brief 効果属性のクラス
-*/
+/*!
+ * @class Effect
+ * @brief 効果属性のクラス
+ */
 class Effect : public GameElement
 {
 private:

@@ -25,8 +25,8 @@ private:
 
 public:
 
+	Feature::Feature(ID id, Tag tag, GameWorld *gameWorld);
 	Feature::Feature(void);
-
 	Feature::~Feature(void);
 
 };
