@@ -27,6 +27,7 @@ typedef enum PlayExitCode
 } PlayExitCode;
 
 class Creature;
+class CreatureTemplate;
 class Dungeon;
 class Effect;
 class GameElement;
