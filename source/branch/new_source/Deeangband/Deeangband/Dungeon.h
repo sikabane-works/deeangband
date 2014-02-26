@@ -11,6 +11,7 @@
 #include "Species.h"
 #include "Feature.h"
 #include "GameElement.h"
+#include "Deeangband.h"
 
 #pragma once
 
@@ -46,6 +47,11 @@ private:
 	ID controlCamp;      //!< Š—Lw‰cID
 	ID gurdianSpecies;   //!< ƒ_ƒ“ƒWƒ‡ƒ“‚ÌŽçŒìŽÒID
 public:
+
+	Dungeon::Dungeon(void);
+	Dungeon::Dungeon(GameWorld *gameWorld);
+
+	Dungeon::~Dungeon(void);
 
 	DEPTH GetMinDepth(void);
 

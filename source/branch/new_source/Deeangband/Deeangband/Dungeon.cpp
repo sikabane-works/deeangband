@@ -8,3 +8,16 @@
 
 #include "stdafx.h"
 #include "Dungeon.h"
+
+Dungeon::Dungeon(void)
+{
+}
+
+Dungeon::Dungeon(GameWorld *gameWorld)
+{
+	//this->gameWorld = gameWorld;
+}
+
+Dungeon::~Dungeon(void)
+{
+}
