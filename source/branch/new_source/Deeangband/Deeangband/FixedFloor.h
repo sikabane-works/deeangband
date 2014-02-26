@@ -16,5 +16,7 @@ class FixedFloor : public GameElement
 {
 private:
 public:
-
+	FixedFloor::FixedFloor(ID id, Tag tag, GameWorld *gameWorld);
+	FixedFloor::FixedFloor(void);	
+	FixedFloor::~FixedFloor(void);
 };

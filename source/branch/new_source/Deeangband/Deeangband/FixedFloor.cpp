@@ -8,3 +8,18 @@
 
 #include "stdafx.h"
 #include "FixedFloor.h"
+
+FixedFloor::FixedFloor(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
+{
+	return;
+}
+
+FixedFloor::FixedFloor(void)
+{
+	return;
+}
+
+FixedFloor::~FixedFloor(void)
+{
+	return;
+}
