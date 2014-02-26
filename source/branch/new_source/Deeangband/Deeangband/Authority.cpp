@@ -8,3 +8,18 @@
 
 #include "stdafx.h"
 #include "Authority.h"
+
+Authority::Authority(ID id, Tag tag, GameWorld *gameWorld)
+{
+	return;
+}
+
+Authority::Authority(void)
+{
+	return;
+}
+
+Authority::~Authority(void)
+{
+	return;
+}

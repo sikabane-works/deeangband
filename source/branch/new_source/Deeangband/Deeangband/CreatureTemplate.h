@@ -11,9 +11,10 @@
 #include "stdafx.h"
 #include "Creature.h"
 
-/*! @class CreatureTemplate
-    @brief 種族、職業、選択、特性など、クリーチャーに包括的修正を与える
-*/
+/*!
+ * @class CreatureTemplate
+ * @brief 種族、職業、選択、特性など、クリーチャーに包括的修正を与える
+ */
 class CreatureTemplate
 {
 private:

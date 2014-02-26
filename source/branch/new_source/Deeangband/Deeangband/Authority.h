@@ -11,11 +11,16 @@
 #include "stdafx.h"
 #include "CreatureTemplate.h"
 
-/*! @class Authority
-    @brief 権能のクラス
-*/
+/*! 
+ * @class Authority
+ * @brief 権能のクラス
+ */
 class Authority : public CreatureTemplate
 {
 private:
+
 public:
+	Authority::Authority(ID id, Tag tag, GameWorld *gameWorld);
+	Authority::Authority(void);
+	Authority::~Authority(void);
 };
