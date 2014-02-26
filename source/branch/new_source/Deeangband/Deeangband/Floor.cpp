@@ -9,6 +9,12 @@
 #include "stdafx.h"
 #include "Floor.h"
 
+Floor::Floor(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
+{
+	Floor();
+	return;
+}
+
 Floor::Floor()
 {
 	width = 50;

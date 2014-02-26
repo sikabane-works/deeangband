@@ -26,6 +26,7 @@ private:
 
 public:
 
+	Floor::Floor(ID id, Tag tag, GameWorld *gameWorld);
 	Floor::Floor();
 	Floor::~Floor();
 
