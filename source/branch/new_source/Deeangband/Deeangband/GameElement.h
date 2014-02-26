@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include "Deeangband.h"
+
 typedef int ID;     //!< ゲーム要素ID
 typedef string Tag; //!< ゲーム要素文字列ID
 typedef int Weight; //!< 重量
@@ -40,29 +42,35 @@ class GameElement
 {
 private:
 
-	ID id;       /*!< ID */
-	Tag tag;     /*!< タグ */
+	ID id;   //!< ID
+	Tag tag; //!< タグ
+	GameWorld *gameWorld; //!< 所属元のGameWorld
 
 public:
 
 	/*!
 	 * @brief IDを設定する
 	 */
-	void setID(ID newID); 
+	void GameElement::SetID(ID newID); 
 
 	/*!
 	 * @brief IDを取得する
 	 */
-	ID getID();
+	ID GameElement::GetID();
 
 	/*!
 	 * @brief タグを設定する
 	 */
-	void setTag(Tag newTag);
+	void GameElement::SetTag(Tag newTag);
 
 	/*!
 	 * @brief タグを取得する
 	 */
-	Tag getTag();
+	Tag GameElement::GetTag();
 
+	/*!
+	 * @brief 所属元のGameWorldインスタンスを返す
+	 * @return GameWorldインスタンスの参照ポインタ
+	 */
+	GameWorld *GameElement::GetGameWorld();
 };

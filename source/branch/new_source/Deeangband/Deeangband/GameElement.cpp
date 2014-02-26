@@ -9,22 +9,27 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
-ID GameElement::getID(void)
+ID GameElement::GetID(void)
 {
 	return this->id;
 }
 
-void GameElement::setID(ID newID)
+void GameElement::SetID(ID newID)
 {
 	this->id = newID;
 }
 
-Tag GameElement::getTag(void)
+Tag GameElement::GetTag(void)
 {
 	return this->tag;
 }
 
-void GameElement::setTag(Tag newTag)
+void GameElement::SetTag(Tag newTag)
 {
 	this->tag = newTag;
+}
+
+GameWorld *GameElement::GetGameWorld(void)
+{
+	return gameWorld;
 }
