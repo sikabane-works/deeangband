@@ -9,13 +9,19 @@
 #include "stdafx.h"
 #include "GameElement.h"
 
-/*! @class FixedArtifact
- *  @brief 固定アーティファクトのクラス
+/*!
+ * @class FixedArtifact
+ * @brief 固定アーティファクトのクラス
  */
 class FixedArtifact : public GameElement
 {
 
 private:
+
 public:
+
+	FixedArtifact::FixedArtifact(ID id, Tag tag, GameWorld *gameWorld);
+	FixedArtifact::FixedArtifact(void);
+	FixedArtifact::~FixedArtifact(void);
 
 };
