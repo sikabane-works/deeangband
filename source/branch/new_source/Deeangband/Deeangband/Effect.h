@@ -18,4 +18,9 @@ class Effect : public GameElement
 {
 private:
 public:
+
+	Effect::Effect(ID id, Tag tag, GameWorld *gameWorld);
+	Effect::Effect(void);
+	Effect::~Effect(void);
+
 };
