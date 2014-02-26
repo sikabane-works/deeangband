@@ -9,15 +9,17 @@
 #include "stdafx.h"
 #include "Dungeon.h"
 
-Dungeon::Dungeon(void)
+Dungeon::Dungeon(ID id, Tag tag, GameWorld *gameWorld) : GameElement(id, tag, gameWorld)
 {
+	return;
 }
 
-Dungeon::Dungeon(GameWorld *gameWorld)
+Dungeon::Dungeon(void)
 {
-	//this->gameWorld = gameWorld;
+	return;
 }
 
 Dungeon::~Dungeon(void)
 {
+	return;
 }

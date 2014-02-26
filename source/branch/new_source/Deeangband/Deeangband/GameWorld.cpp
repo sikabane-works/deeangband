@@ -30,7 +30,7 @@ GameWorld::GameWorld(GameSurface *gSurface)
 	buildingList.insert(map<ID, Building>::value_type(0, Building()));
 	campList.insert(map<ID, Camp>::value_type(0, Camp()));
 	creatureList.insert(map<ID, Creature>::value_type(0, Creature()));
-	dungeonList.insert(map<ID, Dungeon>::value_type(0, Dungeon(this)));
+	dungeonList.insert(map<ID, Dungeon>::value_type(0, Dungeon(0, "DAMMY", this)));
 	itemList.insert(map<ID, Item>::value_type(0, Item()));
 	floorList.insert(map<ID, Floor>::value_type(0, Floor()));
 

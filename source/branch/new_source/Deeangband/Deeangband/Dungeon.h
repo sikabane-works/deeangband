@@ -50,7 +50,7 @@ public:
 
 	Dungeon::Dungeon(void);
 
-	Dungeon::Dungeon(GameWorld *gameWorld);
+	Dungeon::Dungeon(ID id, Tag tag, GameWorld *gameWorld);
 
 	Dungeon::~Dungeon(void);
 
