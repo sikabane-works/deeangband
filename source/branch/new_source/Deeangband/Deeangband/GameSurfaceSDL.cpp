@@ -6,41 +6,31 @@
  * 2014 Sikabane Works.
  */
 
+#include <vector>
+#include <string>
 #include "stdafx.h"
 #include "GameSurfaceSDL.h"
 
-LPSTR toUTF8(LPCSTR str)
+std::string toUTF8(LPCSTR str)
 {
 	const int cchWideChar = ::MultiByteToWideChar(CP_ACP, 0, str, -1, NULL, 0);
-	LPWSTR lpw = new WCHAR[cchWideChar];
-	if(lpw == NULL) return NULL;
-	*lpw = L'\0';
+	std::vector<WCHAR> lpw(cchWideChar);
 
-	const int nUnicodeCount = ::MultiByteToWideChar(CP_ACP, 0, str, -1, lpw, cchWideChar);
+	const int nUnicodeCount = ::MultiByteToWideChar(CP_ACP, 0, str, -1, &lpw[0], cchWideChar);
 	if(nUnicodeCount <= 0)
 	{
-		delete[] lpw;
-		return NULL;
+		return "";
 	}
 
-	const int cchMultiByte = ::WideCharToMultiByte(CP_UTF8, 0, lpw, -1, NULL, 0, NULL, NULL);
-	LPSTR lpa = new CHAR[cchMultiByte];
-	if(lpa == NULL)
-	{
-		delete[] lpw;
-		return NULL;
-	}
-	*lpa = '\0';
+	const int cchMultiByte = ::WideCharToMultiByte(CP_UTF8, 0, &lpw[0], -1, NULL, 0, NULL, NULL);
+	std::vector<CHAR> lpa(cchMultiByte);
 
-	const int nMultiCount = ::WideCharToMultiByte(CP_UTF8, 0, lpw, -1, lpa, cchMultiByte, NULL, NULL);
+	const int nMultiCount = ::WideCharToMultiByte(CP_UTF8, 0, &lpw[0], -1, &lpa[0], cchMultiByte, NULL, NULL);
 	if(nMultiCount <= 0)
 	{
-		delete[] lpw;
-		delete[] lpa;
-		return NULL;
+		return "";
 	}
-	delete[] lpw;
-	return lpa;
+	return std::string(&lpa[0]);
 }
 
 GameSurfaceSDL::GameSurfaceSDL(void)
@@ -100,7 +90,7 @@ void GameSurfaceSDL::initInterfaces(void)
 	color.a = 255;
 
 	if(!font) exit(1);
-	surface = TTF_RenderUTF8_Blended(font, toUTF8("D'angbandテスト"), color);
+	surface = TTF_RenderUTF8_Blended(font, toUTF8("D'angbandテスト").c_str(), color);
 
 	rwop = SDL_RWFromFile("img\\Title.png", "rb");
 	error = IMG_GetError();
@@ -203,7 +193,7 @@ void GameSurfaceSDL::drawCreatureStatus(Creature *creaturePtr)
 
 	for(id = 0; id < POS_MAX; id++)
 	{
-		statusSurface[id] = TTF_RenderUTF8_Blended(font, toUTF8(statusBuf[id]), color);
+		statusSurface[id] = TTF_RenderUTF8_Blended(font, toUTF8(statusBuf[id]).c_str(), color);
 		CreatureStatusViewRect[id].x = 0;
 		CreatureStatusViewRect[id].y = 0;
 		CreatureStatusViewRect[id].w = statusSurface[id]->w;
