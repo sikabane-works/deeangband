@@ -33,8 +33,6 @@
 
 //#include "Deeangband_glue.h"
 
-#pragma comment(lib, "lua5.3.lib")
-
 #ifdef SET_UID
 
 # include <sys/types.h>

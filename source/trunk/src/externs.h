@@ -934,7 +934,7 @@ extern void format_weight(char * buf, WEIGHT weight);
 extern void msg_warning(cptr message, ...);
 
 // mspells1.c
-extern bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, bool friend);
+extern bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, bool fri);
 extern bool summon_possible(creature_type *target_ptr, COODINATES y1, COODINATES x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);

@@ -11,6 +11,9 @@
  */
 
 #include "angband.h"
+
+#include "autopick.h"
+#include "cave.h"
 #include "command.h"
 #include "creature_inventory.h"
 #include "files.h"

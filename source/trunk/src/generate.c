@@ -173,7 +173,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 	}
 	else if(have_flag(f_ptr->flags, FF_MORE))
 	{
-		int q_idx = quest_number(floor_ptr);
+		int q_idx = floor_ptr->quest;
 
 		/* No downstairs on quest levels */
 		if(floor_ptr->depth > 1 && q_idx)
@@ -644,7 +644,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 
 	/* Hack -- No destroyed "quest" levels */
-	if(quest_number(floor_ptr)) dungeon_ptr->destroyed = FALSE;
+	if(floor_ptr->quest) dungeon_ptr->destroyed = FALSE;
 }
 
 
@@ -1376,169 +1376,3 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 	else return TRUE;
 }
 
-
-/*
- * Wipe all unnecessary flags after cave generation
- */
-void wipe_generate_floor_flags(floor_type *floor_ptr)
-{
-	int x, y;
-
-	for (y = 0; y < floor_ptr->height; y++)
-	{
-		for (x = 0; x < floor_ptr->width; x++)
-		{
-			floor_ptr->cave[y][x].info &= ~(CAVE_MASK); // Wipe unused flags
-		}
-	}
-
-	if(floor_ptr->depth)
-	{
-		for (y = 1; y < floor_ptr->height - 1; y++)
-		{
-			for (x = 1; x < floor_ptr->width - 1; x++)
-			{
-				floor_ptr->cave[y][x].info |= CAVE_UNSAFE; // There might be trap
-			}
-		}
-	}
-}
-
-
-/*
- *  Clear and empty the cave
- */
-void clear_cave(floor_type *floor_ptr)
-{
-	int x, y;
-
-	// Start with a blank cave
-	for (y = 0; y < MAX_HGT; y++)
-	{
-		for (x = 0; x < MAX_WID; x++)
-		{
-			cave_type *c_ptr = &floor_ptr->cave[y][x];
-
-			c_ptr->info = 0;
-			c_ptr->feat = 0;
-			c_ptr->object_idx = 0;
-			c_ptr->creature_idx = 0;
-			c_ptr->mimic = 0;
-			c_ptr->cost = 0;
-			c_ptr->dist = 0;
-			c_ptr->when = 0;
-			c_ptr->message[0] = '\0';
-		}
-	}
-
-	//TODO clear creatures and objects.
-
-	// Reset the creature generation level
-	floor_ptr->enemy_level = floor_ptr->depth;
-	// Reset the object generation level
-	floor_ptr->object_level = floor_ptr->depth;
-}
-
-// Generates a random dungeon level			-RAK-
-// Hack -- regenerate any "overflow" levels
-/*
-int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
-{
-	int num;
-
-	int floor_id = floor_pop();
-
-	floor_type *floor_ptr = &floor_list[floor_id];
-
-	// Prepare new floor data
-	floor_ptr->last_visit = 0;
-	//floor_ptr->visit_mark = latest_visit_mark++;
-
-	floor_ptr->generated = FALSE;
-
-	floor_ptr->world_x = world_x;
-	floor_ptr->world_y = world_y;
-	floor_ptr->dun_type = dungeon_id;
-
-	floor_ptr->depth    = depth;
-	floor_ptr->enemy_level = depth;  // Current creature creation level
-	floor_ptr->object_level   = depth;  // Current object creation level
-	floor_ptr->town_num = wilderness[world_y][world_x].town;	// Number of the town (if any)
-
-	floor_ptr->floor_turn = 1;
-	// TODO floor_ptr->floor_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-
-	// Fill the arrays of floors and walls in the good proportions
-	set_floor_and_wall(floor_ptr->dun_type);
-
-	// Generate
-	for (num = 0; TRUE; num++)
-	{
-		bool okay = TRUE;
-		cptr why = NULL;
-
-		clear_cave(floor_ptr); // Clear and empty the cave
-
-		if(floor_ptr->fight_arena_mode)
-			generate_floor_arena(floor_ptr, 41, 41); // fighting arena
-		else if(floor_ptr->gamble_arena_mode)
-			generate_floor_creature_arena(floor_ptr); // gamble arena
-		else if(floor_ptr->quest)
-			generate_floor_quest(floor_ptr, floor_ptr->quest); // quest
-		else if(floor_ptr->depth <= 0) // field
-			generate_floor_wilderness(floor_ptr);
-		else
-			okay = generate_floor_cave(floor_ptr, &why); // dungeon
-
-		// Prevent object over-flow
-		if(object_max >= max_object_idx)
-		{
-#ifdef JP
-			why = "アイテムが多すぎる";
-#else
-			why = "too many objects";
-#endif
-
-			okay = FALSE;
-		}
-
-		// Prevent creature over-flow
-		else if(creature_max >= max_creature_idx)
-		{
-#ifdef JP
-			why = "クリーチャーが多すぎる";
-#else
-			why = "too many creatures";
-#endif
-
-			okay = FALSE;
-		}
-
-		if(okay) break;
-
-#ifdef JP
-		if(why) msg_format("生成やり直し(%s)", why);
-#else
-		if(why) msg_format("Generation restarted (%s)", why);
-#endif
-
-		wipe_object_list(0);
-		wipe_creature_list(0);
-	}
-
-	// Glow deep lava and building entrances
-	glow_deep_lava_and_bldg(floor_ptr);
-
-	// Reset flag
-	player_ptr->enter_dungeon = FALSE;
-
-	wipe_generate_floor_flags(floor_ptr);
-
-	// Hack -- Munchkin characters always get whole map 
-	if(player_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, player_ptr, (bool)(player_ptr->class_idx == CLASS_NINJA));
-
-	floor_ptr->generated = TRUE;
-
-	return floor_id;
-}
-*/

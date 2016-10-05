@@ -142,7 +142,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
  * no equally friendly creature is
  * between the attacker and target.
  */
-bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, bool friend)
+bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, bool fri)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 
@@ -173,7 +173,7 @@ bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINA
 		if((floor_ptr->cave[y][x].creature_idx > 0) && !((y == y2) && (x == x2)))
 		{
 			creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
-			if(friend == is_pet(player_ptr, m_ptr))
+			if(fri == is_pet(player_ptr, m_ptr))
 			{
 				return FALSE;
 			}
@@ -181,7 +181,7 @@ bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINA
 		/* Pets may not shoot through the character - TNB */
 		if(CREATURE_BOLD(target_ptr, y, x))
 		{
-			if(friend) return FALSE;
+			if(fri) return FALSE;
 		}
 	}
 
