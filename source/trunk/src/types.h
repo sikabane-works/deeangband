@@ -1754,6 +1754,7 @@ struct trait_type
 	traits_precondition flags;
 
 	CREATURE_LEV base_level;
+	CREATURE_LEV floor_level;
 	POWER power;
 	s16b mp_cost;
 	s16b use_stat;
@@ -2043,6 +2044,7 @@ typedef struct
 	COODINATES world_y;
 	GAME_TIME last_visit;      // Time count of last visit. 0 for new floor.
 	u32b visit_mark;      // Older has always smaller mark.
+	u32b dun_type;      // Older has always smaller mark.
 	COODINATES width;
 	COODINATES height;
 	POPULATION num_of_reproduction; // Current reproducer count

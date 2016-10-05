@@ -21,25 +21,19 @@
 #include <ctype.h>
 #include <errno.h>
 
-#define LUA_COMPAT_ALL
- 
-#include "lua.h"
-#include "luaconf.h"
-#include "lualib.h"
-#include "lauxlib.h"
-#include "tolua++.h"
-
-#include "Deeangband_glue.h"
-
-#pragma comment(lib, "lua5.1.lib")
-
-
 #if defined(NeXT)
 # include <libc.h>
 #else
 # include <stdlib.h>
 #endif /* NeXT */
 
+#define LUA_COMPAT_ALL
+ 
+#include "lua.hpp"
+
+//#include "Deeangband_glue.h"
+
+#pragma comment(lib, "lua5.3.lib")
 
 #ifdef SET_UID
 

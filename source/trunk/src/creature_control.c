@@ -3885,10 +3885,10 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 	if(guardian && (dungeon_info[floor_ptr->dungeon_id].maxdepth == floor_ptr->depth) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
 		COODINATES oy, ox;
-		int try = 4000;
+		int try_time = 4000;
 
 		/* Find a good position */
-		while (try)
+		while (try_time)
 		{
 			/* Get a random spot */
 			oy = (COODINATES)randint1(floor_ptr->height - 4) + 2;
@@ -3902,7 +3902,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 			}
 
 			/* One less try */
-			try--;
+			try_time--;
 		}
 
 		return FALSE;

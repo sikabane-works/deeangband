@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\angband.h" />
+    <ClInclude Include="..\..\src\cave.h" />
     <ClInclude Include="..\..\src\defines.h" />
     <ClInclude Include="..\..\src\enums.h" />
     <ClInclude Include="..\..\src\externs.h" />
@@ -176,7 +177,12 @@
     <ClInclude Include="..\..\src\h-type.h" />
     <ClInclude Include="..\..\src\init.h" />
     <ClInclude Include="..\..\src\kajitips.h" />
+    <ClInclude Include="..\..\src\lauxlib.h" />
     <ClInclude Include="..\..\src\libpng.h" />
+    <ClInclude Include="..\..\src\lua.h" />
+    <ClInclude Include="..\..\src\lua.hpp" />
+    <ClInclude Include="..\..\src\luaconf.h" />
+    <ClInclude Include="..\..\src\lualib.h" />
     <ClInclude Include="..\..\src\macros.h" />
     <ClInclude Include="..\..\src\messages.h" />
     <ClInclude Include="..\..\src\mindtips.h" />
