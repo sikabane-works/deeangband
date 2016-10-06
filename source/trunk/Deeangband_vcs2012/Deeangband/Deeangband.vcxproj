@@ -105,10 +105,12 @@
     <ClCompile Include="..\..\src\cmd4.c" />
     <ClCompile Include="..\..\src\cmd5.c" />
     <ClCompile Include="..\..\src\cmd6.c" />
+    <ClCompile Include="..\..\src\creature_const.c" />
     <ClCompile Include="..\..\src\creature_control.c" />
     <ClCompile Include="..\..\src\creature_hook.c" />
     <ClCompile Include="..\..\src\creature_melee.c" />
     <ClCompile Include="..\..\src\creature_misc.c" />
+    <ClCompile Include="..\..\src\diary.c" />
     <ClCompile Include="..\..\src\do-spell.c" />
     <ClCompile Include="..\..\src\dungeon.c" />
     <ClCompile Include="..\..\src\effects.c" />
@@ -167,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\angband.h" />
     <ClInclude Include="..\..\src\cave.h" />
+    <ClInclude Include="..\..\src\creature_const.h" />
     <ClInclude Include="..\..\src\defines.h" />
     <ClInclude Include="..\..\src\enums.h" />
     <ClInclude Include="..\..\src\externs.h" />
