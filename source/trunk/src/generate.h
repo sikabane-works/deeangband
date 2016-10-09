@@ -1,4 +1,6 @@
 
+bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
+
 /*
  * Dungeon generation values
  */

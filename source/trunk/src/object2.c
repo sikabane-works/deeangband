@@ -4203,7 +4203,7 @@ static void display_essence(creature_type *creature_ptr)
 
 static void drain_essence(creature_type *creature_ptr)
 {
-	int drain_value[sizeof(creature_ptr->essence_num1) / sizeof(s32b)];
+	int drain_value[MAX_TRAITS];
 	int i;
 	OBJECT_ID item;
 	int dec = 4;

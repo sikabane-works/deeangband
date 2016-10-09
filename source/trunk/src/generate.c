@@ -672,7 +672,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	set_floor_and_wall(floor_ptr->dun_type);
 
 	// Prepare allocation table
-	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
+	//get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
 
 	// Randomize the dungeon creation values
 	dun_tun_rnd = rand_range(DUN_TUN_RND_MIN, DUN_TUN_RND_MAX);
@@ -1262,7 +1262,7 @@ static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 	if(record_stair) write_diary(DIARY_TO_QUEST, quest_id, NULL);
 
 	// Prepare allocation table
-	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
+	//get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
 	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN, quest_id);
 }
 
@@ -1283,7 +1283,7 @@ static void generate_floor_fortress(floor_type *floor_ptr, int type)
 	}
 
 	// Prepare allocation table
-	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
+	//get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
 
 	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN, type);
 }

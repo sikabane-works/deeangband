@@ -107,9 +107,12 @@
     <ClCompile Include="..\..\src\cmd6.c" />
     <ClCompile Include="..\..\src\creature_const.c" />
     <ClCompile Include="..\..\src\creature_control.c" />
+    <ClCompile Include="..\..\src\creature_equipments.c" />
     <ClCompile Include="..\..\src\creature_hook.c" />
+    <ClCompile Include="..\..\src\creature_inventory.c" />
     <ClCompile Include="..\..\src\creature_melee.c" />
     <ClCompile Include="..\..\src\creature_misc.c" />
+    <ClCompile Include="..\..\src\creature_throwing.c" />
     <ClCompile Include="..\..\src\diary.c" />
     <ClCompile Include="..\..\src\do-spell.c" />
     <ClCompile Include="..\..\src\dungeon.c" />
@@ -128,6 +131,7 @@
     <ClCompile Include="..\..\src\libpng.c" />
     <ClCompile Include="..\..\src\load.c" />
     <ClCompile Include="..\..\src\main-win.c" />
+    <ClCompile Include="..\..\src\main.c" />
     <ClCompile Include="..\..\src\mane.c" />
     <ClCompile Include="..\..\src\melee1.c" />
     <ClCompile Include="..\..\src\melee2.c" />
@@ -139,9 +143,11 @@
     <ClCompile Include="..\..\src\obj_kind.c" />
     <ClCompile Include="..\..\src\object1.c" />
     <ClCompile Include="..\..\src\object2.c" />
+    <ClCompile Include="..\..\src\quest.c" />
     <ClCompile Include="..\..\src\racial.c" />
     <ClCompile Include="..\..\src\readdib.c" />
     <ClCompile Include="..\..\src\report.c" />
+    <ClCompile Include="..\..\src\riding.c" />
     <ClCompile Include="..\..\src\rooms.c" />
     <ClCompile Include="..\..\src\save.c" />
     <ClCompile Include="..\..\src\scores.c" />
@@ -152,6 +158,11 @@
     <ClCompile Include="..\..\src\store.c" />
     <ClCompile Include="..\..\src\streams.c" />
     <ClCompile Include="..\..\src\tables.c" />
+    <ClCompile Include="..\..\src\tolua_event.c" />
+    <ClCompile Include="..\..\src\tolua_is.c" />
+    <ClCompile Include="..\..\src\tolua_map.c" />
+    <ClCompile Include="..\..\src\tolua_push.c" />
+    <ClCompile Include="..\..\src\tolua_to.c" />
     <ClCompile Include="..\..\src\trait.c" />
     <ClCompile Include="..\..\src\util.c" />
     <ClCompile Include="..\..\src\variable.c" />
@@ -168,11 +179,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\angband.h" />
+    <ClInclude Include="..\..\src\artifact.h" />
+    <ClInclude Include="..\..\src\autopick.h" />
+    <ClInclude Include="..\..\src\birth.h" />
     <ClInclude Include="..\..\src\cave.h" />
+    <ClInclude Include="..\..\src\command.h" />
     <ClInclude Include="..\..\src\creature_const.h" />
+    <ClInclude Include="..\..\src\creature_equipments.h" />
+    <ClInclude Include="..\..\src\creature_inventory.h" />
+    <ClInclude Include="..\..\src\creature_melee.h" />
+    <ClInclude Include="..\..\src\creature_throwing.h" />
     <ClInclude Include="..\..\src\defines.h" />
+    <ClInclude Include="..\..\src\diary.h" />
+    <ClInclude Include="..\..\src\dungeon.h" />
     <ClInclude Include="..\..\src\enums.h" />
     <ClInclude Include="..\..\src\externs.h" />
+    <ClInclude Include="..\..\src\files.h" />
+    <ClInclude Include="..\..\src\floors.h" />
     <ClInclude Include="..\..\src\game-constants.h" />
     <ClInclude Include="..\..\src\generate.h" />
     <ClInclude Include="..\..\src\grid.h" />
@@ -183,6 +206,7 @@
     <ClInclude Include="..\..\src\h-type.h" />
     <ClInclude Include="..\..\src\init.h" />
     <ClInclude Include="..\..\src\kajitips.h" />
+    <ClInclude Include="..\..\src\karma.h" />
     <ClInclude Include="..\..\src\lauxlib.h" />
     <ClInclude Include="..\..\src\libpng.h" />
     <ClInclude Include="..\..\src\lua.h" />
@@ -192,6 +216,8 @@
     <ClInclude Include="..\..\src\macros.h" />
     <ClInclude Include="..\..\src\messages.h" />
     <ClInclude Include="..\..\src\mindtips.h" />
+    <ClInclude Include="..\..\src\mutation.h" />
+    <ClInclude Include="..\..\src\object.h" />
     <ClInclude Include="..\..\src\png.h" />
     <ClInclude Include="..\..\src\pngconf.h" />
     <ClInclude Include="..\..\src\pngdebug.h" />
@@ -199,9 +225,16 @@
     <ClInclude Include="..\..\src\pnglibconf.h" />
     <ClInclude Include="..\..\src\pngpriv.h" />
     <ClInclude Include="..\..\src\pngstruct.h" />
+    <ClInclude Include="..\..\src\quest.h" />
     <ClInclude Include="..\..\src\readdib.h" />
+    <ClInclude Include="..\..\src\riding.h" />
     <ClInclude Include="..\..\src\rooms.h" />
+    <ClInclude Include="..\..\src\scores.h" />
+    <ClInclude Include="..\..\src\spell.h" />
+    <ClInclude Include="..\..\src\store.h" />
     <ClInclude Include="..\..\src\streams.h" />
+    <ClInclude Include="..\..\src\tolua++.h" />
+    <ClInclude Include="..\..\src\tolua_event.h" />
     <ClInclude Include="..\..\src\types.h" />
     <ClInclude Include="..\..\src\z-config.h" />
     <ClInclude Include="..\..\src\z-form.h" />
@@ -214,9 +247,16 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\angband.rc" />
+    <ResourceCompile Include="..\..\src\ang_eng.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\Deeangband.pkg" />
+    <None Include="..\..\src\keyword.lua" />
+    <None Include="..\..\src\Makefile.am" />
     <None Include="..\..\src\wall.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\src\angband.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
