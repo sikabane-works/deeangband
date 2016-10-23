@@ -4032,6 +4032,12 @@ int load_global_status(void)
 	char buf[100];
 	int err;
 
+	version_major = 0;
+	version_minor = 0;
+	version_patch = 1;
+	version_extra = 1;
+
+		/*
 	lua_State * L = luaL_newstate();
 	luaL_openlibs(L);
 	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, "global.lua");
@@ -4061,6 +4067,7 @@ int load_global_status(void)
 		}
 	}
 	lua_close(L);
+		*/
 	return 0;
 }	
 

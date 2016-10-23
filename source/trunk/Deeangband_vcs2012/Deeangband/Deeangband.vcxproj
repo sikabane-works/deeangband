@@ -158,11 +158,6 @@
     <ClCompile Include="..\..\src\store.c" />
     <ClCompile Include="..\..\src\streams.c" />
     <ClCompile Include="..\..\src\tables.c" />
-    <ClCompile Include="..\..\src\tolua_event.c" />
-    <ClCompile Include="..\..\src\tolua_is.c" />
-    <ClCompile Include="..\..\src\tolua_map.c" />
-    <ClCompile Include="..\..\src\tolua_push.c" />
-    <ClCompile Include="..\..\src\tolua_to.c" />
     <ClCompile Include="..\..\src\trait.c" />
     <ClCompile Include="..\..\src\util.c" />
     <ClCompile Include="..\..\src\variable.c" />
@@ -233,8 +228,6 @@
     <ClInclude Include="..\..\src\spell.h" />
     <ClInclude Include="..\..\src\store.h" />
     <ClInclude Include="..\..\src\streams.h" />
-    <ClInclude Include="..\..\src\tolua++.h" />
-    <ClInclude Include="..\..\src\tolua_event.h" />
     <ClInclude Include="..\..\src\types.h" />
     <ClInclude Include="..\..\src\z-config.h" />
     <ClInclude Include="..\..\src\z-form.h" />
@@ -247,7 +240,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\angband.rc" />
-    <ResourceCompile Include="..\..\src\ang_eng.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Deeangband.pkg" />

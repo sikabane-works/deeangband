@@ -103,6 +103,8 @@
 #include "diary.h"
 #include "generate.h"
 #include "grid.h"
+#include "init.h"
+#include "object.h"
 #include "rooms.h"
 #include "floors.h"
 #include "streams.h"
@@ -355,7 +357,7 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 
 			case ALLOC_TYP_OBJECT:
 			{
-				place_object(floor_ptr, y, x, 0L, NULL);
+				place_object(floor_ptr, y, x, 0L);
 				break;
 			}
 		}
@@ -453,86 +455,6 @@ static void try_door(floor_type *floor_ptr, int y, int x)
 	if((randint0(100) < dun_tun_jct) && possible_doorway(floor_ptr, y, x) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
 		place_random_door(floor_ptr, y, x, FALSE);
 }
-
-
-// Place quest creatures
-bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
-{
-	int i;
-
-	/* Handle the quest creature placements */
-	for (i = 0; i < max_quests; i++)
-	{
-		species_type *species_ptr;
-		u32b mode;
-		int j;
-
-		if(quest[i].status != QUEST_STATUS_TAKEN ||
-		    (quest[i].type != QUEST_TYPE_KILL_LEVEL &&
-		     quest[i].type != QUEST_TYPE_RANDOM) ||
-		    quest[i].level != floor_ptr->depth ||
-		    floor_ptr->dun_type != quest[i].dungeon ||
-		    (quest[i].flags & QUEST_FLAG_PRESET))
-		{
-			/* Ignore it */
-			continue;
-		}
-
-		species_ptr = &species_info[quest[i].species_idx];
-
-		/* Hack -- "unique" creatures must be "unique" */
-		if((has_trait_species(species_ptr, TRAIT_UNIQUE)) &&
-		    (species_ptr->cur_num >= species_ptr->max_num)) continue;
-
-		mode = (PC_NO_KAGE | PC_NO_PET);
-
-		if(!has_trait_species(species_ptr, TRAIT_FRIENDLY))
-			mode |= PC_ALLOW_GROUP;
-
-		for (j = 0; j < (quest[i].max_num - quest[i].cur_num); j++)
-		{
-			int k;
-
-			for (k = 0; k < SAFE_MAX_ATTEMPTS; k++)
-			{
-				int x, y;
-				int l;
-
-				/* Find an empty grid */
-				for (l = SAFE_MAX_ATTEMPTS; l > 0; l--)
-				{
-					cave_type    *c_ptr;
-					feature_type *f_ptr;
-
-					y = randint0(floor_ptr->height);
-					x = randint0(floor_ptr->width);
-
-					c_ptr = &floor_ptr->cave[y][x];
-					f_ptr = &feature_info[c_ptr->feat];
-
-					if(!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
-					if(!species_can_enter(floor_ptr, y, x, species_ptr, 0)) continue;
-					if(distance(y, x, player_ptr->fy, player_ptr->fx) < 10) continue;
-					if(c_ptr->info & CAVE_ICKY) continue;
-					else break;
-				}
-
-				/* Failed to place */
-				if(!l) return FALSE;
-
-				// Try to place the creature
-				if(place_creature_species(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode)) break;
-				else continue; //Try again
-			}
-
-			/* Failed to place */
-			if(k == SAFE_MAX_ATTEMPTS) return FALSE;
-		}
-	}
-
-	return TRUE;
-}
-
 
 /*
  * Set boundary mimic and add "solid" perma-wall
@@ -1093,7 +1015,7 @@ static void build_arena(floor_type *floor_ptr, int height, int width)
 	j = xval;
 	floor_ptr->cave[i][j].feat = feature_tag_to_index("ARENA_GATE");
 	floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	creature_place(floor_ptr, player_ptr, i, j);
+	//creature_place(floor_ptr, player_ptr, i, j);
 }
 
 
@@ -1191,7 +1113,7 @@ static void build_battle(floor_type *floor_ptr, creature_type *player_ptr)
 	j = xval;
 	floor_ptr->cave[i][j].feat = feature_tag_to_index("BUILDING_3");
 	floor_ptr->cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	creature_place(floor_ptr, player_ptr, i, j);
+	//creature_place(floor_ptr, player_ptr, i, j);
 }
 
 
@@ -1223,7 +1145,7 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 
 	for(i = 0; i < 4;i ++)
 	{
-		place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_creature[i], (PC_NO_KAGE | PC_NO_PET));
+		//place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_creature[i], (PC_NO_KAGE | PC_NO_PET));
 		//TODO set_camp(&creature_list[floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
 

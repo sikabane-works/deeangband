@@ -4097,7 +4097,7 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_PRE_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_ptr->pre_id = (s16b)b;
+					trait_ptr->pre_id - (s16b)b;
 				break;
 
 				case TRAIT_INFO_ANTI_ID:
@@ -7194,6 +7194,7 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 
 errr load_lua(lua_State **L, cptr directory, cptr filename)
 {
+	/*
 	char buf[100];
 	int err;
 
@@ -7207,6 +7208,7 @@ errr load_lua(lua_State **L, cptr directory, cptr filename)
 		msg_warning("File not found: CODE[%d]", err);
 		return FAILURE;
 	}
+	*/
 
 	return SUCCESS;
 }
@@ -7246,12 +7248,16 @@ cptr get_keyword_new(cptr keywords)
 
 cptr get_keyword(cptr keywords)
 {
+/*
 	lua_getglobal(KEYWORDS, keywords);
 	return lua_tostring(KEYWORDS, -1);
+	*/
+	return NULL;
 }
 
 errr load_keyword(void)
 {
+	/*
 	char *test[100];
 	char buf[100];
 	int code[100];
@@ -7284,5 +7290,6 @@ errr load_keyword(void)
 		}
 	}
 	lua_close(L);
+	*/
 	return SUCCESS;
 }
