@@ -7252,7 +7252,7 @@ cptr get_keyword(cptr keywords)
 	lua_getglobal(KEYWORDS, keywords);
 	return lua_tostring(KEYWORDS, -1);
 	*/
-	return NULL;
+	return "[Dummy]";
 }
 
 errr load_keyword(void)
