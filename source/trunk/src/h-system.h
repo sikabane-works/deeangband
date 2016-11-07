@@ -29,9 +29,9 @@
 
 #define LUA_COMPAT_ALL
  
-#include "lua.hpp"
-
-//#include "Deeangband_glue.h"
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
 
 #ifdef SET_UID
 
