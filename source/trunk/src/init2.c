@@ -1785,7 +1785,10 @@ void init_angband(void)
 	note("[Initializing arrays... (alloc)]");
 	if(init_alloc()) quit("Cannot initialize alloc stuff");
 
-	if(load_lua(&KEYWORDS, ANGBAND_DIR_FILE, "keywords.lua")) quit("Cannot load keywords");
+	if(load_lua(&KEYWORDS, ANGBAND_DIR_FILE, "keywords_en.lua"))
+	{
+		quit("Cannot load keywords");
+	}
 	
 
 	/*** Load default user pref files ***/

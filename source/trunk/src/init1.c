@@ -16,7 +16,9 @@
 #include "files.h"
 #include "object.h"
 #include "init.h"
-
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
 
 /*
  * This file is used to initialize various variables and arrays for the
@@ -7194,8 +7196,7 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 
 errr load_lua(lua_State **L, cptr directory, cptr filename)
 {
-	/*
-	char buf[100];
+	char buf[200];
 	int err;
 
 	*L = luaL_newstate();
@@ -7208,8 +7209,6 @@ errr load_lua(lua_State **L, cptr directory, cptr filename)
 		msg_warning("File not found: CODE[%d]", err);
 		return FAILURE;
 	}
-	*/
-
 	return SUCCESS;
 }
 
@@ -7233,7 +7232,7 @@ cptr dump_status(creature_type *creature_ptr)
 
 	if(lua_isnumber(L, -1)) {
 		printf("結果 : %d\n", lua_tointeger(L, -1) );
-		lua_pop(L,1); //戻り値をポップ
+		lua_pop(L, 1); 
 	}
 
 	lua_close(L);
@@ -7248,16 +7247,12 @@ cptr get_keyword_new(cptr keywords)
 
 cptr get_keyword(cptr keywords)
 {
-/*
 	lua_getglobal(KEYWORDS, keywords);
 	return lua_tostring(KEYWORDS, -1);
-	*/
-	return "[Dummy]";
 }
 
 errr load_keyword(void)
 {
-	/*
 	char *test[100];
 	char buf[100];
 	int code[100];
@@ -7265,7 +7260,7 @@ errr load_keyword(void)
 
 	lua_State * L = luaL_newstate();
 	luaL_openlibs(L);
-	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "keywords.lua");
+	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "keywords_en.lua");
 	err = luaL_loadfile(L, buf);
 
 	if(err || lua_pcall(L, 0, 0, 0))
@@ -7290,6 +7285,5 @@ errr load_keyword(void)
 		}
 	}
 	lua_close(L);
-	*/
 	return SUCCESS;
 }
