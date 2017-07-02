@@ -16,6 +16,7 @@
 #include "files.h"
 #include "object.h"
 #include "init.h"
+#include <WTypes.h>
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -7206,6 +7207,7 @@ errr load_lua(lua_State **L, cptr directory, cptr filename)
 
 	if(err || lua_pcall(*L, 0, 0, 0))
 	{
+
 		msg_warning("File not found: CODE[%d]", err);
 		return FAILURE;
 	}
@@ -7245,10 +7247,23 @@ cptr get_keyword_new(cptr keywords)
 	return NULL;
 }
 
+char* BSTRtoCString(BSTR bstr){
+    // UTF-16文字列からShift-JISに変換したときの文字列長を求める。
+    // Shift-JIS文字列の領域を確保する。
+    // UTF-16文字列からShift-JISに変換する。
+    WideCharToMultiByte(CP_ACP, 0, (OLECHAR*)bstr, -1, cstring, out_size, NULL, NULL);
+    return cstring;
+}
+
 cptr get_keyword(cptr keywords)
 {
-	lua_getglobal(KEYWORDS, keywords);
-	return lua_tostring(KEYWORDS, -1);
+	int n;
+	char *cstr, *bstr;
+ 	lua_getglobal(KEYWORDS, keywords);
+	bstr = lua_tostring(KEYWORDS, -1);
+    n = WideCharToMultiByte(CP_ACP, 0, (OLECHAR*)bstr, -1,NULL, 0, NULL, NULL);
+    cstr  = (char*)malloc((out_size+1) * sizeof(char));
+	return cstr;
 }
 
 errr load_keyword(void)
@@ -7260,7 +7275,7 @@ errr load_keyword(void)
 
 	lua_State * L = luaL_newstate();
 	luaL_openlibs(L);
-	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "keywords_en.lua");
+	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "keywords.lua");
 	err = luaL_loadfile(L, buf);
 
 	if(err || lua_pcall(L, 0, 0, 0))
