@@ -7247,22 +7247,14 @@ cptr get_keyword_new(cptr keywords)
 	return NULL;
 }
 
-char* BSTRtoCString(BSTR bstr){
-    // UTF-16文字列からShift-JISに変換したときの文字列長を求める。
-    // Shift-JIS文字列の領域を確保する。
-    // UTF-16文字列からShift-JISに変換する。
-    WideCharToMultiByte(CP_ACP, 0, (OLECHAR*)bstr, -1, cstring, out_size, NULL, NULL);
-    return cstring;
-}
-
 cptr get_keyword(cptr keywords)
 {
 	int n;
 	char *cstr, *bstr;
- 	lua_getglobal(KEYWORDS, keywords);
+	lua_getglobal(KEYWORDS, keywords);
 	bstr = lua_tostring(KEYWORDS, -1);
-    n = WideCharToMultiByte(CP_ACP, 0, (OLECHAR*)bstr, -1,NULL, 0, NULL, NULL);
-    cstr  = (char*)malloc((out_size+1) * sizeof(char));
+	n = WideCharToMultiByte(CP_ACP, 0, (OLECHAR*)bstr, -1,NULL, 0, NULL, NULL);
+	cstr  = (char*)malloc((100+1) * sizeof(char));
 	return cstr;
 }
 
