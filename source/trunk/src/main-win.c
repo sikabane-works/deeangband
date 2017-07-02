@@ -4844,7 +4844,7 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, in
 	/* Save globally */
 	hInstance = hInst;
 
-	setlocale(LC_ALL, "japanese");
+	//setlocale(LC_ALL, "japanese");
 
 	if(hPrevInst == NULL)
 	{

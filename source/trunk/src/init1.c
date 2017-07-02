@@ -7250,7 +7250,7 @@ cptr get_keyword_new(cptr keywords)
 	lua_getglobal(KEYWORDS, keywords);
 	bstr = lua_tostring(KEYWORDS, -1);
 	cstr = (wchar_t*)malloc(100 * sizeof(wchar_t));
-	n = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, bstr, strlen(bstr), cstr, strlen(bstr) + 10);
+	n = MultiByteToWideChar(CP_UTF8, 0, bstr, strlen(bstr)+1, cstr, strlen(bstr) + 10);
 	return bstr;
 }
 
@@ -7262,7 +7262,7 @@ cptr get_keyword(const cptr keywords)
 errr load_keyword(void)
 {
 	char *test[100];
-	char buf[100];
+	char buf[1000];
 	int code[100];
 	int err, i;
 
