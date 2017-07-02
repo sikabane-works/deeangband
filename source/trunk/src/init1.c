@@ -7244,18 +7244,19 @@ cptr dump_status(creature_type *creature_ptr)
 
 cptr get_keyword_new(cptr keywords)
 {
-	return NULL;
-}
-
-cptr get_keyword(cptr keywords)
-{
 	int n;
-	char *cstr, *bstr;
+	char *bstr;
+	wchar_t *cstr;
 	lua_getglobal(KEYWORDS, keywords);
 	bstr = lua_tostring(KEYWORDS, -1);
-	n = WideCharToMultiByte(CP_ACP, 0, (OLECHAR*)bstr, -1,NULL, 0, NULL, NULL);
-	cstr  = (char*)malloc((100+1) * sizeof(char));
-	return cstr;
+	cstr = (wchar_t*)malloc(100 * sizeof(wchar_t));
+	n = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, bstr, strlen(bstr), cstr, strlen(bstr) + 10);
+	return bstr;
+}
+
+cptr get_keyword(const cptr keywords)
+{
+	return "(DUMMY)";
 }
 
 errr load_keyword(void)
@@ -7292,5 +7293,10 @@ errr load_keyword(void)
 		}
 	}
 	lua_close(L);
+
+	get_keyword_new("KW_YES");
+	get_keyword_new("KW_NO");
+
+
 	return SUCCESS;
 }
